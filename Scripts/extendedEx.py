@@ -76,7 +76,6 @@ class ExampleDisplacedAnalysis(Module):
             eventSum += jet.p4()
 
         self.h_vpt.Fill(eventSum.Pt()) 
-        self.h_vptPass.Fill(eventSumPass.Pt()) 
         # now plot the MET
         self.h_metpt.Fill(eventMET)
         self.h_vMinusMetpt.Fill(abs(eventSum.Pt()-eventMET)) #there is resolution to all the quantities it's not an exact equality (welcome to Particle Physics)
