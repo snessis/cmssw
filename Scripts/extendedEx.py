@@ -79,7 +79,6 @@ class ExampleDisplacedAnalysis(Module):
         # now plot the MET
         self.h_metpt.Fill(eventMET)
         self.h_vMinusMetpt.Fill(abs(eventSum.Pt()-eventMET)) #there is resolution to all the quantities it's not an exact equality (welcome to Particle Physics)
-        self.h_vMinusMetptPass.Fill(abs(eventSumPass.Pt()-eventMET)) #--resolution for passed muons
         
         ## MET (Missing Energy) is calculated by reverting the Reconstructed Transverse Event SUM 
         ## it's a vector in transverse plane equal to the sum but pointing backwards
