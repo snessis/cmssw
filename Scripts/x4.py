@@ -23,7 +23,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 40, 0, 400)
         self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity (no filtering)', 30, 0, 5)
         self.h_vpt = ROOT.TH1F('vpt', 'Vector Sum of the Event (Muons, Electrons, Jets) (no filtering)', 40, 0, 400)
-        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Considering MET (no filtering)', 40, 0, 400)
+        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET (no filtering)', 40, 0, 400)
         # --pass histograms, placed here for reference
         self.h_muptPass = ROOT.TH1F('muptPass', 'Muon Transverse Momentum (filtering)', 40, 0, 40)
         self.h_muetaPass = ROOT.TH1F('muetaPass', 'Muon Pseudorapidity (filtering)', 30, 0, 5)
