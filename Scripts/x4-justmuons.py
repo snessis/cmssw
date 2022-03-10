@@ -63,7 +63,7 @@ class ExampleDisplacedAnalysis(Module):
             self.h_mueta.Fill(abs(mu.eta))
             eventSum += mu.p4()
             #-- but now we need to make the 'Pass' histograms based on the criteria: "Muon_pt>5 && Muon_dz<0.5"
-            if (mu.pt > 4 and  mu.dz < 0.5): #--this one has new cut
+            if (mu.pt > 5 and  mu.dz < 0.5):
                 self.h_muptPass.Fill(mu.pt)
                 self.h_muetaPass.Fill(abs(mu.eta))
                 eventSumPass += mu.p4()
