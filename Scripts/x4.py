@@ -86,7 +86,16 @@ class ExampleDisplacedAnalysis(Module):
         # --make the ratios
         self.h_muptRatio.Divide(self.h_muptPass, self.h_mupt)
         self.h_muetaRatio.Divide(self.h_muetaPass, self.h_mueta)
+        
+        # --canvas
+        self.c = ROOT.TCanvas()
+        self.h_muptRatio.Draw()
+        self.c.Print("x4_muptRatio.png")
+        self.h_muetaRatio.Draw()
+        self.c.Print("x4_muetaRatio.png")
+        
         return True
+        
 
 preselection = "" ## no preselection
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_200_180_10_final.root".format(os.environ['CMSSW_BASE'])]
