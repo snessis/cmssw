@@ -46,9 +46,7 @@ class ExampleDisplacedAnalysis(Module):
     def analyze(self, event):
         #-- get collections:
         #-- muons is an array of all muons (= array entries with their measured properties: trivial ones like charge and mass, but also pt, eta and so on.
-        muons = Collection(event, "Muon") 
-        jets = Collection(event, "Jet")
-        electrons = Collection(event, "Electron") #unused here but required (! check later why !)
+        muons = Collection(event, "Muon")
         eventMET = getattr(event, "MET_pt") #the reconstructed MET is a special event obj that is not a full collection. it's ONLY 1 calculation per event
         # select events with at least 1 displaced muon (dxy>0.05 cm - minimum distance of muon track wrt the PV)
         if len( filter(lambda mu: abs(mu.dxy)>0.05, muons) ) < 1:
@@ -61,19 +59,14 @@ class ExampleDisplacedAnalysis(Module):
 
         for mu in muons:  # loop on muons
             #-- add every property for all
-            i = 0
             self.h_mupt.Fill(mu.pt) 
             self.h_mueta.Fill(abs(mu.eta))
             eventSum += mu.p4()
-            #-- but now we need to make the 'Pass' histograms based on the criteria: "Muon_pt>5 && Muon_dz<0.5 && MET_pt>50."
-            if (mu.pt > 5 and  mu.dz < 0.5 and eventMET[i].pt > 50):
+            #-- but now we need to make the 'Pass' histograms based on the criteria: "Muon_pt>5 && Muon_dz<0.5"
+            if (mu.pt > 4 and  mu.dz < 0.5): #--this one has new cut
                 self.h_muptPass.Fill(mu.pt)
                 self.h_muetaPass.Fill(abs(mu.eta))
                 eventSumPass += mu.p4()
-        for elec in electrons:  # loop on electrons
-            eventSum += elec.p4()
-        for jet in jets:  # loop on jets
-            eventSum += jet.p4()
 
         self.h_vpt.Fill(eventSum.Pt()) 
         # now plot the MET
@@ -91,7 +84,7 @@ class ExampleDisplacedAnalysis(Module):
 
 preselection = "" ## no preselection
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_200_180_10_final.root".format(os.environ['CMSSW_BASE'])]
-p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="my_ex3Out.root", histDirName="plots")
+p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="ext-justmuons.root", histDirName="plots")
 p.run()
 
 ## methods (functions like pt() for the collections can be found in the root files)
