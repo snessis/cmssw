@@ -39,7 +39,6 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_wpt)
         self.addObject(self.h_weta)
         self.addObject(self.h_chpt)
-        self.addObject(self.h_chpt2)
         self.addObject(self.h_cheta)
 
     def analyze(self, event):
