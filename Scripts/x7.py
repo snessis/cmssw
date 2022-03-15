@@ -67,7 +67,7 @@ class ExampleDisplacedAnalysis(Module):
 		        self.h_chphi.Fill(grandmother.phi)
 		        finalSampleEvent.append(grandmother)
 		        #tedious logging to see if things are ok
-		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
+		        #print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
 		        i += 1
 	for particle in finalSampleEvent:
 	    feventSum += particle.p4()
@@ -77,6 +77,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_vpt.Fill(eventSum.Pt()) 
         self.h_vMinusMetpt.Fill(abs(eventSum.Pt()-eventMET)) 
         self.h_fvpt.Fill(feventSum.Pt())
+        print(dir(Collection(event, "GenPart"))) # check
         return True
 
     def endJob(self):
@@ -88,7 +89,6 @@ class ExampleDisplacedAnalysis(Module):
              hist.Draw()
              save = "x7/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
-        print(dir(Collection(event, "GenPart"))) # check
         Module.endJob(self)
         
 preselection = "" ## no preselection
