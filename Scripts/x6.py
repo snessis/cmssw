@@ -39,7 +39,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart")
         eventMET = getattr(event, "MET_pt")
         eventSum = ROOT.TLorentzVector()
-        finalReq = [1000022, 1000024]
+        finalReq = [1000022, 24]
         finalSample = []
         omegaSample = []
         omegaReq = [13, 24, 1000022, 1000024] #muon, W, neutralino, chargino
@@ -58,7 +58,7 @@ class ExampleDisplacedAnalysis(Module):
             eventSum += particle.p4()
             if abs(particle.pdgId) in finalReq:
                 finalSample.append(particle)
-                mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
+                mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else 0
                 print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(particle.pdgId) + ", mother id:" + str(mother.pdgId) + ", particle in array: " + str(i))
                 i += 1
           
@@ -71,7 +71,6 @@ class ExampleDisplacedAnalysis(Module):
         self.c = ROOT.TCanvas("x6c", "Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
-        self.c.SetFillColor(42)
         impHist = [self.h_chpt, self.h_cheta, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
         for hist in impHist:
              hist.Draw()
