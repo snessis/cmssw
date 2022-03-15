@@ -42,7 +42,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                     if grandmother is not None:   
                         grandgrandmother = genParts[grandmother.genPartIdxMother] if grandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
                         gg3 = genParts[grandgrandmother.genPartIdxMother] if grandgrandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
-                        if gg3 == None:
+                        if gg3 is None:
                             print("gg3 is None!)"
                         elif gg3 is not None:
                             print("gg3 id: " + str(gg3.pdgId))
