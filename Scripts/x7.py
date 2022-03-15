@@ -18,14 +18,11 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL 
-        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 170, 0, 1300)
-        self.h_vpt = ROOT.TH1F('vpt', 'Vector Sum of the Event', 170, 0, 1300)
-        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET', 170, 0, 1300)
-        self.h_fvpt = ROOT.TH1F('fvpt', 'Vector Sum of the Event (only charginos)', 170, 0, 1300)
+        self.h_fvpt = ROOT.TH1F('fvpt', 'Vector Sum of the Event (only charginos)', 300, 0, 200)
         # CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 170, 0, 1100)
-        self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 170, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 170, -3.2, 3.2)
+        self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 300, 0, 1100)
+        self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 300, -6, 6)
+        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 300, -3.2, 3.2)
         # HISTOGRAMS
         self.addObject(self.h_fvpt)
         self.addObject(self.h_chpt)
@@ -34,8 +31,6 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 
     def analyze(self, event):
         genParts = Collection(event, "GenPart")
-        eventMET = getattr(event, "MET_pt")
-        eventSum = ROOT.TLorentzVector()
         finalReq = [13] #13, 24, 1000022, 1000024 -> muon, W, neutralino, chargino
         finalSampleEvent = []
         finalSample = []
