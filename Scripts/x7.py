@@ -53,23 +53,19 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 		        #tedious logging to see if things are ok
 		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
 		        i += 1
+	print("finalSampleEvent size: " str(len(finalSampleEvent)))        
 	if len(finalSampleEvent) == 2:
 	    i = 1
-	    for particle in finalSampleEvent:
-	        self.h_chpt.Fill(particle.pt)
-	        self.h_cheta.Fill(particle.eta)
-	        self.h_chphi.Fill(particle.phi)
-	        finalSample.append(particle)
-	        print("We got one! particle sample num: " + str(i) + "out of 2")
-	        feventSum += particle.p4()
-	        i += 1
 	    if finalSampleEvent[0].pdgId == - finalSampleEvent[1].pdgId:
-	        print("Got matter-antimatter pair")
-	    elif finalSampleEvent[0].pdgId == finalSampleEvent[1].pdgId:
-	        print("Got matter-matter or antimatter-antimatter pair")
-	    else:
-	        print("uhhh?")
-		        
+	    	for particle in finalSampleEvent:
+	     	   self.h_chpt.Fill(particle.pt)
+	    	    self.h_cheta.Fill(particle.eta)
+	    	    self.h_chphi.Fill(particle.phi)
+	   	     finalSample.append(particle)
+	   	     print("We got one! particle sample num: " + str(i) + "out of 2")
+	   	     feventSum += particle.p4()
+	   	     i += 1
+	   	     
         finalSample.append(finalSampleEvent)  
         self.h_fvpt.Fill(feventSum.Pt())
         return True
