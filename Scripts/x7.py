@@ -27,18 +27,12 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
         self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 170, -6, 6)
         self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 170, -3.2, 3.2)
         # HISTOGRAMS
-        self.addObject(self.h_metpt)
-        self.addObject(self.h_vpt)
-        self.addObject(self.h_vMinusMetpt)
         self.addObject(self.h_fvpt)
         self.addObject(self.h_chpt)
         self.addObject(self.h_cheta)
         self.addObject(self.h_chphi)
 
     def analyze(self, event):
-        muons = Collection(event, "Muon") 
-        jets = Collection(event, "Jet")
-        electrons = Collection(event, "Electron") #unused here but required (! check later why !)
         genParts = Collection(event, "GenPart")
         eventMET = getattr(event, "MET_pt")
         eventSum = ROOT.TLorentzVector()
@@ -48,14 +42,7 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
         feventSum = ROOT.TLorentzVector()
         i = 1 #for logging
         
-        for mu in muons:
-            eventSum += mu.p4()
-        for elec in electrons:
-            eventSum += elec.p4()
-        for jet in jets:
-            eventSum += jet.p4()   
         for particle in genParts:
-            eventSum += particle.p4()
             if abs(particle.pdgId) in finalReq:
                 mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
                 grandmother = mother # temp decl
@@ -68,22 +55,19 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 		        finalSampleEvent.append(grandmother)
 		        #tedious logging to see if things are ok
 		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
-		        i += 1 
+		        i += 1
 	if len(finalSampleEvent) == 2:
 	    i = 1
 	    for particle in finalSampleEvent:
 	        self.h_chpt.Fill(particle.pt)
 	        self.h_cheta.Fill(particle.eta)
 	        self.h_chphi.Fill(particle.phi)
-	        finalSampleEvent.append(particle)
-	        print("hit! particle sample num: " + str(i))
+	        finalSample.append(particle)
+	        print("we got one! particle sample num: " + str(i) + "/2")
 	        feventSum += particle.p4()
 	        i += 1
 		        
         finalSample.append(finalSampleEvent)  
-        self.h_metpt.Fill(eventMET)
-        self.h_vpt.Fill(eventSum.Pt()) 
-        self.h_vMinusMetpt.Fill(abs(eventSum.Pt()-eventMET)) 
         self.h_fvpt.Fill(feventSum.Pt())
         return True
 
@@ -91,7 +75,7 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
         self.c = ROOT.TCanvas("x7c", "Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
-        impHist = [self.h_chpt, self.h_cheta, self.h_chphi, self.h_metpt, self.h_vpt, self.h_vMinusMetpt, self.h_fvpt]
+        impHist = [self.h_chpt, self.h_cheta, self.h_chphi, self.h_fvpt]
         for hist in impHist:
              hist.Draw()
              save = "x7/h_" + hist.GetName() + ".png"
