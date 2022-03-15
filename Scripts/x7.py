@@ -49,9 +49,6 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
                 if mother is not None:
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                     if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
-		        #self.h_chpt.Fill(grandmother.pt)
-		        #self.h_cheta.Fill(grandmother.eta)
-		        #self.h_chphi.Fill(grandmother.phi)
 		        finalSampleEvent.append(grandmother)
 		        #tedious logging to see if things are ok
 		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
@@ -63,7 +60,8 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 	        self.h_cheta.Fill(particle.eta)
 	        self.h_chphi.Fill(particle.phi)
 	        finalSample.append(particle)
-	        print("we got one! particle sample num: " + str(i) + "/2")
+	        print("We got one! particle sample num: " + str(i) + "out of 2")
+	        print("Charge: " + str(particle.charge))
 	        feventSum += particle.p4()
 	        i += 1
 		        
