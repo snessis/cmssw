@@ -39,12 +39,10 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart")
         eventMET = getattr(event, "MET_pt")
         eventSum = ROOT.TLorentzVector()
-        finalReq = [1000022, 24]
+        finalReq = [1000022, 13]
         finalSample = []
         omegaSample = []
         omegaReq = [13, 24, 1000022, 1000024] #muon, W, neutralino, chargino
-        reactionSample1 = []
-        reactionSample2 = []
         i = 1
         
         for mu in muons:
@@ -52,16 +50,19 @@ class ExampleDisplacedAnalysis(Module):
         for elec in electrons:
             eventSum += elec.p4()
         for jet in jets:
-            eventSum += jet.p4() 
-        
+            eventSum += jet.p4()   
         for particle in genParts:
             eventSum += particle.p4()
             if abs(particle.pdgId) in finalReq:
-                finalSample.append(particle)
                 mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else 0
-                print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(particle.pdgId) + ", mother id:" + str(mother.pdgId) + ", particle in array: " + str(i))
-                i += 1
-          
+                grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else 0 # to be chargino chargino
+                if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
+		    finalSample.append(particle)
+		    self.h_chpt.Fill(grandmother.pt)
+		    self.h_cheta.Fill(grandmother.eta)
+		    print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(particle.pdgId) + ", mother id: " + str(mother.pdgId) + ", particle in array: " + str(i))
+		    i += 1
+                
         self.h_metpt.Fill(eventMET)
         self.h_vpt.Fill(eventSum.Pt()) 
         self.h_vMinusMetpt.Fill(abs(eventSum.Pt()-eventMET)) 
