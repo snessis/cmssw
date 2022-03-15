@@ -55,14 +55,16 @@ class ExampleDisplacedAnalysis(Module):
             eventSum += particle.p4()
             if abs(particle.pdgId) in finalReq:
                 mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
-                grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
-                if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
-		    finalSample.append(particle)
-		    self.h_chpt.Fill(grandmother.pt)
-		    self.h_cheta.Fill(grandmother.eta)
-		    print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(particle.pdgId) + ", mother id: " + str(mother.pdgId) + ", particle in array: " + str(i))
-		    i += 1
-                
+                grandmother = mother # temp decl
+                if mother is not None:
+                    grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
+                    if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
+		        finalSample.append(particle)
+		        self.h_chpt.Fill(grandmother.pt)
+		        self.h_cheta.Fill(grandmother.eta)
+		        print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(particle.pdgId) + ", mother id: " + str(mother.pdgId) + ", particle in array: " + str(i))
+		        i += 1
+                 
         self.h_metpt.Fill(eventMET)
         self.h_vpt.Fill(eventSum.Pt()) 
         self.h_vMinusMetpt.Fill(abs(eventSum.Pt()-eventMET)) 
