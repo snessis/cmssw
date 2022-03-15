@@ -18,9 +18,9 @@ class ExampleDisplacedAnalysis(Module):
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL 
-        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 170, 0, 1100)
-        self.h_vpt = ROOT.TH1F('vpt', 'Vector Sum of the Event', 170, 0, 1100)
-        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET', 170, 0, 1100)
+        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 170, 0, 1300)
+        self.h_vpt = ROOT.TH1F('vpt', 'Vector Sum of the Event', 170, 0, 1300)
+        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET', 170, 0, 1300)
         # MUONS
         self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 170, 0, 30)
         self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 170, -4, 4)
@@ -80,7 +80,7 @@ class ExampleDisplacedAnalysis(Module):
         return True
 
     def endJob(self):
-        self.c = ROOT.TCanvas("x5c", "Canvas")
+        self.c = ROOT.TCanvas("x5c", "Canvas", 1000, 1000)
         self.addObject(self.c)
         self.c.cd()
         impHist = [self.h_chpt, self.h_cheta, self.h_wpt, self.h_weta, self.h_mupt, self.h_mueta, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
