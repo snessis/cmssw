@@ -53,7 +53,7 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 		        #tedious logging to see if things are ok
 		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
 		        i += 1
-	print("finalSampleEvent size: " str(len(finalSampleEvent)))        
+	print("finalSampleEvent size: " + str(len(finalSampleEvent)))     
 	if len(finalSampleEvent) == 2:
 	    i = 1
 	    if finalSampleEvent[0].pdgId == - finalSampleEvent[1].pdgId:
