@@ -80,7 +80,7 @@ class ExampleDisplacedAnalysis(Module):
         return True
 
     def endJob(self):
-        self.c = ROOT.TCanvas("x5c", "Canvas", 1000, 1000)
+        self.c = ROOT.TCanvas("x5c", "Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
         impHist = [self.h_chpt, self.h_cheta, self.h_wpt, self.h_weta, self.h_mupt, self.h_mueta, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
