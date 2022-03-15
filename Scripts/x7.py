@@ -46,7 +46,7 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
             if abs(particle.pdgId) in finalReq:
                 mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
                 grandmother = mother # temp decl
-                if mother is not None:
+                if mother and grandmother is not None:
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                     if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
 		        finalSampleEvent.append(grandmother)
@@ -61,9 +61,14 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 	        self.h_chphi.Fill(particle.phi)
 	        finalSample.append(particle)
 	        print("We got one! particle sample num: " + str(i) + "out of 2")
-	        print("Charge: " + str(particle.charge))
 	        feventSum += particle.p4()
 	        i += 1
+	    if finalSampleEvent[0].pdgId == - finalSampleEvent[1].pdgId:
+	        print("Got matter-antimatter pair")
+	    elif finalSampleEvent[0].pdgId == finalSampleEvent[1].pdgId:
+	        print("Got matter-matter or antimatter-antimatter pair")
+	    else:
+	        print("uhhh?")
 		        
         finalSample.append(finalSampleEvent)  
         self.h_fvpt.Fill(feventSum.Pt())
