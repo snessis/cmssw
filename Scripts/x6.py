@@ -55,7 +55,7 @@ class ExampleDisplacedAnalysis(Module):
             eventSum += jet.p4() 
         
         for particle in genParts:
-        eventSum += particle.p4()
+            eventSum += particle.p4()
             if abs(particle.pdgId) in finalReq:
                 finalSample.append(particle)
                 mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
@@ -67,7 +67,7 @@ class ExampleDisplacedAnalysis(Module):
         return True
 
     def endJob(self):
-        self.c = ROOT.TCanvas("x5c", "Canvas", 900, 660)
+        self.c = ROOT.TCanvas("x6c", "Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
         self.c.SetFillColor(42)
