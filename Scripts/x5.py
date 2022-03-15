@@ -22,14 +22,14 @@ class ExampleDisplacedAnalysis(Module):
         self.h_vpt = ROOT.TH1F('vpt', 'Vector Sum of the Event', 40, 0, 800)
         self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET', 40, 0, 800)
         # MUONS
-        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 40, 0, 40)
+        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 40, 0, 50)
         self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 30, -4, 4)
         # WS
-        self.h_wpt = ROOT.TH1F('wpt', 'W Transverse Momentum', 40, 0, 40)
-        self.h_weta = ROOT.TH1F('weta', 'W Pseudorapidity', 30, -4, 4)
+        self.h_wpt = ROOT.TH1F('wpt', 'W Transverse Momentum', 40, 0, 80)
+        self.h_weta = ROOT.TH1F('weta', 'W Pseudorapidity', 30, -5, 5)
         # CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 40, 0, 40)
-        self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 30, -4, 4)
+        self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 40, 0, 400)
+        self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 30, -5, 5)
         # HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_vpt)
@@ -86,7 +86,8 @@ class ExampleDisplacedAnalysis(Module):
         impHist = [self.h_chpt, self.h_cheta, self.h_wpt, self.h_weta, self.h_mupt, self.h_mueta, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
         for hist in impHist:
              hist.Draw()
-             self.c.SaveAs("x5imgs/h_" + hist.Class_Name() + ".png")
+             save = "h_" + hist.Class_Name() + ".png"
+             self.c.SaveAs(save)
         Module.endJob(self)
 
 preselection = "" ## no preselection
