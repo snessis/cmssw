@@ -11,7 +11,7 @@ from importlib import import_module
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
-class ExampleDisplacedAnalysis(Module):
+class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargino states
     def __init__(self):
         self.writeHistFile = True
 
@@ -62,22 +62,28 @@ class ExampleDisplacedAnalysis(Module):
                 if mother is not None:
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                     if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
-		        self.h_chpt.Fill(grandmother.pt)
-		        self.h_cheta.Fill(grandmother.eta)
-		        self.h_chphi.Fill(grandmother.phi)
+		        #self.h_chpt.Fill(grandmother.pt)
+		        #self.h_cheta.Fill(grandmother.eta)
+		        #self.h_chphi.Fill(grandmother.phi)
 		        finalSampleEvent.append(grandmother)
 		        #tedious logging to see if things are ok
 		        #print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
-		        i += 1
-	for particle in finalSampleEvent:
-	    feventSum += particle.p4()
+		        #i += 1 
+	if len(finalSampleEvent) == 2:
+	    i = 1
+	    for particle in finalSampleEvent:
+	        self.h_chpt.Fill(grandmother.pt)
+	        self.h_cheta.Fill(grandmother.eta)
+	        self.h_chphi.Fill(grandmother.phi)
+	        finalSampleEvent.append(grandmother)
+	        print("hit! item num: " + str(i))
+	        feventSum += particle.p4()
 		        
         finalSample.append(finalSampleEvent)  
         self.h_metpt.Fill(eventMET)
         self.h_vpt.Fill(eventSum.Pt()) 
         self.h_vMinusMetpt.Fill(abs(eventSum.Pt()-eventMET)) 
         self.h_fvpt.Fill(feventSum.Pt())
-        print(dir(Collection(event, "GenPart"))) # check
         return True
 
     def endJob(self):
