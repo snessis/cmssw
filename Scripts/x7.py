@@ -18,11 +18,11 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL 
-        self.h_fvpt = ROOT.TH1F('fvpt', 'Vector Sum of the Event (only charginos)', 300, 0, 200)
+        self.h_fvpt = ROOT.TH1F('fvpt', 'Vector Sum of the Event (only charginos)', 250, 0, 5)
         # CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 300, 0, 1100)
-        self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 300, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 300, -3.2, 3.2)
+        self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 250, 0, 1100)
+        self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 250, -6, 6)
+        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -3.2, 3.2)
         # HISTOGRAMS
         self.addObject(self.h_fvpt)
         self.addObject(self.h_chpt)
