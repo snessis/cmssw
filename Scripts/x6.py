@@ -62,7 +62,7 @@ class ExampleDisplacedAnalysis(Module):
 		        finalSample.append(particle)
 		        self.h_chpt.Fill(grandmother.pt)
 		        self.h_cheta.Fill(grandmother.eta)
-		        print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(particle.pdgId) + ", mother id: " + str(mother.pdgId) + ", gmother id: " + str(gmother.pdgId) + ", particlenum" + str(i))
+		        print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(particle.pdgId) + ", mother id: " + str(mother.pdgId) + ", gmother id: " + str(grandmother.pdgId) + ", particlenum" + str(i))
 		        i += 1
                  
         self.h_metpt.Fill(eventMET)
