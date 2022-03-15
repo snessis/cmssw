@@ -18,19 +18,18 @@ class ExampleDisplacedAnalysis(Module):
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL 
-        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 150, 0, 800)
-        self.h_vpt = ROOT.TH1F('vpt', 'Vector Sum of the Event', 150, 0, 800)
-        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET', 150, 0, 800)
+        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 170, 0, 1100)
+        self.h_vpt = ROOT.TH1F('vpt', 'Vector Sum of the Event', 170, 0, 1100)
+        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET', 170, 0, 1100)
         # MUONS
-        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 150, 0, 40)
-        self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 150, -4, 4)
+        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 170, 0, 30)
+        self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 170, -4, 4)
         # WS
-        self.h_wpt = ROOT.TH1F('wpt', 'W Transverse Momentum', 150, 0, 100)
-        self.h_weta = ROOT.TH1F('weta', 'W Pseudorapidity', 150, -6, 6)
+        self.h_wpt = ROOT.TH1F('wpt', 'W Transverse Momentum', 170, 0, 100)
+        self.h_weta = ROOT.TH1F('weta', 'W Pseudorapidity', 170, -6, 6)
         # CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 150, 0, 1000)
-        self.h_chpt2 = ROOT.TH1F('chpt2', 'Chargino Transverse Momentum High Res', 150, 0, 1000)
-        self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 150, -6, 6)
+        self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 170, 0, 1100)
+        self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 170, -6, 6)
         # HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_vpt)
@@ -86,7 +85,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c = ROOT.TCanvas("x5c", "Canvas")
         self.addObject(self.c)
         self.c.cd()
-        impHist = [self.h_chpt, self.h_chpt2, self.h_cheta, self.h_wpt, self.h_weta, self.h_mupt, self.h_mueta, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
+        impHist = [self.h_chpt, self.h_cheta, self.h_wpt, self.h_weta, self.h_mupt, self.h_mueta, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
         for hist in impHist:
              hist.Draw()
              save = "x5/h_" + hist.GetName() + ".png"
