@@ -54,10 +54,8 @@ class ExampleDisplacedAnalysis(Module):
         for particle in genParts:
             eventSum += particle.p4()
             if abs(particle.pdgId) in finalReq:
-                print(type(particle))
-                mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else 0
-                print(type(mother))
-                grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else 0 # to be chargino
+                mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
+                grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                 if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
 		    finalSample.append(particle)
 		    self.h_chpt.Fill(grandmother.pt)
