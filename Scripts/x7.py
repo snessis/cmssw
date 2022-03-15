@@ -52,9 +52,7 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 		        finalSampleEvent.append(grandmother)
 		        #tedious logging to see if things are ok
 		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
-		        i += 1
-		    else:
-		        return True   
+		        i += 1 
 	print("finalSampleEvent size: " + str(len(finalSampleEvent)))     
 	if len(finalSampleEvent) == 2:
 	    i = 1
@@ -64,7 +62,7 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 	    	    self.h_cheta.Fill(particle.eta)
 	    	    self.h_chphi.Fill(particle.phi)
 	    	    finalSample.append(particle)
-	    	    print("We got one! particle sample num: " + str(i) + "out of 2")
+	    	    print("We got one! particle sample num: " + str(i) + " out of 2")
 	    	    feventSum += particle.p4()
 	    	    i += 1
 	   	     
