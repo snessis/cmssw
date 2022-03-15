@@ -85,7 +85,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c.cd()
         impHist = [self.h_chpt, self.h_cheta, self.h_wpt, self.h_weta, self.h_mupt, self.h_mueta, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
         for hist in impHist:
-             self.hist.Draw()
+             hist.Draw()
              self.c.SaveAs("x5imgs/h_" + hist.Class_Name() + ".png")
         Module.endJob(self)
 
