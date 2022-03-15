@@ -11,20 +11,18 @@ from importlib import import_module
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
-class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargino states and rejects the rest
+class ExampleDisplacedAnalysis(Module): #this just turned out to be a better optimized x6.
     def __init__(self):
         self.writeHistFile = True
 
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL 
-        self.h_fvpt = ROOT.TH1F('fvpt', 'Vector Sum of the Event (only charginos)', 250, 0, 3)
         # CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 250, 0, 1100)
         self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 250, -6, 6)
         self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -3.2, 3.2)
         # HISTOGRAMS
-        self.addObject(self.h_fvpt)
         self.addObject(self.h_chpt)
         self.addObject(self.h_cheta)
         self.addObject(self.h_chphi)
@@ -43,13 +41,17 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                     if grandmother is not None:   
                         grandgrandmother = genParts[grandmother.genPartIdxMother] if grandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
+                        gg3 = genParts[grandgrandmother.genPartIdxMother] if grandgrandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
+                        if gg3 == None:
+                            print("gg3 is None!)"
+                        elif gg3 is not None:
+                            print("gg3 id: " + str(gg3.pdgId))
                         if 3==3: #adj
                             if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
 		                finalSampleEvent.append(grandgrandmother)
 		                self.h_chpt.Fill(grandgrandmother.pt)
 	    	                self.h_cheta.Fill(grandgrandmother.eta)
 	    	                self.h_chphi.Fill(grandgrandmother.phi)
-	    	                self.h_fvpt.Fill(grandgrandmother.p4().Pt())
 		                #tedious logging to see if things are ok
 		                print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
 		                i += 1 
@@ -72,7 +74,7 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
         self.c = ROOT.TCanvas("x7c", "Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
-        impHist = [self.h_chpt, self.h_cheta, self.h_chphi, self.h_fvpt]
+        impHist = [self.h_chpt, self.h_cheta, self.h_chphi]
         for hist in impHist:
              hist.Draw()
              save = "x7/h_" + hist.GetName() + ".png"
