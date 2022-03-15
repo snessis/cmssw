@@ -48,10 +48,10 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                         #    print("gg3 id: " + str(gg3.pdgId))
                         if 3==3: #adj
                             if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024:
-    		                    finalSampleEvent.append(grandgrandmother)
-    		                    self.h_chpt.Fill(grandgrandmother.pt)
-    	    	                self.h_cheta.Fill(grandgrandmother.eta)
-    	    	                self.h_chphi.Fill(grandgrandmother.phi)
+                                finalSampleEvent.append(grandgrandmother)
+                                self.h_chpt.Fill(grandgrandmother.pt)
+                                self.h_cheta.Fill(grandgrandmother.eta)
+                                self.h_chphi.Fill(grandgrandmother.phi)
 		               #tedious logging to see if things are ok
 		                        print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
                                 print("gg3id: " + str(gg3.pdgId))
