@@ -33,7 +33,6 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
         genParts = Collection(event, "GenPart")
         finalReq = [13] #13, 24, 1000022, 1000024 -> muon, W, neutralino, chargino
         finalSampleEvent = []
-        finalSample = []
         feventSum = ROOT.TLorentzVector()
         i = 1 #for logging
         
@@ -51,19 +50,18 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 		                print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
 		                i += 1 
 	print("finalSampleEvent size: " + str(len(finalSampleEvent)))     
-	if len(finalSampleEvent) == 2:
-	    i = 1
-	    if finalSampleEvent[0].pdgId == -finalSampleEvent[1].pdgId:
-	    	for particle in finalSampleEvent:
-	     	    self.h_chpt.Fill(particle.pt)
-	    	    self.h_cheta.Fill(particle.eta)
-	    	    self.h_chphi.Fill(particle.phi)
-	    	    finalSample.append(particle)
-	    	    print("We got one! particle sample num: " + str(i) + " out of 2")
-	    	    feventSum += particle.p4()
-	    	    i += 1
+	#if len(finalSampleEvent) == 2:
+	#    i = 1
+	#    if finalSampleEvent[0].pdgId == -finalSampleEvent[1].pdgId:
+	#    	for particle in finalSampleEvent:
+	#     	    self.h_chpt.Fill(particle.pt)
+	#    	    self.h_cheta.Fill(particle.eta)
+	#    	    self.h_chphi.Fill(particle.phi)
+	#    	    finalSample.append(particle)
+	#    	    print("We got one! particle sample num: " + str(i) + " out of 2")
+	#    	    feventSum += particle.p4()
+	#    	    i += 1
 	   	     
-        finalSample.append(finalSampleEvent)  
         self.h_fvpt.Fill(feventSum.Pt())
         return True
 
