@@ -46,10 +46,10 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
                         if 3==3: #adj
                             if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
 		                finalSampleEvent.append(grandgrandmother)
-		                self.h_chpt.Fill(grandmother.pt)
-	    	                self.h_cheta.Fill(grandmother.eta)
-	    	                self.h_chphi.Fill(grandmother.phi)
-	    	                self.h_fvpt.Fill(grandmother.p4().Pt())
+		                self.h_chpt.Fill(grandgrandmother.pt)
+	    	                self.h_cheta.Fill(grandgrandmother.eta)
+	    	                self.h_chphi.Fill(grandgrandmother.phi)
+	    	                self.h_fvpt.Fill(grandgrandmother.p4().Pt())
 		                #tedious logging to see if things are ok
 		                print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
 		                i += 1 
