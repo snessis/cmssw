@@ -72,12 +72,13 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 	if len(finalSampleEvent) == 2:
 	    i = 1
 	    for particle in finalSampleEvent:
-	        self.h_chpt.Fill(grandmother.pt)
-	        self.h_cheta.Fill(grandmother.eta)
-	        self.h_chphi.Fill(grandmother.phi)
-	        finalSampleEvent.append(grandmother)
-	        print("hit! item num: " + str(i))
+	        self.h_chpt.Fill(particle.pt)
+	        self.h_cheta.Fill(particle.eta)
+	        self.h_chphi.Fill(particle.phi)
+	        finalSampleEvent.append(particle)
+	        print("hit! particle sample num: " + str(i))
 	        feventSum += particle.p4()
+	        i += 1
 		        
         finalSample.append(finalSampleEvent)  
         self.h_metpt.Fill(eventMET)
