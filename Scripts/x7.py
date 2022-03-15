@@ -44,11 +44,12 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                     if grandmother is not None:   
                         grandgrandmother = genParts[grandmother.genPartIdxMother] if grandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
-                        if 3 == 3:
+                        gg3 = genParts[grandgrandmother.genPartIdxMother] if grandgrandmother.genPartIdxMother in range(len(genParts)) else None 
+                        if 3 == 3: #adj
                             if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
 		                finalSampleEvent.append(grandmother)
 		                #tedious logging to see if things are ok
-		                print("pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
+		                print("pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", gggmid: " + str(gg3.pdgId) + ", loopnum: " + str(i))
 		                i += 1 
 	print("finalSampleEvent size: " + str(len(finalSampleEvent)))     
 	if len(finalSampleEvent) == 2:
