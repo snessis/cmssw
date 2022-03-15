@@ -47,14 +47,14 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                         if gg3 is not None:
                             print("gg3 id: " + str(gg3.pdgId))
                         #if 3==3: #adj
-                            if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
-		                finalSampleEvent.append(grandgrandmother)
-		                self.h_chpt.Fill(grandgrandmother.pt)
-	    	                self.h_cheta.Fill(grandgrandmother.eta)
-	    	                self.h_chphi.Fill(grandgrandmother.phi)
-		                #tedious logging to see if things are ok
-		                print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
-		                i += 1 
+                        #    if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
+		        #        finalSampleEvent.append(grandgrandmother)
+		        #        self.h_chpt.Fill(grandgrandmother.pt)
+	    	         #       self.h_cheta.Fill(grandgrandmother.eta)
+	    	         #       self.h_chphi.Fill(grandgrandmother.phi)
+		         #       #tedious logging to see if things are ok
+		         #       print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
+		        #        i += 1 
 	print("finalSampleEvent size: " + str(len(finalSampleEvent)))     
 	#if len(finalSampleEvent) == 2:
 	#    i = 1
