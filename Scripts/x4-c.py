@@ -93,9 +93,9 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.c)
         self.c.cd()
         self.h_metpt.Draw()
-        self.h_metpt.SaveAs("h_metpt.png")
+        self.c.SaveAs("h_metpt.png")
         self.h_muptRatio.Draw()
-        self.h_muptRatio.SaveAs("h_muptRatio.png")
+        self.c.SaveAs("h_muptRatio.png")
         Module.endJob(self)
 
 preselection = "" ## no preselection
