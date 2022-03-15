@@ -57,7 +57,6 @@ class ExampleDisplacedAnalysis(Module):
                 if mother is not None:
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                     if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
-		        finalSample.append(particle)
 		        self.h_chpt.Fill(grandmother.pt)
 		        self.h_cheta.Fill(grandmother.eta)
 		        self.h_chphi.Fill(grandmother.phi)
