@@ -88,7 +88,7 @@ class ExampleDisplacedAnalysis(Module):
              hist.Draw()
              save = "x7/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
-        print(dir(Collection(event, "GenPart")) # check
+        print(dir(Collection(event, "GenPart"))) # check
         Module.endJob(self)
         
 preselection = "" ## no preselection
