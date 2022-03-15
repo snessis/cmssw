@@ -73,7 +73,6 @@ class ExampleDisplacedAnalysis(Module):
                  if abs(particle.pdgId) == 1000024:
                      charginos.append(particle)
                      self.h_chpt.Fill(particle.pt)
-                     self.h_chpt2.Fill(particle.pt)
                      self.h_cheta.Fill(particle.eta) 
         self.h_metpt.Fill(eventMET)
         self.h_vpt.Fill(eventSum.Pt()) 
