@@ -38,16 +38,18 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
         i = 1 #for logging
         
         for particle in genParts:
-            if abs(particle.pdgId) in finalReq:
-                mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
-                grandmother = mother # temp decl
-                if mother and grandmother is not None:
+            if abs(particle.pdgId) in finalReq: #particle is muon
+                mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None # to be W
+                if mother is not None:
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
-                    if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
-		        finalSampleEvent.append(grandmother)
-		        #tedious logging to see if things are ok
-		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
-		        i += 1 
+                    if grandmother is not None:   
+                        grandgrandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
+                        if grandgrandmother is None:
+                            if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024: 
+		                finalSampleEvent.append(grandmother)
+		                #tedious logging to see if things are ok
+		                print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
+		                i += 1 
 	print("finalSampleEvent size: " + str(len(finalSampleEvent)))     
 	if len(finalSampleEvent) == 2:
 	    i = 1
