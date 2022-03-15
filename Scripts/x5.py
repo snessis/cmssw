@@ -20,7 +20,7 @@ class ExampleDisplacedAnalysis(Module):
         # GENERAL 
         self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 40, 0, 800)
         self.h_vpt = ROOT.TH1F('vpt', 'Vector Sum of the Event', 40, 0, 800)
-        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET, 40, 0, 800)
+        self.h_vMinusMetpt = ROOT.TH1F('vMinusMetpt', 'Vector Sum of the Event Minus MET', 40, 0, 800)
         # MUONS
         self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 40, 0, 40)
         self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 30, -4, 4)
