@@ -67,8 +67,8 @@ class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargin
 		        #self.h_chphi.Fill(grandmother.phi)
 		        finalSampleEvent.append(grandmother)
 		        #tedious logging to see if things are ok
-		        #print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
-		        #i += 1 
+		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
+		        i += 1 
 	if len(finalSampleEvent) == 2:
 	    i = 1
 	    for particle in finalSampleEvent:
