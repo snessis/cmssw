@@ -45,7 +45,7 @@ class ExampleDisplacedAnalysis(Module):
         omegaReq = [13, 24, 1000022, 1000024] #muon, W, neutralino, chargino
         reactionSample1 = []
         reactionSample2 = []
-        i = 0
+        i = 1
         
         for mu in muons:
             eventSum += mu.p4()
@@ -59,7 +59,8 @@ class ExampleDisplacedAnalysis(Module):
             if abs(particle.pdgId) in finalReq:
                 finalSample.append(particle)
                 mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
-                print(str(particle.pdgId) + ", " + str(mother.pdgId) + ", particle num: " + str(i) + "\n")
+                print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(genPartsstr(particle.pdgId) + ", mother id:" + str(mother.pdgId) + ", particle in array: " + str(i))
+                i += 1
           
         self.h_metpt.Fill(eventMET)
         self.h_vpt.Fill(eventSum.Pt()) 
