@@ -59,7 +59,7 @@ class ExampleDisplacedAnalysis(Module):
             if abs(particle.pdgId) in finalReq:
                 finalSample.append(particle)
                 mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
-                print(str(particle.pdgId) + ", " + str(mother.pdgIf) + ", particle num: " + str(i) + "\n")
+                print(str(particle.pdgId) + ", " + str(mother.pdgId) + ", particle num: " + str(i) + "\n")
           
         self.h_metpt.Fill(eventMET)
         self.h_vpt.Fill(eventSum.Pt()) 
