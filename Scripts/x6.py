@@ -24,26 +24,24 @@ class ExampleDisplacedAnalysis(Module):
         # CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 170, 0, 1100)
         self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 170, -6, 6)
+        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 170, -3.2, 3.2)
         # HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_vpt)
         self.addObject(self.h_vMinusMetpt)
         self.addObject(self.h_chpt)
         self.addObject(self.h_cheta)
+        self.addObject(self.h_chphi)
 
     def analyze(self, event):
-        #get collections and define lists
         muons = Collection(event, "Muon") 
         jets = Collection(event, "Jet")
         electrons = Collection(event, "Electron") #unused here but required (! check later why !)
         genParts = Collection(event, "GenPart")
         eventMET = getattr(event, "MET_pt")
         eventSum = ROOT.TLorentzVector()
-        finalReq = [1000022, 13]
-        finalSample = []
-        omegaSample = []
-        omegaReq = [13, 24, 1000022, 1000024] #muon, W, neutralino, chargino
-        i = 1
+        finalReq = [13] #13, 24, 1000022, 1000024 -> muon, W, neutralino, chargino
+        i = 1 #for logging
         
         for mu in muons:
             eventSum += mu.p4()
@@ -62,7 +60,9 @@ class ExampleDisplacedAnalysis(Module):
 		        finalSample.append(particle)
 		        self.h_chpt.Fill(grandmother.pt)
 		        self.h_cheta.Fill(grandmother.eta)
-		        print("genParts size: " + str(len(genParts)) + ", particle id: "+ str(particle.pdgId) + ", mother id: " + str(mother.pdgId) + ", gmother id: " + str(grandmother.pdgId) + ", particlenum" + str(i))
+		        self.h_chphi.Fill(grandmother.phi)
+		        #logging to see if things are ok
+		        print("size: " + str(len(genParts)) + ", pid: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", loopnum: " + str(i))
 		        i += 1
                  
         self.h_metpt.Fill(eventMET)
@@ -74,14 +74,13 @@ class ExampleDisplacedAnalysis(Module):
         self.c = ROOT.TCanvas("x6c", "Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
-        impHist = [self.h_chpt, self.h_cheta, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
+        impHist = [self.h_chpt, self.h_cheta, self.h_chphi, self.h_metpt, self.h_vpt, self.h_vMinusMetpt]
         for hist in impHist:
              hist.Draw()
              save = "x6/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
         Module.endJob(self)
         
-
 preselection = "" ## no preselection
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_200_180_10_final.root".format(os.environ['CMSSW_BASE'])]
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x6.root", histDirName="plots")
