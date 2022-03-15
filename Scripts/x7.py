@@ -11,7 +11,7 @@ from importlib import import_module
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
-class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargino states
+class ExampleDisplacedAnalysis(Module): #this one checks for two gmother chargino states and rejects the rest
     def __init__(self):
         self.writeHistFile = True
 
