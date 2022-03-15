@@ -41,11 +41,6 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                     if grandmother is not None:
                         grandgrandmother = genParts[grandmother.genPartIdxMother] if grandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
-                        gg3 = genParts[grandgrandmother.genPartIdxMother] if grandgrandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
-                        #if gg3 is None:
-                        #    print("gg3 is None!)"
-                        #if gg3 is not None:
-                        #    print("gg3 id: " + str(gg3.pdgId))
                         if 3==3: #adj
                             if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024:
                                 finalSampleEvent.append(grandgrandmother)
