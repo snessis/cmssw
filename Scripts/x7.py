@@ -43,11 +43,11 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                         grandgrandmother = genParts[grandmother.genPartIdxMother] if grandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
                         if 3==3: #adj
                             if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024:
-                                finalSampleEvent.append(grandgrandmother)
-                                self.h_chpt.Fill(grandgrandmother.pt)
-                                self.h_cheta.Fill(grandgrandmother.eta)
-                                self.h_chphi.Fill(grandgrandmother.phi)
-		               #tedious logging to see if things are ok
+                                finalSampleEvent.append(grandmother)
+                                self.h_chpt.Fill(grandmother.pt)
+                                self.h_cheta.Fill(grandmother.eta)
+                                self.h_chphi.Fill(grandmother.phi)
+		                        #tedious logging to see if things are ok
                                 print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
                                 i += 1
 	print("finalSampleEvent size: " + str(len(finalSampleEvent)))
@@ -72,13 +72,13 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         impHist = [self.h_chpt, self.h_cheta, self.h_chphi]
         for hist in impHist:
              hist.Draw()
-             save = "x7/h_" + hist.GetName() + ".png"
+             save = "x7-a/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
         Module.endJob(self)
 
 preselection = "" ## no preselection
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_200_180_10_final.root".format(os.environ['CMSSW_BASE'])]
-p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x6.root", histDirName="plots")
+p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x7.root", histDirName="plots")
 p.run()
 
 ## methods (functions like pt() for the collections can be found in the root files)
