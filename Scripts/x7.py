@@ -40,16 +40,14 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                 if mother is not None:
                     grandmother = genParts[mother.genPartIdxMother] if mother.genPartIdxMother in range(len(genParts)) else None # to be chargino
                     if grandmother is not None:
-                        grandgrandmother = genParts[grandmother.genPartIdxMother] if grandmother.genPartIdxMother in range(len(genParts)) else None # to be None, popped from protons
-                        if 3==3: #adj2
-                            if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024:
-                                finalSampleEvent.append(grandmother)
-                                self.h_chpt.Fill(grandmother.pt)
-                                self.h_cheta.Fill(grandmother.eta)
-                                self.h_chphi.Fill(grandmother.phi)
-		                        #tedious logging to see if things are ok
-                                print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
-                                i += 1
+                        if abs(particle.pdgId) ==  13 and abs(mother.pdgId) == 24 and abs(grandmother.pdgId) == 1000024:
+                            finalSampleEvent.append(grandmother)
+                            self.h_chpt.Fill(grandmother.pt)
+                            self.h_cheta.Fill(grandmother.eta)
+                            self.h_chphi.Fill(grandmother.phi)
+		                   #tedious logging to see if things are ok
+                            print("id: " + str(particle.pdgId) + ", mid: " + str(mother.pdgId) + ", gmid: " + str(grandmother.pdgId) + ", ggmid: " + str(grandgrandmother.pdgId) + ", loopnum: " + str(i))
+                            i += 1
 	print("finalSampleEvent size: " + str(len(finalSampleEvent)))
 	#if len(finalSampleEvent) == 2:
 	#    i = 1
