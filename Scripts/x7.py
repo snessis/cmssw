@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# USE x7 folder not x7-a!!!!!!!!!
 import os, sys
 if 'CMSSW_VERSION' not in os.environ:
     print("Run 'cmsenv'")
@@ -70,7 +71,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         impHist = [self.h_chpt, self.h_cheta, self.h_chphi]
         for hist in impHist:
              hist.Draw()
-             save = "x7-a/h_" + hist.GetName() + ".png"
+             save = "x7/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
         Module.endJob(self)
 
