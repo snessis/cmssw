@@ -21,9 +21,9 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         # CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 250, 0, 1100)
         self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 250, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -3.2, 3.2)
+        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -6.4, 6.4)
         self.h_chdeta = ROOT.TH1F('chdeta', 'Chargino Delta Eta', 250, 0, 6)
-        self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 250, 0, 3.2)
+        self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 250, 0, 6.4)
         # ADD HISTOGRAMS
         self.addObject(self.h_chpt)
         self.addObject(self.h_cheta)
