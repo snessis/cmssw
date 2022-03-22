@@ -55,7 +55,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
 	    if part1.pdgId == -part2.pdgId: #uneccesary? testing now.
 	    	for particle in finalSampleEvent:
 	    	    deta = abs(part1.eta) - abs(part2.eta)
-	    	    dphi = part1.phi - part2.phi
+	    	    dphi = abs(part1.phi) - abs(part2.phi)
 	    	    self.h_chdeta.Fill(deta)
 	    	    self.h_chdphi.Fill(dphi)
 	    else:
