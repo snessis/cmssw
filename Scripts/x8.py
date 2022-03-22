@@ -60,7 +60,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
 	    	    self.h_chdphi.Fill(dphi)
 	    else:
 	        print("We have a whoopsie?")
-	        print("p1: " + part1.pdgId + ", p2: " + part2.pdgId)
+	        print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
         return True
 
     def endJob(self):
