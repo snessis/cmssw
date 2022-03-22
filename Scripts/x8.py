@@ -60,6 +60,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
 	    	    self.h_chdphi.Fill(dphi)
 	    else:
 	        print("We have a whoopsie?")
+	        print("p1: " + part1.pdgId + ", p2: " + part2.pdgId)
         return True
 
     def endJob(self):
@@ -69,7 +70,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         impHist = [self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi]
         for hist in impHist:
              hist.Draw()
-             save = "x7/h_" + hist.GetName() + ".png"
+             save = "x8/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
         Module.endJob(self)
 
