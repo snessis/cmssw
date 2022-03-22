@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os, sys
 if 'CMSSW_VERSION' not in os.environ:
-    print("Run 'cmsenv'")
+    print("Run 'cmsenv' please")
     quit(1)
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
@@ -21,9 +21,9 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         # CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 250, 0, 1100)
         self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 250, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -6.4, 6.4)
+        self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -3.2, 3.2)
         self.h_chdeta = ROOT.TH1F('chdeta', 'Chargino Delta Eta', 250, 0, 6)
-        self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 250, 0, 6.4)
+        self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 250, 0, 3.2)
         # ADD HISTOGRAMS
         self.addObject(self.h_chpt)
         self.addObject(self.h_cheta)
@@ -55,7 +55,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
 	    if part1.pdgId == -part2.pdgId: #uneccesary? testing now.
 	    	for particle in finalSampleEvent:
 	    	    deta = abs(part1.eta) - abs(part2.eta)
-	    	    dphi = abs(part1.phi) - abs(part2.phi)
+	    	    dphi = part1.phi - part2.phi
 	    	    self.h_chdeta.Fill(deta)
 	    	    self.h_chdphi.Fill(dphi)
 	    else:
@@ -80,5 +80,4 @@ p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[Example
 p.run()
 
 ## methods (functions like pt() for the collections can be found in the root files)
-## example root -l -b <file-to-open>.root
 ## Just ignore the underscore '_' after the collection name, eg Muon_pt -> mu.pt, Muon_eta -> mu.eta
