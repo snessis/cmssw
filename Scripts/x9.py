@@ -64,6 +64,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
 	    else:
 	        print("We have a whoopsie?")
 	        print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
+	self.h_metpt.Fill(eventMET)
         return True
 
     def endJob(self):
