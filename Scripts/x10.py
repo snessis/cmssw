@@ -71,7 +71,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
 	if len(finalSampleEvent) == 2:
 	    part1 = finalSampleEvent[0]
 	    part2 = finalSampleEvent[1]
-	    if part1.pdgId == -part2.pdgId: #uneccesary? testing now.
+	    if part1.pdgId == -part2.pdgId:
 	    	for particle in finalSampleEvent:
 	    	    deta = abs(part1.eta) - abs(part2.eta)
 	    	    dphi = part1.phi - part2.phi
