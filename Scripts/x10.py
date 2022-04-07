@@ -52,6 +52,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                      self.h_chphi.Fill(mother.phi)
                  else:
                     unknown.append(particle)
+                    print(str(mother.pdgId))
             ##if (abs(particle.pdgId) in finalReq) and (particle.mass == 200): #chargino, also on 200gev
             ##    mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None # to be W
             ##    if mother is None:
