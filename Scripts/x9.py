@@ -18,6 +18,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL
+        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 40, 0, 400)
         # CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', 'Chargino Transverse Momentum', 250, 0, 1100)
         self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 250, -6, 6)
@@ -25,6 +26,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         self.h_chdeta = ROOT.TH1F('chdeta', 'Chargino Delta Eta', 250, 0, 6)
         self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 250, 0, 3.2)
         # ADD HISTOGRAMS
+        self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
         self.addObject(self.h_cheta)
         self.addObject(self.h_chphi)
@@ -33,6 +35,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
 
     def analyze(self, event):
         genParts = Collection(event, "GenPart")
+        eventMET = getattr(event, "MET_pt")
         finalReq = [13] #13, 24, 1000022, 1000024 -> muon, W, neutralino, chargino
         finalSampleEvent = []
         feventSum = ROOT.TLorentzVector() #unused
@@ -67,14 +70,14 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         self.c = ROOT.TCanvas("x9c", "The Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
-        impHist = [self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi]
+        impHist = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi]
         for hist in impHist:
              hist.Draw()
              save = "x9/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
         Module.endJob(self)
 
-preselection = "MET_pt>150."
+preselection = "MET_pt>140."
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_200_180_10_final.root".format(os.environ['CMSSW_BASE'])]
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x8.root", histDirName="plots")
 p.run()
