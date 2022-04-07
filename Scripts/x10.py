@@ -38,22 +38,20 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         eventMET = getattr(event, "MET_pt")
         finalReq = [1000024] #13, 24, 1000022, 1000024 -> muon, W, neutralino, chargino
         finalSampleEvent = []
+        unknown = []
         counter = 0;
         #find chargino by making sure that it is the first ancestor
         for particle in genParts:
             if (abs(particle.pdgId) in finalReq):
                  mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None # to be W
                  counter += 1;
-                 if (abs(mother.pdgId) in [2212]):
+                 if (abs(mother.pdgId) in [1000024, -1000024]):
                      finalSampleEvent.append(mother)
                      self.h_chpt.Fill(mother.pt)
                      self.h_cheta.Fill(mother.eta)
                      self.h_chphi.Fill(mother.phi)
-                 if mother is None:
-                     finalSampleEvent.append(particle)
-                     self.h_chpt.Fill(particle.pt)
-                     self.h_cheta.Fill(particle.eta)
-                     self.h_chphi.Fill(particle.phi)
+                else:
+                    unknown.append(particle)
             ##if (abs(particle.pdgId) in finalReq) and (particle.mass == 200): #chargino, also on 200gev
             ##    mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None # to be W
             ##    if mother is None:
@@ -67,7 +65,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                 ##    self.h_cheta.Fill(mother.eta)
                 ##    self.h_chphi.Fill(mother.phi)
         if len(finalSampleEvent) > 0:
-            print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)))
+            print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)) + ", unknown? :" + str(len(unknown)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
 	if len(finalSampleEvent) == 2:
 	    part1 = finalSampleEvent[0]
