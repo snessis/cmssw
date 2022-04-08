@@ -36,51 +36,35 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
     def analyze(self, event):
         genParts = Collection(event, "GenPart")
         eventMET = getattr(event, "MET_pt")
-        finalReq = [1000024] #13, 24, 1000022, 1000024 -> muon, W, neutralino, chargino
+        finalReq = [1000024] #13, 24, 1000022, 1000024 -> muon, W, neutralino, chargino. see https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         finalSampleEvent = []
-        unknown = []
         counter = 0;
-        #find chargino by making sure that it is the first ancestor
+        #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
-            if (abs(particle.pdgId) in finalReq):
+            if (abs(particle.pdgId) in finalReq and particle.mass == 200):
                  mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None # to be W
                  counter += 1;
-                 if (abs(mother.pdgId) in [1000024, -1000024]):
+                 if (abs(mother.pdgId) not in [1000024]):
                      finalSampleEvent.append(mother)
                      self.h_chpt.Fill(mother.pt)
                      self.h_cheta.Fill(mother.eta)
                      self.h_chphi.Fill(mother.phi)
-                 else:
-                    unknown.append(particle)
-                    print(str(mother.pdgId))
-            ##if (abs(particle.pdgId) in finalReq) and (particle.mass == 200): #chargino, also on 200gev
-            ##    mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None # to be W
-            ##    if mother is None:
-            ##        finalSampleEvent.append(particle)
-            ##        self.h_chpt.Fill(particle.pt)
-            ##        self.h_cheta.Fill(particle.eta)
-            ##        self.h_chphi.Fill(particle.phi)
-                ##if abs(mother.pdgId) in [1000024, -1000024]:
-                ##    finalSampleEvent.append(mother)
-                ##    self.h_chpt.Fill(mother.pt)
-                ##    self.h_cheta.Fill(mother.eta)
-                ##    self.h_chphi.Fill(mother.phi)
         if len(finalSampleEvent) > 0:
-            print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)) + ", unknown? :" + str(len(unknown)))
+            print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-	if len(finalSampleEvent) == 2:
-	    part1 = finalSampleEvent[0]
-	    part2 = finalSampleEvent[1]
-	    if part1.pdgId == -part2.pdgId:
-	    	for particle in finalSampleEvent:
-	    	    deta = abs(part1.eta) - abs(part2.eta)
-	    	    dphi = part1.phi - part2.phi
-	    	    self.h_chdeta.Fill(deta)
-	    	    self.h_chdphi.Fill(dphi)
-	    else:
-	        print("Spotted like charge pair")
-	        print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
-	self.h_metpt.Fill(eventMET)
+	    if len(finalSampleEvent) == 2:
+	        part1 = finalSampleEvent[0]
+	        part2 = finalSampleEvent[1]
+	        if part1.pdgId == -part2.pdgId:
+	        	for particle in finalSampleEvent:
+	        	    deta = abs(part1.eta) - abs(part2.eta)
+	        	    dphi = part1.phi - part2.phi
+	        	    self.h_chdeta.Fill(deta)
+                    self.h_chdphi.Fill(dphi)
+	        else:
+	            print("Spotted like charge pair")
+	            print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
+	    self.h_metpt.Fill(eventMET)
         return True
 
     def endJob(self):
