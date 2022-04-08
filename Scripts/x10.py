@@ -61,9 +61,9 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                     dphi = part1.phi - part2.phi
                     self.h_chdeta.Fill(deta)
                     self.h_chdphi.Fill(dphi)
-	       else:
-	            print("Spotted like charge pair")
-	            print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
+            else:
+                print("Spotted like charge pair")
+                print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
 	    self.h_metpt.Fill(eventMET)
         return True
 
