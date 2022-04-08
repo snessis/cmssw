@@ -25,7 +25,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -3.2, 3.2)
         self.h_chdeta = ROOT.TH1F('chdeta', 'Chargino Delta Eta', 250, 0, 6)
         self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 250, 0, 3.2)
-        self.h_chmass = ROOT.TH1F('chmass', 'Chargino Mass', 100, 120, 230)
+        self.h_chmass = ROOT.TH1F('chmass', 'Chargino Mass', 250, 120, 230)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
@@ -47,13 +47,14 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                  mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None # to be W
                  counter += 1;
                  if (abs(mother.pdgId) not in [1000024]):
+                     print(str(particle.mass))
                      finalSampleEvent.append(particle)
                      self.h_chpt.Fill(particle.pt)
                      self.h_cheta.Fill(particle.eta)
                      self.h_chphi.Fill(particle.phi)
                      self.h_chmass.Fill(particle.mass)
-        if len(finalSampleEvent) > 0:
-            print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)))
+        #if len(finalSampleEvent) > 0:
+        #    print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
 	    if len(finalSampleEvent) == 2:
 	        part1 = finalSampleEvent[0]
