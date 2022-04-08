@@ -49,7 +49,6 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
                      self.h_chpt.Fill(particle.pt)
                      self.h_cheta.Fill(particle.eta)
                      self.h_chphi.Fill(particle.phi)
-                     self.h_chmass.Fill(particle.mass)
         #if len(finalSampleEvent) > 0:
         #    print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
