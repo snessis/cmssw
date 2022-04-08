@@ -25,7 +25,6 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -3.2, 3.2)
         self.h_chdeta = ROOT.TH1F('chdeta', 'Chargino Delta Eta', 250, 0, 6)
         self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 250, 0, 3.2)
-        self.h_chmass = ROOT.TH1F('chmass', 'Chargino Mass', 250, 120, 230)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
@@ -33,7 +32,6 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         self.addObject(self.h_chphi)
         self.addObject(self.h_chdeta)
         self.addObject(self.h_chdphi)
-        self.addObject(self.h_chmass)
 
     def analyze(self, event):
         genParts = Collection(event, "GenPart")
@@ -46,15 +44,14 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
             if (abs(particle.pdgId) in finalReq):
                  mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None # to be W
                  counter += 1;
-                 if (abs(mother.pdgId) not in [1000024]):
-                     print(str(particle.mass))
+                 if (abs(mother.pdgId) not in [1000024] and particle.mass == 200.0):
                      finalSampleEvent.append(particle)
                      self.h_chpt.Fill(particle.pt)
                      self.h_cheta.Fill(particle.eta)
                      self.h_chphi.Fill(particle.phi)
                      self.h_chmass.Fill(particle.mass)
-        if len(finalSampleEvent) > 0:
-            print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)))
+        #if len(finalSampleEvent) > 0:
+        #    print("genPart particles: " + str(len(genParts)) + ", charginos: " + str(counter) + ", first ancestors: " + str(len(finalSampleEvent)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
 	    if len(finalSampleEvent) == 2:
 	        part1 = finalSampleEvent[0]
@@ -75,7 +72,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         self.c = ROOT.TCanvas("x10c", "The Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
-        impHist = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_chmass]
+        impHist = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi]
         for hist in impHist:
              hist.Draw()
              save = "x10/h_" + hist.GetName() + ".png"
