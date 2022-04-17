@@ -73,7 +73,7 @@ class ExampleDisplacedAnalysis(Module):
                      self.h_cheta.Fill(particle.eta)
                      self.h_chphi.Fill(particle.phi)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        if len(locatedParts) = 2:
+        if len(locatedParts) == 2:
             part1 = locatedParts[0]
             part2 = locatedParts[1]
             if part1.pdgId == -part2.pdgId:
@@ -85,7 +85,7 @@ class ExampleDisplacedAnalysis(Module):
             else:
                 print("Warning 1: Spotted like charge pair") #this doesnt show anymore, phew
                 print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
-        if len(locatedParts) is not 2:
+        if len(locatedParts) != 2:
             print("Warning 2: locatedParts is not two particles long.")
         #let's work into the specific decay
         return True
