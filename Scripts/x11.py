@@ -83,21 +83,21 @@ class ExampleDisplacedAnalysis(Module):
                     self.h_chdeta.Fill(deta)
                     self.h_chdphi.Fill(dphi)
             else:
-                print("Spotted like charge pair") #this doesnt show anymore, phew
+                print("Warning 1: Spotted like charge pair") #this doesnt show anymore, phew
                 print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
         if len(locatedParts) is not 2:
-            print("locatedParts is not two particles long.")
+            print("Warning 2: locatedParts is not two particles long.")
         #let's work into the specific decay
         return True
 
     def endJob(self):
-        self.c = ROOT.TCanvas("x10c", "The Canvas", 900, 660)
+        self.c = ROOT.TCanvas("x11c", "The Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
         impHist = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi]
         for hist in impHist:
              hist.Draw()
-             save = "x10/h_" + hist.GetName() + ".png"
+             save = "x11/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
         Module.endJob(self)
 
