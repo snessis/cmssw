@@ -90,7 +90,7 @@ class ExampleDisplacedAnalysis(Module):
                                 if tmp is None:
                                     tmp = mother
                                     break
-                            if (tmp.pdgId == 1000024 and tmp.mass == 200.0) and locatedSpecificCharginos.index(tmp) < 0:
+                            if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
                                 locatedSpecificCharginos.append(tmp)
                             if abs(particle.pdgId) == 13:
                                 self.h_mupt.Fill(particle.pt)
@@ -100,7 +100,7 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_nmueta.Fill(particle.eta)
                     #now for neu
                     if abs(particle.pdgId) == 1000022:
-                        if (mother.pdgId == 1000024 and mother.mass == 200.0) and locatedSpecificCharginos.index(mother) < 0:
+                        if (mother.pdgId == 1000024 and mother.mass == 200.0):
                             locatedSpecificCharginos.append(mother) #to improve here
                             self.h_neupt.Fill(particle.pt)
                             self.h_neueta.Fill(particle.eta)
