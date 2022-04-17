@@ -97,18 +97,18 @@ class ExampleDisplacedAnalysis(Module):
                     if abs(particle.pdgId) in leptonic:
                         if abs(mother.pdgId) == 24:
                             #loop until source is chargino
-                            tmp = mother #temp variable set, not actually mother... unless?
-                            print("pre: " + str(tmp.pdgId))
-                            tmp = findMother(tmp)
-                            print("post: " + str(tmp.pdgId))
+                            tmp = findMother(mother) #chargino or irrelevant W
                             if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
                                 addUniqueParticle(tmp, locatedSpecificCharginos)
-                            if abs(particle.pdgId) == 13:
-                                self.h_mupt.Fill(particle.pt)
-                                self.h_mueta.Fill(particle.eta)
-                            if abs(particle.pdgId) == 14:
-                                self.h_nmupt.Fill(particle.pt)
-                                self.h_nmueta.Fill(particle.eta)
+                                deta = abs(particle.eta) - abs(tmp.eta)
+                                if abs(particle.pdgId) == 13:
+                                    self.h_mupt.Fill(particle.pt)
+                                    self.h_mueta.Fill(particle.eta)
+                                    self.h_mix_chmu_deta.Fill(deta)
+                                if abs(particle.pdgId) == 14:
+                                    self.h_nmupt.Fill(particle.pt)
+                                    self.h_nmueta.Fill(particle.eta)
+                                    self.h_mix_chneu_deta.Fill(deta)
                     #now for neu
                     if abs(particle.pdgId) == 1000022:
                         if (mother.pdgId == 1000024 and mother.mass == 200.0):
@@ -141,7 +141,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c = ROOT.TCanvas("x11c", "The Canvas", 900, 660)
         self.addObject(self.c)
         self.c.cd()
-        impHist = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta]
+        impHist = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chneu_deta]
         for hist in impHist:
              hist.Draw()
              save = "x11/h_" + hist.GetName() + ".png"
