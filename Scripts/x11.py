@@ -65,7 +65,7 @@ class ExampleDisplacedAnalysis(Module):
         leptonic = [13, 14]
         locatedCharginos = []
         locatedSpecificCharginos = []
-        def cycleResonance(particle, id, fixnone):
+        def cycleResonance(particle, id, fixnone): #cycles for resonances. on fail, sets particle to fixnone: improve later.
             while abs(particle.pdgId) == 24:
                 if abs(particle.pdgId) != 24:
                     break
@@ -73,23 +73,31 @@ class ExampleDisplacedAnalysis(Module):
                 if particle is None:
                     particle = fixnone
                     break
-        #def addUniqueChargino(particle):
+        def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
+            tmp = 0
+            try:
+                list.index(particle)
+            except ValueError:
+                tmp = 1
+            if tmp == 1:
+                list.append(particle)
 
-        counter = 0
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
             mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
             if mother is not None:
-                if abs(particle.pdgId) in locateFinalStates: #identify final state particle:
-                    #mother must now be W or ch.
-                    #case for mu and nmu:
+                if abs(particle.pdgId) in locateFinalStates: #identify final state particle
+                    #mother must now be W or ch. instill check.
+                    #case for mu and nmu, leptonic:
                     if abs(particle.pdgId) in leptonic:
                         if abs(mother.pdgId) == 24:
                             #loop until source is chargino
                             tmp = mother #temp variable set, not actually mother... unless?
+                            print("pre: " + str(tmp.pdgId))
                             cycleResonance(tmp, 24, mother)
+                            print("post: " + str(tmp.pdgId))
                             if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
-                                locatedSpecificCharginos.append(tmp)
+                                addUniqueParticle(tmp, locatedSpecificCharginos)
                             if abs(particle.pdgId) == 13:
                                 self.h_mupt.Fill(particle.pt)
                                 self.h_mueta.Fill(particle.eta)
@@ -99,17 +107,17 @@ class ExampleDisplacedAnalysis(Module):
                     #now for neu
                     if abs(particle.pdgId) == 1000022:
                         if (mother.pdgId == 1000024 and mother.mass == 200.0):
-                            locatedSpecificCharginos.append(mother) #to improve here
+                            addUniqueParticle(mother, locatedSpecificCharginos)#to improve here
                             self.h_neupt.Fill(particle.pt)
                             self.h_neueta.Fill(particle.eta)
                     #now all first gen charginos, independant of reaction
-                    if (abs(particle.pdgId) == 1000024): # all charginos
-                         counter += 1;
-                         if (abs(mother.pdgId) == 1000024 and particle.mass == 200.0): #mother not same particle id, source is q,g: can improve
-                             locatedCharginos.append(particle)
-                             self.h_chpt.Fill(particle.pt)
-                             self.h_cheta.Fill(particle.eta)
-                             self.h_chphi.Fill(particle.phi)
+                    if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0 and abs(mother.pdgId) != 1000024): # all charginos
+                        locatedCharginos.append(particle)
+                        self.h_chpt.Fill(particle.pt)
+                        self.h_cheta.Fill(particle.eta)
+                        self.h_chphi.Fill(particle.phi)
+                    #do the mixtures
+
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedCharginos) == 2:
             part1 = locatedCharginos[0]
