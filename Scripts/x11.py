@@ -65,16 +65,19 @@ class ExampleDisplacedAnalysis(Module):
         leptonic = [13, 14]
         locatedCharginos = []
         locatedSpecificCharginos = []
-        def cycleResonance(particle, id, fixnone): #cycles for resonances. on fail, sets particle to fixnone: improve later.
-            tmp = particle
-            while abs(tmp.pdgId) == id:
-                if abs(tmp.pdgId) != id:
-                    break
-                tmp = genParts[tmp.genPartIdxMother] if tmp.genPartIdxMother in range(len(genParts)) else None
-                if tmp is None:
-                    tmp = fixnone
-                    break
-            return tmp
+        def findMother(particle): #aims to find a mother particle. if it doesnt, it returns the original
+            original = particle
+            resonance = original
+            while resonance.pdgId == original.pdgId:
+                try:
+                    testResonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
+                    testResonance.pdgId
+                except:
+                    print("Warning 3: findMother exception")
+                    return original
+                resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
+            return resonance
+
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
             tmp = 0
             try:
@@ -96,7 +99,7 @@ class ExampleDisplacedAnalysis(Module):
                             #loop until source is chargino
                             tmp = mother #temp variable set, not actually mother... unless?
                             print("pre: " + str(tmp.pdgId))
-                            tmp = cycleResonance(tmp, 24, particle)
+                            tmp = findMother(tmp)
                             print("post: " + str(tmp.pdgId))
                             if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
                                 addUniqueParticle(tmp, locatedSpecificCharginos)
@@ -112,12 +115,12 @@ class ExampleDisplacedAnalysis(Module):
                             addUniqueParticle(mother, locatedSpecificCharginos)#to improve here
                             self.h_neupt.Fill(particle.pt)
                             self.h_neueta.Fill(particle.eta)
-                    #now all first gen charginos, independant of reaction
-                    if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0 and abs(mother.pdgId) != 1000024): # all charginos
-                        locatedCharginos.append(particle)
-                        self.h_chpt.Fill(particle.pt)
-                        self.h_cheta.Fill(particle.eta)
-                        self.h_chphi.Fill(particle.phi)
+                #now all first gen charginos, independant of reaction
+                if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0 and mother.pdgId != 100024): # all charginos
+                    locatedCharginos.append(particle)
+                    self.h_chpt.Fill(particle.pt)
+                    self.h_cheta.Fill(particle.eta)
+                    self.h_chphi.Fill(particle.phi)
 
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedCharginos) == 2:
