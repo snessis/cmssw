@@ -49,7 +49,7 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mupt)
         self.addObject(self.h_mueta)
         self.addObject(self.h_nmupt)
-        self.addObject(self.h_nmupt)
+        self.addObject(self.h_nmueta)
         self.addObject(self.h_neupt)
         self.addObject(self.h_neueta)
         self.addObject(self.h_mix_chmu_deta)
