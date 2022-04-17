@@ -118,7 +118,6 @@ class ExampleDisplacedAnalysis(Module):
                     dphi = part1.phi - part2.phi
                     self.h_chdeta.Fill(deta)
                     self.h_chdphi.Fill(dphi)
-                    daughter =
             else:
                 print("Warning 1: Spotted like charge pair") #this doesnt show anymore, phew
                 print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
