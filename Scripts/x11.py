@@ -70,10 +70,11 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) != 24:
                     break
                 particle = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
-                if tmp is None:
-                    tmp = fixnone
+                if particle is None:
+                    particle = fixnone
                     break
         #def addUniqueChargino(particle):
+
         counter = 0
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
