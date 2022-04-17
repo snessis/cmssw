@@ -67,6 +67,8 @@ class ExampleDisplacedAnalysis(Module):
             if (abs(particle.pdgId) in locateParts):
                  mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
                  counter += 1;
+                 if particle.mass == 200.0:
+                     return True
                  if (abs(mother.pdgId) not in [1000024] and particle.mass == 200.0): #mother not same particle id, source is q,g: can improve
                      locatedParts.append(particle)
                      self.h_chpt.Fill(particle.pt)
