@@ -26,7 +26,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 200, -6, 6)
         # 14 - MUON NETRINO
         self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 200, 0, 1100)
-        self.h_nmueta = ROOT.TH1F('nmupt', 'Muon Neutrino Pseudorapidity', 200, -6, 6)
+        self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity', 200, -6, 6)
         # 1000022 - NEUTRALINO
         self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum', 200, 0, 1100)
         self.h_neueta = ROOT.TH1F('neueta', 'Neutralino Pseudorapidity', 200, -6, 6)
