@@ -86,13 +86,7 @@ class ExampleDisplacedAnalysis(Module):
                         if abs(mother.pdgId) == 24:
                             #loop until source is chargino
                             tmp = mother #temp variable set, not actually mother... unless?
-                            while abs(tmp.pdgId) == 24:
-                                if abs(tmp.pdgId) != 24:
-                                    break
-                                tmp = genParts[tmp.genPartIdxMother] if tmp.genPartIdxMother in range(len(genParts)) else None
-                                if tmp is None:
-                                    tmp = mother
-                                    break
+                            cycleResonance(tmp, 24, mother)
                             if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
                                 locatedSpecificCharginos.append(tmp)
                             if abs(particle.pdgId) == 13:
