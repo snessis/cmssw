@@ -22,10 +22,10 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 200, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 200, 0, 1100)
+        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 200, 0, 100)
         self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 200, -6, 6)
         # 14 - MUON NETRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 200, 0, 1100)
+        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 200, 0, 100)
         self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity', 200, -6, 6)
         # 1000022 - NEUTRALINO
         self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum', 200, 0, 1100)
@@ -65,11 +65,14 @@ class ExampleDisplacedAnalysis(Module):
         leptonic = [13, 14]
         locatedCharginos = []
         locatedSpecificCharginos = []
-        #def cycleResonance(particle, id):
-        #    while abs(particle.pdgId) == id:
-        #        if abs(particle.pdgId) != id:
-        #            break
-        #        particle =
+        def cycleResonance(particle, id, fixnone):
+            while abs(particle.pdgId) == 24:
+                if abs(particle.pdgId) != 24:
+                    break
+                particle = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
+                if tmp is None:
+                    tmp = fixnone
+                    break
         #def addUniqueChargino(particle):
         counter = 0
         #find chargino by making sure that it is the first ancestor, mass 200gev
@@ -105,7 +108,7 @@ class ExampleDisplacedAnalysis(Module):
                             self.h_neupt.Fill(particle.pt)
                             self.h_neueta.Fill(particle.eta)
                     #now all first gen charginos, independant of reaction
-                    if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0): # all charginos
+                    if (abs(particle.pdgId) == 1000024): # all charginos
                          counter += 1;
                          if (abs(mother.pdgId) == 1000024 and particle.mass == 200.0): #mother not same particle id, source is q,g: can improve
                              locatedCharginos.append(particle)
