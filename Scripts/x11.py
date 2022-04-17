@@ -66,13 +66,15 @@ class ExampleDisplacedAnalysis(Module):
         locatedCharginos = []
         locatedSpecificCharginos = []
         def cycleResonance(particle, id, fixnone): #cycles for resonances. on fail, sets particle to fixnone: improve later.
-            while abs(particle.pdgId) == 24:
-                if abs(particle.pdgId) != 24:
+            tmp = particle
+            while abs(tmp.pdgId) == id:
+                if abs(tmp.pdgId) != id:
                     break
-                particle = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
-                if particle is None:
-                    particle = fixnone
+                tmp = genParts[tmp.genPartIdxMother] if tmp.genPartIdxMother in range(len(genParts)) else None
+                if tmp is None:
+                    tmp = fixnone
                     break
+            return tmp
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
             tmp = 0
             try:
@@ -94,7 +96,7 @@ class ExampleDisplacedAnalysis(Module):
                             #loop until source is chargino
                             tmp = mother #temp variable set, not actually mother... unless?
                             print("pre: " + str(tmp.pdgId))
-                            cycleResonance(tmp, 24, mother)
+                            tmp = cycleResonance(tmp, 24, particle)
                             print("post: " + str(tmp.pdgId))
                             if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
                                 addUniqueParticle(tmp, locatedSpecificCharginos)
@@ -116,7 +118,6 @@ class ExampleDisplacedAnalysis(Module):
                         self.h_chpt.Fill(particle.pt)
                         self.h_cheta.Fill(particle.eta)
                         self.h_chphi.Fill(particle.phi)
-                    #do the mixtures
 
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedCharginos) == 2:
