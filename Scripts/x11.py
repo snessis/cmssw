@@ -73,7 +73,7 @@ class ExampleDisplacedAnalysis(Module):
                      self.h_cheta.Fill(particle.eta)
                      self.h_chphi.Fill(particle.phi)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        if len(locatedParts) != 2:
+        if len(locatedParts) = 2:
             part1 = locatedParts[0]
             part2 = locatedParts[1]
             if part1.pdgId == -part2.pdgId:
