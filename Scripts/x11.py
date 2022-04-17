@@ -60,6 +60,7 @@ class ExampleDisplacedAnalysis(Module):
         eventMET = getattr(event, "MET_pt")
         locateParts = [1000024]
         locatedParts = []
+        counter = 0
         self.h_metpt.Fill(eventMET)
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
