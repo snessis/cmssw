@@ -85,7 +85,7 @@ class ExampleDisplacedAnalysis(Module):
             else:
                 print("Spotted like charge pair") #this doesnt show anymore, phew
                 print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
-        if len(locatedParts is not 2):
+        if len(locatedParts) is not 2:
             print("locatedParts is not two particles long.")
         #let's work into the specific decay
         return True
