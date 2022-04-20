@@ -119,7 +119,7 @@ class ExampleDisplacedAnalysis(Module):
                     deta = abs(particle.eta) - abs(mother.eta)
                     self.h_mix_chneu_deta.Fill(deta)
             #now all first gen charginos, independant of reaction
-            if (abs(particle.pdgId) == 1000024 and particle.mass > 200.0 and abs(mother.pdgId) != 1000024): # all charginos
+            if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0 and abs(mother.pdgId) != 1000024): # all charginos
                 locatedCharginos.append(particle)
                 self.h_chpt.Fill(particle.pt)
                 self.h_cheta.Fill(particle.eta)
