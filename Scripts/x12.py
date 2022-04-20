@@ -84,16 +84,19 @@ class ExampleDisplacedAnalysis(Module):
                 print("Warning 4: Original id: " + str(original.pdgId) + ", Mother id: " + str(resonance.pdgId))
             return resonance
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
-            try:
-                list.index(particle)
-            except ValueError:
+            ids = []
+            for item in list:
+                ids.append(item.genPartIdxMother)
+            if particle.genPartIdxMother not in ids:
                 list.append(particle)
         def particleInList(particle, list):
-            try:
-                list.index(particle)
-            except ValueError:
-                return False
-            return True
+            ids = []
+            for item in list:
+                ids.append(item.genPartIdxMother)
+            if particle.genPartIdxMother in ids:
+                return True
+            else:
+                return False        
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
@@ -121,7 +124,7 @@ class ExampleDisplacedAnalysis(Module):
                         self.h_cheta.Fill(particle.eta)
                         self.h_chphi.Fill(particle.phi)
         if len(locatedSpecificCharginos) == 0:
-            return True                
+            return True
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
         mn_moms = 0
         ch_moms = 0
@@ -151,7 +154,7 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedCharginos) > 0:
-            print("Warning 8: Muon-Neutrino moms: " + str(nm_moms) + ", Chargino moms: " + str(ch_moms))
+            print("Warning 8: Muon-Neutrino moms: " + str(mn_moms) + ", Chargino moms: " + str(ch_moms))
             if len(locatedSpecificCharginos) != 2:
                 print("Warning 8.5: locatedSpecificCharginos is not 2!")
             print("Warning 9: locatedCharginos length: " + str(len(locatedCharginos)))
