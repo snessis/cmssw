@@ -120,6 +120,8 @@ class ExampleDisplacedAnalysis(Module):
                         self.h_chpt.Fill(particle.pt)
                         self.h_cheta.Fill(particle.eta)
                         self.h_chphi.Fill(particle.phi)
+        if len(locatedSpecificCharginos) == 0:
+            return True                
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
         mn_moms = 0
         ch_moms = 0
