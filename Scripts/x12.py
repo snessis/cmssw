@@ -76,6 +76,8 @@ class ExampleDisplacedAnalysis(Module):
                 try:
                     testResonance.pdgId
                 except:
+                    if log == True:
+                        print("Warning 4.5: Exception. Returning original")
                     return original
                 resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
             if log == True:
@@ -112,7 +114,8 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
             if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
-                mother = findAncestor(particle, True)
+                mother = findAncestor(particle, False)
+                gmother = findAncestor(mother, True)
                 if abs(mother.pdgId) in hadronic:
                     #print("Warining 5: entered locatedCharginos function call (before)")
                     addUniqueParticle(particle, locatedCharginos)
@@ -141,7 +144,19 @@ class ExampleDisplacedAnalysis(Module):
                             deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                             self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        #fix here
+        if len(locatedCharginos) > 0:
+            print("locatedCharginos length:" + str(len(locatedCharginos)))
+            if len(locatedCharginos) == 2:
+                part1 = locatedCharginos[0]
+                part2 = locatedCharginos[1]
+                if part1.pdgId == -part2.pdgId:
+                    deta = abs(part1.eta) - abs(part2.eta)
+                    dphi = part1.phi - part2.phi
+                    self.h_chdeta.Fill(deta)
+                    self.h_chdphi.Fill(dphi)
+                else:
+                    print("Warning 1: Spotted like charge pair") #this doesnt show anymore, phew
+                    print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
         return True
 
     def endJob(self):
