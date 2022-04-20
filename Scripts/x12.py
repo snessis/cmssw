@@ -152,7 +152,7 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedSpecificCharginos) == 2:
-            for particle in locatedCharginos:
+            for particle in locatedSpecificCharginos:
                 self.h_chpt.Fill(particle.pt)
                 self.h_cheta.Fill(particle.eta)
                 self.h_chphi.Fill(particle.phi)
