@@ -64,6 +64,7 @@ class ExampleDisplacedAnalysis(Module):
         leptonic = [13, 14]
         locatedCharginos = []
         locatedSpecificCharginos = []
+        hadronic = [1,2,3,4,5,6,9,21]
         def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
             resonance = original
@@ -75,7 +76,7 @@ class ExampleDisplacedAnalysis(Module):
                     #print("Warning 3: findAncestor exception")
                     return original
                 resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
-            print("Warning 4: findAncestor passed!")
+            #print("Warning 4: findAncestor passed!")
             return resonance
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
             try:
@@ -120,7 +121,7 @@ class ExampleDisplacedAnalysis(Module):
                     deta = abs(particle.eta) - abs(mother.eta)
                     self.h_mix_chneu_deta.Fill(deta)
             #now all first gen charginos, independant of reaction
-            if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0 and mother.pdgId != 100024): # all charginos
+            if (abs(particle.pdgId) == 1000024 and particle.mass > 200.0 and abs(mother.pdgId) != 1000024): # all charginos
                 locatedCharginos.append(particle)
                 self.h_chpt.Fill(particle.pt)
                 self.h_cheta.Fill(particle.eta)
