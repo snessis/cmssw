@@ -152,7 +152,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.SaveAs(save)
         Module.endJob(self)
 
-preselection = "abs(GenPart.pdgId) in [1,2,3,4,5,6,9,21,13,14,24,1000022,1000024]"
+preselection = ""
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_M150to200_DM5to20_ctau10.root".format(os.environ['CMSSW_BASE'])] ##new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x11.root", histDirName="plots")
 p.run()
