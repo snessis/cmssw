@@ -86,14 +86,14 @@ class ExampleDisplacedAnalysis(Module):
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
             ids = []
             for item in list:
-                item.genPartIdxMother.append(ids)
+                ids.append(item.genPartIdxMother)
             if particle.genPartIdxMother not in ids:
                 list.append(particle)
-        def checkUniqueParticle(particle, list):
+        def particleInList(particle, list):
             ids = []
             for item in list:
-                item.genPartIdxMother.append(ids)
-            if particle.genPartIdxMother not in ids:
+                ids.append(item.genPartIdxMother)
+            if particle.genPartIdxMother in ids:
                 return True
             return False
         #find chargino by making sure that it is the first ancestor, mass 200gev
