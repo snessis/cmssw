@@ -62,10 +62,13 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt.Fill(eventMET)
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
+        hadroinic = [1,2,3,4,5,6,9,21]
         locatedCharginos = []
         locatedSpecificCharginos = []
-        hadronic = [1,2,3,4,5,6,9,21]
-        def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
+        mus = []
+        nmus = []
+        neus = []
+        def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
             resonance = original
             while resonance.pdgId == original.pdgId:
@@ -75,6 +78,8 @@ class ExampleDisplacedAnalysis(Module):
                 except:
                     return original
                 resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
+            if log == True:
+                print("Mother id: " + str(resonance.pdgId))
             return resonance
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
             try:
@@ -87,20 +92,15 @@ class ExampleDisplacedAnalysis(Module):
             except ValueError:
                 return False
             return True
-
-        mus = []
-        nmus = []
-        neus = []
-
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
-                mother = findAncestor(particle)
+                mother = findAncestor(particle, False)
                 #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
                 if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
-                        gmother = findAncestor(mother) #chargino or irrelevant W
+                        gmother = findAncestor(mother, False) #chargino or irrelevant W
                         if (gmother.pdgId == 1000024 and gmother.mass == 200.0):
                             addUniqueParticle(gmother, locatedSpecificCharginos)
                             deta = abs(particle.eta) - abs(gmother.eta)
@@ -111,21 +111,20 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
-            if abs(particle.pdgId) == 1000024 and (particle.mass == 200.0): #all charginos
+            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
                 mother = findAncestor(particle)
-                if abs(mother.pdgId) != 1000024:
+                if abs(mother.pdgId) in hadronic:
                     addUniqueParticle(particle, locatedCharginos)
-
-        #x12 algorithm for faster handling
+        #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
         for mu in mus:
-            mu_mother = findAncestor(mu) #W
+            mu_mother = findAncestor(mu, False) #W
             for nmu in nmus:
-                nmu_mother = findAncestor(nmu) #W
+                nmu_mother = findAncestor(nmu, False) #W
                 if nmu_mother == mu_mother:
-                    mu_gmother = findAncestor(mu_mother) #chargino
+                    mu_gmother = findAncestor(mu_mother, False) #chargino
                     #nmu_gmother = findAncestor(nmu_mother)
                     for neu in neus:
-                        neu_mother = findAncestor(neu) #chargino
+                        neu_mother = findAncestor(neu, False) #chargino
                         if mu_gmother == neu_mother:
                             deta_mu = abs(mu.eta) - abs(mu_gmother.eta)
                             self.h_mupt.Fill(mu.pt)
@@ -137,18 +136,16 @@ class ExampleDisplacedAnalysis(Module):
                             self.h_neueta.Fill(neu.eta)
                             deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                             self.h_mix_chneu_deta.Fill(deta_neu)
-
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         #print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
         if len(locatedCharginos) == 2:
             part1 = locatedCharginos[0]
             part2 = locatedCharginos[1]
             if part1.pdgId == -part2.pdgId:
-                for particle in locatedCharginos:
-                    deta = abs(part1.eta) - abs(part2.eta)
-                    dphi = part1.phi - part2.phi
-                    self.h_chdeta.Fill(deta)
-                    self.h_chdphi.Fill(dphi)
+                deta = abs(part1.eta) - abs(part2.eta)
+                dphi = part1.phi - part2.phi
+                self.h_chdeta.Fill(deta)
+                self.h_chdphi.Fill(dphi)
             else:
                 print("Warning 1: Spotted like charge pair") #this doesnt show anymore, phew
                 print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
