@@ -143,7 +143,6 @@ class ExampleDisplacedAnalysis(Module):
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedCharginos) > 0:
             print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
-        }
         if len(locatedCharginos) == 2:
             part1 = locatedCharginos[0]
             part2 = locatedCharginos[1]
