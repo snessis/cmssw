@@ -24,7 +24,7 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
         self.h_cheta = ROOT.TH1F('cheta', 'Chargino Pseudorapidity', 250, -6, 6)
         self.h_chphi = ROOT.TH1F('chphi', 'Chargino Phi', 250, -3.2, 3.2)
         self.h_chdeta = ROOT.TH1F('chdeta', 'Chargino Delta Eta', 250, 0, 6)
-        self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 250, 0, 3.2)
+        self.h_chdphi = ROOT.TH1F('chdphi', 'Chargino Delta Phi', 175, 0, 3.2)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
@@ -56,11 +56,10 @@ class ExampleDisplacedAnalysis(Module): #this just turned out to be a better opt
             part1 = finalSampleEvent[0]
             part2 = finalSampleEvent[1]
             if part1.pdgId == -part2.pdgId:
-                for particle in finalSampleEvent:
-                    deta = abs(part1.eta) - abs(part2.eta)
-                    dphi = part1.phi - part2.phi
-                    self.h_chdeta.Fill(deta)
-                    self.h_chdphi.Fill(dphi)
+                deta = abs(part1.eta) - abs(part2.eta)
+                dphi = part1.phi - part2.phi
+                self.h_chdeta.Fill(deta)
+                self.h_chdphi.Fill(dphi)
             else:
                 print("Spotted like charge pair")
                 print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
