@@ -79,7 +79,7 @@ class ExampleDisplacedAnalysis(Module):
                     return original
                 resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
             if log == True:
-                print("Mother id: " + str(resonance.pdgId))
+                print("Warning 4: Mother id: " + str(resonance.pdgId))
             return resonance
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
             try:
@@ -112,7 +112,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
             if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
-                mother = findAncestor(particle, True)
+                mother = findAncestor(particle, False)
                 if abs(mother.pdgId) in hadronic:
                     addUniqueParticle(particle, locatedCharginos)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
@@ -137,7 +137,7 @@ class ExampleDisplacedAnalysis(Module):
                             deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                             self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        #print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
+        print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
         if len(locatedCharginos) == 2:
             part1 = locatedCharginos[0]
             part2 = locatedCharginos[1]
