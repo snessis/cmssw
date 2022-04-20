@@ -96,7 +96,7 @@ class ExampleDisplacedAnalysis(Module):
             if particle.genPartIdxMother in ids:
                 return True
             else:
-                return False        
+                return False
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
@@ -135,7 +135,7 @@ class ExampleDisplacedAnalysis(Module):
                 if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
                     mn_moms += 1
                     mu_gmother = findAncestor(mu_mother, False) #chargino
-                    mnu_gmother = findAncestor(nmu_mother, False) #chargino must be the same
+                    nmu_gmother = findAncestor(nmu_mother, False) #chargino must be the same
                     if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother:
                         #nmu_gmother = findAncestor(nmu_mother)
                         for neu in neus:
