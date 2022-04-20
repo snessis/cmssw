@@ -94,7 +94,7 @@ class ExampleDisplacedAnalysis(Module):
             return True
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
-            if abs(particle.pdgId) in locateFinalStates: #identify final state particle
+            if abs(particle.pdgId) in locateFinalStates and particle.statusFlags == 13: #identify final state particle
                 mother = findAncestor(particle, False)
                 #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
@@ -111,9 +111,9 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
-            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
+            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0) and particle.statusFlags == 13: #all charginos
                 mother = findAncestor(particle, False)
-                if abs(mother.pdgId) not in hadronic:
+                if abs(mother.pdgId) in hadronic:
                     #print("Warining 5: entered locatedCharginos function call (before)")
                     addUniqueParticle(particle, locatedCharginos)
                     self.h_chpt.Fill(particle.pt)
@@ -141,7 +141,9 @@ class ExampleDisplacedAnalysis(Module):
                             deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                             self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
+        if len(locatedCharginos) > 0:
+            print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
+        }
         if len(locatedCharginos) == 2:
             part1 = locatedCharginos[0]
             part2 = locatedCharginos[1]
