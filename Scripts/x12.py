@@ -84,16 +84,18 @@ class ExampleDisplacedAnalysis(Module):
                 print("Warning 4: Original id: " + str(original.pdgId) + ", Mother id: " + str(resonance.pdgId))
             return resonance
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
-            try:
-                list.index(particle)
-            except ValueError:
+            ids = []
+            for item in list:
+                item.genPartIdxMother.append(ids)
+            if particle.genPartIdxMother not in ids:
                 list.append(particle)
         def checkUniqueParticle(particle, list):
-            try:
-                list.index(particle)
-            except ValueError:
-                return False
-            return True
+            ids = []
+            for item in list:
+                item.genPartIdxMother.append(ids)
+            if particle.genPartIdxMother not in ids:
+                return True
+            return False
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
