@@ -59,7 +59,6 @@ class ExampleDisplacedAnalysis(Module):
     def analyze(self, event):
         genParts = Collection(event, "GenPart")
         eventMET = getattr(event, "MET_pt")
-        self.h_metpt.Fill(eventMET)
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         hadronic = [1,2,3,4,5,6,9,21]
@@ -111,10 +110,11 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
-            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0) and particle.status == 1: #all charginos
+            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
                 mother = findAncestor(particle, False)
                 if abs(mother.pdgId) in hadronic:
-                    #print("Warining 5: entered locatedCharginos function call (before)")
+                    self.h_metpt.Fill(eventMET)
+                    print("Warining 5: entered locatedCharginos function call (before)")
                     addUniqueParticle(particle, locatedCharginos)
                     self.h_chpt.Fill(particle.pt)
                     self.h_cheta.Fill(particle.eta)
