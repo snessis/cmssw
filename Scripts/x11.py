@@ -87,7 +87,7 @@ class ExampleDisplacedAnalysis(Module):
             except ValueError:
                 return False
             return True
-            
+
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
             mother = findAncestor(particle)
@@ -113,7 +113,7 @@ class ExampleDisplacedAnalysis(Module):
             mother = findAncestor(particle)
             #case for neu
             if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
-                if checkUniqueParticle(mother, locatedSpecificCharginos) == true:
+                if checkUniqueParticle(mother, locatedSpecificCharginos) == True:
                     self.h_neupt.Fill(particle.pt)
                     self.h_neueta.Fill(particle.eta)
                     deta = abs(particle.eta) - abs(mother.eta)
@@ -125,7 +125,7 @@ class ExampleDisplacedAnalysis(Module):
                 self.h_cheta.Fill(particle.eta)
                 self.h_chphi.Fill(particle.phi)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        print("locatedCharginos size:" + str(len(locatedCharginos)))
+        print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
         if len(locatedCharginos) == 2:
             part1 = locatedCharginos[0]
             part2 = locatedCharginos[1]
