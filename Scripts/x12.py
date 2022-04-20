@@ -113,8 +113,12 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(particle, neus)
             if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
                 mother = findAncestor(particle, False)
-                if abs(mother.pdgId) in hadronic:
+                if abs(mother.pdgId) not in hadronic:
+                    #print("Warining 5: entered locatedCharginos function call (before)")
                     addUniqueParticle(particle, locatedCharginos)
+                    self.h_chpt.Fill(particle.pt)
+                    self.h_cheta.Fill(particle.eta)
+                    self.h_chphi.Fill(particle.phi)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
         for mu in mus:
             mu_mother = findAncestor(mu, False) #W
