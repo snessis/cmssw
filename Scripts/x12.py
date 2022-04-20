@@ -19,26 +19,26 @@ class ExampleDisplacedAnalysis(Module):
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL
-        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 200, 0, 400)
+        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 175, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 200, 0, 100)
-        self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 200, -6, 6)
+        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 175, 0, 100)
+        self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 175, -6, 6)
         # 14 - MUON NETRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 200, 0, 100)
-        self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity', 200, -6, 6)
+        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 175, 0, 100)
+        self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity', 175, -6, 6)
         # 1000022 - NEUTRALINO
-        self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum', 200, 0, 1100)
-        self.h_neueta = ROOT.TH1F('neueta', 'Neutralino Pseudorapidity', 200, -6, 6)
+        self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum', 175, 0, 1100)
+        self.h_neueta = ROOT.TH1F('neueta', 'Neutralino Pseudorapidity', 175, -6, 6)
         # 1000024 - CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', 'All Chargino Transverse Momentum', 200, 0, 1100)
-        self.h_cheta = ROOT.TH1F('cheta', 'All Chargino Pseudorapidity', 200, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', 'All Chargino Phi', 200, -3.2, 3.2)
-        self.h_chdeta = ROOT.TH1F('chdeta', 'All Chargino Delta Eta', 200, 0, 6)
-        self.h_chdphi = ROOT.TH1F('chdphi', 'All Chargino Delta Phi', 200, 0, 3.2)
+        self.h_chpt = ROOT.TH1F('chpt', 'All Chargino Transverse Momentum', 175, 0, 1100)
+        self.h_cheta = ROOT.TH1F('cheta', 'All Chargino Pseudorapidity', 175, -6, 6)
+        self.h_chphi = ROOT.TH1F('chphi', 'All Chargino Phi', 175, -3.2, 3.2)
+        self.h_chdeta = ROOT.TH1F('chdeta', 'All Chargino Delta Eta', 175, 0, 6)
+        self.h_chdphi = ROOT.TH1F('chdphi', 'All Chargino Delta Phi', 175, 0, 3.2)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta', 200, 0, 4)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', 'Chargino-Neutralino Delta Eta', 200, 0, 1)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta', 175, 0, 4)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', 'Chargino-Neutralino Delta Eta', 175, 0, 1)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
@@ -114,7 +114,7 @@ class ExampleDisplacedAnalysis(Module):
                 mother = findAncestor(particle, False)
                 if abs(mother.pdgId) in hadronic:
                     self.h_metpt.Fill(eventMET)
-                    print("Warining 5: entered locatedCharginos function call (before)")
+                    #print("Warining 5: entered locatedCharginos function call (before)")
                     addUniqueParticle(particle, locatedCharginos)
                     self.h_chpt.Fill(particle.pt)
                     self.h_cheta.Fill(particle.eta)
@@ -141,19 +141,22 @@ class ExampleDisplacedAnalysis(Module):
                             deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                             self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        if len(locatedCharginos) > 0:
-            print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
-        if len(locatedCharginos) == 2:
-            part1 = locatedCharginos[0]
-            part2 = locatedCharginos[1]
-            if part1.pdgId == -part2.pdgId:
-                deta = abs(part1.eta) - abs(part2.eta)
-                dphi = part1.phi - part2.phi
-                self.h_chdeta.Fill(deta)
-                self.h_chdphi.Fill(dphi)
-            else:
-                print("Warning 1: Spotted like charge pair") #this doesnt show anymore, phew
-                print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
+        ch_pairs = 0
+        for i in range(len(locatedCharginos)):
+            for j in range(i, len(locatedCharginos)):
+                if i==j:
+                    continue
+                part1 = locatedCharginos[i]
+                part2 = locatedCharginos[j]
+                i_mother = findAncestor(part1)
+                j_mother = findAncestor(part2)
+                if i_mother == j_mother:
+                    ch_pairs +=1
+                    deta = abs(part1.eta) - abs(part2.eta)
+                    dphi = part1.phi - part2.phi
+                    self.h_chdeta.Fill(deta)
+                    self.h_chdphi.Fill(dphi)
+        print("Warning 7: Chargino pairs:" + str(ch_pairs) + ", locatedCharginos size:" + str(len(locatedCharginos)))            
         return True
 
     def endJob(self):
