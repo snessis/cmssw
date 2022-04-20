@@ -148,15 +148,16 @@ class ExampleDisplacedAnalysis(Module):
                     continue
                 part1 = locatedCharginos[i]
                 part2 = locatedCharginos[j]
-                i_mother = findAncestor(part1)
-                j_mother = findAncestor(part2)
+                i_mother = findAncestor(part1, False)
+                j_mother = findAncestor(part2, False)
                 if i_mother == j_mother:
                     ch_pairs +=1
                     deta = abs(part1.eta) - abs(part2.eta)
                     dphi = part1.phi - part2.phi
                     self.h_chdeta.Fill(deta)
                     self.h_chdphi.Fill(dphi)
-        print("Warning 7: Chargino pairs:" + str(ch_pairs) + ", locatedCharginos size:" + str(len(locatedCharginos)))            
+        if len(locatedCharginos) > 0:
+            print("Warning 7: Chargino pairs:" + str(ch_pairs) + ", locatedCharginos size:" + str(len(locatedCharginos)))
         return True
 
     def endJob(self):
