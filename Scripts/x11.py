@@ -37,8 +37,8 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdeta = ROOT.TH1F('chdeta', 'All Chargino Delta Eta', 200, 0, 6)
         self.h_chdphi = ROOT.TH1F('chdphi', 'All Chargino Delta Phi', 200, 0, 3.2)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta', 200, 0, 6)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', 'Chargino-Neutralino Delta Eta', 200, 0, 6)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta', 200, 0, 4)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', 'Chargino-Neutralino Delta Eta', 200, 0, 1)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
@@ -90,17 +90,17 @@ class ExampleDisplacedAnalysis(Module):
 
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
-            mother = findAncestor(particle)
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
+                mother = findAncestor(particle)
                 #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
                 if abs(particle.pdgId) in leptonic:
-                    if abs(mother.pdgId) == 24: #is W
+                    if abs(mother.pdgId) == 24: #must be W
                         #loop until source is chargino
-                        tmp = findAncestor(mother) #chargino or irrelevant W
-                        if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
-                            addUniqueParticle(tmp, locatedSpecificCharginos)
-                            deta = abs(particle.eta) - abs(tmp.eta)
+                        gmother = findAncestor(mother) #chargino or irrelevant W
+                        if (gmother.pdgId == 1000024 and gmother.mass == 200.0):
+                            addUniqueParticle(gmother, locatedSpecificCharginos)
+                            deta = abs(particle.eta) - abs(gmother.eta)
                             if abs(particle.pdgId) == 13:
                                 self.h_mupt.Fill(particle.pt)
                                 self.h_mueta.Fill(particle.eta)
@@ -108,6 +108,7 @@ class ExampleDisplacedAnalysis(Module):
                             if abs(particle.pdgId) == 14:
                                 self.h_nmupt.Fill(particle.pt)
                                 self.h_nmueta.Fill(particle.eta)
+
 
         for particle in genParts: #need to repeat to verify
             mother = findAncestor(particle)
@@ -119,7 +120,7 @@ class ExampleDisplacedAnalysis(Module):
                     deta = abs(particle.eta) - abs(mother.eta)
                     self.h_mix_chneu_deta.Fill(deta)
             #now all first gen charginos, independant of reaction
-            if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0 and abs(mother.pdgId) != 1000024): # all charginos
+            if (abs(particle.pdgId) == 1000024 and (particle.mass == 200.0) and (abs(mother.pdgId) != 1000024)): # all charginos
                 locatedCharginos.append(particle)
                 self.h_chpt.Fill(particle.pt)
                 self.h_cheta.Fill(particle.eta)
@@ -151,7 +152,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.SaveAs(save)
         Module.endJob(self)
 
-preselection = ""
+preselection = "abs(GenPart.pdgId) in [1,2,3,4,5,6,9,21,13,14,24,1000022,1000024]"
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_M150to200_DM5to20_ctau10.root".format(os.environ['CMSSW_BASE'])] ##new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x11.root", histDirName="plots")
 p.run()
