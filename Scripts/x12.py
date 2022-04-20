@@ -117,36 +117,41 @@ class ExampleDisplacedAnalysis(Module):
             if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
                 mother = findAncestor(particle, False)
                 if abs(mother.pdgId) in hadronic:
-                    addUniqueParticle(particle, locatedCharginos)
-                    self.h_chpt.Fill(particle.pt)
-                    self.h_cheta.Fill(particle.eta)
-                    self.h_chphi.Fill(particle.phi)
+                    if particleInList(mother, locatedCharginos) == False:
+                        addUniqueParticle(particle, locatedCharginos)
+                        self.h_chpt.Fill(particle.pt)
+                        self.h_cheta.Fill(particle.eta)
+                        self.h_chphi.Fill(particle.phi)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
-        common_moms = 0
+        mn_moms = 0
+        ch_moms = 0
         for mu in mus:
             mu_mother = findAncestor(mu, False) #W
             for nmu in nmus:
                 nmu_mother = findAncestor(nmu, False) #W
                 if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
+                    mn_moms += 1
                     mu_gmother = findAncestor(mu_mother, False) #chargino
-                    #nmu_gmother = findAncestor(nmu_mother)
-                    for neu in neus:
-                        neu_mother = findAncestor(neu, False) #chargino
-                        if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
-                            common_moms += 1
-                            deta_mu = abs(mu.eta) - abs(mu_gmother.eta)
-                            self.h_mupt.Fill(mu.pt)
-                            self.h_mueta.Fill(mu.eta)
-                            self.h_mix_chmu_deta.Fill(deta_mu)
-                            self.h_nmupt.Fill(nmu.pt)
-                            self.h_nmueta.Fill(nmu.eta)
-                            self.h_neupt.Fill(neu.pt)
-                            self.h_neueta.Fill(neu.eta)
-                            deta_neu = abs(neu.eta) - abs(neu_mother.eta)
-                            self.h_mix_chneu_deta.Fill(deta_neu)
+                    mnu_gmother = findAncestor(nmu_mother, False) #chargino must be the same
+                    if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother:
+                        #nmu_gmother = findAncestor(nmu_mother)
+                        for neu in neus:
+                            neu_mother = findAncestor(neu, False) #chargino
+                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
+                                ch_moms += 1
+                                deta_mu = abs(mu.eta) - abs(mu_gmother.eta)
+                                self.h_mupt.Fill(mu.pt)
+                                self.h_mueta.Fill(mu.eta)
+                                self.h_mix_chmu_deta.Fill(deta_mu)
+                                self.h_nmupt.Fill(nmu.pt)
+                                self.h_nmueta.Fill(nmu.eta)
+                                self.h_neupt.Fill(neu.pt)
+                                self.h_neueta.Fill(neu.eta)
+                                deta_neu = abs(neu.eta) - abs(neu_mother.eta)
+                                self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedCharginos) > 0:
-            print("Warning 8: Common moms: " + str(common_moms))
+            print("Warning 8: Muon-Neutrino moms: " + str(nm_moms) + ", Chargino moms: " + str(ch_moms))
             if len(locatedSpecificCharginos) != 2:
                 print("Warning 8.5: locatedSpecificCharginos is not 2!")
             print("Warning 9: locatedCharginos length: " + str(len(locatedCharginos)))
