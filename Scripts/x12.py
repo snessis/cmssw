@@ -111,7 +111,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
             if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
-                if particle.statusFlag == 13:
+                if particle.statusFlags == 13:
                     print("hit! last")
                     mother = findAncestor(particle, False)
                     if abs(mother.pdgId) in hadronic:
@@ -121,7 +121,7 @@ class ExampleDisplacedAnalysis(Module):
                         self.h_chpt.Fill(particle.pt)
                         self.h_cheta.Fill(particle.eta)
                         self.h_chphi.Fill(particle.phi)
-                if particle.statusFlag == 12:
+                if particle.statusFlags == 12:
                     print("hit! first")
                     mother = findAncestor(particle, False)
                     if abs(mother.pdgId) in hadronic:
@@ -131,7 +131,7 @@ class ExampleDisplacedAnalysis(Module):
                         self.h_chpt.Fill(particle.pt)
                         self.h_cheta.Fill(particle.eta)
                         self.h_chphi.Fill(particle.phi)
-                if particle.statusFlag == 14:
+                if particle.statusFlags == 14:
                     print("hit! fsr")
                     mother = findAncestor(particle, False)
                     if abs(mother.pdgId) in hadronic:
