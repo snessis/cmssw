@@ -125,7 +125,7 @@ class ExampleDisplacedAnalysis(Module):
                 self.h_cheta.Fill(particle.eta)
                 self.h_chphi.Fill(particle.phi)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
+        #print("Warning 3: locatedCharginos size:" + str(len(locatedCharginos)))
         if len(locatedCharginos) == 2:
             part1 = locatedCharginos[0]
             part2 = locatedCharginos[1]
