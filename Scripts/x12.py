@@ -96,7 +96,7 @@ class ExampleDisplacedAnalysis(Module):
             return True
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
-            if abs(particle.pdgId) in locateFinalStates and particle.status == 1: #identify final state particle
+            if abs(particle.pdgId) in locateFinalStates: #identify final state particle
                 mother = findAncestor(particle, False)
                 #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
