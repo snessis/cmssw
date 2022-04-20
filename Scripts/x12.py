@@ -111,7 +111,7 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
-            if (abs(particle.pdgId) == 1000024 and (particle.mass == 200.0): #all charginos
+            if abs(particle.pdgId) == 1000024 and (particle.mass == 200.0): #all charginos
                 mother = findAncestor(particle)
                 if abs(mother.pdgId) != 1000024):
                     addUniqueParticle(particle, locatedCharginos)
