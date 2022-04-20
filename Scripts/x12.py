@@ -71,6 +71,8 @@ class ExampleDisplacedAnalysis(Module):
         def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
             resonance = original
+            if log == True:
+                print("Warning pre-4: Starting process")
             while resonance.pdgId == original.pdgId:
                 testResonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
                 try:
@@ -115,14 +117,13 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
-            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
+            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0) and particle.statusFlags == 8: #all charginos
                 mother = findAncestor(particle, False)
                 if abs(mother.pdgId) in hadronic:
-                    if particleInList(mother, locatedCharginos) == False:
-                        addUniqueParticle(particle, locatedCharginos)
-                        self.h_chpt.Fill(particle.pt)
-                        self.h_cheta.Fill(particle.eta)
-                        self.h_chphi.Fill(particle.phi)
+                    addUniqueParticle(particle, locatedCharginos)
+                    self.h_chpt.Fill(particle.pt)
+                    self.h_cheta.Fill(particle.eta)
+                    self.h_chphi.Fill(particle.phi)
         if len(locatedSpecificCharginos) == 0:
             return True
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
