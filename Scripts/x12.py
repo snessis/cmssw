@@ -120,8 +120,8 @@ class ExampleDisplacedAnalysis(Module):
                     self.h_cheta.Fill(particle.eta)
                     self.h_chphi.Fill(particle.phi)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
+        common_moms = 0
         for mu in mus:
-            common_moms = 0
             mu_mother = findAncestor(mu, False) #W
             for nmu in nmus:
                 nmu_mother = findAncestor(nmu, False) #W
@@ -142,26 +142,25 @@ class ExampleDisplacedAnalysis(Module):
                             self.h_neueta.Fill(neu.eta)
                             deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                             self.h_mix_chneu_deta.Fill(deta_neu)
-            print("Warning 8: Common moms: " + str(common_moms))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedCharginos) > 0:
-            print("locatedCharginos length:" + str(len(locatedCharginos)))
-            #for i in range(len(locatedCharginos)):
-                #for j in range(i, len(locatedCharginos)):
-                    #if i==j:
-                    #    continue
-                    #
+            print("Warning 8: Common moms: " + str(common_moms) + ", locatedSpecificCharginos length: " + str(len(locatedSpecificCharginos)))
+            print("Warning 9: locatedCharginos length: " + str(len(locatedCharginos)))
+            for i in range(len(locatedCharginos)):
+                for j in range(i, len(locatedCharginos)):
+                    if i==j:
+                        continue
+                    part1 = locatedCharginos[i]
+                    part2 = locatedCharginos[j]
+                    if part1 == part2:
+                        print("Warning 10: same particle???")
             if len(locatedCharginos) == 2:
                 part1 = locatedCharginos[0]
                 part2 = locatedCharginos[1]
-                if part1.pdgId == -part2.pdgId:
-                    deta = abs(part1.eta) - abs(part2.eta)
-                    dphi = part1.phi - part2.phi
-                    self.h_chdeta.Fill(deta)
-                    self.h_chdphi.Fill(dphi)
-                else:
-                    print("Warning 1: Spotted like charge pair") #this doesnt show anymore, phew
-                    print("p1: " + str(part1.pdgId) + ", p2: " + str(part2.pdgId))
+                deta = abs(part1.eta) - abs(part2.eta)
+                dphi = part1.phi - part2.phi
+                self.h_chdeta.Fill(deta)
+                self.h_chdphi.Fill(dphi)
         return True
 
     def endJob(self):
