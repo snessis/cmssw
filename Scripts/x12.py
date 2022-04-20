@@ -94,7 +94,7 @@ class ExampleDisplacedAnalysis(Module):
             return True
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
-            if abs(particle.pdgId) in locateFinalStates and particle.statusFlags == 13: #identify final state particle
+            if abs(particle.pdgId) in locateFinalStates and particle.statusFlags == 12: #identify final state particle
                 mother = findAncestor(particle, False)
                 #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
@@ -111,7 +111,7 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
-            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0) and particle.statusFlags == 13: #all charginos
+            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0) and particle.statusFlags == 12: #all charginos
                 mother = findAncestor(particle, False)
                 if abs(mother.pdgId) in hadronic:
                     #print("Warining 5: entered locatedCharginos function call (before)")
