@@ -60,69 +60,72 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart")
         eventMET = getattr(event, "MET_pt")
         self.h_metpt.Fill(eventMET)
-        locateCharginos = [1000024]
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         locatedCharginos = []
         locatedSpecificCharginos = []
-        def findMother(particle): #aims to find a mother particle. if it doesnt, it returns the original
+        def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
             resonance = original
             while resonance.pdgId == original.pdgId:
+                testResonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
                 try:
-                    testResonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
                     testResonance.pdgId
                 except:
-                    print("Warning 3: findMother exception")
+                    print("Warning 3: findAncestor exception")
                     return original
                 resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
             return resonance
-
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
-            tmp = 0
             try:
                 list.index(particle)
             except ValueError:
-                tmp = 1
-            if tmp == 1:
                 list.append(particle)
+        def checkUniqueParticle(particle, list):
+            try:
+                list.index(particle)
+            except ValueError:
+                return false
+            return true
 
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
-            mother = genParts[particle.genPartIdxMother] if particle.genPartIdxMother in range(len(genParts)) else None
-            if mother is not None:
-                if abs(particle.pdgId) in locateFinalStates: #identify final state particle
-                    #mother must now be W or ch. instill check.
-                    #case for mu and nmu, leptonic:
-                    if abs(particle.pdgId) in leptonic:
-                        if abs(mother.pdgId) == 24:
-                            #loop until source is chargino
-                            tmp = findMother(mother) #chargino or irrelevant W
-                            if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
-                                addUniqueParticle(tmp, locatedSpecificCharginos)
-                                deta = abs(particle.eta) - abs(tmp.eta)
-                                if abs(particle.pdgId) == 13:
-                                    self.h_mupt.Fill(particle.pt)
-                                    self.h_mueta.Fill(particle.eta)
-                                    self.h_mix_chmu_deta.Fill(deta)
-                                if abs(particle.pdgId) == 14:
-                                    self.h_nmupt.Fill(particle.pt)
-                                    self.h_nmueta.Fill(particle.eta)
-                                    self.h_mix_chneu_deta.Fill(deta)
-                    #now for neu
-                    if abs(particle.pdgId) == 1000022:
-                        if (mother.pdgId == 1000024 and mother.mass == 200.0):
-                            addUniqueParticle(mother, locatedSpecificCharginos)#to improve here
-                            self.h_neupt.Fill(particle.pt)
-                            self.h_neueta.Fill(particle.eta)
-                #now all first gen charginos, independant of reaction
-                if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0 and mother.pdgId != 100024): # all charginos
-                    locatedCharginos.append(particle)
-                    self.h_chpt.Fill(particle.pt)
-                    self.h_cheta.Fill(particle.eta)
-                    self.h_chphi.Fill(particle.phi)
+            mother = findAncestor(particle)
+            if abs(particle.pdgId) in locateFinalStates: #identify final state particle
+                #mother must now be W or ch. instill check.
+                #case for mu and nmu aka leptonic:
+                if abs(particle.pdgId) in leptonic:
+                    if abs(mother.pdgId) == 24: #is W
+                        #loop until source is chargino
+                        tmp = findAncestor(mother) #chargino or irrelevant W
+                        if (tmp.pdgId == 1000024 and tmp.mass == 200.0):
+                            addUniqueParticle(tmp, locatedSpecificCharginos)
+                            deta = abs(particle.eta) - abs(tmp.eta)
+                            if abs(particle.pdgId) == 13:
+                                self.h_mupt.Fill(particle.pt)
+                                self.h_mueta.Fill(particle.eta)
+                                self.h_mix_chmu_deta.Fill(deta)
+                            if abs(particle.pdgId) == 14:
+                                self.h_nmupt.Fill(particle.pt)
+                                self.h_nmueta.Fill(particle.eta)
 
+        for particle in genParts: #need to repeat to verify
+            mother = findAncestor(particle)
+            #case for neu
+            if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
+                if checkUniqueParticle(mother, locatedSpecificCharginos) == true:
+                    self.h_neupt.Fill(particle.pt)
+                    self.h_neueta.Fill(particle.eta)
+                    deta = abs(particle.eta) - abs(mother.eta)
+                    self.h_mix_chneu_deta.Fill(deta)
+            #now all first gen charginos, independant of reaction
+            if (abs(particle.pdgId) == 1000024 and particle.mass == 200.0 and mother.pdgId != 100024): # all charginos
+                locatedCharginos.append(particle)
+                self.h_chpt.Fill(particle.pt)
+                self.h_cheta.Fill(particle.eta)
+                self.h_chphi.Fill(particle.phi)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
+        print("locatedCharginos size:" + str(len(locatedCharginos)))
         if len(locatedCharginos) == 2:
             part1 = locatedCharginos[0]
             part2 = locatedCharginos[1]
@@ -152,6 +155,3 @@ preselection = ""
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_M150to200_DM5to20_ctau10.root".format(os.environ['CMSSW_BASE'])] ##new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x11.root", histDirName="plots")
 p.run()
-
-## methods (functions like pt() for the collections can be found in the root files)
-## Just ignore the underscore '_' after the collection name, eg Muon_pt -> mu.pt, Muon_eta -> mu.eta
