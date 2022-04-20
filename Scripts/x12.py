@@ -111,14 +111,36 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
             if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
-                mother = findAncestor(particle, False)
-                if abs(mother.pdgId) in hadronic:
-                    self.h_metpt.Fill(eventMET)
-                    #print("Warining 5: entered locatedCharginos function call (before)")
-                    addUniqueParticle(particle, locatedCharginos)
-                    self.h_chpt.Fill(particle.pt)
-                    self.h_cheta.Fill(particle.eta)
-                    self.h_chphi.Fill(particle.phi)
+                if particle.statusFlag == 13:
+                    print("hit! last")
+                    mother = findAncestor(particle, False)
+                    if abs(mother.pdgId) in hadronic:
+                        self.h_metpt.Fill(eventMET)
+                        #print("Warining 5: entered locatedCharginos function call (before)")
+                        addUniqueParticle(particle, locatedCharginos)
+                        self.h_chpt.Fill(particle.pt)
+                        self.h_cheta.Fill(particle.eta)
+                        self.h_chphi.Fill(particle.phi)
+                if particle.statusFlag == 12:
+                    print("hit! first")
+                    mother = findAncestor(particle, False)
+                    if abs(mother.pdgId) in hadronic:
+                        self.h_metpt.Fill(eventMET)
+                        #print("Warining 5: entered locatedCharginos function call (before)")
+                        addUniqueParticle(particle, locatedCharginos)
+                        self.h_chpt.Fill(particle.pt)
+                        self.h_cheta.Fill(particle.eta)
+                        self.h_chphi.Fill(particle.phi)
+                if particle.statusFlag == 14:
+                    print("hit! fsr")
+                    mother = findAncestor(particle, False)
+                    if abs(mother.pdgId) in hadronic:
+                        self.h_metpt.Fill(eventMET)
+                        #print("Warining 5: entered locatedCharginos function call (before)")
+                        addUniqueParticle(particle, locatedCharginos)
+                        self.h_chpt.Fill(particle.pt)
+                        self.h_cheta.Fill(particle.eta)
+                        self.h_chphi.Fill(particle.phi)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
         for mu in mus:
             mu_mother = findAncestor(mu, False) #W
@@ -141,23 +163,7 @@ class ExampleDisplacedAnalysis(Module):
                             deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                             self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        ch_pairs = 0
-        for i in range(len(locatedCharginos)):
-            for j in range(i, len(locatedCharginos)):
-                if i==j:
-                    continue
-                part1 = locatedCharginos[i]
-                part2 = locatedCharginos[j]
-                i_mother = findAncestor(part1, False)
-                j_mother = findAncestor(part2, False)
-                if i_mother == j_mother:
-                    ch_pairs +=1
-                    deta = abs(part1.eta) - abs(part2.eta)
-                    dphi = part1.phi - part2.phi
-                    self.h_chdeta.Fill(deta)
-                    self.h_chdphi.Fill(dphi)
-        if len(locatedCharginos) > 0:
-            print("Warning 7: Chargino pairs:" + str(ch_pairs) + ", locatedCharginos size:" + str(len(locatedCharginos)))
+        #fix here
         return True
 
     def endJob(self):
