@@ -154,11 +154,11 @@ class ExampleDisplacedAnalysis(Module):
                         continue
                     part1 = locatedCharginos[i]
                     part2 = locatedCharginos[j]
-                    mother1 = findAncestor(part1)
-                    mother2 = findAncestor(part2)
+                    mother1 = findAncestor(part1, False)
+                    mother2 = findAncestor(part2, False)
                     if mother1.genPartIdxMother == mother2.genPartIdxMother:
                         print("Warning 10: same mom!")
-            print("Warning 11: Exit ij loop")                      
+            print("Warning 11: Exit ij loop")
             if len(locatedCharginos) == 2:
                 part1 = locatedCharginos[0]
                 part2 = locatedCharginos[1]
