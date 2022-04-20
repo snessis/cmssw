@@ -117,7 +117,7 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
-            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0) and particle.statusFlags == 8: #all charginos
+            if (abs(particle.pdgId) == 1000024) and (particle.mass == 200.0): #all charginos
                 mother = findAncestor(particle, False)
                 if abs(mother.pdgId) in hadronic:
                     addUniqueParticle(particle, locatedCharginos)
@@ -155,18 +155,18 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedCharginos) > 0:
-            print("Warning 8: Muon-Neutrino moms: " + str(mn_moms) + ", Chargino moms: " + str(ch_moms))
+            #print("Warning 8: Muon-Neutrino moms: " + str(mn_moms) + ", Chargino moms: " + str(ch_moms))
             if len(locatedSpecificCharginos) != 2:
                 print("Warning 8.5: locatedSpecificCharginos is not 2!")
-            print("Warning 9: locatedCharginos length: " + str(len(locatedCharginos)))
-            for i in range(len(locatedCharginos)):
-                for j in range(i, len(locatedCharginos)):
-                    if i==j:
-                        continue
-                    part1 = locatedCharginos[i]
-                    part2 = locatedCharginos[j]
-                    mother1 = findAncestor(part1, False)
-                    mother2 = findAncestor(part2, False)
+            #print("Warning 9: locatedCharginos length: " + str(len(locatedCharginos)))
+            #for i in range(len(locatedCharginos)):
+            #    for j in range(i, len(locatedCharginos)):
+            #        if i==j:
+            #            continue
+            #        part1 = locatedCharginos[i]
+            #        part2 = locatedCharginos[j]
+            #        mother1 = findAncestor(part1, False)
+            #        mother2 = findAncestor(part2, False)
                     #if mother1.genPartIdxMother == mother2.genPartIdxMother:
             #print("Warning 11: Exit ij loop")
             if len(locatedCharginos) == 2:
