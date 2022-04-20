@@ -73,10 +73,8 @@ class ExampleDisplacedAnalysis(Module):
                 try:
                     testResonance.pdgId
                 except:
-                    #print("Warning 3: findAncestor exception")
                     return original
                 resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
-            #print("Warning 4: findAncestor passed!")
             return resonance
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
             try:
@@ -89,7 +87,7 @@ class ExampleDisplacedAnalysis(Module):
             except ValueError:
                 return False
             return True
-
+            
         #find chargino by making sure that it is the first ancestor, mass 200gev
         for particle in genParts:
             mother = findAncestor(particle)
