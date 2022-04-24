@@ -103,17 +103,17 @@ class ExampleDisplacedAnalysis(Module):
                 mother = findAncestor(particle, False)
                 #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
-                if abs(particle.pdgId) in leptonic and particle.status == 1:
+                if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
                         if (gmother.pdgId == 1000024 and gmother.mass == 200.0):
                             addUniqueParticle(gmother, locatedSpecificCharginos)
-                            if abs(particle.pdgId) == 13:
+                            if abs(particle.pdgId) == 13 and abs(particle.pt) >= 5:
                                 addUniqueParticle(particle, mus)
                             if abs(particle.pdgId) == 14:
                                 addUniqueParticle(particle, nmus)
                 #case for neu
-                if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0 and particle.status == 1:
+                if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0 and particle.statusFlags == 13:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
         if len(locatedSpecificCharginos) == 0:
