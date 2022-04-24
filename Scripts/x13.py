@@ -204,8 +204,8 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chpt.SetLineColor(3)
         self.h_cheta.SetLineColor(3)
         self.h_chphi.SetLineColor(3)
-        self.h_deta.SetLineColor(3)
-        self.h_dphi.SetLineColor(3)
+        self.h_chdeta.SetLineColor(3)
+        self.h_chdphi.SetLineColor(3)
         # MIXTURES
         self.h_mix_chmu_deta.GetXaxis().SetTitle("delta eta")
         self.h_mix_chmu_deta.GetYaxis().SetTitle("Counts")
