@@ -71,15 +71,13 @@ class ExampleDisplacedAnalysis(Module):
         def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
             resonance = original
-            if log == True:
-                print("Warning pre-4: Starting process")
             while resonance.pdgId == original.pdgId:
                 testResonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
                 try:
                     testResonance.pdgId
                 except:
                     if log == True:
-                        print("Warning 4.5: Exception. Returning original")
+                        print("Warning 5: Exception. Returning original")
                     return original
                 resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
             if log == True:
@@ -147,9 +145,8 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_neueta.Fill(neu.eta)
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                                 self.h_mix_chneu_deta.Fill(deta_neu)
-                                if ch_moms > 1:
-                                    print("Warning 6: Chargino moms: " + str(ch_moms) + ", W moms: " + str(W_moms))
-                                    print("Warning 7: mus, neus, neus, chs size: " + str(len(mus)) + " ," + str(len(nmus)) + " ," + str(len(neus)) + " ," + str(len(locatedSpecificCharginos)))
+                                print("Warning 6: Chargino moms: " + str(ch_moms) + ", W moms: " + str(W_moms))
+                                print("Warning 7: mus, neus, neus, chs size: " + str(len(mus)) + " ," + str(len(nmus)) + " ," + str(len(neus)) + " ," + str(len(locatedSpecificCharginos)))
             W_moms = 0
             ch_moms = 0
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
