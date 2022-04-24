@@ -118,15 +118,17 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
+        if len(locatedSpecificCharginos) == 0:
+            return True
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
-        mn_moms = 0
+        W_moms = 0
         ch_moms = 0
         for mu in mus:
             mu_mother = findAncestor(mu, False) #W
             for nmu in nmus:
                 nmu_mother = findAncestor(nmu, False) #W
                 if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
-                    mn_moms += 1
+                    W_moms += 1
                     mu_gmother = findAncestor(mu_mother, False) #chargino
                     nmu_gmother = findAncestor(nmu_mother, False) #chargino must be the same
                     if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother:
@@ -145,6 +147,8 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_neueta.Fill(neu.eta)
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                                 self.h_mix_chneu_deta.Fill(deta_neu)
+            if ch_moms != 1:
+                print("Warning 6: Chargino moms: " + str(ch_moms) + ", W moms: " + str(W_moms))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedSpecificCharginos) == 2:
             for particle in locatedSpecificCharginos:
@@ -167,29 +171,31 @@ class ExampleDisplacedAnalysis(Module):
         self.c.cd()
         # GRAPHS
         # GENERAL
-
+        self.h_metpt.GetXaxis().SetTitle("met (GeV)")
+        self.h_metpt.GetYaxis().SetTitle("Counts")
+        self.h_metpt.SetLineColor(6)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
         self.h_mupt.GetXaxis().SetTitle("pt (GeV)")
         self.h_mupt.GetYaxis().SetTitle("Counts")
         self.h_mueta.GetXaxis().SetTitle("eta")
         self.h_mueta.GetYaxis().SetTitle("Counts")
-        self.h_mupt.SetLineColor(3)
-        self.h_mueta.SetLineColor(3)
+        self.h_mupt.SetLineColor(6)
+        self.h_mueta.SetLineColor(6)
         # 14 - MUON NETRINO
         self.h_nmupt.GetXaxis().SetTitle("pt (GeV)")
         self.h_nmupt.GetYaxis().SetTitle("Counts")
         self.h_nmueta.GetXaxis().SetTitle("eta")
         self.h_nmueta.GetYaxis().SetTitle("Counts")
-        self.h_nmupt.SetLineColor(3)
-        self.h_nmueta.SetLineColor(3)
+        self.h_nmupt.SetLineColor(6)
+        self.h_nmueta.SetLineColor(6)
         # 1000022 - NEUTRALINO
         self.h_neupt.GetXaxis().SetTitle("pt (GeV)")
         self.h_neupt.GetYaxis().SetTitle("Counts")
         self.h_neueta.GetXaxis().SetTitle("eta")
         self.h_neueta.GetYaxis().SetTitle("Counts")
-        self.h_neupt.SetLineColor(3)
-        self.h_neueta.SetLineColor(3)
+        self.h_neupt.SetLineColor(6)
+        self.h_neueta.SetLineColor(6)
         # 1000024 - CHARGINOS
         self.h_chpt.GetXaxis().SetTitle("pt (GeV)")
         self.h_chpt.GetYaxis().SetTitle("Counts")
@@ -201,19 +207,20 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdphi.GetYaxis().SetTitle("Counts")
         self.h_chdeta.GetXaxis().SetTitle("delta eta")
         self.h_chdeta.GetYaxis().SetTitle("Counts")
-        self.h_chpt.SetLineColor(3)
-        self.h_cheta.SetLineColor(3)
-        self.h_chphi.SetLineColor(3)
-        self.h_chdeta.SetLineColor(3)
-        self.h_chdphi.SetLineColor(3)
+        self.h_chpt.SetLineColor(6)
+        self.h_cheta.SetLineColor(6)
+        self.h_chphi.SetLineColor(6)
+        self.h_chdeta.SetLineColor(6)
+        self.h_chdphi.SetLineColor(6)
         # MIXTURES
         self.h_mix_chmu_deta.GetXaxis().SetTitle("delta eta")
         self.h_mix_chmu_deta.GetYaxis().SetTitle("Counts")
         self.h_mix_chneu_deta.GetXaxis().SetTitle("delta eta")
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
-        self.h_mix_chmu_deta.SetLineColor(3)
-        self.h_mix_chneu_deta.SetLineColor(3)
+        self.h_mix_chmu_deta.SetLineColor(6)
+        self.h_mix_chneu_deta.SetLineColor(6)
         #PRINTING
+        print("Printing Histograms...")
         histList = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.Draw()
