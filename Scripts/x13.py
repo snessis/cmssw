@@ -105,7 +105,7 @@ class ExampleDisplacedAnalysis(Module):
                 mother = findAncestor(particle, False)
                 #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
-                if abs(particle.pdgId) in leptonic and particle status == 1:
+                if abs(particle.pdgId) in leptonic and particle.status == 1:
                     if abs(mother.pdgId) == 24: #must be W
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
                         if (gmother.pdgId == 1000024 and gmother.mass == 200.0):
