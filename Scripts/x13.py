@@ -182,8 +182,8 @@ class ExampleDisplacedAnalysis(Module):
         # 1000022 - NEUTRALINO
         self.h_neupt.GetXaxis().SetTitle("pt (GeV)")
         self.h_neupt.GetYaxis().SetTitle("Counts")
-        self.h_neuta.GetXaxis().SetTitle("eta")
-        self.h_neuta.GetYaxis().SetTitle("Counts")
+        self.h_neueta.GetXaxis().SetTitle("eta")
+        self.h_neueta.GetYaxis().SetTitle("Counts")
         # 1000024 - CHARGINOS
         self.h_chpt.GetXaxis().SetTitle("pt (GeV)")
         self.h_chpt.GetYaxis().SetTitle("Counts")
