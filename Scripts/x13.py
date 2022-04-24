@@ -114,11 +114,10 @@ class ExampleDisplacedAnalysis(Module):
                                 addUniqueParticle(particle, mus)
                             if abs(particle.pdgId) == 14:
                                 addUniqueParticle(particle, nmus)
+                #case for neu
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
-            else:
-                return True
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
         mn_moms = 0
         ch_moms = 0
