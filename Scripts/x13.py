@@ -108,7 +108,7 @@ class ExampleDisplacedAnalysis(Module):
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
                         if (gmother.pdgId == 1000024 and gmother.mass == 200.0):
                             addUniqueParticle(gmother, locatedSpecificCharginos)
-                            if abs(particle.pdgId) == 13 and abs(particle.pt) >= 5:
+                            if abs(particle.pdgId) == 13:
                                 addUniqueParticle(particle, mus)
                             if abs(particle.pdgId) == 14:
                                 addUniqueParticle(particle, nmus)
