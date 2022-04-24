@@ -115,7 +115,7 @@ class ExampleDisplacedAnalysis(Module):
                             if abs(particle.pdgId) == 14:
                                 addUniqueParticle(particle, nmus)
                 #case for neu
-                if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0:
+                if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0 and particle.status == 1:
                     addUniqueParticle(mother, locatedSpecificCharginos)
                     addUniqueParticle(particle, neus)
         if len(locatedSpecificCharginos) == 0:
