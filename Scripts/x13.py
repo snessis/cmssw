@@ -160,6 +160,7 @@ class ExampleDisplacedAnalysis(Module):
         return True
 
     def endJob(self):
+        print("Initializing endJob function...")
         #CANVAS
         self.c = ROOT.TCanvas("x13c", "The Canvas", 900, 660)
         self.addObject(self.c)
@@ -173,16 +174,22 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupt.GetYaxis().SetTitle("Counts")
         self.h_mueta.GetXaxis().SetTitle("eta")
         self.h_mueta.GetYaxis().SetTitle("Counts")
+        self.h_mupt.SetLineColor(3)
+        self.h_mueta.SetLineColor(3)
         # 14 - MUON NETRINO
         self.h_nmupt.GetXaxis().SetTitle("pt (GeV)")
         self.h_nmupt.GetYaxis().SetTitle("Counts")
         self.h_nmueta.GetXaxis().SetTitle("eta")
         self.h_nmueta.GetYaxis().SetTitle("Counts")
+        self.h_nmupt.SetLineColor(3)
+        self.h_nmueta.SetLineColor(3)
         # 1000022 - NEUTRALINO
         self.h_neupt.GetXaxis().SetTitle("pt (GeV)")
         self.h_neupt.GetYaxis().SetTitle("Counts")
         self.h_neueta.GetXaxis().SetTitle("eta")
         self.h_neueta.GetYaxis().SetTitle("Counts")
+        self.h_neupt.SetLineColor(3)
+        self.h_neueta.SetLineColor(3)
         # 1000024 - CHARGINOS
         self.h_chpt.GetXaxis().SetTitle("pt (GeV)")
         self.h_chpt.GetYaxis().SetTitle("Counts")
@@ -194,11 +201,18 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdphi.GetYaxis().SetTitle("Counts")
         self.h_chdeta.GetXaxis().SetTitle("delta eta")
         self.h_chdeta.GetYaxis().SetTitle("Counts")
+        self.h_chpt.SetLineColor(3)
+        self.h_cheta.SetLineColor(3)
+        self.h_chphi.SetLineColor(3)
+        self.h_deta.SetLineColor(3)
+        self.h_dphi.SetLineColor(3)
         # MIXTURES
         self.h_mix_chmu_deta.GetXaxis().SetTitle("delta eta")
         self.h_mix_chmu_deta.GetYaxis().SetTitle("Counts")
         self.h_mix_chneu_deta.GetXaxis().SetTitle("delta eta")
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
+        self.h_mix_chmu_deta.SetLineColor(3)
+        self.h_mix_chneu_deta.SetLineColor(3)
         #PRINTING
         histList = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chneu_deta]
         for hist in histList:
