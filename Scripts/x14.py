@@ -149,8 +149,8 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_neueta.Fill(neu.eta)
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                                 self.h_mix_chneu_deta.Fill(deta_neu)
-        print("Warning 6: Chargino moms: " + str(ch_moms) + ", W moms: " + str(W_moms))
-        print("Warning 7: mus, neus, neus, chs size: " + str(len(mus)) + ", " + str(len(nmus)) + ", " + str(len(neus)) + ", " + str(len(locatedSpecificCharginos)))
+        #print("Warning 6: Chargino moms: " + str(ch_moms) + ", W moms: " + str(W_moms))
+        #print("Warning 7: mus, neus, neus, chs size: " + str(len(mus)) + ", " + str(len(nmus)) + ", " + str(len(neus)) + ", " + str(len(locatedSpecificCharginos)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(locatedSpecificCharginos) == 2:
             for particle in locatedSpecificCharginos:
