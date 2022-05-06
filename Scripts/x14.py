@@ -109,9 +109,9 @@ class ExampleDisplacedAnalysis(Module):
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
                         if gmother.pdgId == 1000024:
                             addUniqueParticle(gmother, chs)
-                            if abs(particle.pdgId) == 13: #and getStatusFlag(particle, 13) == 1: # and abs(particle.pt) >= 5
+                            if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1: # and abs(particle.pt) >= 5
                                 addUniqueParticle(particle, mus)
-                            if abs(particle.pdgId) == 14: # and getStatusFlag(particle, 13) == 1:
+                            if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, nmus)
                 #case for neu
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
@@ -155,10 +155,7 @@ class ExampleDisplacedAnalysis(Module):
             for particle in chs:
                 self.h_chpt.Fill(particle.pt)
                 self.h_cheta.Fill(particle.eta)
-                if particle.phi < 0:
-                    self.h_chphi.Fill(particle.phi + 2*3.1416926)
-                else:
-                    self.h_chphi.Fill(particle.phi)
+                self.h_chphi.Fill(particle.phi)
             part1 = chs[0]
             part2 = chs[1]
             deta = abs(part1.eta) - abs(part2.eta)
