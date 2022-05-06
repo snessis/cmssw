@@ -25,7 +25,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 150, 0, 100)
         self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 150, -6, 6)
         # 14 - MUON NETRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 150, 0, 100)
+        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 150, 0, 50)
         self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity', 150, -6, 6)
         # 1000022 - NEUTRALINO
         self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum', 150, 0, 1100)
@@ -37,7 +37,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdeta = ROOT.TH1F('chdeta', 'All Chargino Delta Eta', 150, 0, 6)
         self.h_chdphi = ROOT.TH1F('chdphi', 'All Chargino Delta Phi', 150, 0, 3.2)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta', 150, 0, 4)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta', 150, 0, 3)
         self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', 'Chargino-Neutralino Delta Eta', 150, 0, 1)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
