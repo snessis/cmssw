@@ -96,7 +96,7 @@ class ExampleDisplacedAnalysis(Module):
             else:
                 return False
         def getStatusFlag(part, pos):
-            flag = str(part.statusFlag>>pos)
+            flag = str(part.statusFlags>>pos)
             return int(flag[:1])
 
         #find chargino by making sure that it is the first ancestor, mass 200gev
