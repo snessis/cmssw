@@ -213,13 +213,13 @@ class ExampleDisplacedAnalysis(Module):
         print("Printing Histograms...")
         histList = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chneu_deta]
         for hist in histList:
-             hist.setLineColor(6)
+             hist.SetLineColor(6)
              hist.Draw()
              save = "x14/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
         Module.endJob(self)
-
-preselection = "Sum$(abs(GenPart_pdgId == 1000024) && GenPart_mass == 200.0))"
+preselection = ""
+preselection2 = "Sum$(abs(GenPart_pdgId == 1000024) && GenPart_mass == 200.0))"
 files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_M150to200_DM5to20_ctau10.root".format(os.environ['CMSSW_BASE'])] ##new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x14.root", histDirName="plots")
 p.run()
