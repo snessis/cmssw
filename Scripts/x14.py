@@ -58,7 +58,6 @@ class ExampleDisplacedAnalysis(Module):
 
     def analyze(self, event):
         genParts = Collection(event, "GenPart")
-        self.h_metpt.Fill(eventMET)
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         hadronic = [1,2,3,4,5,6,9,21]
@@ -122,6 +121,7 @@ class ExampleDisplacedAnalysis(Module):
         if len(locatedSpecificCharginos) == 0:
             return True
         eventMET = getattr(event, "MET_pt")
+        self.h_metpt.Fill(eventMET)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
         W_moms = 0
         ch_moms = 0
