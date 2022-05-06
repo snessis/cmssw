@@ -218,6 +218,6 @@ class ExampleDisplacedAnalysis(Module):
         Module.endJob(self)
 preselection = ""
 preselection2 = "Sum$(abs(GenPart_pdgId == 1000024) && GenPart_mass == 200.0))"
-files = ["{}/src/DisplacedCharginos_Dec8_2DispMuonsSkim/SMS_TChiWW_Disp_M150to200_DM5to20_ctau10.root".format(os.environ['CMSSW_BASE'])] ##new file!
+files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_M200_DM5to20_ctau10.root".format(os.environ['CMSSW_BASE'])] ##new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x14.root", histDirName="plots")
 p.run()
