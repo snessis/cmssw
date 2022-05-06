@@ -61,8 +61,7 @@ class ExampleDisplacedAnalysis(Module):
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         hadronic = [1,2,3,4,5,6,9,21]
-        locatedCharginos = []
-        locatedSpecificCharginos = []
+        chs = []
         mus = []
         nmus = []
         neus = []
@@ -108,17 +107,17 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
-                        if (gmother.pdgId == 1000024 and gmother.mass == 200.0):
-                            addUniqueParticle(gmother, locatedSpecificCharginos)
-                            if abs(particle.pdgId) == 13 and abs(particle.pt) >= 5 and getStatusFlag(particle, 13) == 1:
+                        if gmother.pdgId == 1000024:
+                            addUniqueParticle(gmother, chs)
+                            if abs(particle.pdgId) == 13: #and getStatusFlag(particle, 13) == 1: # and abs(particle.pt) >= 5
                                 addUniqueParticle(particle, mus)
-                            if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
+                            if abs(particle.pdgId) == 14: # and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, nmus)
                 #case for neu
-                if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and mother.mass == 200.0 and particle.status == 1:
-                    addUniqueParticle(mother, locatedSpecificCharginos)
+                if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
+                    addUniqueParticle(mother, chs)
                     addUniqueParticle(particle, neus)
-        if len(locatedSpecificCharginos) == 0:
+        if len(chs) == 0:
             return True
         eventMET = getattr(event, "MET_pt")
         self.h_metpt.Fill(eventMET)
@@ -150,18 +149,18 @@ class ExampleDisplacedAnalysis(Module):
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                                 self.h_mix_chneu_deta.Fill(deta_neu)
         #print("Warning 6: Chargino moms: " + str(ch_moms) + ", W moms: " + str(W_moms))
-        #print("Warning 7: mus, neus, neus, chs size: " + str(len(mus)) + ", " + str(len(nmus)) + ", " + str(len(neus)) + ", " + str(len(locatedSpecificCharginos)))
+        #print("Warning 7: mus, neus, neus, chs size: " + str(len(mus)) + ", " + str(len(nmus)) + ", " + str(len(neus)) + ", " + str(len(chs)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        if len(locatedSpecificCharginos) == 2:
-            for particle in locatedSpecificCharginos:
+        if len(chs) == 2:
+            for particle in chs:
                 self.h_chpt.Fill(particle.pt)
                 self.h_cheta.Fill(particle.eta)
                 if particle.phi < 0:
                     self.h_chphi.Fill(particle.phi + 2*3.1416926)
                 else:
                     self.h_chphi.Fill(particle.phi)
-            part1 = locatedSpecificCharginos[0]
-            part2 = locatedSpecificCharginos[1]
+            part1 = chs[0]
+            part2 = chs[1]
             deta = abs(part1.eta) - abs(part2.eta)
             dphi = part1.phi - part2.phi
             self.h_chdeta.Fill(deta)
@@ -176,7 +175,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c.cd()
         # GRAPHS
         # GENERAL
-        self.h_metpt.GetXaxis().SetTitle("met (GeV)")
+        self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
         self.h_metpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
