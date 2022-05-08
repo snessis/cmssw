@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #x14 - improvs to x13 by meeting
-import os, sys, math
+import os, sys
 if 'CMSSW_VERSION' not in os.environ:
-    print("Run 'cmsenv' on ../src/ please")
+    print("Run 'cmsenv' on ../src/")
     quit(1)
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
@@ -19,23 +19,23 @@ class ExampleDisplacedAnalysis(Module):
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL
-        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 150, 0, 400)
+        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 150, 0, 100)
-        self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 150, -6, 6)
+        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 100, 0, 50)
+        self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 100, -6, 6)
         # 14 - MUON NETRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 150, 0, 50)
-        self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity', 150, -6, 6)
+        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 100, 0, 50)
+        self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity', 100, -6, 6)
         # 1000022 - NEUTRALINO
-        self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum', 150, 0, 1100)
-        self.h_neueta = ROOT.TH1F('neueta', 'Neutralino Pseudorapidity', 150, -6, 6)
+        self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum', 100, 0, 1100)
+        self.h_neueta = ROOT.TH1F('neueta', 'Neutralino Pseudorapidity', 100, -6, 6)
         # 1000024 - CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', 'All Chargino Transverse Momentum', 150, 0, 1100)
-        self.h_cheta = ROOT.TH1F('cheta', 'All Chargino Pseudorapidity', 150, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', 'All Chargino Phi', 150, -3.2, 3.2)
-        self.h_chdeta = ROOT.TH1F('chdeta', 'All Chargino Delta Eta', 150, 0, 6)
-        self.h_chdphi = ROOT.TH1F('chdphi', 'All Chargino Delta Phi', 150, 0, 3.2)
+        self.h_chpt = ROOT.TH1F('chpt', 'All Chargino Transverse Momentum', 100, 0, 1000)
+        self.h_cheta = ROOT.TH1F('cheta', 'All Chargino Pseudorapidity', 100, -6, 6)
+        self.h_chphi = ROOT.TH1F('chphi', 'All Chargino Phi', 100, -3.2, 3.2)
+        self.h_chdeta = ROOT.TH1F('chdeta', 'All Chargino Delta Eta', 100, 0, 5)
+        self.h_chdphi = ROOT.TH1F('chdphi', 'All Chargino Delta Phi', 100, 0, 3.2)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta', 150, 0, 3)
         self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', 'Chargino-Neutralino Delta Eta', 150, 0, 1)
@@ -57,6 +57,7 @@ class ExampleDisplacedAnalysis(Module):
         print("Initializing... beginJob function ended.")
 
     def analyze(self, event):
+        #Variables, Arrays
         genParts = Collection(event, "GenPart")
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
@@ -65,6 +66,7 @@ class ExampleDisplacedAnalysis(Module):
         mus = []
         nmus = []
         neus = []
+        #Function definitions
         def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
             resonance = original
@@ -86,7 +88,7 @@ class ExampleDisplacedAnalysis(Module):
                 ids.append(item.genPartIdxMother)
             if particle.genPartIdxMother not in ids:
                 list.append(particle)
-        def particleInList(particle, list):
+        def particleInList(particle, list): #checks if a particle is in a list
             ids = []
             for item in list:
                 ids.append(item.genPartIdxMother)
@@ -94,11 +96,11 @@ class ExampleDisplacedAnalysis(Module):
                 return True
             else:
                 return False
-        def getStatusFlag(part, pos):
+        def getStatusFlag(part, pos): #returns 0 or 1 of a bitwise, in position pos
             flag = str(part.statusFlags>>pos)
             return int(flag[:1])
 
-        #find chargino by making sure that it is the first ancestor, mass 200gev
+        #scan all particles in the event by final state
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
                 mother = findAncestor(particle, False)
@@ -107,7 +109,7 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
-                        if gmother.pdgId == 1000024:
+                        if gmother.pdgId == 1000024: #must be ch
                             addUniqueParticle(gmother, chs)
                             if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1: # and abs(particle.pt) >= 5
                                 addUniqueParticle(particle, mus)
@@ -130,10 +132,9 @@ class ExampleDisplacedAnalysis(Module):
                 nmu_mother = findAncestor(nmu, False) #W
                 if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
                     W_moms += 1
-                    mu_gmother = findAncestor(mu_mother, False) #chargino
-                    nmu_gmother = findAncestor(nmu_mother, False) #chargino must be the same
-                    if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother:
-                        #nmu_gmother = findAncestor(nmu_mother)
+                    mu_gmother = findAncestor(mu_mother, False) #ch
+                    nmu_gmother = findAncestor(nmu_mother, False) #ch
+                    if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
                         for neu in neus:
                             neu_mother = findAncestor(neu, False) #chargino
                             if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
