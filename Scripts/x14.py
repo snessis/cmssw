@@ -9,15 +9,13 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collect
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import PostProcessor
 from importlib import import_module
 import ROOT
-from ROOT import gBenchmark, gStyle, gROOT
+from ROOT import gStyle, gROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
 
-        gBenchmark.Start('ntuple1')
-        gStyle.SetOptStat(110211) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL
@@ -124,24 +122,18 @@ class ExampleDisplacedAnalysis(Module):
             return True
         if len(mus) > 2 or len(nmus) > 2:
             print("Warning 8: length of mus, nmus: " + str(len(mus)) + ", " + str(len(nmus)))
-        eventMET = getattr(event, "MET_pt")
-        self.h_metpt.Fill(eventMET)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
-        W_moms = 0
-        ch_moms = 0
         for mu in mus:
             mu_mother = findAncestor(mu, False) #W
             for nmu in nmus:
                 nmu_mother = findAncestor(nmu, False) #W
                 if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
-                    W_moms += 1
                     mu_gmother = findAncestor(mu_mother, False) #ch
                     nmu_gmother = findAncestor(nmu_mother, False) #ch
                     if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
                         for neu in neus:
                             neu_mother = findAncestor(neu, False) #chargino
-                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
-                                ch_moms += 1
+                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother
                                 deta_mu = abs(mu.eta) - abs(mu_gmother.eta)
                                 self.h_mupt.Fill(mu.pt)
                                 self.h_mueta.Fill(mu.eta)
@@ -152,8 +144,6 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_neueta.Fill(neu.eta)
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                                 self.h_mix_chneu_deta.Fill(deta_neu)
-        #print("Warning 6: Chargino moms: " + str(ch_moms) + ", W moms: " + str(W_moms))
-        #print("Warning 7: mus, nmus, neus, chs size: " + str(len(mus)) + ", " + str(len(nmus)) + ", " + str(len(neus)) + ", " + str(len(chs)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2:
             for particle in chs:
@@ -166,6 +156,8 @@ class ExampleDisplacedAnalysis(Module):
             dphi = part1.phi - part2.phi
             self.h_chdeta.Fill(deta)
             self.h_chdphi.Fill(dphi)
+        eventMET = getattr(event, "MET_pt")
+        self.h_metpt.Fill(eventMET)
         #analysis ends here: return True
         return True
 
@@ -177,6 +169,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c.cd()
         # GRAPHS
         # GENERAL
+        gStyle.SetOptStat(1210) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
         self.h_metpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
