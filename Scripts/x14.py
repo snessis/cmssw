@@ -4,7 +4,6 @@ import os, sys
 if 'CMSSW_VERSION' not in os.environ:
     print("Run 'cmsenv' on ../src/")
     quit(1)
-
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import PostProcessor
@@ -16,6 +15,8 @@ class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
 
+        gBenchmark.Start('ntuple1')
+        gStyle.SetOptStat(110211) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL
@@ -173,7 +174,6 @@ class ExampleDisplacedAnalysis(Module):
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
         self.c.cd()
-        gStyle.SetOptStat(110211) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         # GRAPHS
         # GENERAL
         self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
