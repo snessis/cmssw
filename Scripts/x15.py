@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#x14 - based on x13 feedback + solid structure making
+#x15 - solid structure of x14 but with muon pt cut
 import os, sys
 if 'CMSSW_VERSION' not in os.environ:
     print("Run 'cmsenv' on ../src/")
@@ -110,7 +110,7 @@ class ExampleDisplacedAnalysis(Module):
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
                         if abs(gmother.pdgId) == 1000024: #must be ch
                             addUniqueParticle(gmother, chs)
-                            if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1:
+                            if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1 and abs(particle.pt) >= 5:
                                 addUniqueParticle(particle, mus)
                             if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, nmus)
@@ -211,11 +211,11 @@ class ExampleDisplacedAnalysis(Module):
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              hist.Draw()
-             save = "x14/h_" + hist.GetName() + ".png"
+             save = "x15/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
         Module.endJob(self)
 
 preselection = ""
 files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_190_10.root".format(os.environ['CMSSW_BASE'])] ##new file!
-p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x14.root", histDirName="plots")
+p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x15.root", histDirName="plots")
 p.run()
