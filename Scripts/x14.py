@@ -119,7 +119,7 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
                     addUniqueParticle(mother, chs)
                     addUniqueParticle(particle, neus)
-        if len(chs) == 0:
+        if len(mus) == 0 or len(nmus) == 0: #need to record the muon-neutrino decay channel to continue, saves computation time
             return True
         eventMET = getattr(event, "MET_pt")
         self.h_metpt.Fill(eventMET)
@@ -149,8 +149,10 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_neueta.Fill(neu.eta)
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                                 self.h_mix_chneu_deta.Fill(deta_neu)
+        if len(mus) > 2 or len(nmus) > 2:
+            print("Warning 8: length of mus, nmus: " + str(len(mus)) + ", " + str(len(nmus)))
         print("Warning 6: Chargino moms: " + str(ch_moms) + ", W moms: " + str(W_moms))
-        print("Warning 7: mus, neus, neus, chs size: " + str(len(mus)) + ", " + str(len(nmus)) + ", " + str(len(neus)) + ", " + str(len(chs)))
+        print("Warning 7: mus, nmus, neus, chs size: " + str(len(mus)) + ", " + str(len(nmus)) + ", " + str(len(neus)) + ", " + str(len(chs)))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2:
             for particle in chs:
@@ -163,12 +165,13 @@ class ExampleDisplacedAnalysis(Module):
             dphi = part1.phi - part2.phi
             self.h_chdeta.Fill(deta)
             self.h_chdphi.Fill(dphi)
+        #analysis ends here: return True
         return True
 
     def endJob(self):
         print("Initializing endJob function...")
         #CANVAS
-        self.c = ROOT.TCanvas("canv", "The Canvas", 900, 660)
+        self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
         self.c.cd()
         # GRAPHS
@@ -212,6 +215,8 @@ class ExampleDisplacedAnalysis(Module):
         histList = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.SetLineColor(6)
+             hist.GetXaxis().CenterTitle(True)
+             hist.GetYaxis().CenterTitle(True)
              hist.Draw()
              save = "x14/h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
