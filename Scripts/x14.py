@@ -173,6 +173,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
         self.c.cd()
+        gStyle.SetOptStat(110211) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         # GRAPHS
         # GENERAL
         self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
