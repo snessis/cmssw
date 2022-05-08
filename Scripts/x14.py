@@ -103,13 +103,12 @@ class ExampleDisplacedAnalysis(Module):
         #scan all particles in the event by final state
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
-                mother = findAncestor(particle, False)
-                #mother must now be W or ch. instill check.
+                mother = findAncestor(particle, False) #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
                 if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
-                        if gmother.pdgId == 1000024: #must be ch
+                        if abs(gmother.pdgId) == 1000024: #must be ch
                             addUniqueParticle(gmother, chs)
                             if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1: # and abs(particle.pt) >= 5
                                 addUniqueParticle(particle, mus)
