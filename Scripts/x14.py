@@ -19,26 +19,26 @@ class ExampleDisplacedAnalysis(Module):
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL
-        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum', 100, 0, 400)
+        self.h_metpt = ROOT.TH1F('metpt', 'Missing Transverse Momentum (MET)', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum', 100, 0, 50)
-        self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity', 100, -6, 6)
+        self.h_mupt = ROOT.TH1F('mupt', 'Muon Transverse Momentum $p_t$', 100, 0, 50)
+        self.h_mueta = ROOT.TH1F('mueta', 'Muon Pseudorapidity $\eta$', 100, -6, 6)
         # 14 - MUON NETRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum', 100, 0, 50)
-        self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity', 100, -6, 6)
+        self.h_nmupt = ROOT.TH1F('nmupt', 'Muon Neutrino Transverse Momentum $p_t$', 100, 0, 50)
+        self.h_nmueta = ROOT.TH1F('nmueta', 'Muon Neutrino Pseudorapidity $\eta$', 100, -6, 6)
         # 1000022 - NEUTRALINO
-        self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum', 100, 0, 1100)
-        self.h_neueta = ROOT.TH1F('neueta', 'Neutralino Pseudorapidity', 100, -6, 6)
+        self.h_neupt = ROOT.TH1F('neupt', 'Neutralino Transverse Momentum $p_t$', 100, 0, 1100)
+        self.h_neueta = ROOT.TH1F('neueta', 'Neutralino Pseudorapidity $\eta$', 100, -6, 6)
         # 1000024 - CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', 'All Chargino Transverse Momentum', 100, 0, 1000)
-        self.h_cheta = ROOT.TH1F('cheta', 'All Chargino Pseudorapidity', 100, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', 'All Chargino Phi', 100, -3.2, 3.2)
-        self.h_chdeta = ROOT.TH1F('chdeta', 'All Chargino Delta Eta', 100, 0, 5)
-        self.h_chdphi = ROOT.TH1F('chdphi', 'All Chargino Delta Phi', 100, 0, 3.2)
+        self.h_chpt = ROOT.TH1F('chpt', 'All Chargino Transverse Momentum $p_t$', 100, 0, 1000)
+        self.h_cheta = ROOT.TH1F('cheta', 'All Chargino Pseudorapidity $\eta$', 100, -6, 6)
+        self.h_chphi = ROOT.TH1F('chphi', 'All Chargino Phi $\phi$', 100, -3.2, 3.2)
+        self.h_chdeta = ROOT.TH1F('chdeta', 'All Chargino Delta Eta $\Delta \eta$', 100, 0, 5)
+        self.h_chdphi = ROOT.TH1F('chdphi', 'All Chargino Delta Phi $\Delta \phi$', 100, 0, 3.2)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta', 150, 0, 3)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', 'Chargino-Neutralino Delta Eta', 150, 0, 1)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', 'Chargino-Muon Delta Eta $\Delta \eta$', 150, 0, 3)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', 'Chargino-Neutralino Delta Eta $\Delta \eta$', 150, 0, 1)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
@@ -118,8 +118,6 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
                     addUniqueParticle(mother, chs)
                     addUniqueParticle(particle, neus)
-        if len(mus) == 0 or len(nmus) == 0: #need to record the muon-neutrino decay channel to continue, saves computation time
-            return True
         if len(mus) > 2 or len(nmus) > 2:
             print("Warning 8: length of mus, nmus: " + str(len(mus)) + ", " + str(len(nmus)))
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu
