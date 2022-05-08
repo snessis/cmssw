@@ -19,26 +19,26 @@ class ExampleDisplacedAnalysis(Module):
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL
-        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Transverse Momentum (MET)}', 120, 0, 400)
+        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Transverse Momentum (MET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 120, 0, 50)
-        self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 120, -6, 6)
+        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 100, 0, 50)
+        self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 100, -6, 6)
         # 14 - MUON NETRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 120, 0, 50)
-        self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 120, -6, 6)
+        self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 100, 0, 50)
+        self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 100, -6, 6)
         # 1000022 - NEUTRALINO
-        self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 120, 0, 1100)
-        self.h_neueta = ROOT.TH1F('neueta', '\\mbox{Neutralino Pseudorapidity } \\eta', 120, -6, 6)
+        self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 100, 0, 1100)
+        self.h_neueta = ROOT.TH1F('neueta', '\\mbox{Neutralino Pseudorapidity } \\eta', 100, -6, 6)
         # 1000024 - CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{All Chargino Transverse Momentum } p_t', 120, 0, 1000)
-        self.h_cheta = ROOT.TH1F('cheta', '\\mbox{All Chargino Pseudorapidity } \\eta', 120, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{All Chargino Phi } \\phi', 120, -3.2, 3.2)
-        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{All Chargino Delta Eta } \\Delta \\eta', 120, 0, 5)
-        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{All Chargino Delta Phi } \\Delta \\phi', 120, 0, 3.2)
+        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{All Chargino Transverse Momentum } p_t', 100, 0, 1000)
+        self.h_cheta = ROOT.TH1F('cheta', '\\mbox{All Chargino Pseudorapidity } \\eta', 100, -6, 6)
+        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{All Chargino Phi } \\phi', 100, -3.2, 3.2)
+        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{All Chargino Delta Eta } \\Delta \\eta', 100, 0, 5)
+        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{All Chargino Delta Phi } \\Delta \\phi', 100, 0, 3.2)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 120, 0, 3)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 120, 0, 1)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 3)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 100, 0, 0.6)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
@@ -168,6 +168,7 @@ class ExampleDisplacedAnalysis(Module):
         # GRAPHS
         # GENERAL
         gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
+        gStyle.SetStatColor(18)
         self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
         self.h_metpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
@@ -206,7 +207,7 @@ class ExampleDisplacedAnalysis(Module):
         print("Printing Histograms...")
         histList = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chneu_deta]
         for hist in histList:
-             hist.SetLineColor(39)
+             hist.SetLineColor(46)
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              hist.Draw()
