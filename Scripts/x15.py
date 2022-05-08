@@ -19,26 +19,26 @@ class ExampleDisplacedAnalysis(Module):
     def beginJob(self, histFile=None, histDirName=None):
         Module.beginJob(self, histFile, histDirName)
         # GENERAL
-        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Transverse Momentum (MET)}', 90, 0, 400)
+        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Transverse Momentum (MET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 50)
-        self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 90, -6, 6)
+        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 100, 0, 50)
+        self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 100, -6, 6)
         # 14 - MUON NETRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 90, 0, 50)
-        self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 90, -6, 6)
+        self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 100, 0, 50)
+        self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 100, -6, 6)
         # 1000022 - NEUTRALINO
-        self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 90, 0, 1100)
-        self.h_neueta = ROOT.TH1F('neueta', '\\mbox{Neutralino Pseudorapidity } \\eta', 90, -6, 6)
+        self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 100, 0, 1100)
+        self.h_neueta = ROOT.TH1F('neueta', '\\mbox{Neutralino Pseudorapidity } \\eta', 100, -6, 6)
         # 1000024 - CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{All Chargino Transverse Momentum } p_t', 90, 0, 1000)
-        self.h_cheta = ROOT.TH1F('cheta', '\\mbox{All Chargino Pseudorapidity } \\eta', 90, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{All Chargino Phi } \\phi', 90, -3.1415927, 3.1415927)
-        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{All Chargino Delta Eta } \\Delta \\eta', 90, 0, 5)
-        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{All Chargino Delta Phi } \\Delta \\phi', 90, 0, 3.1415927)
+        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{All Chargino Transverse Momentum } p_t', 100, 0, 1000)
+        self.h_cheta = ROOT.TH1F('cheta', '\\mbox{All Chargino Pseudorapidity } \\eta', 100, -6, 6)
+        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{All Chargino Phi } \\phi', 50, -3.1415927, 3.1415927)
+        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{All Chargino Delta Eta } \\Delta \\eta', 100, 0, 5)
+        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{All Chargino Delta Phi } \\Delta \\phi', 100, 0, 3.1415927)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 90, 0, 3)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 90, 0, 0.6)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 2)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 100, 0, 0.6)
         # ADD HISTOGRAMS
         self.addObject(self.h_metpt)
         self.addObject(self.h_chpt)
