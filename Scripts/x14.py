@@ -9,6 +9,7 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collect
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import PostProcessor
 from importlib import import_module
 import ROOT
+from ROOT import gBenchmark, gStyle, gROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
 class ExampleDisplacedAnalysis(Module):
