@@ -133,7 +133,7 @@ class ExampleDisplacedAnalysis(Module):
                     if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
                         for neu in neus:
                             neu_mother = findAncestor(neu, False) #chargino
-                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother
+                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
                                 deta_mu = abs(mu.eta) - abs(mu_gmother.eta)
                                 self.h_mupt.Fill(mu.pt)
                                 self.h_mueta.Fill(mu.eta)
