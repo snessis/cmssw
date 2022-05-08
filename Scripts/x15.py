@@ -33,9 +33,9 @@ class ExampleDisplacedAnalysis(Module):
         # 1000024 - CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', '\\mbox{All Chargino Transverse Momentum } p_t', 90, 0, 1000)
         self.h_cheta = ROOT.TH1F('cheta', '\\mbox{All Chargino Pseudorapidity } \\eta', 90, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{All Chargino Phi } \\phi', 90, -3.2, 3.2)
+        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{All Chargino Phi } \\phi', 90, -3.1415927, 3.1415927)
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{All Chargino Delta Eta } \\Delta \\eta', 90, 0, 5)
-        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{All Chargino Delta Phi } \\Delta \\phi', 90, 0, 3.2)
+        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{All Chargino Delta Phi } \\Delta \\phi', 90, 0, 3.1415927)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 90, 0, 3)
         self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 90, 0, 0.6)
