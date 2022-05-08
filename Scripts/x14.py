@@ -213,7 +213,7 @@ class ExampleDisplacedAnalysis(Module):
         print("Printing Histograms...")
         histList = [self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chneu_deta]
         for hist in histList:
-             hist.SetLineColor(3)
+             hist.SetLineColor(30)
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              hist.Draw()
