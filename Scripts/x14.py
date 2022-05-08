@@ -169,40 +169,40 @@ class ExampleDisplacedAnalysis(Module):
         self.c.cd()
         # GRAPHS
         # GENERAL
-        gStyle.SetOptStat(1210) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
+        gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
         self.h_metpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
-        self.h_mupt.GetXaxis().SetTitle("pt (GeV)")
+        self.h_mupt.GetXaxis().SetTitle("$p_t$ (GeV)")
         self.h_mupt.GetYaxis().SetTitle("Counts")
-        self.h_mueta.GetXaxis().SetTitle("eta")
+        self.h_mueta.GetXaxis().SetTitle("$\eta$")
         self.h_mueta.GetYaxis().SetTitle("Counts")
         # 14 - MUON NETRINO
-        self.h_nmupt.GetXaxis().SetTitle("pt (GeV)")
+        self.h_nmupt.GetXaxis().SetTitle("$p_t$ (GeV)")
         self.h_nmupt.GetYaxis().SetTitle("Counts")
-        self.h_nmueta.GetXaxis().SetTitle("eta")
+        self.h_nmueta.GetXaxis().SetTitle("$\eta$")
         self.h_nmueta.GetYaxis().SetTitle("Counts")
         # 1000022 - NEUTRALINO
-        self.h_neupt.GetXaxis().SetTitle("pt (GeV)")
+        self.h_neupt.GetXaxis().SetTitle("$p_t$ (GeV)")
         self.h_neupt.GetYaxis().SetTitle("Counts")
-        self.h_neueta.GetXaxis().SetTitle("eta")
+        self.h_neueta.GetXaxis().SetTitle("$\eta$")
         self.h_neueta.GetYaxis().SetTitle("Counts")
         # 1000024 - CHARGINOS
-        self.h_chpt.GetXaxis().SetTitle("pt (GeV)")
+        self.h_chpt.GetXaxis().SetTitle("$p_t$ (GeV)")
         self.h_chpt.GetYaxis().SetTitle("Counts")
-        self.h_cheta.GetXaxis().SetTitle("eta")
+        self.h_cheta.GetXaxis().SetTitle("$\eta$")
         self.h_cheta.GetYaxis().SetTitle("Counts")
-        self.h_chphi.GetXaxis().SetTitle("phi (rad)")
+        self.h_chphi.GetXaxis().SetTitle("$\phi$ (rad)")
         self.h_chphi.GetYaxis().SetTitle("Counts")
-        self.h_chdphi.GetXaxis().SetTitle("delta phi (rad)")
+        self.h_chdphi.GetXaxis().SetTitle("$\Delta \phi$ (rad)")
         self.h_chdphi.GetYaxis().SetTitle("Counts")
-        self.h_chdeta.GetXaxis().SetTitle("delta eta")
+        self.h_chdeta.GetXaxis().SetTitle("$\Delta \eta$")
         self.h_chdeta.GetYaxis().SetTitle("Counts")
         # MIXTURES
-        self.h_mix_chmu_deta.GetXaxis().SetTitle("delta eta")
+        self.h_mix_chmu_deta.GetXaxis().SetTitle("$\Delta \eta$")
         self.h_mix_chmu_deta.GetYaxis().SetTitle("Counts")
-        self.h_mix_chneu_deta.GetXaxis().SetTitle("delta eta")
+        self.h_mix_chneu_deta.GetXaxis().SetTitle("$\Delta \eta$")
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
         #PRINTING
         print("Printing Histograms...")
