@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #x16 - solid structure of x14 but with muon pt cut
 #x16 - ONLY muon decay channel
-ver = "16"
+ver = "17"
 import os, sys
 if 'CMSSW_VERSION' not in os.environ:
     print("Run 'cmsenv' on ../src/")
@@ -124,7 +124,7 @@ class ExampleDisplacedAnalysis(Module):
             print("Warning 8: length of mus, nmus: " + str(len(mus)) + ", " + str(len(nmus)))
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
-            if abs(mu.pt) >= 5:
+            if abs(mu.pt) >= 10:
                 mu_mother = findAncestor(mu, False) #W
                 for nmu in nmus:
                     nmu_mother = findAncestor(nmu, False) #W
