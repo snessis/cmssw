@@ -131,31 +131,30 @@ class ExampleDisplacedAnalysis(Module):
             print("Warning 8: length of mus, nmus: " + str(len(mus)) + ", " + str(len(nmus)))
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
-            if abs(mu.eta) <= 3:
-                mu_mother = findAncestor(mu, False) #W
-                for nmu in nmus:
-                    nmu_mother = findAncestor(nmu, False) #W
-                    if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
-                        mu_gmother = findAncestor(mu_mother, False) #ch
-                        nmu_gmother = findAncestor(nmu_mother, False) #ch
-                        if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
-                            for neu in neus:
-                                neu_mother = findAncestor(neu, False) #chargino
-                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
-                                    eventMET_muonchannel = getattr(event, "MET_pt")
-                                    self.h_metpt.Fill(eventMET_muonchannel)
-                                    deta_mu = abs(mu.eta) - abs(mu_gmother.eta)
-                                    self.h_mupt.Fill(mu.pt)
-                                    self.h_mueta.Fill(mu.eta)
-                                    self.h_mix_chmu_deta.Fill(deta_mu)
-                                    deta_nmu = abs(nmu.eta) - abs(mu_gmother.eta)
-                                    self.h_nmupt.Fill(nmu.pt)
-                                    self.h_nmueta.Fill(nmu.eta)
-                                    self.h_mix_chnmu_deta.Fill(deta_nmu)
-                                    self.h_neupt.Fill(neu.pt)
-                                    self.h_neueta.Fill(neu.eta)
-                                    deta_neu = abs(neu.eta) - abs(neu_mother.eta)
-                                    self.h_mix_chneu_deta.Fill(deta_neu)
+            mu_mother = findAncestor(mu, False) #W
+            for nmu in nmus:
+                nmu_mother = findAncestor(nmu, False) #W
+                if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
+                    mu_gmother = findAncestor(mu_mother, False) #ch
+                    nmu_gmother = findAncestor(nmu_mother, False) #ch
+                    if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
+                        for neu in neus:
+                            neu_mother = findAncestor(neu, False) #chargino
+                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
+                                eventMET_muonchannel = getattr(event, "MET_pt")
+                                self.h_metpt.Fill(eventMET_muonchannel)
+                                deta_mu = abs(mu.eta) - abs(mu_gmother.eta)
+                                self.h_mupt.Fill(mu.pt)
+                                self.h_mueta.Fill(mu.eta)
+                                self.h_mix_chmu_deta.Fill(deta_mu)
+                                deta_nmu = abs(nmu.eta) - abs(mu_gmother.eta)
+                                self.h_nmupt.Fill(nmu.pt)
+                                self.h_nmueta.Fill(nmu.eta)
+                                self.h_mix_chnmu_deta.Fill(deta_nmu)
+                                self.h_neupt.Fill(neu.pt)
+                                self.h_neueta.Fill(neu.eta)
+                                deta_neu = abs(neu.eta) - abs(neu_mother.eta)
+                                self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2:
             for particle in chs:
