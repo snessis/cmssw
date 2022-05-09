@@ -67,6 +67,7 @@ class ExampleDisplacedAnalysis(Module):
     def analyze(self, event):
         #Variables, Arrays
         genParts = Collection(event, "GenPart")
+        eventMET = getattr(event, "MET_pt")
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         chs_all = []
@@ -74,6 +75,7 @@ class ExampleDisplacedAnalysis(Module):
         mus = []
         nmus = []
         neus = []
+        temp = []
         #Function definitions
         def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
@@ -138,8 +140,8 @@ class ExampleDisplacedAnalysis(Module):
                         for neu in neus:
                             neu_mother = findAncestor(neu, False) #chargino
                             if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
-                                eventMET_muonchannel = getattr(event, "MET_pt")
-                                self.h_metpt.Fill(eventMET_muonchannel)
+                                eventMET = getattr(event, "MET_pt")
+                                self.h_metpt.Fill(eventMET)
                                 deta_mu = abs(mu.eta) - abs(mu_gmother.eta)
                                 self.h_mupt.Fill(mu.pt)
                                 self.h_mueta.Fill(mu.eta)
@@ -152,6 +154,7 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_neueta.Fill(neu.eta)
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                                 self.h_mix_chneu_deta.Fill(deta_neu)
+                                temp.append(particle.vtx.x)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) > 0:
             for particle in chs:
@@ -165,7 +168,6 @@ class ExampleDisplacedAnalysis(Module):
                 dphi = part1.phi - part2.phi
                 self.h_chdeta.Fill(deta)
                 self.h_chdphi.Fill(dphi)
-        eventMET = getattr(event, "MET_pt")
         self.h_metptall.Fill(eventMET)
         #analysis ends here: return True
         return True
