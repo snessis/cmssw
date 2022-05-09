@@ -118,7 +118,7 @@ class ExampleDisplacedAnalysis(Module):
                     if abs(mother.pdgId) == 24: #must be W
                         gmother = findAncestor(mother, False) #chargino or irrelevant W
                         if abs(gmother.pdgId) == 1000024: #must be ch
-                        addUniqueParticle(gmother, chs)
+                            addUniqueParticle(gmother, chs)
                             if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, mus)
                             if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
