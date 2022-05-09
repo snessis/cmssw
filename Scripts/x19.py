@@ -14,7 +14,6 @@ import ROOT
 from ROOT import gStyle, gROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
-val1 = 0
 
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
@@ -127,8 +126,6 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
-        if len(mus) > 2 or len(nmus) > 2:
-            print("Warning 8: length of mus, nmus: " + str(len(mus)) + ", " + str(len(nmus)))
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             mu_mother = findAncestor(mu, False) #W
@@ -156,21 +153,20 @@ class ExampleDisplacedAnalysis(Module):
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
                                 self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        for particle in chs:
-            self.h_chpt.Fill(particle.pt)
-            self.h_cheta.Fill(particle.eta)
-            self.h_chphi.Fill(particle.phi)
-        if len(chs) == 2:
-            part1 = chs[0]
-            part2 = chs[1]
-            deta = abs(part1.eta) - abs(part2.eta)
-            dphi = part1.phi - part2.phi
-            self.h_chdeta.Fill(deta)
-            self.h_chdphi.Fill(dphi)
+        if len(chs) > 0:
+            for particle in chs:
+                self.h_chpt.Fill(particle.pt)
+                self.h_cheta.Fill(particle.eta)
+                self.h_chphi.Fill(particle.phi)
+            if len(chs) == 2: #event with two muonic channels
+                part1 = chs[0]
+                part2 = chs[1]
+                deta = abs(part1.eta) - abs(part2.eta)
+                dphi = part1.phi - part2.phi
+                self.h_chdeta.Fill(deta)
+                self.h_chdphi.Fill(dphi)
         eventMET = getattr(event, "MET_pt")
         self.h_metptall.Fill(eventMET)
-        if len(nmus) > 0:
-            val1 = nmus[0].mass
         #analysis ends here: return True
         return True
 
@@ -222,7 +218,6 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
         #PRINTING
         print("Printing Histograms...")
-        print("Muon Neutrino mass: " + str(val1))
         histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.SetLineColor(38)
