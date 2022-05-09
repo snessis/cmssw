@@ -170,6 +170,8 @@ class ExampleDisplacedAnalysis(Module):
             self.h_chdphi.Fill(dphi)
         eventMET = getattr(event, "MET_pt")
         self.h_metptall.Fill(eventMET)
+        if len(nmus) > 0:
+            val1 = nmus[0].mass
         #analysis ends here: return True
         return True
 
