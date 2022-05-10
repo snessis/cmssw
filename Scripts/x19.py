@@ -152,7 +152,7 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_neupt.Fill(neu.pt)
                                 self.h_neueta.Fill(neu.eta)
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
-                                self.h_mix_chneu_deta.Fill(deta_neu))
+                                self.h_mix_chneu_deta.Fill(deta_neu)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) > 0:
             for particle in chs:
