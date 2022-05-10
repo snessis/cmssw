@@ -67,6 +67,7 @@ class ExampleDisplacedAnalysis(Module):
     def analyze(self, event):
         #Variables, Arrays
         genParts = Collection(event, "GenPart")
+        pv = Collection(event, "PV")
         eventMET = getattr(event, "MET_pt")
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
