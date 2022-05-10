@@ -14,8 +14,8 @@ import ROOT
 from ROOT import gStyle, gROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
-events_muonch = 0
-events_all = 0
+global events_muonch = 0
+global events_all = 0
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
