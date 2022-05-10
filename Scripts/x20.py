@@ -79,7 +79,7 @@ class ExampleDisplacedAnalysis(Module):
         nmus = []
         neus = []
         global events_muonch
-        global events_all = 0
+        global events_all
         #Function definitions
         def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
