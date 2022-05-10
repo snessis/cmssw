@@ -67,7 +67,6 @@ class ExampleDisplacedAnalysis(Module):
     def analyze(self, event):
         #Variables, Arrays
         genParts = Collection(event, "GenPart")
-        pv = Collection(event, "PV")
         eventMET = getattr(event, "MET_pt")
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
@@ -76,7 +75,6 @@ class ExampleDisplacedAnalysis(Module):
         mus = []
         nmus = []
         neus = []
-        temp = []
         #Function definitions
         def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
@@ -154,8 +152,7 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_neupt.Fill(neu.pt)
                                 self.h_neueta.Fill(neu.eta)
                                 deta_neu = abs(neu.eta) - abs(neu_mother.eta)
-                                self.h_mix_chneu_deta.Fill(deta_neu)
-                                temp.append(particle.vtx_x)
+                                self.h_mix_chneu_deta.Fill(deta_neu))
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) > 0:
             for particle in chs:
