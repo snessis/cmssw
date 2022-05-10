@@ -39,10 +39,10 @@ class ExampleDisplacedAnalysis(Module):
         # 1000024 - CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Muon Channel Transverse Momentum } p_t', 100, 0, 1000)
         self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Muon Channel Chargino Pseudorapidity } \\eta', 100, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Muon Channel Chargino Phi } \\phi', 50, -3.1415927, 3.1415927)
+        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Muon Channel Chargino Phi } \\phi', 40, -3.1415927, 3.1415927)
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Muon Channel Chargino Delta Eta } \\Delta \\eta', 100, 0, 5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Muon Channel Chargino Delta Phi } \\Delta \\phi', 100, 0, 3.1415927)
-        self.h_chlen = ROOT.TH1F('chlen', '\\mbox{Muon Channel Chargino Length} L', 100, 0, 10)
+        self.h_chlen = ROOT.TH1F('chlen', '\\mbox{Muon Channel Chargino Length } L', 100, 0, 15)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 100, 0, 3.5)
@@ -150,6 +150,7 @@ class ExampleDisplacedAnalysis(Module):
                             neu_mother = findAncestor(neu, False) #chargino
                             if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
                                 ch = mu_gmother
+                                ch.p4()
                                 events_muonch += 1
                                 self.h_metpt.Fill(eventMET)
                                 deta_mu = abs(mu.eta) - abs(ch.eta)
@@ -172,22 +173,22 @@ class ExampleDisplacedAnalysis(Module):
                                 chlen = physDistance(ch_birth, ch_decay)
                                 self.h_chlen.Fill(chlen)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        if len(chs) > 0:
-            #for particle in chs:
-            #
-            if len(chs) == 2: #event with two muonic channels
-                part1 = chs[0]
-                part2 = chs[1]
-                deta = abs(part1.eta) - abs(part2.eta)
-                dphi = part1.phi - part2.phi
-                self.h_chdeta.Fill(deta)
-                self.h_chdphi.Fill(dphi)
+        if len(chs) == 2: #event with two muonic channels
+            part1 = chs[0]
+            part2 = chs[1]
+            deta = abs(part1.eta) - abs(part2.eta)
+            dphi = part1.phi - part2.phi
+            self.h_chdeta.Fill(deta)
+            self.h_chdphi.Fill(dphi)
         self.h_metptall.Fill(eventMET)
         #analysis ends here: return True
         return True
 
     def endJob(self):
         print("Initializing endJob function...")
+        print("Number of muon channel events: " + str(events_muonch))
+        print("Number of events: " + str(events_all))
+        print("Channel branching ratio: " + str(events_muonch/(2*events_all)))
         #CANVAS
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
