@@ -14,8 +14,8 @@ import ROOT
 from ROOT import gStyle, gROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
-global events_muonch = 0
-global events_all = 0
+events_muonch = 0
+events_all = 0
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -78,6 +78,8 @@ class ExampleDisplacedAnalysis(Module):
         mus = []
         nmus = []
         neus = []
+        global events_muonch
+        global events_all = 0
         #Function definitions
         def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
