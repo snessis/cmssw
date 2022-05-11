@@ -45,7 +45,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 100, 0, 15)
         self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L', 100, 0, 20)
         self.h_chbeta = ROOT. TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 100, 0, 1)
-        self.h_chbeta = ROOT. TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 100, 0, 200)
+        self.h_chgamma = ROOT. TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 100, 0, 200)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 100, 0, 3.5)
@@ -262,7 +262,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
         #PRINTING
         print("Printing Histograms...")
-        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
