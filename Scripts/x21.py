@@ -42,10 +42,10 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 40, -3.1415927, 3.1415927)
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 100, 0, 5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 100, 0, 3.1415927)
-        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 100, 0, 15)
-        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L', 100, 0, 20)
+        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 100, 0, 5)
+        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L', 100, 0, 6)
         self.h_chbeta = ROOT. TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 100, 0, 1)
-        self.h_chgamma = ROOT. TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 100, 0, 200)
+        self.h_chgamma = ROOT. TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 100, 0, 25)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 100, 0, 3.5)
@@ -140,11 +140,9 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
         self.h_metptall.Fill(eventMET)
-        if len(mus) != 2 and eventMET >= 150:
-            return False
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
-            if mu.pt >= 4 and mu.eta <= 2.5:
+            if mu.pt >= 4 and mu.eta <= 2.5 and len(mus) == 2 and eventMET >= 150:
                 mu_mother = findAncestor(mu) #W
                 for nmu in nmus:
                     nmu_mother = findAncestor(nmu) #W
