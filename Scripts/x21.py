@@ -198,6 +198,7 @@ class ExampleDisplacedAnalysis(Module):
             for ch in chs_all_resns:
                 if ch.pdgId == findAncestor(w).pdgId and getStatusFlag(ch, 12) == 1: #ch from same chain, and is first copy
                     ch_init = ch
+                    print("ch_init is a ch? " + str(ch_init.pdgId))
                     break
             if abs(ch_init.pdgId) == 24:
                 print("ch_init is a w?")
