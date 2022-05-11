@@ -170,7 +170,7 @@ class ExampleDisplacedAnalysis(Module):
                                 chlenl = physDistance(ch_birth, ch_decay)
                                 self.h_chlenl.Fill(chlenl)
                                 chp4l = ch.p4()
-                                b = chp4l.BoostVector()
+                                b = chp4l.Vect()/chp4l.Vect().Mag()
                                 #mag = math.sqrt(math.pow(chp4.Px(), 2) + math.pow(chp4.Py(), 2) + math.pow(chp4.Pz(), 2))
                                 #bx = chp4.Px()/mag
                                 #by = chp4.Py()/mag
