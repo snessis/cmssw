@@ -131,10 +131,10 @@ class ExampleDisplacedAnalysis(Module):
                 mother = findAncestor(particle) #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
                 if abs(particle.pdgId) in leptonic:
-                    if abs(mother.pdgId) == 24: #must be W
-                        addUniqueParticle(mother, ws)
+                    if abs(mother.pdgId) == 24: #must be W        
                         gmother = findAncestor(mother) #chargino or irrelevant W
                         if abs(gmother.pdgId) == 1000024: #must be ch
+                            addUniqueParticle(mother, ws)
                             addUniqueParticle(gmother, chs)
                             if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, mus)
@@ -193,26 +193,27 @@ class ExampleDisplacedAnalysis(Module):
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
         #analysis ends here: return True
-        for w in ws:
-            ch_init = w
-            for ch in chs_all_resns:
-                if ch.pdgId == findAncestor(w).pdgId and getStatusFlag(ch, 12) == 1: #ch from same chain, and is first copy
-                    ch_init = ch
-                    #print("ch_init is a ch? " + str(ch_init.pdgId))
-                    break
-            if abs(ch_init.pdgId) == 24:
-                continue
-                #print("ch_init is a w?")
-            tail = ROOT.TVector3(ch_init.vtx_x, ch_init.vtx_y, ch_init.vtx_z)
-            head = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
-            L= (head - tail).Mag()
-            g = ch.p4().Gamma()
-            self.h_chlenl.Fill(L)
-            chp4 = ch.p4()
-            boost = ch.p4().BoostVector()
-            chp4.Boost(-boost)
-            self.h_chlenr.Fill(g * L)
-            chp4.Boost(boost)
+        if len(mus) > 0:
+            for w in ws:
+                ch_init = w
+                for ch in chs_all_resns:
+                    if ch.pdgId == findAncestor(w).pdgId and getStatusFlag(ch, 12) == 1: #ch from same chain, and is first copy
+                        ch_init = ch
+                        #print("ch_init is a ch? " + str(ch_init.pdgId))
+                        break
+                if abs(ch_init.pdgId) == 24:
+                    print("ch_init is a w?")
+                    continue
+                tail = ROOT.TVector3(ch_init.vtx_x, ch_init.vtx_y, ch_init.vtx_z)
+                head = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
+                L= (head - tail).Mag()
+                g = ch.p4().Gamma()
+                self.h_chlenl.Fill(L)
+                chp4 = ch.p4()
+                boost = ch.p4().BoostVector()
+                chp4.Boost(-boost)
+                self.h_chlenr.Fill(g * L)
+                chp4.Boost(boost)
         return True
 
     def endJob(self):
