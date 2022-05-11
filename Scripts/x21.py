@@ -195,7 +195,7 @@ class ExampleDisplacedAnalysis(Module):
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
         #analysis ends here: return True
-        for neu in neu:
+        for neu in neus:
             ch = findAncestor(neu)
             tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
             head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
