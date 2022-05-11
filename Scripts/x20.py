@@ -169,14 +169,11 @@ class ExampleDisplacedAnalysis(Module):
                                 ch_decay = [mu_mother.vtx_x, mu_mother.vtx_y, mu_mother.vtx_z]
                                 chlenl = physDistance(ch_birth, ch_decay)
                                 self.h_chlenl.Fill(chlenl)
-                                chp4 = ch.p4()
-                                bx = chp4.Vect().X() /chp4.Vect().Mag()
-                                by = chp4.Vect().Y() /chp4.Vect().Mag()
-                                bz = chp4.Vect().Z() /chp4.Vect().Mag()
-                                b = ROOT.TVector3(bx,by,bz)
-                                print("1. rest frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                chp4.Boost(-chp4.BoostVector())
-                                print("2. rest frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
+                                chp4lab = ch.p4()                                
+                                print("1. lab frame coords: px = " + str(chp4lab.Px()) + ", py = " + str(chp4lab.Py()) + ", pz = " + str(chp4lab.Pz()))
+                                chp4rest = chp4lab.Boost(-ch.p4().BoostVector())
+                                print("2. rest frame coords: px = " + str(chp4lab.Px()) + ", py = " + str(chp4lab.Py()) + ", pz = " + str(chp4lab.Pz()))
+                                print("3. rest frame coords: px = " + str(chp4rest.Px()) + ", py = " + str(chp4rest.Py()) + ", pz = " + str(chp4rest.Pz()))
 
 
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
