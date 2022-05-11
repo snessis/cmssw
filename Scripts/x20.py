@@ -179,7 +179,7 @@ class ExampleDisplacedAnalysis(Module):
                                 #print("lab frame coords: px = " + str(chp4.X()) + ", py = " + str(chp4.Y()) + ", pz = " + str(chp4.Z()))
                                 print("mag = " + str(mag))
                                 if bx is None or by is None or bz is None:
-                                    print: "NoneType!"
+                                    print("NoneType!")
 
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
