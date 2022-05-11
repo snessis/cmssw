@@ -82,10 +82,11 @@ class ExampleDisplacedAnalysis(Module):
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         chs_all = []
-        chs_test = []
+        chs_all_resns = []
         chs = []
         mus = []
         nmus = []
+        ws = []
         neus = []
         global events_recorded
         global events_all
@@ -131,6 +132,7 @@ class ExampleDisplacedAnalysis(Module):
                 #case for mu and nmu aka leptonic:
                 if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
+                        addUniqueParticle(mother, ws)
                         gmother = findAncestor(mother) #chargino or irrelevant W
                         if abs(gmother.pdgId) == 1000024: #must be ch
                             addUniqueParticle(gmother, chs)
@@ -143,7 +145,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
             if abs(particle.pdgId) == 1000024:
-                chs_test.append(particle)
+                chs_all_resns.append(particle)
         self.h_metptall.Fill(eventMET)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
@@ -191,10 +193,16 @@ class ExampleDisplacedAnalysis(Module):
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
         #analysis ends here: return True
-        for neu in neus:
-            ch = findAncestor(neu)
-            tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-            head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
+        for w in ws:
+            ch_init = w
+            for ch in chs_all_resns:
+                if ch.pdgId == findAncestor(w).pdgId and getStatusFlag(ch, 12) == 1: #ch from same chain, and is first copy
+                    ch_init = ch
+                    break
+            if abs(ch_init.pdgId) == 24:
+                print("ch_init is a w?")
+            tail = ROOT.TVector3(ch_init.vtx_x, ch_init.vtx_y, ch_init.vtx_z)
+            head = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
             L= (head - tail).Mag()
             g = ch.p4().Gamma()
             self.h_chlenl.Fill(L)
@@ -203,7 +211,6 @@ class ExampleDisplacedAnalysis(Module):
             chp4.Boost(-boost)
             self.h_chlenr.Fill(g * L)
             chp4.Boost(boost)
-        print("Sizeof chs_test: " + str(len(chs_test)))
         return True
 
     def endJob(self):
