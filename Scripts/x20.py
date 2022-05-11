@@ -167,19 +167,16 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_chphi.Fill(ch.phi)
                                 ch_birth = [ch.vtx_x, ch.vtx_y, ch.vtx_z]
                                 ch_decay = [mu_mother.vtx_x, mu_mother.vtx_y, mu_mother.vtx_z]
-                                chlenl = physDistance(ch_birth, ch_decay)
-                                self.h_chlenl.Fill(chlenl)
+                                L = physDistance(ch_birth, ch_decay)
+                                self.h_chlenl.Fill(L)
                                 chp4 = ch.p4()
-                                wp4 = mu_mother.p4()
-                                b = ch.p4().BoostVector()
+                                boost = ch.p4().BoostVector()
+                                g = ch.p4().Gamma()
                                 #print("1. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                chp4.Boost(-b)
-                                wp4.Boost(-b)
+                                chp4.Boost(-boost)
                                 #print("2. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                ch_birth = [ch.vtx_x, ch.vtx_y, ch.vtx_z]
-                                ch_decay = [mu_mother.vtx_x, mu_mother.vtx_y, mu_mother.vtx_z]
-                                chlenr = physDistance(ch_birth, ch_decay)
-                                self.h_chlenr.Fill(chlenr)
+                                self.h_chlenr.Fill(g * L)
+                                chp4.Boost(boost)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
             part1 = chs[0]
@@ -208,6 +205,8 @@ class ExampleDisplacedAnalysis(Module):
         gStyle.SetStatColor(18)
         self.h_metptall.GetXaxis().SetTitle("MET (GeV)")
         self.h_metptall.GetYaxis().SetTitle("Counts")
+        self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
+        self.h_metpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # 13 - MUON
         self.h_mupt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
