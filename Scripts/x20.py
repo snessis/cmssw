@@ -176,7 +176,7 @@ class ExampleDisplacedAnalysis(Module):
                                 bz = chp4.Pz()/mag
                                 b = ROOT.TVector3(bx, by, bz)
                                 chp4_rest = chp4.Boost(-b)
-                                print("lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
+                                print("lab frame coords: px = " + str(chp4.X()) + ", py = " + str(chp4.Y()) + ", pz = " + str(chp4.Z()))
 
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
