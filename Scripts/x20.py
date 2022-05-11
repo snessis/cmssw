@@ -175,7 +175,7 @@ class ExampleDisplacedAnalysis(Module):
                                 bz = chp4.Vect().Z() /chp4.Vect().Mag()
                                 b = ROOT.TVector3(bx,by,bz)
                                 chp4.Boost(-b)
-                                print("rest frame coords: px = " + str(chp4l.Px()) + ", py = " + str(chp4l.Y()) + ", pz = " + str(chp4l.Z()))
+                                print("rest frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
 
 
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
