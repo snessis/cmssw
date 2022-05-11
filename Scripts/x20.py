@@ -112,9 +112,9 @@ class ExampleDisplacedAnalysis(Module):
             flag = str(part.statusFlags>>pos)
             return int(flag[:1])
         def physDistance(array1, array2):
-            x2 = math.pow(array1[0] - array2[0], 2)
-            y2 = math.pow(array1[1] - array2[1], 2)
-            z2 = math.pow(array1[2] - array2[2], 2)
+            x2 = math.pow(array2[0] - array1[0], 2)
+            y2 = math.pow(array2[1] - array1[1], 2)
+            z2 = math.pow(array2[2] - array1[2], 2)
             return math.sqrt(x2 + y2 + z2)
         #scan all particles in the event by final state
         events_all += 1
@@ -169,26 +169,17 @@ class ExampleDisplacedAnalysis(Module):
                                 ch_birth = [ch.vtx_x, ch.vtx_y, ch.vtx_z]
                                 ch_decay = [w.vtx_x, w.vtx_y, w.vtx_z]
                                 L = physDistance(ch_birth, ch_decay)
-                                self.h_chlenl.Fill(L)
+                                ch_initial = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+                                ch_final = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
+                                L_new = (ch_initial + ch_final).Mag()
+                                self.h_chlenl.Fill(L_new)
                                 chp4 = ch.p4()
                                 boost = ch.p4().BoostVector()
                                 g = ch.p4().Gamma()
-                                print("no boost yet")
-                                print(ch.eta)
-                                print(chp4.Eta())
-                                print(ch.phi)
-                                print(chp4.Phi())
-                                print(ch.vtx_x)
                                 #print("1. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
                                 chp4.Boost(-boost)
                                 #print("2. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                self.h_chlenr.Fill(g * L)
-                                print("on boost")
-                                print(ch.eta)
-                                print(chp4.Eta())
-                                print(ch.phi)
-                                print(chp4.Phi())
-                                print(ch.vtx_x)
+                                self.h_chlenr.Fill(g * L_new)
                                 chp4.Boost(boost)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
