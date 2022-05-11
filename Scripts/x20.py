@@ -169,18 +169,14 @@ class ExampleDisplacedAnalysis(Module):
                                 ch_decay = [mu_mother.vtx_x, mu_mother.vtx_y, mu_mother.vtx_z]
                                 chlenl = physDistance(ch_birth, ch_decay)
                                 self.h_chlenl.Fill(chlenl)
-                                chp4l = ch.p4()
-                                bx = chp4l.Vect().X() /chp4l.Vect().Mag()
-                                by = chp4l.Vect().Y() /chp4l.Vect().Mag()
-                                bz = chp4l.Vect().Z() /chp4l.Vect().Mag()
+                                chp4 = ch.p4()
+                                bx = chp4.Vect().X() /chp4.Vect().Mag()
+                                by = chp4.Vect().Y() /chp4.Vect().Mag()
+                                bz = chp4.Vect().Z() /chp4.Vect().Mag()
                                 b = ROOT.TVector3(bx,by,bz)
-                                #mag = math.sqrt(math.pow(chp4.Px(), 2) + math.pow(chp4.Py(), 2) + math.pow(chp4.Pz(), 2))
-                                #bx = chp4.Px()/mag
-                                #by = chp4.Py()/mag
-                                #bz = chp4.Pz()/mag
-                                #b = ROOT.TVector3(bx, by, bz)
-                                chp4r = chp4l.Boost(-b)
-                                print("rest frame coords: px = " + str(chp4r.Px()) + ", py = " + str(chp4r.Y()) + ", pz = " + str(chp4r.Z()))
+                                chp4.Boost(-b)
+                                print("rest frame coords: px = " + str(chp4l.Px()) + ", py = " + str(chp4l.Y()) + ", pz = " + str(chp4l.Z()))
+
 
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
