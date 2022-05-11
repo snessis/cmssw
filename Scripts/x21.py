@@ -198,10 +198,11 @@ class ExampleDisplacedAnalysis(Module):
             for ch in chs_all_resns:
                 if ch.pdgId == findAncestor(w).pdgId and getStatusFlag(ch, 12) == 1: #ch from same chain, and is first copy
                     ch_init = ch
-                    print("ch_init is a ch? " + str(ch_init.pdgId))
+                    #print("ch_init is a ch? " + str(ch_init.pdgId))
                     break
             if abs(ch_init.pdgId) == 24:
-                print("ch_init is a w?")
+                continue
+                #print("ch_init is a w?")
             tail = ROOT.TVector3(ch_init.vtx_x, ch_init.vtx_y, ch_init.vtx_z)
             head = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
             L= (head - tail).Mag()
