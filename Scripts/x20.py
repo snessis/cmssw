@@ -193,10 +193,11 @@ class ExampleDisplacedAnalysis(Module):
         print("Initializing endJob function...")
         print("Number of muon channel events: " + str(events_muonch))
         print("Number of events: " + str(events_all))
-        print("Channel branching ratio: " + str(events_muonch/(2*events_all)))
+        b = events_muonch/(2*events_all)
+        print("Channel branching ratio: " + str(b))
         print("Muon Neutrino mass: " + str(nmu_mass))
         print("Printing .p4() info...")
-        pprint(vars(your_object))
+        pprint(vars(p4info))
         #CANVAS
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
