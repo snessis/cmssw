@@ -171,7 +171,7 @@ class ExampleDisplacedAnalysis(Module):
                                 L = physDistance(ch_birth, ch_decay)
                                 ch_initial = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
                                 ch_final = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
-                                L_new = (ch_initial + ch_final).Mag()
+                                L_new = (ch_final - ch_initial).Mag()
                                 self.h_chlenl.Fill(L_new)
                                 chp4 = ch.p4()
                                 boost = ch.p4().BoostVector()
