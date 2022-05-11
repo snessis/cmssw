@@ -42,7 +42,8 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Muon Channel Chargino Phi } \\phi', 40, -3.1415927, 3.1415927)
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Muon Channel Chargino Delta Eta } \\Delta \\eta', 100, 0, 5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Muon Channel Chargino Delta Phi } \\Delta \\phi', 100, 0, 3.1415927)
-        self.h_chlen = ROOT.TH1F('chlen', '\\mbox{Muon Channel Chargino Length } L', 100, 0, 15)
+        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Muon Channel Chargino Length (Lab Frame) } L', 100, 0, 15)
+        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Muon Channel Chargino Length (Rest Frame) } L', 100, 0, 20)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 100, 0, 3.5)
@@ -55,7 +56,8 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_chphi)
         self.addObject(self.h_chdeta)
         self.addObject(self.h_chdphi)
-        self.addObject(self.h_chlen)
+        self.addObject(self.h_chlenl)
+        self.addObject(self.h_chlenr)
         self.addObject(self.h_mupt)
         self.addObject(self.h_mueta)
         self.addObject(self.h_nmupt)
@@ -144,9 +146,8 @@ class ExampleDisplacedAnalysis(Module):
                     if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
                         for neu in neus:
                             neu_mother = findAncestor(neu) #chargino
-                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
+                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother: #end point
                                 ch = mu_gmother
-                                #ch.p4()
                                 events_muonch += 1
                                 self.h_metpt.Fill(eventMET)
                                 deta_mu = abs(mu.eta) - abs(ch.eta)
@@ -166,8 +167,17 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_chphi.Fill(ch.phi)
                                 ch_birth = [ch.vtx_x, ch.vtx_y, ch.vtx_z]
                                 ch_decay = [mu_mother.vtx_x, mu_mother.vtx_y, mu_mother.vtx_z]
-                                chlen = physDistance(ch_birth, ch_decay)
-                                self.h_chlen.Fill(chlen)
+                                chlenl = physDistance(ch_birth, ch_decay)
+                                self.h_chlenl.Fill(chlenl)
+                                chp4 = ch.p4()
+                                mag = sqrt(math.power(chp4.Px(), 2) + math.power(chp4.Py(), 2) + math.power(chp4.Pz(), 2))
+                                bx = chp4.Px()/mag
+                                by = chp4.Py()/mag
+                                bz = chp4.Pz()/mag
+                                b = ROOT.TVector3(bx, by, bz)
+                                chp4_rest = chp4.Boost(-b)
+                                print("rest frame coords: px = " + str(chp4_rest.Px()) + ", py = " + str(chp4_rest.Py()) + ", pz = " + str(chp4_rest.Pz()))
+
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
             part1 = chs[0]
@@ -219,12 +229,14 @@ class ExampleDisplacedAnalysis(Module):
         self.h_cheta.GetYaxis().SetTitle("Counts")
         self.h_chphi.GetXaxis().SetTitle("\\phi \\mbox{ (rad)}")
         self.h_chphi.GetYaxis().SetTitle("Counts")
-        self.h_chlen.GetXaxis().SetTitle("L \\mbox{ (cm)}")
-        self.h_chlen.GetYaxis().SetTitle("Counts")
         self.h_chdphi.GetXaxis().SetTitle("\\Delta \\phi \\mbox{ (rad)}")
         self.h_chdphi.GetYaxis().SetTitle("Counts")
         self.h_chdeta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_chdeta.GetYaxis().SetTitle("Counts")
+        self.h_chlenl.GetXaxis().SetTitle("L \\mbox{ (cm)}")
+        self.h_chlenl.GetYaxis().SetTitle("Counts")
+        self.h_chlenr.GetXaxis().SetTitle("L \\mbox{ (cm)}")
+        self.h_chlenr.GetYaxis().SetTitle("Counts")
         # MIXTURES
         self.h_mix_chmu_deta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_mix_chmu_deta.GetYaxis().SetTitle("Counts")
@@ -234,7 +246,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
         #PRINTING
         print("Printing Histograms...")
-        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlen, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
