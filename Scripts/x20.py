@@ -12,13 +12,10 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import Pos
 from importlib import import_module
 import ROOT
 from ROOT import gStyle, gROOT
-from pprint import pprint
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
 events_muonch = 0
 events_all = 0
-nmu_mass = 0
-p4info = ROOT.TLorentzVector()
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -68,7 +65,7 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_chmu_deta)
         self.addObject(self.h_mix_chnmu_deta)
         self.addObject(self.h_mix_chneu_deta)
-        print("Initializing analysis... beginJob function ended.")
+        print("beginJob function ended. Initializing analysis...")
 
     def analyze(self, event):
         #Variables, Arrays
@@ -83,10 +80,8 @@ class ExampleDisplacedAnalysis(Module):
         neus = []
         global events_muonch
         global events_all
-        global nmu_mass
-        global p4info
         #Function definitions
-        def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
+        def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
             resonance = original
             while resonance.pdgId == original.pdgId:
@@ -94,12 +89,8 @@ class ExampleDisplacedAnalysis(Module):
                 try:
                     testResonance.pdgId
                 except:
-                    if log == True:
-                        print("Warning 5: Exception. Returning original")
                     return original
                 resonance = genParts[resonance.genPartIdxMother] if resonance.genPartIdxMother in range(len(genParts)) else None
-            if log == True:
-                print("Warning 4: Original id: " + str(original.pdgId) + ", Mother id: " + str(resonance.pdgId))
             return resonance
         def addUniqueParticle(particle, list): #adds unique particle to list. on fail, it doesnt
             ids = []
@@ -127,11 +118,11 @@ class ExampleDisplacedAnalysis(Module):
         events_all += 1
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
-                mother = findAncestor(particle, False) #mother must now be W or ch. instill check.
+                mother = findAncestor(particle) #mother must now be W or ch. instill check.
                 #case for mu and nmu aka leptonic:
                 if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
-                        gmother = findAncestor(mother, False) #chargino or irrelevant W
+                        gmother = findAncestor(mother) #chargino or irrelevant W
                         if abs(gmother.pdgId) == 1000024: #must be ch
                             addUniqueParticle(gmother, chs)
                             if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1:
@@ -144,18 +135,18 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(particle, neus)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
-            mu_mother = findAncestor(mu, False) #W
+            mu_mother = findAncestor(mu) #W
             for nmu in nmus:
-                nmu_mother = findAncestor(nmu, False) #W
+                nmu_mother = findAncestor(nmu) #W
                 if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
-                    mu_gmother = findAncestor(mu_mother, False) #ch
-                    nmu_gmother = findAncestor(nmu_mother, False) #ch
+                    mu_gmother = findAncestor(mu_mother) #ch
+                    nmu_gmother = findAncestor(nmu_mother) #ch
                     if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
                         for neu in neus:
-                            neu_mother = findAncestor(neu, False) #chargino
+                            neu_mother = findAncestor(neu) #chargino
                             if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
                                 ch = mu_gmother
-                                p4info = ch.p4()
+                                ch.p4()
                                 events_muonch += 1
                                 self.h_metpt.Fill(eventMET)
                                 deta_mu = abs(mu.eta) - abs(ch.eta)
@@ -193,11 +184,8 @@ class ExampleDisplacedAnalysis(Module):
         print("Initializing endJob function...")
         print("Number of muon channel events: " + str(events_muonch))
         print("Number of events: " + str(events_all))
-        b = events_muonch/(2*events_all)
+        b = (events_muonch + 0.0)/(2.*events_all)
         print("Channel branching ratio: " + str(b))
-        print("Muon Neutrino mass: " + str(nmu_mass))
-        print("Printing .p4() info...")
-        pprint(vars(p4info))
         #CANVAS
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
@@ -237,7 +225,6 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdphi.GetYaxis().SetTitle("Counts")
         self.h_chdeta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_chdeta.GetYaxis().SetTitle("Counts")
-
         # MIXTURES
         self.h_mix_chmu_deta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_mix_chmu_deta.GetYaxis().SetTitle("Counts")
