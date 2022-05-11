@@ -37,13 +37,13 @@ class ExampleDisplacedAnalysis(Module):
         self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 100, 0, 1100)
         self.h_neueta = ROOT.TH1F('neueta', '\\mbox{Neutralino Pseudorapidity } \\eta', 100, -6, 6)
         # 1000024 - CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Muon Channel Transverse Momentum } p_t', 100, 0, 1000)
+        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Muon Channel Chargino Transverse Momentum } p_t', 100, 0, 1000)
         self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Muon Channel Chargino Pseudorapidity } \\eta', 100, -6, 6)
         self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Muon Channel Chargino Phi } \\phi', 40, -3.1415927, 3.1415927)
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Muon Channel Chargino Delta Eta } \\Delta \\eta', 100, 0, 5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Muon Channel Chargino Delta Phi } \\Delta \\phi', 100, 0, 3.1415927)
-        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Muon Channel Chargino Length (Lab Frame) } L', 100, 0, 15)
-        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Muon Channel Chargino Length (Rest Frame) } L', 100, 0, 20)
+        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Muon Channel Chargino Decay Length (Lab Frame) } L', 100, 0, 15)
+        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Muon Channel Chargino Decay Length (Rest Frame) } L', 100, 0, 20)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 100, 0, 3.5)
@@ -148,6 +148,7 @@ class ExampleDisplacedAnalysis(Module):
                             neu_mother = findAncestor(neu) #chargino
                             if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother: #end point
                                 ch = mu_gmother
+                                w = mu_mother
                                 events_muonch += 1
                                 self.h_metpt.Fill(eventMET)
                                 deta_mu = abs(mu.eta) - abs(ch.eta)
@@ -166,17 +167,25 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_cheta.Fill(ch.eta)
                                 self.h_chphi.Fill(ch.phi)
                                 ch_birth = [ch.vtx_x, ch.vtx_y, ch.vtx_z]
-                                ch_decay = [mu_mother.vtx_x, mu_mother.vtx_y, mu_mother.vtx_z]
+                                ch_decay = [w.vtx_x, w.vtx_y, w.vtx_z]
                                 L = physDistance(ch_birth, ch_decay)
                                 self.h_chlenl.Fill(L)
                                 chp4 = ch.p4()
-                                #boost = ch.p4().BoostVector()
-                                g = chp4.Gamma()
+                                boost = ch.p4().BoostVector()
+                                g = ch.p4().Gamma()
+                                print("no boost yet")
+                                print(ch.eta)
+                                print(ch.phi)
+                                print(ch.vtx_x)
                                 #print("1. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                #chp4.Boost(-boost)
+                                chp4.Boost(-boost)
                                 #print("2. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
                                 self.h_chlenr.Fill(g * L)
-                                #chp4.Boost(boost)
+                                print("on boost")
+                                print(ch.eta)
+                                print(ch.phi)
+                                print(ch.vtx_x)
+                                chp4.Boost(boost)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
             part1 = chs[0]
