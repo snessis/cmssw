@@ -45,7 +45,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 80, 0, 5)
         self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L', 80, 0, 6)
         self.h_chbeta = ROOT. TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
-        self.h_chgamma = ROOT. TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 0, 25)
+        self.h_chgamma = ROOT. TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 25)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 80, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 80, 0, 3.5)
@@ -142,7 +142,8 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metptall.Fill(eventMET)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
-            if mu.pt >= 4 and mu.eta <= 2.5 and len(mus) == 2 and eventMET >= 150:
+            #enter cuts here
+            if mu.pt >= 4 and mu.eta <= 2.5 and len(mus) == 2 and eventMET >= 130:
                 mu_mother = findAncestor(mu) #W
                 for nmu in nmus:
                     nmu_mother = findAncestor(nmu) #W
@@ -187,14 +188,13 @@ class ExampleDisplacedAnalysis(Module):
                                     #print("2. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
                                     self.h_chlenr.Fill(L / (b * g))
                                     chp4.Boost(boost)
-        #to calculate delta phi, delta eta, we need two charginos, or else there's no point
-        if len(chs) == 2: #event with two muonic channels
-            part1 = chs[0]
-            part2 = chs[1]
-            deta = abs(part1.eta) - abs(part2.eta)
-            dphi = part1.phi - part2.phi
-            self.h_chdeta.Fill(deta)
-            self.h_chdphi.Fill(dphi)
+                                    if len(chs) == 2: #event with two muonic channels
+                                        part1 = chs[0]
+                                        part2 = chs[1]
+                                        deta = abs(part1.eta) - abs(part2.eta)
+                                        dphi = part1.phi - part2.phi
+                                        self.h_chdeta.Fill(deta)
+                                        self.h_chdphi.Fill(dphi)
         #analysis ends here: return True
         return True
 
