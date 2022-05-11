@@ -175,7 +175,7 @@ class ExampleDisplacedAnalysis(Module):
                                 bz = chp4.Vect().Z() /chp4.Vect().Mag()
                                 b = ROOT.TVector3(bx,by,bz)
                                 print("1. rest frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                chp4.Boost(-b)
+                                chp4.Boost(-chp4.BoostVector())
                                 print("2. rest frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
 
 
