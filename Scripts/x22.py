@@ -192,19 +192,18 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
-        #WE HAVE AN ISSUE AT HAND HERE
         for neu in neus:
             ch = findAncestor(neu)
             tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
             head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
-            L= (head - tail).Mag()
+            L = head - tail
             g = ch.p4().Gamma()
-            self.h_chlenl.Fill(L)
-            chp4 = ch.p4()
-            boost = ch.p4().BoostVector()
-            chp4.Boost(-boost)
-            self.h_chlenr.Fill(g * L)
-            chp4.Boost(boost)
+            self.h_chlenl.Fill(L.Mag())
+            #chp4 = ch.p4()
+            #boost = ch.p4().BoostVector()
+            #chp4.Boost(-boost)
+            self.h_chlenr.Fill(g * L.Mag())
+            #chp4.Boost(boost)
         #analysis ends here: return True
         return True
 
