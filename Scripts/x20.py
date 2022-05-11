@@ -146,7 +146,7 @@ class ExampleDisplacedAnalysis(Module):
                             neu_mother = findAncestor(neu) #chargino
                             if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
                                 ch = mu_gmother
-                                ch.p4().boost(-p)
+                                #ch.p4()
                                 events_muonch += 1
                                 self.h_metpt.Fill(eventMET)
                                 deta_mu = abs(mu.eta) - abs(ch.eta)
