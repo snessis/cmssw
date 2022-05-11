@@ -145,7 +145,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
             if abs(particle.pdgId) == 1000024:
-                addUniqueParticle(particle, chs_all_resns)
+                chs_all_resns.append(particle)
         self.h_metptall.Fill(eventMET)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
