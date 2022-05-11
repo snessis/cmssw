@@ -170,13 +170,13 @@ class ExampleDisplacedAnalysis(Module):
                                 L = physDistance(ch_birth, ch_decay)
                                 self.h_chlenl.Fill(L)
                                 chp4 = ch.p4()
-                                boost = ch.p4().BoostVector()
-                                g = ch.p4().Gamma()
+                                #boost = ch.p4().BoostVector()
+                                g = chp4.Gamma()
                                 #print("1. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                chp4.Boost(-boost)
+                                #chp4.Boost(-boost)
                                 #print("2. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
                                 self.h_chlenr.Fill(g * L)
-                                chp4.Boost(boost)
+                                #chp4.Boost(boost)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
             part1 = chs[0]
