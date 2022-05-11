@@ -44,8 +44,10 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 80, 0, 3.1415927)
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 80, 0, 5)
         self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L', 80, 0, 6)
-        self.h_chbeta = ROOT. TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
-        self.h_chgamma = ROOT. TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 25)
+        self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
+        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 25)
+        self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1300)
+        self.h_chnrgr = ROOT.TH1F('chnrgr', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1300)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 80, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 80, 0, 3.5)
@@ -62,6 +64,8 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_chlenr)
         self.addObject(self.h_chbeta)
         self.addObject(self.h_chgamma)
+        self.addObject(self.h_chnrgl)
+        self.addObject(self.h_chnrgr)
         self.addObject(self.h_mupt)
         self.addObject(self.h_mueta)
         self.addObject(self.h_nmupt)
@@ -173,20 +177,16 @@ class ExampleDisplacedAnalysis(Module):
                                     self.h_chpt.Fill(ch.pt)
                                     self.h_cheta.Fill(ch.eta)
                                     self.h_chphi.Fill(ch.phi)
-                                    ch_initial = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                    ch_final = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
-                                    L= (ch_final - ch_initial).Mag()
-                                    self.h_chlenl.Fill(L)
-                                    chp4 = ch.p4()
-                                    boost = ch.p4().BoostVector()
                                     g = ch.p4().Gamma()
                                     b = ch.p4().Beta()
                                     self.h_chbeta.Fill(b)
                                     self.h_chgamma.Fill(g)
-                                    #print("1. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
+                                    self.h_chnrgl.Fill(ch.p4().E())
+                                    chp4 = ch.p4()
+                                    boost = ch.p4().BoostVector()
                                     chp4.Boost(-boost)
-                                    #print("2. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                    self.h_chlenr.Fill(L / (b * g))
+                                    self.h_chlenr.Fill(g * L)
+                                    self.h_chnrgr.Fill(chp4.E())
                                     chp4.Boost(boost)
                                     if len(chs) == 2: #event with two muonic channels
                                         part1 = chs[0]
@@ -196,6 +196,18 @@ class ExampleDisplacedAnalysis(Module):
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
         #analysis ends here: return True
+        for ch in chs_all:
+            ch_initial = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+            ch_final = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
+            L= (ch_final - ch_initial).Mag()
+            g = ch.p4().Gamma()
+            self.h_chlenl.Fill(L)
+            chp4 = ch.p4()
+            boost = ch.p4().BoostVector()
+            chp4.Boost(-boost)
+            self.h_chlenr.Fill(g * L)
+            self.h_chnrgr.Fill(chp4.E())
+            chp4.Boost(boost)
         return True
 
     def endJob(self):
@@ -251,6 +263,10 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chbeta.GetYaxis().SetTitle("Counts")
         self.h_chgamma.GetXaxis().SetTitle("\\gamma")
         self.h_chgamma.GetYaxis().SetTitle("Counts")
+        self.h_chnrgl.GetXaxis().SetTitle("E \\mbox{ (GeV)}")
+        self.h_chnrgl.GetYaxis().SetTitle("Counts")
+        self.h_chnrgr.GetXaxis().SetTitle("E \\mbox{ (GeV)}")
+        self.h_chnrgr.GetYaxis().SetTitle("Counts")
         # MIXTURES
         self.h_mix_chmu_deta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_mix_chmu_deta.GetYaxis().SetTitle("Counts")
@@ -260,7 +276,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
         #PRINTING
         print("Printing Histograms...")
-        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chnrgr, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
