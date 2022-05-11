@@ -166,20 +166,17 @@ class ExampleDisplacedAnalysis(Module):
                                 self.h_chpt.Fill(ch.pt)
                                 self.h_cheta.Fill(ch.eta)
                                 self.h_chphi.Fill(ch.phi)
-                                ch_birth = [ch.vtx_x, ch.vtx_y, ch.vtx_z]
-                                ch_decay = [w.vtx_x, w.vtx_y, w.vtx_z]
-                                L = physDistance(ch_birth, ch_decay)
                                 ch_initial = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
                                 ch_final = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
-                                L_new = (ch_final - ch_initial).Mag()
-                                self.h_chlenl.Fill(L_new)
+                                L= (ch_final - ch_initial).Mag()
+                                self.h_chlenl.Fill(L)
                                 chp4 = ch.p4()
                                 boost = ch.p4().BoostVector()
                                 g = ch.p4().Gamma()
                                 #print("1. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
                                 chp4.Boost(-boost)
                                 #print("2. lab frame coords: px = " + str(chp4.Px()) + ", py = " + str(chp4.Py()) + ", pz = " + str(chp4.Pz()))
-                                self.h_chlenr.Fill(g * L_new)
+                                self.h_chlenr.Fill(g * L)
                                 chp4.Boost(boost)
         #to calculate delta phi, delta eta, we need two charginos, or else there's no point
         if len(chs) == 2: #event with two muonic channels
