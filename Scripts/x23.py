@@ -106,7 +106,6 @@ class ExampleDisplacedAnalysis(Module):
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
-        self.c.cd()
         # ADD HISTOGRAMS
         self.addObject(self.h_metptall)
         self.addObject(self.h_metpt)
