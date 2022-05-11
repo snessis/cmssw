@@ -14,7 +14,7 @@ import ROOT
 from ROOT import gStyle, gROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
-events_muonch = 0
+events_recorded = 0
 events_all = 0
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
@@ -47,7 +47,6 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
         self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 25)
         self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1300)
-        self.h_chnrgr = ROOT.TH1F('chnrgr', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1300)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 80, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 80, 0, 3.5)
@@ -65,7 +64,6 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_chbeta)
         self.addObject(self.h_chgamma)
         self.addObject(self.h_chnrgl)
-        self.addObject(self.h_chnrgr)
         self.addObject(self.h_mupt)
         self.addObject(self.h_mueta)
         self.addObject(self.h_nmupt)
@@ -84,11 +82,12 @@ class ExampleDisplacedAnalysis(Module):
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         chs_all = []
+        chs_test = []
         chs = []
         mus = []
         nmus = []
         neus = []
-        global events_muonch
+        global events_recorded
         global events_all
         #Function definitions
         def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
@@ -143,6 +142,8 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
+                if abs(particle.pdgId) == 1000024:
+                    chs_test.append(particle)
         self.h_metptall.Fill(eventMET)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
@@ -160,7 +161,7 @@ class ExampleDisplacedAnalysis(Module):
                                 if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother: #end point
                                     ch = mu_gmother
                                     w = mu_mother
-                                    events_muonch += 1
+                                    events_recorded += 1
                                     self.h_metpt.Fill(eventMET)
                                     deta_mu = abs(mu.eta) - abs(ch.eta)
                                     self.h_mupt.Fill(mu.pt)
@@ -182,11 +183,6 @@ class ExampleDisplacedAnalysis(Module):
                                     self.h_chbeta.Fill(b)
                                     self.h_chgamma.Fill(g)
                                     self.h_chnrgl.Fill(ch.p4().E())
-                                    chp4 = ch.p4()
-                                    boost = ch.p4().BoostVector()
-                                    chp4.Boost(-boost)
-                                    self.h_chnrgr.Fill(chp4.E())
-                                    chp4.Boost(boost)
                                     if len(chs) == 2: #event with two muonic channels
                                         part1 = chs[0]
                                         part2 = chs[1]
@@ -206,15 +202,15 @@ class ExampleDisplacedAnalysis(Module):
             boost = ch.p4().BoostVector()
             chp4.Boost(-boost)
             self.h_chlenr.Fill(g * L)
-            self.h_chnrgr.Fill(chp4.E())
             chp4.Boost(boost)
+        print("Sizeof chs_test: " + str(len(chs_test)))
         return True
 
     def endJob(self):
         print("Initializing endJob function...")
-        print("Number of muon channel events: " + str(events_muonch))
+        print("Number of muon channel events: " + str(events_recorded))
         print("Number of events: " + str(events_all))
-        b = (events_muonch + 0.0)/(2.*events_all)
+        b = (events_recorded + 0.0)/(2.*events_all)
         print("Channel branching ratio: " + str(b))
         #CANVAS
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
@@ -265,8 +261,6 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chgamma.GetYaxis().SetTitle("Counts")
         self.h_chnrgl.GetXaxis().SetTitle("E \\mbox{ (GeV)}")
         self.h_chnrgl.GetYaxis().SetTitle("Counts")
-        self.h_chnrgr.GetXaxis().SetTitle("E \\mbox{ (GeV)}")
-        self.h_chnrgr.GetYaxis().SetTitle("Counts")
         # MIXTURES
         self.h_mix_chmu_deta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_mix_chmu_deta.GetYaxis().SetTitle("Counts")
@@ -276,7 +270,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
         #PRINTING
         print("Printing Histograms...")
-        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chnrgr, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
