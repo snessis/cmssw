@@ -145,7 +145,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
             if abs(particle.pdgId) == 1000024:
-                chs_all_resns.append(particle)
+                addUniqueParticle(particle, chs_all_resns)
         self.h_metptall.Fill(eventMET)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
@@ -194,15 +194,13 @@ class ExampleDisplacedAnalysis(Module):
                                         self.h_chdphi.Fill(dphi)
         #analysis ends here: return True
         for w in ws:
-            count = 0
             ch_init = w
             for ch in chs_all_resns:
                 if ch.pdgId == findAncestor(w).pdgId and getStatusFlag(ch, 12) == 1: #ch from same chain, and is first copy
                     ch_init = ch
                     count += 1
                     print("ch_init is a ch? " + str(ch_init.pdgId))
-                    #break
-            print(count)        
+                    break
             if abs(ch_init.pdgId) == 24:
                 print("ch_init is a w?")
             tail = ROOT.TVector3(ch_init.vtx_x, ch_init.vtx_y, ch_init.vtx_z)
