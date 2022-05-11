@@ -103,9 +103,6 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chnmu_deta.GetYaxis().SetTitle("Counts")
         self.h_mix_chneu_deta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
-        #CANVAS SETUP
-        self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
-        self.addObject(self.c)
         # ADD HISTOGRAMS
         self.addObject(self.h_metptall)
         self.addObject(self.h_metpt)
@@ -256,6 +253,9 @@ class ExampleDisplacedAnalysis(Module):
         print("Number of events: " + str(events_all))
         br = (events_recorded + 0.0)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
+        #CANVAS SETUP
+        self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
+        self.addObject(self.c)        
         #PRINTING
         print("Printing Histograms...")
         histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
