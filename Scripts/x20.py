@@ -12,10 +12,13 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import Pos
 from importlib import import_module
 import ROOT
 from ROOT import gStyle, gROOT
+from pprint import pprint
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
 events_muonch = 0
 events_all = 0
+nmu_mass = 0
+p4info = ROOT.TLorentzVector()
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -69,8 +72,8 @@ class ExampleDisplacedAnalysis(Module):
 
     def analyze(self, event):
         #Variables, Arrays
-        genParts = Collection(event, "GenPart") #branch
-        eventMET = getattr(event, "MET_pt") #leaf
+        genParts = Collection(event, "GenPart") #collection
+        eventMET = getattr(event, "MET_pt") #branch
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         chs_all = []
@@ -80,6 +83,8 @@ class ExampleDisplacedAnalysis(Module):
         neus = []
         global events_muonch
         global events_all
+        global nmu_mass
+        global p4info
         #Function definitions
         def findAncestor(particle, log): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
@@ -150,7 +155,7 @@ class ExampleDisplacedAnalysis(Module):
                             neu_mother = findAncestor(neu, False) #chargino
                             if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother:
                                 ch = mu_gmother
-                                ch.p4()
+                                p4info = ch.p4()
                                 events_muonch += 1
                                 self.h_metpt.Fill(eventMET)
                                 deta_mu = abs(mu.eta) - abs(ch.eta)
@@ -189,6 +194,9 @@ class ExampleDisplacedAnalysis(Module):
         print("Number of muon channel events: " + str(events_muonch))
         print("Number of events: " + str(events_all))
         print("Channel branching ratio: " + str(events_muonch/(2*events_all)))
+        print("Muon Neutrino mass: " + str(nmu_mass))
+        print("Printing .p4() info...")
+        pprint(vars(your_object))
         #CANVAS
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
