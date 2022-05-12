@@ -237,11 +237,12 @@ class ExampleDisplacedAnalysis(Module):
             head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
             L = head - tail
             g = ch.p4().Gamma()
+            b = ch.p4().Beta()
             self.h_chlenl.Fill(L.Mag())
             #chp4 = ch.p4()
             #boost = ch.p4().BoostVector()
             #chp4.Boost(-boost)
-            self.h_chlenr.Fill(g * L.Mag())
+            self.h_chlenr.Fill(L.Mag() / b)
             #chp4.Boost(boost)
         #analysis ends here: return True
         return True
