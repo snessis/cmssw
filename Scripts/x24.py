@@ -165,7 +165,7 @@ class ExampleDisplacedAnalysis(Module):
         def getStatusFlag(part, pos): #returns 0 or 1 of a bitwise, in position pos
             flag = str(part.statusFlags>>pos)
             return int(flag[:1])
-        def physDistance(vec1, vec):
+        def physDistance(vec1, vec2):
             x2 = math.pow(vec2.X() - vec1.X(), 2)
             y2 = math.pow(vec2.Y() - vec1.Y(), 2)
             z2 = math.pow(vec2.Z() - vec1.Z(), 2)
