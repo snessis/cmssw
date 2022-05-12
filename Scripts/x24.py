@@ -250,9 +250,9 @@ class ExampleDisplacedAnalysis(Module):
             boost = chp4.BoostVector()
             chx4.Boost(-boost)
             L_new = math.sqrt(math.pow(chx4.X(),2) + math.pow(chx4.Y(),2) + math.pow(chx4.Z(),2))
-            print("decay time: " + str(t))
-            print("decay length (lab): " + str(L.Mag()))
-            print("decay length (rest): " + str(L_new))
+            #print("decay time: " + str(t))
+            #print("decay length (lab): " + str(L.Mag()))
+            #print("decay length (rest): " + str(L_new))
             self.h_chlenr.Fill(L_new)
             chp4.Boost(boost)
         #analysis ends here: return True
