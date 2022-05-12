@@ -16,6 +16,7 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
 events_recorded = 0
 events_all = 0
+max_chb = 0
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -125,12 +126,8 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_chmu_deta)
         self.addObject(self.h_mix_chnmu_deta)
         self.addObject(self.h_mix_chneu_deta)
-        # TEMPORARY HISTOGRAMS
         print("beginJob function ended. Initializing analysis...")
-        self.h_chgamma2 = ROOT.TH1F('chgamma2', '\\mbox{Chargino Gamma2, muon channel } \\gamma', 80, 1, 35)
-        self.h_chgamma2.GetXaxis().SetTitle("\\gamma")
-        self.h_chgamma2.GetYaxis().SetTitle("Counts")
-        self.addObject(self.h_chgamma2)
+        # TEMPORARY HISTOGRAMS
     def analyze(self, event):
         #Variables, Arrays
         genParts = Collection(event, "GenPart") #collection
@@ -144,6 +141,7 @@ class ExampleDisplacedAnalysis(Module):
         neus = []
         global events_recorded
         global events_all
+        global max_chb
         #Function definitions
         def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
@@ -225,10 +223,10 @@ class ExampleDisplacedAnalysis(Module):
                                     self.h_chphi.Fill(ch.phi)
                                     g = ch.p4().Gamma()
                                     b = ch.p4().Beta()
-                                    g2 = 1/math.sqrt(1-math.pow(b,2))
+                                    if b > max_chb:
+                                        max_chb = b
                                     self.h_chbeta.Fill(b)
                                     self.h_chgamma.Fill(g)
-                                    self.h_chgamma2.Fill(g2)
                                     self.h_chnrgl.Fill(ch.p4().E())
                                     if len(chs) == 2: #event with two muonic channels
                                         part1 = chs[0]
@@ -257,14 +255,16 @@ class ExampleDisplacedAnalysis(Module):
         print("Initializing endJob function...")
         print("Number of muon channel events: " + str(events_recorded))
         print("Number of events: " + str(events_all))
-        br = (events_recorded + 0.0)/(2.*events_all)
+        br = (events_recorded)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
+        max_chg = 1/math.sqrt(1-math.pow(max_chb, 2))
+        print("Maximum chargino beta and gamma:" + str(max_chb) + ", " + str(max_chg))
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
         #PRINTING
         print("Printing Histograms...")
-        histList = [self.h_metptall, self.h_chgamma2, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
