@@ -47,7 +47,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 80, 0, 6)
         self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
         self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 35)
-        self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1300)
+        self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1400)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 80, 0, 2)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 80, 0, 3.5)
@@ -240,14 +240,18 @@ class ExampleDisplacedAnalysis(Module):
             tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
             head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
             L = head - tail
-            g = ch.p4().Gamma()
-            b = ch.p4().Beta()
-            self.h_chlenl.Fill(physDistance(tail, head))
-            #chp4 = ch.p4()
-            #boost = ch.p4().BoostVector()
-            #chp4.Boost(-boost)
-            self.h_chlenr.Fill(L.Mag() / b)
-            #chp4.Boost(boost)
+            chp4 = ch.p4()
+            g = chp4.Gamma()
+            b = chp4.Beta()
+            t = L.Mag()/b
+            #chx4 = ROOT.TLorentzVector(neu.vtx_x - ch.vtx_x, neu.vtx_y - ch.vtx_y, neu.vtx_z - ch.vtx_z, t)
+            chx4 = ROOT.TLorentzVector(L, t)
+            self.h_chlenl.Fill(L.Mag())
+            boost = ch.p4().BoostVector()
+            chx4.Boost(-boost)
+            L_new = math.sqrt(math.pow(chx4.X(),2) + math.pow(chx4.Y(),2) + math.pow(chx4.Z(),2))
+            self.h_chlenr.Fill(L_new)
+            chp4.Boost(boost)
         #analysis ends here: return True
         return True
 
