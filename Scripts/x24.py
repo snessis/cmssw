@@ -43,9 +43,9 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 80, 0, 5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 80, 0, 3.1415927)
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 80, 0, 5)
-        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L', 80, 0, 6)
+        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 80, 0, 6)
         self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
-        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 25)
+        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 35)
         self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1300)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 80, 0, 2)
@@ -125,8 +125,12 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_chmu_deta)
         self.addObject(self.h_mix_chnmu_deta)
         self.addObject(self.h_mix_chneu_deta)
+        # TEMPORARY HISTOGRAMS
         print("beginJob function ended. Initializing analysis...")
-
+        self.h_chgamma2 = ROOT.TH1F('chgamma2', '\\mbox{Chargino Gamma2, muon channel } \\gamma', 80, 1, 35)
+        self.h_chgamma2.GetXaxis().SetTitle("\\gamma")
+        self.h_chgamma2.GetYaxis().SetTitle("Counts")
+        self.addObject(self.h_chgamma2)
     def analyze(self, event):
         #Variables, Arrays
         genParts = Collection(event, "GenPart") #collection
@@ -161,10 +165,10 @@ class ExampleDisplacedAnalysis(Module):
         def getStatusFlag(part, pos): #returns 0 or 1 of a bitwise, in position pos
             flag = str(part.statusFlags>>pos)
             return int(flag[:1])
-        def physDistance(array1, array2):
-            x2 = math.pow(array2[0] - array1[0], 2)
-            y2 = math.pow(array2[1] - array1[1], 2)
-            z2 = math.pow(array2[2] - array1[2], 2)
+        def physDistance(vec1, vec):
+            x2 = math.pow(vec2.X() - vec1.X(), 2)
+            y2 = math.pow(vec2.Y() - vec1.Y(), 2)
+            z2 = math.pow(vec2.Z() - vec1.Z(), 2)
             return math.sqrt(x2 + y2 + z2)
         #scan all particles in the event by final state
         events_all += 1
@@ -221,8 +225,10 @@ class ExampleDisplacedAnalysis(Module):
                                     self.h_chphi.Fill(ch.phi)
                                     g = ch.p4().Gamma()
                                     b = ch.p4().Beta()
+                                    g2 = 1/math.sqrt(1-math.pow(b,2))
                                     self.h_chbeta.Fill(b)
                                     self.h_chgamma.Fill(g)
+                                    self.h_chgamma2.Fill(g2)
                                     self.h_chnrgl.Fill(ch.p4().E())
                                     if len(chs) == 2: #event with two muonic channels
                                         part1 = chs[0]
@@ -238,7 +244,7 @@ class ExampleDisplacedAnalysis(Module):
             L = head - tail
             g = ch.p4().Gamma()
             b = ch.p4().Beta()
-            self.h_chlenl.Fill(L.Mag())
+            self.h_chlenl.Fill(physDistance(tail, head))
             #chp4 = ch.p4()
             #boost = ch.p4().BoostVector()
             #chp4.Boost(-boost)
@@ -258,7 +264,7 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.c)
         #PRINTING
         print("Printing Histograms...")
-        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList = [self.h_metptall, self.h_chgamma2, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
