@@ -250,6 +250,9 @@ class ExampleDisplacedAnalysis(Module):
             boost = ch.p4().BoostVector()
             chx4.Boost(-boost)
             L_new = math.sqrt(math.pow(chx4.X(),2) + math.pow(chx4.Y(),2) + math.pow(chx4.Z(),2))
+            print("decay time: " + str(t))
+            print("decay length (lab): " + str(L.Mag()))
+            print("decay length (rest): rest" + str(L_new))
             self.h_chlenr.Fill(L_new)
             chp4.Boost(boost)
         #analysis ends here: return True
@@ -262,13 +265,14 @@ class ExampleDisplacedAnalysis(Module):
         br = (events_recorded)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
         max_chg = 1/math.sqrt(1-math.pow(max_chb, 2))
-        print("Maximum chargino beta and gamma:" + str(max_chb) + ", " + str(max_chg))
+        print("Maximum chargino beta and gamma: " + str(max_chb) + ", " + str(max_chg))
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
         #PRINTING
         print("Printing Histograms...")
-        histList = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList2 = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList = [self.h_chlenl, self.h_chlenr]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
