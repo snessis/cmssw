@@ -224,15 +224,6 @@ class ExampleDisplacedAnalysis(Module):
                                     self.h_chbeta.Fill(b)
                                     self.h_chgamma.Fill(g)
                                     self.h_chnrgl.Fill(ch.p4().E())
-                                    tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                    head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
-                                    L = head - tail
-                                    self.h_chlenl.Fill(L.Mag())
-                                    #chp4 = ch.p4()
-                                    #boost = ch.p4().BoostVector()
-                                    #chp4.Boost(-boost)
-                                    self.h_chlenr.Fill(L.Mag()/ b)
-                                    #chp4.Boost(boost)
                                     if len(chs) == 2: #event with two muonic channels
                                         part1 = chs[0]
                                         part2 = chs[1]
@@ -240,6 +231,18 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
+        for neu in neus:
+            ch = findAncestor(neu)
+            tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+            head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
+            L = head - tail
+            g = ch.p4().Gamma()
+            self.h_chlenl.Fill(L.Mag())
+            #chp4 = ch.p4()
+            #boost = ch.p4().BoostVector()
+            #chp4.Boost(-boost)
+            self.h_chlenr.Fill(g * L.Mag())
+            #chp4.Boost(boost)
         #analysis ends here: return True
         return True
 
