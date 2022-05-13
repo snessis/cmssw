@@ -128,6 +128,14 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_chneu_deta)
         print("beginJob function ended. Initializing analysis...")
         # TEMPORARY HISTOGRAMS
+        self.h_chlenfountas = ROOT.TH1F('chlenfountas', '\\mbox{Chargino Decay Length (Rest Frame, Fountas), muon channel } \gamma \tau', 80, 0, 6)
+        self.h_chlenfountas.GetXaxis().SetTitle("\\gamma  \\tau \\mbox{ (s)}")
+        self.h_chlenfountas.GetYaxis().SetTitle("Counts")
+        self.addObject(self.h_chlenfountas)
+        self.h_chlendt = ROOT.TH1F('chlendt', '\\mbox{Chargino Decay dt (Rest Frame, Fountas), muon channel } dt', 80, 0, 6)
+        self.h_chlendt.GetXaxis().SetTitle("dt \\mbox{ (cm)}")
+        scelf.h_chlendt.GetYaxis().SetTitle("Counts")
+        self.addObject(self.h_chlendt)
     def analyze(self, event):
         #Variables, Arrays
         genParts = Collection(event, "GenPart") #collection
@@ -247,13 +255,15 @@ class ExampleDisplacedAnalysis(Module):
             #chx4 = ROOT.TLorentzVector(neu.vtx_x - ch.vtx_x, neu.vtx_y - ch.vtx_y, neu.vtx_z - ch.vtx_z, t)
             chx4 = ROOT.TLorentzVector(L, t)
             self.h_chlenl.Fill(L.Mag())
+            self.h_chlenfountas.Fill(L.Mag()/b)
             boost = chp4.BoostVector()
             chx4.Boost(-boost)
-            L_new = math.sqrt(math.pow(chx4.X(),2) + math.pow(chx4.Y(),2) + math.pow(chx4.Z(),2))
+            L0 = math.sqrt(math.pow(chx4.X(),2) + math.pow(chx4.Y(),2) + math.pow(chx4.Z(),2))
             #print("decay time: " + str(t))
             #print("decay length (lab): " + str(L.Mag()))
             #print("decay length (rest): " + str(L_new))
-            self.h_chlenr.Fill(L_new)
+            self.h_chlenr.Fill(L0)
+            self.h_chlendt.Fill(chx4().T())
             chp4.Boost(boost)
         #analysis ends here: return True
         return True
@@ -272,7 +282,7 @@ class ExampleDisplacedAnalysis(Module):
         #PRINTING
         print("Printing Histograms...")
         histList2 = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
-        histList = [self.h_chlenl, self.h_chlenr]
+        histList = [self.h_chlenl, self.h_chlenr, self.h_chlenfountas, self.h_chlendt, self.h_chbeta, self.h_chgamma]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
