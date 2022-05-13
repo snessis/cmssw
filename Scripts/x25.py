@@ -225,8 +225,6 @@ class ExampleDisplacedAnalysis(Module):
                                     self.h_chphi.Fill(ch.phi)
                                     g = ch.p4().Gamma()
                                     b = ch.p4().Beta()
-                                    if b > max_chb:
-                                        max_chb = b
                                     self.h_chbeta.Fill(b)
                                     self.h_chgamma.Fill(g)
                                     self.h_chnrgl.Fill(ch.p4().E())
