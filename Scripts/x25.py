@@ -267,9 +267,11 @@ class ExampleDisplacedAnalysis(Module):
         print("Channel branching ratio: " + str(br))
         fit1 = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
         fit2 = self.h_chlenr2.Fit("expo")
-        l1 = fit1.Parameters()[1]
-        l2 = fit2.Parameters()[1]
-        print("ctau1 = " + str(l1) + ", ctau2 = " + str(l2))
+        l1 = fit1.Parameters()
+        l2 = fit2.Parameters()
+        print(l1)
+        print(l2)
+        #print("ctau1 = " + str(l1) + ", ctau2 = " + str(l2))
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
