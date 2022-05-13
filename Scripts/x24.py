@@ -263,7 +263,7 @@ class ExampleDisplacedAnalysis(Module):
             #print("decay length (lab): " + str(L.Mag()))
             #print("decay length (rest): " + str(L_new))
             self.h_chlenr.Fill(L0)
-            self.h_chlendt.Fill(chx4().T())
+            self.h_chlendt.Fill(chx4.T())
             chp4.Boost(boost)
         #analysis ends here: return True
         return True
