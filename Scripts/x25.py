@@ -265,7 +265,6 @@ class ExampleDisplacedAnalysis(Module):
         print("Number of events: " + str(events_all))
         br = (events_recorded)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
-        h_fit_chlenr = TH1F( 'h_fit_chlenr', 'len1fit', np, 85, 134 )
         fit1 = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
         fit2 = self.h_chlenr2.Fit("expo")
         l1 = fit1.Parameters()[1]
