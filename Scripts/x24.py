@@ -134,7 +134,7 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_chlenfountas)
         self.h_chlendt = ROOT.TH1F('chlendt', '\\mbox{Chargino Decay dt (Rest Frame, Fountas), muon channel } dt', 80, 0, 6)
         self.h_chlendt.GetXaxis().SetTitle("dt \\mbox{ (cm)}")
-        scelf.h_chlendt.GetYaxis().SetTitle("Counts")
+        self.h_chlendt.GetYaxis().SetTitle("Counts")
         self.addObject(self.h_chlendt)
     def analyze(self, event):
         #Variables, Arrays
