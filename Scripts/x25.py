@@ -274,6 +274,8 @@ class ExampleDisplacedAnalysis(Module):
         print("Printing Histograms...")
         histList2 = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
         histList = [self.h_chlenl, self.h_chlenr, self.h_chlenr2]
+        fit1 = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
+        fit2 = self.h_chlenr2.Fit("expo")
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
@@ -282,8 +284,6 @@ class ExampleDisplacedAnalysis(Module):
              save = "x" + ver + "/" + "x" + ver + "_h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
              self.c.Update()
-        fit1 = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
-        fit2 = self.h_chlenr2.Fit("expo")
         Module.endJob(self)
 
 preselection = ""
