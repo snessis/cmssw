@@ -265,12 +265,13 @@ class ExampleDisplacedAnalysis(Module):
         print("Number of events: " + str(events_all))
         br = (events_recorded)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
-        fit1 = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
-        fit2 = self.h_chlenr2.Fit("expo")
         #print("ctau1 = " + str(l1) + ", ctau2 = " + str(l2))
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
+        self.c.cd()
+        fit1 = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
+        fit2 = self.h_chlenr2.Fit("expo")
         #PRINTING
         print("Printing Histograms...")
         histList2 = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
