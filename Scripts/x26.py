@@ -262,8 +262,8 @@ class ExampleDisplacedAnalysis(Module):
         #PRINTING
         print("Printing Histograms...")
         histList_all = [self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
-        histList = [self.h_chlenr, self.h_jetht]
-        fit_chlenr = self.h_chlenr.Fit("expo", "", "", 0, 3) #exp(p0+p1*x)
+        histList = [self.h_jetht]
+        fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
@@ -276,6 +276,6 @@ class ExampleDisplacedAnalysis(Module):
 
 preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
+files = ["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE'])]
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x" + ver + ".root", histDirName="plots")
 p.run()
