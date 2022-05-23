@@ -12,6 +12,7 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import Pos
 from importlib import import_module
 import ROOT
 from ROOT import gStyle, gROOT
+from pprint import pprint
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
 events_recorded = 0
@@ -147,7 +148,7 @@ class ExampleDisplacedAnalysis(Module):
         genJets = Collection(event, "GenJet")
         METpt = getattr(event, "MET_pt") #branch
         N = event
-        print(N)
+        pprint(dir(event))
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         chs_all = []
