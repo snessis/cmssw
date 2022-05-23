@@ -148,13 +148,13 @@ class ExampleDisplacedAnalysis(Module):
                   "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT1200to2500.root".format(os.environ['CMSSW_BASE']),
                   "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT2500toInf.root".format(os.environ['CMSSW_BASE'])])
         Chain = ROOT.TChain("Events")
-        Chain.Add(load(file_paths[0]))
-        Chain.Add(load(file_paths[1]))
-        Chain.Add(load(file_paths[2]))
-        Chain.Add(load(file_paths[3]))
-        Chain.Add(load(file_paths[4]))
-        Chain.Add(load(file_paths[5]))
-        Chain.Add(load(file_paths[6]))
+        Chain.Add(file_paths[0])
+        Chain.Add(file_paths[1])
+        Chain.Add(file_paths[2])
+        Chain.Add(file_paths[3])
+        Chain.Add(file_paths[4])
+        Chain.Add(file_paths[5])
+        Chain.Add(file_paths[6])
         print("beginJob function ended. Initializing analysis...")
         # TEMPORARY HISTOGRAMS
     def analyze(self, event):
