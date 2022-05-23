@@ -146,7 +146,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         genJets = Collection(event, "GenJet")
         METpt = getattr(event, "MET_pt") #branch
-        N = Collection(event, "run")
+        N = event.run
         print(N)
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
