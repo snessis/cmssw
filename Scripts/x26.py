@@ -148,7 +148,7 @@ class ExampleDisplacedAnalysis(Module):
         genJets = Collection(event, "GenJet")
         METpt = getattr(event, "MET_pt") #branch
         N = event
-        pprint(dir(event))
+        pprint(dir(genParts))
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         chs_all = []
