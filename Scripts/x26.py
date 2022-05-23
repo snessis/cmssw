@@ -139,22 +139,6 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_chmu_deta)
         self.addObject(self.h_mix_chnmu_deta)
         self.addObject(self.h_mix_chneu_deta)
-        # FILES
-        file_paths = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE']),
-                  "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT200to400.root".format(os.environ['CMSSW_BASE']),
-                  "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT400to600.root".format(os.environ['CMSSW_BASE']),
-                  "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT600to800.root".format(os.environ['CMSSW_BASE']),
-                  "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT800to1200.root".format(os.environ['CMSSW_BASE']),
-                  "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT1200to2500.root".format(os.environ['CMSSW_BASE']),
-                  "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT2500toInf.root".format(os.environ['CMSSW_BASE'])])
-        Chain = ROOT.TChain("Events")
-        Chain.Add(file_paths[0])
-        Chain.Add(file_paths[1])
-        Chain.Add(file_paths[2])
-        Chain.Add(file_paths[3])
-        Chain.Add(file_paths[4])
-        Chain.Add(file_paths[5])
-        Chain.Add(file_paths[6])
         print("beginJob function ended. Initializing analysis...")
         # TEMPORARY HISTOGRAMS
     def analyze(self, event):
@@ -162,7 +146,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         genJets = Collection(event, "GenJet")
         METpt = getattr(event, "MET_pt") #branch
-        N = event.run.GetEntries()
+        N = event.entries
         print(N)
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
@@ -281,7 +265,6 @@ class ExampleDisplacedAnalysis(Module):
         print("Number of events: " + str(events_all))
         br = (events_recorded)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
-        #print("ctau1 = " + str(l1) + ", ctau2 = " + str(l2))
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
@@ -303,8 +286,14 @@ class ExampleDisplacedAnalysis(Module):
              self.c.Update()
         Module.endJob(self)
 
-preselection = "GenJet_pt >= 850"
+preselection = "GenJet_pt >= 880"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = []
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE']),
+          "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT200to400.root".format(os.environ['CMSSW_BASE']),
+          "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT400to600.root".format(os.environ['CMSSW_BASE']),
+          "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT600to800.root".format(os.environ['CMSSW_BASE']),
+          "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT800to1200.root".format(os.environ['CMSSW_BASE']),
+          "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT1200to2500.root".format(os.environ['CMSSW_BASE']),
+          "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT2500toInf.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x" + ver + ".root", histDirName="plots")
 p.run()
