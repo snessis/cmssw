@@ -145,7 +145,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         genJets = Collection(event, "GenJet")
         METpt = getattr(event, "MET_pt") #branch
-        N = METpt.GetEntries()
+        N = getattr(event, "nGenPart")
         print(N)
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
