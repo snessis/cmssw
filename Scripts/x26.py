@@ -27,6 +27,8 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Energy Transverse, all events (MET)}', 100, 0, 400)
         self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
+        # JETS
+        self.h_jetht = ROOT.TH1F('jetht', '\\mbox{Jet } HT', 100, 0, 1000)
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 80, 0, 50)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 80, -6, 6)
@@ -60,6 +62,9 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
         self.h_metpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
+        # JETS
+        self.h_jetht.GetXaxis().SetTitle("E_t \\mbox{ (GeV)}")
+        self.h_jetht.GetYaxis().SetTitle("Counts")
         # 13 - MUON
         self.h_mupt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
         self.h_mupt.GetYaxis().SetTitle("Counts")
@@ -130,6 +135,7 @@ class ExampleDisplacedAnalysis(Module):
     def analyze(self, event):
         #Variables, Arrays
         genParts = Collection(event, "GenPart") #collection
+        genJets = Collection(event, "GenJet")
         METpt = getattr(event, "MET_pt") #branch
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
@@ -163,6 +169,7 @@ class ExampleDisplacedAnalysis(Module):
             return int(flag[:1])
         #scan all particles in the event by final state
         events_all += 1
+        self.h_metptall.Fill(METpt)
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
                 mother = findAncestor(particle) #mother must now be W or ch. instill check.
@@ -180,7 +187,9 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
-        self.h_metptall.Fill(METpt)
+        for jet in genJets:
+            if abs(jet.pt) >= 25:
+                self.h_jetht.Fill(jet.E())
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             #enter cuts here
@@ -252,9 +261,9 @@ class ExampleDisplacedAnalysis(Module):
         self.c.cd()
         #PRINTING
         print("Printing Histograms...")
-        histList_all = [self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
-        histList = [self.h_chlenr]
-        fit_chlenr = self.h_chlenr.Fit("expo", 0, 3) #exp(p0+p1*x)
+        histList_all = [self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList = [self.h_chlenr, self.h_jetht]
+        fit_chlenr = self.h_chlenr.Fit("expo", "", "", 0, 3) #exp(p0+p1*x)
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
@@ -266,6 +275,7 @@ class ExampleDisplacedAnalysis(Module):
         Module.endJob(self)
 
 preselection = ""
-files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])] #new file!
+#files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
+files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x" + ver + ".root", histDirName="plots")
 p.run()
