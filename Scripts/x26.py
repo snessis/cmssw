@@ -16,7 +16,6 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
 events_recorded = 0
 events_all = 0
-#number of events:
 N1 = 748300 #HT 100 to 200
 N2 = 1248911 #HT 200 to 400
 N3 = 411531 #HT 400 to 600
@@ -24,6 +23,8 @@ N4 = 1560343 #HT 600 to 800
 N5 = 737750 #HT 800 to 1200
 N6 = 775061 #HT 1200 to 2500
 N7 = 429253 #HT 2500 to Inf
+XSection = 1
+Lum = 1
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -145,6 +146,8 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         genJets = Collection(event, "GenJet")
         METpt = getattr(event, "MET_pt") #branch
+        N = event.getEntries()
+        print(N)
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
         chs_all = []
@@ -197,7 +200,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(particle, neus)
         for jet in genJets:
             if abs(jet.pt) >= 25:
-                self.h_jetht.Fill(jet.p4().E())
+                self.h_jetht.Fill(jet.p4().E(), 1/(N1*XSection*Lum))
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             #enter cuts here
@@ -269,7 +272,9 @@ class ExampleDisplacedAnalysis(Module):
         self.c.cd()
         #PRINTING
         print("Printing Histograms...")
-        histList_all = [self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta]
+        histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
+                         self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
+                         self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
         histList = [self.h_jetht]
         fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
         for hist in histList:
@@ -282,7 +287,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.Update()
         Module.endJob(self)
 
-preselection = "GenJet_pt >= 400"
+preselection = "GenJet_pt >= 850"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE']),
           "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT200to400.root".format(os.environ['CMSSW_BASE']),
