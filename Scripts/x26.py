@@ -157,6 +157,8 @@ class ExampleDisplacedAnalysis(Module):
         neus = []
         global events_recorded
         global events_all
+        print dir(self)
+        pprint(dir(self))
         #Function definitions
         def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
@@ -286,7 +288,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.Update()
         Module.endJob(self)
 
-preselection = "GenJet_pt >= 880"
+preselection = "GenJet_pt >= 1100"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE']),
           "{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT200to400.root".format(os.environ['CMSSW_BASE']),
