@@ -2,34 +2,42 @@
 #include "TROOT.h"
 #include "TF1.h"
 #include "TLegend.h"
-#include "TArrow.h"
 #include "TLatex.h"
 
 void attach_x26() {
-//    gROOT->SetStyle("Plain");   // set plain TStyle
-  //  gStyle->SetOptStat(111111); // draw statistics on plots,
-                            // (0) for no output
-//    gStyle->SetOptFit(1111);    // draw fit results on plot,
-                            // (0) for no ouput
-    //gStyle->SetPalette(57);     // set color map
-  //  gStyle->SetOptTitle(0);     // suppress title box
-
-
 TFile *f1 = new TFile("x26_1.root");
 TFile *f2 = new TFile("x26_2.root");
-//TFile *f1 = new TFile("../x26_1/x26_1_h_jetht.root");
-//TFile *f2 = new TFile("../x26_2/x26_2_h_jetht.root");
-f1->ls();
-f2->ls();
+TFile *f3 = new TFile("x26_2.root");
+TFile *f4 = new TFile("x26_2.root");
+TFile *f5 = new TFile("x26_2.root");
+TFile *f6 = new TFile("x26_2.root");
+TFile *f7 = new TFile("x26_2.root");
 
 TH1F *h1 = (TH1F*)f1->Get("plots/jetht");
 TH1F *h2 = (TH1F*)f2->Get("plots/jetht");
-TH1F *h3 = new TH1F("total_jetht", "Total Jet HT", 100, 0, 1500);
-h3->Add(h1);
-h3->Add(h2);
+TH1F *h3 = (TH1F*)f2->Get("plots/jetht");
+TH1F *h4 = (TH1F*)f2->Get("plots/jetht");
+TH1F *h5 = (TH1F*)f2->Get("plots/jetht");
+TH1F *h6 = (TH1F*)f2->Get("plots/jetht");
+TH1F *h7 = (TH1F*)f2->Get("plots/jetht");
+TH1F *h_total = new TH1F("total_jetht", "\\mbox{Jet } HT", 100, 0, 3500);
 
-TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1000, 700); // create a canvas, specify position and size in pixels
-c->cd();
-h3->Draw();
+h_total->Add(h1);
+h_total->Add(h2);
+h_total->Add(h3);
+h_total->Add(h4);
+h_total->Add(h5);
+h_total->Add(h6);
+h_total->Add(h7);
+
+TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 100);
+gStyle->SetOptStat(1110);
+gStyle->SetStatColor(18);
+h_total->SetLineColor(38);
+h_total->GetXaxis()->SetTitle("E_t \\mbox{ (GeV)}");
+h_total->GetXaxis()->CenterTitle(true);
+h_total->GetYaxis()->SetTitle("Counts");
+h_total->GetYaxis()->CenterTitle(true);
+h_total->Draw();
 c->SaveAs("attach_x26_output.jpg");
 }
