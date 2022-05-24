@@ -16,8 +16,10 @@ void attach_x26() {
 
     //TCanvas c("canv", "The Canvas (post-analysis)",700, 1000); // create a canvas, specify position and size in pixels
 
-TFile *f1 = new TFile("{}/src/gitRepo/x26_1/x26_1_jetht.root");
-TFile *f2 = new TFile("{}/src/gitRepo/x26_1/x26_1_jetht.root");
+//TFile *f1 = new TFile("{}/src/gitRepo/x26_1/x26_1_jetht.root");
+//TFile *f2 = new TFile("{}/src/gitRepo/x26_1/x26_1_jetht.root");
+TFile *f1 = new TFile("/x26_1/x26_1_jetht.root");
+TFile *f2 = new TFile("/x26_2/x26_2_jetht.root");
 f1->ls();
 f2->ls();
 
