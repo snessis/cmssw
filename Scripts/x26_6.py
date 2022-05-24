@@ -286,6 +286,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.SaveAs(savepng)
              self.c.SaveAs(saveroot)
              self.c.Update()
+             hist.Write()
         Module.endJob(self)
 
 preselection = "GenJet_pt >= 25"
