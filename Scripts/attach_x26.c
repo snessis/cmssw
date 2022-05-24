@@ -22,9 +22,9 @@ TFile *f2 = new TFile("x26_2.root");
 f1->ls();
 f2->ls();
 
-TH1F *h1 = (TH1F*)f1.Get("plots/jetht");
-TH1F *h2 = (TH1F*)f2.Get("plots/jetht");
-TH1F * h3 = *h1 + *h2;
+TH1F *h1 = (TH1F*)f1->Get("plots/jetht");
+TH1F *h2 = (TH1F*)f2->Get("plots/jetht");
+TH1F * h3 = h1 + h2;
 
 TCanvas c("canv", "The Canvas (post-analysis)", 700, 1000); // create a canvas, specify position and size in pixels
 h3->Draw();
