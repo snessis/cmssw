@@ -121,6 +121,7 @@ class ExampleDisplacedAnalysis(Module):
         # ADD HISTOGRAMS
         self.addObject(self.h_metptall)
         self.addObject(self.h_metpt)
+        self.addObject(self.h_jetht)
         self.addObject(self.h_chpt)
         self.addObject(self.h_cheta)
         self.addObject(self.h_chphi)
