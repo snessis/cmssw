@@ -14,7 +14,6 @@ void attach_x26() {
     //gStyle->SetPalette(57);     // set color map
   //  gStyle->SetOptTitle(0);     // suppress title box
 
-    //TCanvas c("canv", "The Canvas (post-analysis)",700, 1000); // create a canvas, specify position and size in pixels
 
 TFile *f1 = new TFile("x26_1.root");
 TFile *f2 = new TFile("x26_2.root");
@@ -23,9 +22,10 @@ TFile *f2 = new TFile("x26_2.root");
 f1->ls();
 f2->ls();
 
-//TH1F * h1 = (TH1F*)f1.Get(“jetht”);
-//TH1F * h2 = (TH1F*)f2.Get(“jetht”);
-//TH1F * h3 = *h1 + *h2;
+TH1F *h1 = (TH1F*)f1.Get("plots/jetht");
+TH1F *h2 = (TH1F*)f2.Get("plots/jetht");
+TH1F * h3 = *h1 + *h2;
 
-//h1->Draw();
+TCanvas c("canv", "The Canvas (post-analysis)", 700, 1000); // create a canvas, specify position and size in pixels
+h3->Draw();
 }
