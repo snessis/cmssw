@@ -30,7 +30,7 @@ h_total->Add(h5);
 h_total->Add(h6);
 h_total->Add(h7);
 
-TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 100);
+TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 800);
 gStyle->SetOptStat(1110);
 gStyle->SetStatColor(18);
 h_total->SetLineColor(38);
