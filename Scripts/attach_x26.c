@@ -18,8 +18,8 @@ void attach_x26() {
 
 //TFile *f1 = new TFile("{}/src/gitRepo/x26_1/x26_1_jetht.root");
 //TFile *f2 = new TFile("{}/src/gitRepo/x26_1/x26_1_jetht.root");
-TFile *f1 = new TFile("/x26_1/x26_1_jetht.root");
-TFile *f2 = new TFile("/x26_2/x26_2_jetht.root");
+TFile *f1 = new TFile("/x26_1/x26_1_h_jetht.root");
+TFile *f2 = new TFile("/x26_2/x26_2_h_jetht.root");
 f1->ls();
 f2->ls();
 
