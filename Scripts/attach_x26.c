@@ -20,7 +20,7 @@ TH1F *h4 = (TH1F*)f2->Get("plots/jetht");
 TH1F *h5 = (TH1F*)f2->Get("plots/jetht");
 TH1F *h6 = (TH1F*)f2->Get("plots/jetht");
 TH1F *h7 = (TH1F*)f2->Get("plots/jetht");
-TH1F *h_total = new TH1F("total_jetht", "\\mbox{Jet } HT", 100, 0, 3500);
+TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet } HT", 100, 0, 3500);
 
 h_total->Add(h1);
 h_total->Add(h2);
