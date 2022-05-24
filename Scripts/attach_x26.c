@@ -39,5 +39,5 @@ h_total->GetXaxis()->CenterTitle(true);
 h_total->GetYaxis()->SetTitle("Counts");
 h_total->GetYaxis()->CenterTitle(true);
 h_total->Draw();
-c->SaveAs("attach_x26_output.jpg");
+c->SaveAs("attach_x26_output.png");
 }
