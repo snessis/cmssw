@@ -290,6 +290,6 @@ class ExampleDisplacedAnalysis(Module):
 
 preselection = "GenJet_pt >= 25"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT400to600.root".format(os.environ['CMSSW_BASE']))
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT400to600.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x" + ver + ".root", histDirName="plots")
 p.run()
