@@ -200,7 +200,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(particle, neus)
         for jet in genJets:
             if abs(jet.pt) >= 25:
-                self.h_jetht.Fill(jet.p4().E(), 1/(N1*XSection*Lum))
+                self.h_jetht.Fill(jet.p4().E())
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             #enter cuts here
