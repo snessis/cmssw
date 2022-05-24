@@ -29,5 +29,7 @@ h3->Add(h1);
 h3->Add(h2);
 
 TCanvas c("canv", "The Canvas (post-analysis)", 700, 1000); // create a canvas, specify position and size in pixels
+c-cd();
 h3->Draw();
+c->SaveAs("attach_x26_output.jpg");
 }
