@@ -286,7 +286,7 @@ class ExampleDisplacedAnalysis(Module):
         histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
                          self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
                          self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
-        histList = [self.h_jetht, self.h_lhepartpt, self.h_lhept]
+        histList = [self.h_jetht, self.h_lheht]
         fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
         for hist in histList:
              hist.SetLineColor(38)
