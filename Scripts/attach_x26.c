@@ -30,13 +30,13 @@ TH1F *h6 = (TH1F*)f2->Get("plots/jetht");
 TH1F *h7 = (TH1F*)f2->Get("plots/jetht");
 TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet } HT", 100, 0, 3500);
 
-h1->Scale(1/N1);
-h2->Scale(1/N2);
-h3->Scale(1/N3);
-h4->Scale(1/N4);
-h5->Scale(1/N5);
-h6->Scale(1/N6);
-h7->Scale(1/N7);
+//h1->Scale(1/N1);
+//h2->Scale(1/N2);
+//h3->Scale(1/N3);
+//h4->Scale(1/N4);
+//h5->Scale(1/N5);
+//h6->Scale(1/N6);
+//h7->Scale(1/N7);
 
 h_total->Add(h1);
 h_total->Add(h2);
