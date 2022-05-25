@@ -156,7 +156,9 @@ class ExampleDisplacedAnalysis(Module):
         genJets = Collection(event, "GenJet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
         lhepartpt = getattr(event, "LHEPart_pt") #branch
+        print(lhepartpt)
         lheht = getattr(event, "LHE_HT")
+        print(lheht)
         #N = event
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
@@ -211,8 +213,8 @@ class ExampleDisplacedAnalysis(Module):
         for jet in genJets:
             if abs(jet.pt) >= 25:
                 self.h_jetht.Fill(jet.pt)
-                self.h_lhepartpt.Fill(lhepartpt)
-                self.h_lheht.Fill(lheht)
+                #self.h_lhepartpt.Fill(lhepartpt)
+                #self.h_lheht.Fill(lheht)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             #enter cuts here
