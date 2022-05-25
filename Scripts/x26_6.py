@@ -37,7 +37,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
-        self.h_jetht = ROOT.TH1F('jetht', '\\mbox{Jet HT}', 100, 0, 3500) #component
+        self.h_jetht = ROOT.TH1F('jetht', '\\mbox{Jet HT}', 150, 0, 2500) #component
         self.h_lhepartpt = ROOT.TH1F('lhepartpt', '\\mbox{LHE Particle } p_t', 100, 0, 1500) #component
         self.h_lheht = ROOT.TH1F('lheht', '\\mbox{LHE HT}', 100, 0, 3500) #component
         # 13 - MUON
@@ -301,7 +301,7 @@ class ExampleDisplacedAnalysis(Module):
              hist.Write()
         Module.endJob(self)
 
-preselection = "GenJet_pt >= 25"
+preselection = "GenJet_pt >= 30"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT1200to2500.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x" + ver + ".root", histDirName="plots")
