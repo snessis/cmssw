@@ -35,6 +35,7 @@ double SF5 = N5 / 8402687;
 double SF6 = N6 / 7633949;
 double SF7 = N7 / 3273980;
 double BR = 0.11;
+double fake = 1000000;
 
 TFile *f1 = new TFile("x27_1.root");
 TFile *f2 = new TFile("x27_2.root");
@@ -62,21 +63,21 @@ TH1F *l6 = (TH1F*)f2->Get("plots/lheht");
 TH1F *l7 = (TH1F*)f2->Get("plots/lheht");
 TH1F *l_total = new TH1F("total_lheht", "\\mbox{Total Jet } LHE", 100, 0, 3500);
 
-h1->Scale(1/N1*XSEC1*L*SF1*BR);
-h2->Scale(1/N2*XSEC2*L*SF2*BR);
-h3->Scale(1/N3*XSEC3*L*SF3*BR);
-h4->Scale(1/N4*XSEC4*L*SF4*BR);
-h5->Scale(1/N5*XSEC5*L*SF5*BR);
-h6->Scale(1/N6*XSEC6*L*SF6*BR);
-h7->Scale(1/N7*XSEC7*L*SF7*BR);
+h1->Scale(1/N1*XSEC1*L*SF1*BR*fake);
+h2->Scale(1/N2*XSEC2*L*SF2*BR*fake);
+h3->Scale(1/N3*XSEC3*L*SF3*BR*fake);
+h4->Scale(1/N4*XSEC4*L*SF4*BR*fake);
+h5->Scale(1/N5*XSEC5*L*SF5*BR*fake);
+h6->Scale(1/N6*XSEC6*L*SF6*BR*fake);
+h7->Scale(1/N7*XSEC7*L*SF7*BR*fake);
 
-l1->Scale(1/N1*XSEC1*L*SF1*BR);
-l2->Scale(1/N2*XSEC2*L*SF2*BR);
-l3->Scale(1/N3*XSEC3*L*SF3*BR);
-l4->Scale(1/N4*XSEC4*L*SF4*BR);
-l5->Scale(1/N5*XSEC5*L*SF5*BR);
-l6->Scale(1/N6*XSEC6*L*SF6*BR);
-l7->Scale(1/N7*XSEC7*L*SF7*BR);
+l1->Scale(1/N1*XSEC1*L*SF1*BR*fake);
+l2->Scale(1/N2*XSEC2*L*SF2*BR*fake);
+l3->Scale(1/N3*XSEC3*L*SF3*BR*fake);
+l4->Scale(1/N4*XSEC4*L*SF4*BR*fake);
+l5->Scale(1/N5*XSEC5*L*SF5*BR*fake);
+l6->Scale(1/N6*XSEC6*L*SF6*BR*fake);
+l7->Scale(1/N7*XSEC7*L*SF7*BR*fake);
 
 h_total->Add(h1);
 h_total->Add(h2);
