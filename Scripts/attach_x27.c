@@ -36,13 +36,13 @@ double SF6 = N6 / 7633949;
 double SF7 = N7 / 3273980;
 double BR = 0.11;
 
-TFile *f1 = new TFile("x26_1.root");
-TFile *f2 = new TFile("x26_2.root");
-TFile *f3 = new TFile("x26_2.root");
-TFile *f4 = new TFile("x26_2.root");
-TFile *f5 = new TFile("x26_2.root");
-TFile *f6 = new TFile("x26_2.root");
-TFile *f7 = new TFile("x26_2.root");
+TFile *f1 = new TFile("x27_1.root");
+TFile *f2 = new TFile("x27_2.root");
+TFile *f3 = new TFile("x27_2.root");
+TFile *f4 = new TFile("x27_2.root");
+TFile *f5 = new TFile("x27_2.root");
+TFile *f6 = new TFile("x27_2.root");
+TFile *f7 = new TFile("x27_2.root");
 
 TH1F *h1 = (TH1F*)f1->Get("plots/jetht");
 TH1F *h2 = (TH1F*)f2->Get("plots/jetht");
