@@ -21,7 +21,7 @@ N5 = 737750 #HT 800 to 1200
 N6 = 775061 #HT 1200 to 2500
 N7 = 429253 #HT 2500 to Inf
 events_recorded = 0
-events_all = N7
+events_all = N1
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
