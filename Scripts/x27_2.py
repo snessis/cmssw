@@ -34,7 +34,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
-        self.h_jetht = ROOT.TH1F('jetht', '\\mbox{Jet HT}', 150, 0, 2000) #component
+        self.h_jetht = ROOT.TH1F('jetht', '\\mbox{Jet HT}', 100, 0, 400) #component
         self.h_lhepartpt = ROOT.TH1F('lhepartpt', '\\mbox{LHE Particle } p_t', 100, 0, 1500) #component
         self.h_lheht = ROOT.TH1F('lheht', '\\mbox{LHE HT}', 100, 0, 3500) #component
         # 13 - MUON
