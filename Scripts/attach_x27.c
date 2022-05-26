@@ -108,8 +108,8 @@ l_total->GetXaxis()->SetTitle("\\mbox{LHE (GeV)}");
 l_total->GetXaxis()->CenterTitle(true);
 l_total->GetYaxis()->SetTitle("Counts");
 l_total->GetYaxis()->CenterTitle(true);
-h_total->Draw("B");
+h_total->Draw("HIST");
 c->SaveAs("attach_x27_jetht.png");
-l_total->Draw("B");
+l_total->Draw("HIST");
 c->SaveAs("attach_x27_lheht.png");
 }
