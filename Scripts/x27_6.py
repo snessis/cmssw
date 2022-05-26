@@ -189,7 +189,7 @@ class ExampleDisplacedAnalysis(Module):
                 #case for mu and nmu aka leptonic:
                 if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
-                        if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1 and mu.pt >= 4 and mu.eta <= 2.5:
+                        if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1 and particle.pt >= 4 and particle.eta <= 2.5:
                             addUniqueParticle(particle, mus)
                         if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                             addUniqueParticle(particle, nmus)
@@ -200,7 +200,7 @@ class ExampleDisplacedAnalysis(Module):
             self.h_jetht.Fill(jet.pt)
             self.h_lheht.Fill(lheht)
             self.h_metpt.Fill(METpt)
-            for mu in mus:            
+            for mu in mus:
                 self.h_mupt.Fill(mu.pt)
                 self.h_mueta.Fill(mu.eta)
             events_recorded += 1
