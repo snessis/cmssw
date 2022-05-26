@@ -213,6 +213,7 @@ class ExampleDisplacedAnalysis(Module):
                 self.h_jetht.Fill(jet.pt)
                 #self.h_lhepartpt.Fill(lhepartpt)
                 self.h_lheht.Fill(lheht)
+        print(len(mus))         
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             #enter cuts here
