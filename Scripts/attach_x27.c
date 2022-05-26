@@ -39,11 +39,11 @@ double fake_scale = 1;
 
 TFile *f1 = new TFile("x27_1.root");
 TFile *f2 = new TFile("x27_2.root");
-TFile *f3 = new TFile("x27_2.root");
-TFile *f4 = new TFile("x27_2.root");
-TFile *f5 = new TFile("x27_2.root");
-TFile *f6 = new TFile("x27_2.root");
-TFile *f7 = new TFile("x27_2.root");
+TFile *f3 = new TFile("x27_3.root");
+TFile *f4 = new TFile("x27_4.root");
+TFile *f5 = new TFile("x27_5.root");
+TFile *f6 = new TFile("x27_6.root");
+TFile *f7 = new TFile("x27_7.root");
 
 TH1F *h1 = (TH1F*)f1->Get("plots/jetht");
 TH1F *h2 = (TH1F*)f2->Get("plots/jetht");
