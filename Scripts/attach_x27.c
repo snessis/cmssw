@@ -47,20 +47,20 @@ TFile *f7 = new TFile("x27_2.root");
 
 TH1F *h1 = (TH1F*)f1->Get("plots/jetht");
 TH1F *h2 = (TH1F*)f2->Get("plots/jetht");
-TH1F *h3 = (TH1F*)f2->Get("plots/jetht");
-TH1F *h4 = (TH1F*)f2->Get("plots/jetht");
-TH1F *h5 = (TH1F*)f2->Get("plots/jetht");
-TH1F *h6 = (TH1F*)f2->Get("plots/jetht");
-TH1F *h7 = (TH1F*)f2->Get("plots/jetht");
+TH1F *h3 = (TH1F*)f3->Get("plots/jetht");
+TH1F *h4 = (TH1F*)f4->Get("plots/jetht");
+TH1F *h5 = (TH1F*)f5->Get("plots/jetht");
+TH1F *h6 = (TH1F*)f6->Get("plots/jetht");
+TH1F *h7 = (TH1F*)f7->Get("plots/jetht");
 TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet } HT", 150, 0, 2000);
 
 TH1F *l1 = (TH1F*)f1->Get("plots/lheht");
 TH1F *l2 = (TH1F*)f2->Get("plots/lheht");
-TH1F *l3 = (TH1F*)f2->Get("plots/lheht");
-TH1F *l4 = (TH1F*)f2->Get("plots/lheht");
-TH1F *l5 = (TH1F*)f2->Get("plots/lheht");
-TH1F *l6 = (TH1F*)f2->Get("plots/lheht");
-TH1F *l7 = (TH1F*)f2->Get("plots/lheht");
+TH1F *l3 = (TH1F*)f3->Get("plots/lheht");
+TH1F *l4 = (TH1F*)f4->Get("plots/lheht");
+TH1F *l5 = (TH1F*)f5->Get("plots/lheht");
+TH1F *l6 = (TH1F*)f6->Get("plots/lheht");
+TH1F *l7 = (TH1F*)f7->Get("plots/lheht");
 TH1F *l_total = new TH1F("total_lheht", "\\mbox{Total Jet } LHE", 100, 0, 3500);
 
 h1->Scale(1/N1*XSEC1*L*SF1*BR*fake);
