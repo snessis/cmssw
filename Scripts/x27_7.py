@@ -200,13 +200,14 @@ class ExampleDisplacedAnalysis(Module):
             self.h_jetht.Fill(jet.pt)
             self.h_lheht.Fill(lheht)
             self.h_metpt.Fill(METpt)
-            self.h_mupt.Fill(mu.pt)
-            self.h_mueta.Fill(mu.eta)
+            for mu in mus:            
+                self.h_mupt.Fill(mu.pt)
+                self.h_mueta.Fill(mu.eta)
             events_recorded += 1
             return True
         else:
             return False
-    
+
     def endJob(self):
         print("Initializing endJob function...")
         print("Number of retained events: " + str(events_recorded))
