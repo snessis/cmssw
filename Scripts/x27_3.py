@@ -21,7 +21,7 @@ N5 = 737750 #HT 800 to 1200
 N6 = 775061 #HT 1200 to 2500
 N7 = 429253 #HT 2500 to Inf
 events_recorded = 0
-events_all = N3
+events_all = N7
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -34,11 +34,11 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
-        self.h_jetht = ROOT.TH1F('jetht', '\\mbox{Jet HT}', 150, 0, 2500) #component
+        self.h_jetht = ROOT.TH1F('jetht', '\\mbox{Jet HT}', 150, 0, 2000) #component
         self.h_lhepartpt = ROOT.TH1F('lhepartpt', '\\mbox{LHE Particle } p_t', 100, 0, 1500) #component
         self.h_lheht = ROOT.TH1F('lheht', '\\mbox{LHE HT}', 100, 0, 3500) #component
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 80, 0, 50)
+        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 80, 0, 150)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 80, -6, 6)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 80, 0, 50)
@@ -189,7 +189,7 @@ class ExampleDisplacedAnalysis(Module):
                 #case for mu and nmu aka leptonic:
                 if abs(particle.pdgId) in leptonic:
                     if abs(mother.pdgId) == 24: #must be W
-                        if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1 and particle.pt >= 4 and particle.eta <= 2.5:
+                        if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1 and abs(particle.pt) >= 4 and abs(particle.eta) <= 2.5:
                             addUniqueParticle(particle, mus)
                         if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                             addUniqueParticle(particle, nmus)
