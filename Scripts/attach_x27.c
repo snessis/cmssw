@@ -35,7 +35,7 @@ double SF5 = N5 / 8402687;
 double SF6 = N6 / 7633949;
 double SF7 = N7 / 3273980;
 double BR = 0.11;
-double fake = 1000000;
+double fake_scale = 1;
 
 TFile *f1 = new TFile("x27_1.root");
 TFile *f2 = new TFile("x27_2.root");
@@ -63,21 +63,21 @@ TH1F *l6 = (TH1F*)f6->Get("plots/lheht");
 TH1F *l7 = (TH1F*)f7->Get("plots/lheht");
 TH1F *l_total = new TH1F("total_lheht", "\\mbox{Total Jet } LHE", 100, 0, 3500);
 
-h1->Scale(1/N1*XSEC1*L*SF1*BR*fake);
-h2->Scale(1/N2*XSEC2*L*SF2*BR*fake);
-h3->Scale(1/N3*XSEC3*L*SF3*BR*fake);
-h4->Scale(1/N4*XSEC4*L*SF4*BR*fake);
-h5->Scale(1/N5*XSEC5*L*SF5*BR*fake);
-h6->Scale(1/N6*XSEC6*L*SF6*BR*fake);
-h7->Scale(1/N7*XSEC7*L*SF7*BR*fake);
+h1->Scale(1/N1*XSEC1*L*SF1*BR*fake_scale);
+h2->Scale(1/N2*XSEC2*L*SF2*BR*fake_scale);
+h3->Scale(1/N3*XSEC3*L*SF3*BR*fake_scale);
+h4->Scale(1/N4*XSEC4*L*SF4*BR*fake_scale);
+h5->Scale(1/N5*XSEC5*L*SF5*BR*fake_scale);
+h6->Scale(1/N6*XSEC6*L*SF6*BR*fake_scale);
+h7->Scale(1/N7*XSEC7*L*SF7*BR*fake_scale);
 
-l1->Scale(1/N1*XSEC1*L*SF1*BR*fake);
-l2->Scale(1/N2*XSEC2*L*SF2*BR*fake);
-l3->Scale(1/N3*XSEC3*L*SF3*BR*fake);
-l4->Scale(1/N4*XSEC4*L*SF4*BR*fake);
-l5->Scale(1/N5*XSEC5*L*SF5*BR*fake);
-l6->Scale(1/N6*XSEC6*L*SF6*BR*fake);
-l7->Scale(1/N7*XSEC7*L*SF7*BR*fake);
+l1->Scale(1/N1*XSEC1*L*SF1*BR*fake_scale);
+l2->Scale(1/N2*XSEC2*L*SF2*BR*fake_scale);
+l3->Scale(1/N3*XSEC3*L*SF3*BR*fake_scale);
+l4->Scale(1/N4*XSEC4*L*SF4*BR*fake_scale);
+l5->Scale(1/N5*XSEC5*L*SF5*BR*fake_scale);
+l6->Scale(1/N6*XSEC6*L*SF6*BR*fake_scale);
+l7->Scale(1/N7*XSEC7*L*SF7*BR*fake_scale);
 
 h_total->Add(h1);
 h_total->Add(h2);
@@ -108,8 +108,8 @@ l_total->GetXaxis()->SetTitle("\\mbox{LHE (GeV)}");
 l_total->GetXaxis()->CenterTitle(true);
 l_total->GetYaxis()->SetTitle("Counts");
 l_total->GetYaxis()->CenterTitle(true);
-h_total->Draw();
+h_total->Draw("L");
 c->SaveAs("attach_x27_jetht.png");
-l_total->Draw();
+l_total->Draw("L");
 c->SaveAs("attach_x27_lheht.png");
 }
