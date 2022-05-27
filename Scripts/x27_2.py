@@ -194,7 +194,7 @@ class ExampleDisplacedAnalysis(Module):
                         if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                             addUniqueParticle(particle, nmus)
         for jet in Jets:
-            if abs(jet.pt) >= 25:
+            if abs(jet.pt) >= 30:
                 jets.append(jet)
         if METpt >= 130 and len(jets) > 0 and len(mus) > 0:
             sum = 0
