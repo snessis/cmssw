@@ -52,7 +52,7 @@ TH1F *h4 = (TH1F*)f4->Get("plots/jetht");
 TH1F *h5 = (TH1F*)f5->Get("plots/jetht");
 TH1F *h6 = (TH1F*)f6->Get("plots/jetht");
 TH1F *h7 = (TH1F*)f7->Get("plots/jetht");
-TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet HT}", 100, 0, 400);
+TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet HT}", 100, 0, 2000);
 
 TH1F *l1 = (TH1F*)f1->Get("plots/lheht");
 TH1F *l2 = (TH1F*)f2->Get("plots/lheht");
