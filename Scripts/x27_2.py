@@ -21,7 +21,7 @@ N5 = 737750 #HT 800 to 1200
 N6 = 775061 #HT 1200 to 2500
 N7 = 429253 #HT 2500 to Inf
 events_recorded = 0
-events_all = N2
+events_all = N1
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -71,11 +71,11 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
-        self.h_jetht.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
+        self.h_jetht.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
         self.h_jetht.GetYaxis().SetTitle("Counts")
         self.h_lhepartpt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
         self.h_lhepartpt.GetYaxis().SetTitle("Counts")
-        self.h_lheht.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
+        self.h_lheht.GetXaxis().SetTitle("\\mbox{LHE HT (GeV)}")
         self.h_lheht.GetYaxis().SetTitle("Counts")
         # 13 - MUON
         self.h_mupt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
@@ -150,7 +150,7 @@ class ExampleDisplacedAnalysis(Module):
     def analyze(self, event):
         #Variables, Arrays
         genParts = Collection(event, "GenPart") #collection, given by NanoAODTools
-        genJets = Collection(event, "GenJet") #collection, given by NanoAODTools
+        Jets = Collection(event, "Jet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
         lheht = getattr(event, "LHE_HT")
         #N = event
@@ -193,11 +193,14 @@ class ExampleDisplacedAnalysis(Module):
                             addUniqueParticle(particle, mus)
                         if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                             addUniqueParticle(particle, nmus)
-        for jet in genJets:
+        for jet in Jets:
             if abs(jet.pt) >= 25:
                 jets.append(jet)
         if METpt >= 130 and len(jets) > 0 and len(mus) > 0:
-            self.h_jetht.Fill(jet.pt)
+            sum = 0
+            for jet in jets:
+                sum += jet.pt
+            self.h_jetht.Fill(sum)
             self.h_lheht.Fill(lheht)
             self.h_metpt.Fill(METpt)
             for mu in mus:
@@ -235,7 +238,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.Update()
         Module.endJob(self)
 
-preselection = "GenJet_pt >= 30 && MET_pt >= 130"
+preselection = "Jet_pt >= 30 && MET_pt >= 130"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT200to400.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x" + ver + ".root", histDirName="plots")
