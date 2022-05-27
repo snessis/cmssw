@@ -97,6 +97,7 @@ l_total->Add(l7);
 
 double h_area = h_total->Integral();
 double l_area = l_area->Integral();
+
 cout << "HT integral (area) = " << h_area << endl;
 cout << "LHE HT integral (area) = " << l_area << endl;
 
