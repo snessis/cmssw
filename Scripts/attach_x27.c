@@ -6,7 +6,7 @@
 
 void attach_x27() {
 double N1 = 748300; //HT 100 to 200
-double N1_a = 70267;
+double N1_a = 70290;
 double N2 = 1248911; //HT 200 to 400
 double N2_a = 202208;
 double N3 = 411531; //HT 400 to 600
@@ -27,13 +27,13 @@ double XSEC5 = 5.246;
 double XSEC6 = 1.071;
 double XSEC7 = 0.00819;
 double L = 1.17;
-double SF1 = N1 / 29521158;
-double SF2 = N2 / 25468933;
-double SF3 = N3 / 5932701;
-double SF4 = N4 / 19771294;
-double SF5 = N5 / 8402687;
-double SF6 = N6 / 7633949;
-double SF7 = N7 / 3273980;
+double SF1 = N1_a / 29521158;
+double SF2 = N2_a / 25468933;
+double SF3 = N3_a / 5932701;
+double SF4 = N4_a / 19771294;
+double SF5 = N5_a / 8402687;
+double SF6 = N6_a / 7633949;
+double SF7 = N7_a / 3273980;
 double BR = 0.1063;
 double fake_scale = 1;
 
