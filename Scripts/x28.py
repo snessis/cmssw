@@ -207,7 +207,7 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
-        for jet in genJets:
+        for jet in Jets:
             if abs(jet.pt) >= 30:
                 jets.append(jet)
         if len(mus) == 0:
