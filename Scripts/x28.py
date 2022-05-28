@@ -154,7 +154,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         Jets = Collection(event, "Jet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
-        lheht = getattr(event, "LHE_HT")
+        #lheht = getattr(event, "LHE_HT")
         #N = event
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
@@ -262,7 +262,7 @@ class ExampleDisplacedAnalysis(Module):
         for jet in jets:
             sum += jet.pt
         self.h_jetht.Fill(sum)
-        self.h_lheht.Fill(lheht)
+        #self.h_lheht.Fill(lheht)
         for neu in neus:
             ch = findAncestor(neu)
             tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
