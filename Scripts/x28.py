@@ -166,7 +166,6 @@ class ExampleDisplacedAnalysis(Module):
         jets = []
         global events_recorded
         global events_all
-        pprint(dir(event))
         #Function definitions
         def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
