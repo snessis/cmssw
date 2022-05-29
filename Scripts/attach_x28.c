@@ -97,7 +97,7 @@ void attach_x28() {
   h_ttotal->Add(h_total);
   h_ttotal->Add(hch);
   h_acc->Add(h_hch);
-  h_acc->Add(h_ttotal);
+  h_acc->Divide(h_ttotal);
 
   l_total->Add(l1);
   l_total->Add(l2);
