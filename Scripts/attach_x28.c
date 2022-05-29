@@ -59,7 +59,7 @@ void attach_x28() {
   TH1F *hch = (TH1F*)fch->Get("plots/jetht");
   TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet HT}", 100, 0, 3500);
   TH1F *h_ttotal = new TH1F("ttotal_jetht", "\\mbox{Total Jet HT (plus chargino)}", 100, 0, 3500);
-
+  TH1F *h_acc = new TH1F("ttotal_jetht", "\\mbox{Total Jet HT Acceptance (chargino/all)}", 100, 0, 3500);
 
   TH1F *l1 = (TH1F*)f1->Get("plots/lheht");
   TH1F *l2 = (TH1F*)f2->Get("plots/lheht");
@@ -79,13 +79,13 @@ void attach_x28() {
   h7->Scale(1/N7_a*XSEC7*L*SF7*BR*fake_scale);
   hch->Scale(1/N_ch*XSECCH*L*SFCH*BR*fake_scale);
 
-  l1->Scale(1/N1*XSEC1*L*SF1*BR*fake_scale);
-  l2->Scale(1/N2*XSEC2*L*SF2*BR*fake_scale);
-  l3->Scale(1/N3*XSEC3*L*SF3*BR*fake_scale);
-  l4->Scale(1/N4*XSEC4*L*SF4*BR*fake_scale);
-  l5->Scale(1/N5*XSEC5*L*SF5*BR*fake_scale);
-  l6->Scale(1/N6*XSEC6*L*SF6*BR*fake_scale);
-  l7->Scale(1/N7*XSEC7*L*SF7*BR*fake_scale);
+  l1->Scale(1/N1_a*XSEC1*L*SF1*BR*fake_scale);
+  l2->Scale(1/N2_a*XSEC2*L*SF2*BR*fake_scale);
+  l3->Scale(1/N3_a*XSEC3*L*SF3*BR*fake_scale);
+  l4->Scale(1/N4_a*XSEC4*L*SF4*BR*fake_scale);
+  l5->Scale(1/N5_a*XSEC5*L*SF5*BR*fake_scale);
+  l6->Scale(1/N6_a*XSEC6*L*SF6*BR*fake_scale);
+  l7->Scale(1/N7_a*XSEC7*L*SF7*BR*fake_scale);
 
   h_total->Add(h1);
   h_total->Add(h2);
@@ -96,6 +96,8 @@ void attach_x28() {
   h_total->Add(h7);
   h_ttotal->Add(h_total);
   h_ttotal->Add(hch);
+  h_acc->Add(h_hch);
+  h_acc->Add(h_ttotal);
 
   l_total->Add(l1);
   l_total->Add(l2);
@@ -126,6 +128,11 @@ void attach_x28() {
   h_ttotal->GetXaxis()->CenterTitle(true);
   h_ttotal->GetYaxis()->SetTitle("Counts");
   h_ttotal->GetYaxis()->CenterTitle(true);
+  h_acc->SetLineColor(38);
+  h_acc->GetXaxis()->SetTitle("\\mbox{ch HT (GeV)}");
+  h_acc->GetXaxis()->CenterTitle(true);
+  h_acc->GetYaxis()->SetTitle("Ratio");
+  h_acc->GetYaxis()->CenterTitle(true);
   l_total->SetLineColor(38);
   l_total->GetXaxis()->SetTitle("\\mbox{LHE HT (GeV)}");
   l_total->GetXaxis()->CenterTitle(true);
@@ -137,4 +144,6 @@ void attach_x28() {
   c->SaveAs("attach_x27_jetht.png");
   h_ttotal->Draw("HIST");
   c->SaveAs("attach_x27_jetht_sig.png");
+  h_acc->Draw("HIST");
+  c->SaveAs("attach_x27_jetht_acc.png");
 }
