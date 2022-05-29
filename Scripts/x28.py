@@ -162,6 +162,7 @@ class ExampleDisplacedAnalysis(Module):
         global events_recorded
         global events_passed
         global events_selected
+        eventRecorded = False
         #Function definitions
         def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
@@ -208,7 +209,6 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         if len(mus) == 0:
             return False
-        events_passed += 1
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             #enter cuts here
@@ -223,6 +223,7 @@ class ExampleDisplacedAnalysis(Module):
                             for neu in neus:
                                 neu_mother = findAncestor(neu) #chargino
                                 if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother: #end point
+                                    eventRecorded = True
                                     ch = mu_gmother
                                     w = mu_mother
                                     events_recorded += 1
@@ -258,6 +259,8 @@ class ExampleDisplacedAnalysis(Module):
         for jet in jets:
             sum += jet.pt
         self.h_jetht.Fill(sum)
+        if eventRecorded == True:
+            events_passed += 1
         #self.h_lheht.Fill(lheht)
         for neu in neus:
             ch = findAncestor(neu)
