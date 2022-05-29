@@ -141,11 +141,11 @@ void attach_x28() {
   l_total->GetYaxis()->SetTitle("Counts");
   l_total->GetYaxis()->CenterTitle(true);
   l_total->Draw("HIST");
-  c->SaveAs("attach_x27_lheht.png");
+  c->SaveAs("attach_x28_lheht.png");
   h_total->Draw("HIST");
-  c->SaveAs("attach_x27_jetht.png");
+  c->SaveAs("attach_x28_jetht.png");
   h_ttotal->Draw("HIST");
-  c->SaveAs("attach_x27_jetht_sig.png");
+  c->SaveAs("attach_x28_jetht_sig.png");
   h_acc->Draw("HIST");
-  c->SaveAs("attach_x27_jetht_acc.png");
+  c->SaveAs("attach_x28_jetht_acc.png");
 }
