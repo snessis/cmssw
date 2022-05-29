@@ -18,13 +18,7 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 events_recorded = 0
 events_passed = 0
 events_selected = 0
-N1 = 748300 #HT 100 to 200
-N2 = 1248911 #HT 200 to 400
-N3 = 411531 #HT 400 to 600
-N4 = 1560343 #HT 600 to 800
-N5 = 737750 #HT 800 to 1200
-N6 = 775061 #HT 1200 to 2500
-N7 = 429253 #HT 2500 to Inf
+events_all = 539666
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -283,7 +277,7 @@ class ExampleDisplacedAnalysis(Module):
         print("Number of muon channel events: " + str(events_recorded))
         print("Number of passed entries: " + str(events_passed))
         print("Number of events selected: " + str(events_selected))
-        br = (events_recorded)/(2.*events_selected)
+        br = (events_recorded)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
