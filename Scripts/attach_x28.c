@@ -109,10 +109,12 @@ void attach_x28() {
 
   double h_area = h_total->Integral();
   double hh_area = h_ttotal->Integral();
+  double hh_area_acc = h_acc->Integral();
   double l_area = l_total->Integral();
 
   cout << "HT integral (area) = " << h_area << endl;
   cout << "HT integral w/ chargino (area) = " << hh_area << endl;
+  cout << "HT integral w/ chargino acceptance (area) = " << hh_area_acc << endl;
   cout << "LHE HT integral (area) = " << l_area << endl;
 
   TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 800);
