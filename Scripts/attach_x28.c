@@ -59,7 +59,7 @@ void attach_x28() {
   TH1F *hch = (TH1F*)fch->Get("plots/jetht");
   TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet HT}", 100, 0, 3500);
   TH1F *h_ttotal = new TH1F("ttotal_jetht", "\\mbox{Total Jet HT (plus chargino)}", 100, 0, 3500);
-  TH1F *h_acc = new TH1F("ttotal_jetht", "\\mbox{Total Jet HT Acceptance (chargino/all)}", 100, 0, 3500);
+  TH1F *h_acc = new TH1F("ttotal_acc", "\\mbox{Total Jet HT Acceptance (chargino/all)}", 100, 0, 3500);
 
   TH1F *l1 = (TH1F*)f1->Get("plots/lheht");
   TH1F *l2 = (TH1F*)f2->Get("plots/lheht");
