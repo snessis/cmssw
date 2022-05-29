@@ -281,7 +281,7 @@ class ExampleDisplacedAnalysis(Module):
     def endJob(self):
         print("Initializing endJob function...")
         print("Number of muon channel events: " + str(events_recorded))
-        print("Number of passed entries: " + str(events_passed)
+        print("Number of passed entries: " + str(events_passed))
         print("Number of events selected: " + str(events_selected))
         br = (events_recorded)/(2.*events_selected)
         print("Channel branching ratio: " + str(br))
