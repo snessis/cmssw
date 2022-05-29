@@ -17,7 +17,7 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
 events_recorded = 0
 events_passed = 0
-events_all = 0
+events_selected = 0
 N1 = 748300 #HT 100 to 200
 N2 = 1248911 #HT 200 to 400
 N3 = 411531 #HT 400 to 600
@@ -167,7 +167,7 @@ class ExampleDisplacedAnalysis(Module):
         jets = []
         global events_recorded
         global events_passed
-        global events_all
+        global events_selected
         #Function definitions
         def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
             original = particle
@@ -190,7 +190,7 @@ class ExampleDisplacedAnalysis(Module):
             flag = str(part.statusFlags>>pos)
             return int(flag[:1])
         #scan all particles in the event by final state
-        events_all += 1
+        events_selected += 1
         self.h_metptall.Fill(METpt)
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
@@ -214,7 +214,7 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         if len(mus) == 0:
             return False
-        events_passed += 1    
+        events_passed += 1
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             #enter cuts here
@@ -281,8 +281,9 @@ class ExampleDisplacedAnalysis(Module):
     def endJob(self):
         print("Initializing endJob function...")
         print("Number of muon channel events: " + str(events_recorded))
-        print("Number of events: " + str(events_all))
-        br = (events_recorded)/(2.*events_all)
+        print("Number of passed entries: " + str(events_passed)
+        print("Number of events selected: " + str(events_selected))
+        br = (events_recorded)/(2.*events_selected)
         print("Channel branching ratio: " + str(br))
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
