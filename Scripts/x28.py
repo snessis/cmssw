@@ -16,6 +16,7 @@ from pprint import pprint
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
 events_recorded = 0
+events_passed = 0
 events_all = 0
 N1 = 748300 #HT 100 to 200
 N2 = 1248911 #HT 200 to 400
@@ -165,6 +166,7 @@ class ExampleDisplacedAnalysis(Module):
         neus = []
         jets = []
         global events_recorded
+        global events_passed
         global events_all
         #Function definitions
         def findAncestor(particle): #aims to find a mother particle. if it doesnt, it returns the original
@@ -212,6 +214,7 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         if len(mus) == 0:
             return False
+        events_passed += 1    
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
             #enter cuts here
