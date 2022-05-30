@@ -71,7 +71,7 @@ void attach_x30() {
   h6->Scale(1/N6*XSEC6*L*SF6*BR*fake_scale);
   h7->Scale(1/N7*XSEC7*L*SF7*BR*fake_scale);
   hch->Scale(1/N*XSECCH*L*BR*fake_scale);
-  hmetch->Scale(1/N*XSECCH*L*BR*fake_scale);
+  metch->Scale(1/N*XSECCH*L*BR*fake_scale);
 
   h_total->Add(h1);
   h_total->Add(h2);
@@ -86,9 +86,11 @@ void attach_x30() {
   double h_area = h_total->Integral();
   double h_charea = hch->Integral();
   double hh_area = h_ttotal->Integral();
+  double met_area = metch->Integral();
   cout << "HT integral (area) = " << h_area << endl;
   cout << "HT integral chargino only (area) = " << h_charea << endl;
   cout << "HT integral w/ chargino (area) = " << hh_area << endl;
+  cout << "MET chargino only (area) = " << met_area << endl;
 
   TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 800);
   gStyle->SetOptStat(1110);
@@ -98,11 +100,11 @@ void attach_x30() {
   h_total->GetXaxis()->CenterTitle(true);
   h_total->GetYaxis()->SetTitle("Counts");
   h_total->GetYaxis()->CenterTitle(true);
-  hmetch->SetLineColor(38);
-  hmetch->GetXaxis()->SetTitle("\\mbox{MET (GeV)}");
-  hmetch->GetXaxis()->CenterTitle(true);
-  hmetch->GetYaxis()->SetTitle("Counts");
-  hmetch->GetYaxis()->CenterTitle(true);
+  metch->SetLineColor(38);
+  metch->GetXaxis()->SetTitle("\\mbox{MET (GeV)}");
+  metch->GetXaxis()->CenterTitle(true);
+  metch->GetYaxis()->SetTitle("Counts");
+  metch->GetYaxis()->CenterTitle(true);
   hch->SetLineColor(38);
   hch->GetXaxis()->SetTitle("\\mbox{HT (GeV)}");
   hch->GetXaxis()->CenterTitle(true);
@@ -115,7 +117,7 @@ void attach_x30() {
   h_ttotal->GetYaxis()->CenterTitle(true);
   h_total->Draw("HIST");
   c->SaveAs("attach_x30_jetht.png");
-  hmetch->Draw("HIST");
+  metch->Draw("HIST");
   c->SaveAs("attach_x30_metch.png");
   hch->Draw("HIST");
   c->SaveAs("attach_x30_jetht_ch.png");
