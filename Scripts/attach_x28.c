@@ -19,7 +19,7 @@ void attach_x28() {
   double N6_a = 182698;
   double N7 = 429253; //HT 2500 to Inf
   double N7_a = 114025;
-  double N = 539666;
+  double N = 539666*100;
   double N_ch = 711;
   double XSEC1 = 1395*1.17;
   double XSEC2 = 408.7*1.17;
