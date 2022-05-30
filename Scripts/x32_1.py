@@ -199,7 +199,7 @@ class ExampleDisplacedAnalysis(Module):
             return False
         for Muon in Muons:
             Mus.append(Muon)
-            addUniqueParticle(genParts[Muon.genPartIdx], mus2)
+            mus2.append(Muon)
         print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
         for jet in Jets:
             if abs(jet.pt) >= 30:
