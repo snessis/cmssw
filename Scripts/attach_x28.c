@@ -108,11 +108,13 @@ void attach_x28() {
   l_total->Add(l7);
 
   double h_area = h_total->Integral();
+  double h_charea = hch->Integral();
   double hh_area = h_ttotal->Integral();
   double hh_area_acc = h_acc->Integral();
   double l_area = l_total->Integral();
 
   cout << "HT integral (area) = " << h_area << endl;
+  cout << "HT integral chargino only (area) = " << h_charea << endl;
   cout << "HT integral w/ chargino (area) = " << hh_area << endl;
   cout << "HT integral w/ chargino acceptance (area) = " << hh_area_acc << endl;
   cout << "LHE HT integral (area) = " << l_area << endl;
@@ -125,6 +127,11 @@ void attach_x28() {
   h_total->GetXaxis()->CenterTitle(true);
   h_total->GetYaxis()->SetTitle("Counts");
   h_total->GetYaxis()->CenterTitle(true);
+  hch->SetLineColor(38);
+  hch->GetXaxis()->SetTitle("\\mbox{HT (GeV)}");
+  hch->GetXaxis()->CenterTitle(true);
+  hch->GetYaxis()->SetTitle("Counts");
+  hch->GetYaxis()->CenterTitle(true);
   h_ttotal->SetLineColor(38);
   h_ttotal->GetXaxis()->SetTitle("\\mbox{HT (GeV)}");
   h_ttotal->GetXaxis()->CenterTitle(true);
@@ -144,6 +151,8 @@ void attach_x28() {
   c->SaveAs("attach_x28_lheht.png");
   h_total->Draw("HIST");
   c->SaveAs("attach_x28_jetht.png");
+  h_ch->Draw("HIST");
+  c->SaveAs("attach_x28_jetht_ch.png");  
   h_ttotal->Draw("HIST");
   c->SaveAs("attach_x28_jetht_sig.png");
   h_acc->Draw("HIST");
