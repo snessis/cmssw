@@ -210,6 +210,9 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if Muon.pt >= 3 and Muon.eta <= 2.5 and METpt >= 130 and (genParts[Muon.genPartIdx] in mus):
                 Mus.append(Muon)
+        for jet in Jets:
+            if abs(jet.pt) >= 30 and len(Mus) == 2:
+                jets.append(jet)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) == 2: #cut is now on reco lvl, carried by corresponding loop
             for mu in mus:
@@ -257,13 +260,10 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
-        for jet in Jets:
-            if abs(jet.pt) >= 30 and len(Mus) == 2:
-                jets.append(jet)
-        sum = 0
-        for jet in jets:
-            sum += jet.pt
-        self.h_jetht.Fill(sum)
+            sum = 0
+            for jet in jets:
+                sum += jet.pt
+            self.h_jetht.Fill(sum)
         if eventRecorded == True:
             events_passed += 1
         #self.h_lheht.Fill(lheht)
