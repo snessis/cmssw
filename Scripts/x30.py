@@ -206,7 +206,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
         if len(mus) == 0:
-            return False)
+            return False
         for Muon in Muons:
             if Muon.pt >= 3 and Muon.eta <= 2.5 and METpt >= 130 and (genParts[Muon.genPartIdx] in mus):
                 Mus.append(Muon)
