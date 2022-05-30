@@ -151,8 +151,8 @@ void attach_x28() {
   c->SaveAs("attach_x28_lheht.png");
   h_total->Draw("HIST");
   c->SaveAs("attach_x28_jetht.png");
-  h_ch->Draw("HIST");
-  c->SaveAs("attach_x28_jetht_ch.png");  
+  hch->Draw("HIST");
+  c->SaveAs("attach_x28_jetht_ch.png");
   h_ttotal->Draw("HIST");
   c->SaveAs("attach_x28_jetht_sig.png");
   h_acc->Draw("HIST");
