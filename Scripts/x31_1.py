@@ -191,9 +191,9 @@ class ExampleDisplacedAnalysis(Module):
         for particle in genParts:
             if abs(particle.pdgId) == 13:
                 mother = findAncestor(particle) #mother must now be W. instill check.
-                    if abs(mother.pdgId) == 24: #must be W
-                        gmother = findAncestor(mother) #chargino or irrelevant W
-                        addUniqueParticle(particle, mus)
+                if abs(mother.pdgId) == 24: #must be W
+                    gmother = findAncestor(mother) #chargino or irrelevant W
+                    addUniqueParticle(particle, mus)
         if len(mus) == 0:
             return False
         for Muon in Muons:
