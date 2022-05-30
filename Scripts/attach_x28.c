@@ -78,7 +78,7 @@ void attach_x28() {
   h5->Scale(1/N5*XSEC5*L*SF5*BR*fake_scale);
   h6->Scale(1/N6*XSEC6*L*SF6*BR*fake_scale);
   h7->Scale(1/N7*XSEC7*L*SF7*BR*fake_scale);
-  hch->Scale(1/N*XSECCH*L*SFCH*BR*fake_scale);
+  hch->Scale(1/N*XSECCH*L*BR*fake_scale);
 
   l1->Scale(1/N1*XSEC1*L*SF1*BR*fake_scale);
   l2->Scale(1/N2*XSEC2*L*SF2*BR*fake_scale);
