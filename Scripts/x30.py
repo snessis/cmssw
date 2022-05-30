@@ -206,10 +206,7 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
                     addUniqueParticle(particle, neus)
         if len(mus) == 0:
-            return False
-        for jet in Jets:
-            if abs(jet.pt) >= 30:
-                jets.append(jet)
+            return False)
         for Muon in Muons:
             if Muon.pt >= 3 and Muon.eta <= 2.5 and METpt >= 130 and (genParts[Muon.genPartIdx] in mus):
                 Mus.append(Muon)
@@ -260,6 +257,9 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
+        for jet in Jets:
+            if abs(jet.pt) >= 30 and len(Mus) == 2:
+                jets.append(jet)
         sum = 0
         for jet in jets:
             sum += jet.pt
