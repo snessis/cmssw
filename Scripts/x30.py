@@ -218,48 +218,48 @@ class ExampleDisplacedAnalysis(Module):
         for mu in mus:
             #enter cuts here
             if mu.pt >= 3 and mu.eta <= 2.5 and len(mus) == 2 and METpt >= 130:
-            mu_mother = findAncestor(mu) #W
-            for nmu in nmus:
-                nmu_mother = findAncestor(nmu) #W
-                if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
-                    mu_gmother = findAncestor(mu_mother) #ch
-                    nmu_gmother = findAncestor(nmu_mother) #ch
-                    if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
-                        for neu in neus:
-                            neu_mother = findAncestor(neu) #chargino
-                            if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother: #end point
-                                eventRecorded = True
-                                ch = mu_gmother
-                                w = mu_mother
-                                events_recorded += 1
-                                self.h_metpt.Fill(METpt)
-                                deta_mu = abs(mu.eta) - abs(ch.eta)
-                                self.h_mupt.Fill(mu.pt)
-                                self.h_mueta.Fill(mu.eta)
-                                self.h_mix_chmu_deta.Fill(deta_mu)
-                                deta_nmu = abs(nmu.eta) - abs(ch.eta)
-                                self.h_nmupt.Fill(nmu.pt)
-                                self.h_nmueta.Fill(nmu.eta)
-                                self.h_mix_chnmu_deta.Fill(deta_nmu)
-                                self.h_neupt.Fill(neu.pt)
-                                self.h_neueta.Fill(neu.eta)
-                                deta_neu = abs(neu.eta) - abs(ch.eta)
-                                self.h_mix_chneu_deta.Fill(deta_neu)
-                                self.h_chpt.Fill(ch.pt)
-                                self.h_cheta.Fill(ch.eta)
-                                self.h_chphi.Fill(ch.phi)
-                                g = ch.p4().Gamma()
-                                b = ch.p4().Beta()
-                                self.h_chbeta.Fill(b)
-                                self.h_chgamma.Fill(g)
-                                self.h_chnrgl.Fill(ch.p4().E())
-                                if len(chs) == 2: #event with two muonic channels
-                                    part1 = chs[0]
-                                    part2 = chs[1]
-                                    deta = abs(part1.eta) - abs(part2.eta)
-                                    dphi = part1.phi - part2.phi
-                                    self.h_chdeta.Fill(deta)
-                                    self.h_chdphi.Fill(dphi)
+                mu_mother = findAncestor(mu) #W
+                for nmu in nmus:
+                    nmu_mother = findAncestor(nmu) #W
+                    if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
+                        mu_gmother = findAncestor(mu_mother) #ch
+                        nmu_gmother = findAncestor(nmu_mother) #ch
+                        if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
+                            for neu in neus:
+                                neu_mother = findAncestor(neu) #chargino
+                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother: #end point
+                                    eventRecorded = True
+                                    ch = mu_gmother
+                                    w = mu_mother
+                                    events_recorded += 1
+                                    self.h_metpt.Fill(METpt)
+                                    deta_mu = abs(mu.eta) - abs(ch.eta)
+                                    self.h_mupt.Fill(mu.pt)
+                                    self.h_mueta.Fill(mu.eta)
+                                    self.h_mix_chmu_deta.Fill(deta_mu)
+                                    deta_nmu = abs(nmu.eta) - abs(ch.eta)
+                                    self.h_nmupt.Fill(nmu.pt)
+                                    self.h_nmueta.Fill(nmu.eta)
+                                    self.h_mix_chnmu_deta.Fill(deta_nmu)
+                                    self.h_neupt.Fill(neu.pt)
+                                    self.h_neueta.Fill(neu.eta)
+                                    deta_neu = abs(neu.eta) - abs(ch.eta)
+                                    self.h_mix_chneu_deta.Fill(deta_neu)
+                                    self.h_chpt.Fill(ch.pt)
+                                    self.h_cheta.Fill(ch.eta)
+                                    self.h_chphi.Fill(ch.phi)
+                                    g = ch.p4().Gamma()
+                                    b = ch.p4().Beta()
+                                    self.h_chbeta.Fill(b)
+                                    self.h_chgamma.Fill(g)
+                                    self.h_chnrgl.Fill(ch.p4().E())
+                                    if len(chs) == 2: #event with two muonic channels
+                                        part1 = chs[0]
+                                        part2 = chs[1]
+                                        deta = abs(part1.eta) - abs(part2.eta)
+                                        dphi = part1.phi - part2.phi
+                                        self.h_chdeta.Fill(deta)
+                                        self.h_chdphi.Fill(dphi)
         sum = 0
         for jet in jets:
             sum += jet.pt
