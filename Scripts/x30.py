@@ -212,7 +212,7 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         print(len(Muons))
         for Muon in Muons:
-            if Muon.pt >= 3 and Mu.eta <= 2.5 and METpt >= 130:
+            if Muon.pt >= 3 and Muon.eta <= 2.5 and METpt >= 130:
                 Mus.append(Muon)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         for mu in mus:
