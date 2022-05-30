@@ -101,7 +101,7 @@ void attach_x30() {
   hmetch->SetLineColor(38);
   hmetch->GetXaxis()->SetTitle("\\mbox{MET (GeV)}");
   hmetch->GetXaxis()->CenterTitle(true);
-  hmetch>GetYaxis()->SetTitle("Counts");
+  hmetch->GetYaxis()->SetTitle("Counts");
   hmetch->GetYaxis()->CenterTitle(true);
   hch->SetLineColor(38);
   hch->GetXaxis()->SetTitle("\\mbox{HT (GeV)}");
