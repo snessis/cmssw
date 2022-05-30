@@ -69,7 +69,7 @@ void attach_x31() {
   TH1F *met6 = (TH1F*)f6->Get("plots/metpt");
   TH1F *met7 = (TH1F*)f7->Get("plots/metpt");
   TH1F *metch = (TH1F*)fch->Get("plots/metpt");
-  TH1F *metbg= new TH1F("bg_met", "\\mbox{MET (background)}", 100, 0, 3500);
+  TH1F *metbg= new TH1F("bg_met", "\\mbox{MET (background)}", 100, 0, 400);
 
   h1->Scale(1/N1*XSEC1*L*SF1*BR*fake_scale);
   h2->Scale(1/N2*XSEC2*L*SF2*BR*fake_scale);
