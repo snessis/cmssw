@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-ver = "31_1"
+ver = "31_5"
 #x31 reco lvl muon assignemnt on bg
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
@@ -255,6 +255,6 @@ class ExampleDisplacedAnalysis(Module):
 preselection = "Jet_pt >= 30 && MET_pt >= 130"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE'])])
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT800to1200.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x" + ver + ".root", histDirName="plots")
 p.run()
