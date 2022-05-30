@@ -199,7 +199,7 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if Muon.pt >= 3 and Muon.eta <= 2.5 and METpt >= 130 and (genParts[Muon.genPartIdx] in mus):
                 Mus.append(Muon)
-        print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)))        
+        print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)))
         for jet in Jets:
             if abs(jet.pt) >= 30 and len(Mus) == 2:
                 jets.append(jet)
@@ -301,6 +301,6 @@ class ExampleDisplacedAnalysis(Module):
 preselection = "Jet_pt >= 30 && MET_pt >= 130"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])] #new file!
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="x" + ver + ".root", histDirName="plots")
 p.run()
