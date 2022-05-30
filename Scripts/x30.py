@@ -213,9 +213,8 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if Muon.pt >= 3 and Muon.eta <= 2.5 and METpt >= 130 and (genParts[Muon.genPartIdx] in mus):
                 Mus.append(Muon)
-        #print("mus length = " + str(len(mus)) + ", Mus length = " + str(len(Mus)))
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
-        if len(Mus) == 2:
+        if len(Mus) == 2: #cut is now on reco lvl, carried by corresponding loop
             for mu in mus:
                 #enter cuts here
                 #if mu.pt >= 3 and mu.eta <= 2.5 and len(mus) == 2 and METpt >= 130:
