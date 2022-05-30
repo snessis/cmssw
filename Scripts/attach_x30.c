@@ -58,8 +58,10 @@ void attach_x30() {
   TH1F *h6 = (TH1F*)f6->Get("plots/jetht");
   TH1F *h7 = (TH1F*)f7->Get("plots/jetht");
   TH1F *hch = (TH1F*)fch->Get("plots/jetht");
+  TH1F *hmetch = (TH1F*)fch->Get("plots/metpt");
   TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet HT}", 100, 0, 3500);
   TH1F *h_ttotal = new TH1F("ttotal_jetht", "\\mbox{Total Jet HT (plus chargino)}", 100, 0, 3500);
+  //TH1F *h_met_sig = new TH1F("total_met_sig", "\\mbox{MET chargino}", 100, 0, 3500);
 
   h1->Scale(1/N1*XSEC1*L*SF1*BR*fake_scale);
   h2->Scale(1/N2*XSEC2*L*SF2*BR*fake_scale);
@@ -69,6 +71,7 @@ void attach_x30() {
   h6->Scale(1/N6*XSEC6*L*SF6*BR*fake_scale);
   h7->Scale(1/N7*XSEC7*L*SF7*BR*fake_scale);
   hch->Scale(1/N*XSECCH*L*BR*fake_scale);
+  hmetch->Scale(1/N*XSECCH*L*BR*fake_scale);
 
   h_total->Add(h1);
   h_total->Add(h2);
@@ -95,6 +98,11 @@ void attach_x30() {
   h_total->GetXaxis()->CenterTitle(true);
   h_total->GetYaxis()->SetTitle("Counts");
   h_total->GetYaxis()->CenterTitle(true);
+  hmetch->SetLineColor(38);
+  hmetch->GetXaxis()->SetTitle("\\mbox{MET (GeV)}");
+  hmetch->GetXaxis()->CenterTitle(true);
+  hmetch>GetYaxis()->SetTitle("Counts");
+  hmetch->GetYaxis()->CenterTitle(true);
   hch->SetLineColor(38);
   hch->GetXaxis()->SetTitle("\\mbox{HT (GeV)}");
   hch->GetXaxis()->CenterTitle(true);
@@ -107,6 +115,8 @@ void attach_x30() {
   h_ttotal->GetYaxis()->CenterTitle(true);
   h_total->Draw("HIST");
   c->SaveAs("attach_x30_jetht.png");
+  hmetch->Draw("HIST");
+  c->SaveAs("attach_x30_metch.png");
   hch->Draw("HIST");
   c->SaveAs("attach_x30_jetht_ch.png");
   h_ttotal->Draw("HIST");
