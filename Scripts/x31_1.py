@@ -199,12 +199,14 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if Muon.pt >= 3 and Muon.eta <= 2.5 and METpt >= 130 and (genParts[Muon.genPartIdx] in mus):
                 Mus.append(Muon)
-        print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)))
+        #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)))
+        if len(Mus) > 1:
+            print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)))
         for jet in Jets:
-            if abs(jet.pt) >= 30 and len(Mus) == 2:
+            if abs(jet.pt) >= 30:
                 jets.append(jet)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
-        if len(Mus) == 2: #cut is now on reco lvl, carried by corresponding loop
+        if len(Mus) > 0: #cut is now on reco lvl, carried by corresponding loop
             self.h_metpt.Fill(METpt)
             for mu in mus:
                 #enter cuts here
