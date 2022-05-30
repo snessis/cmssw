@@ -19,6 +19,7 @@ void attach_x28() {
   double N6_a = 182698;
   double N7 = 429253; //HT 2500 to Inf
   double N7_a = 114025;
+  double N = 539666;
   double N_ch = 711;
   double XSEC1 = 1395*1.17;
   double XSEC2 = 408.7*1.17;
@@ -29,14 +30,14 @@ void attach_x28() {
   double XSEC7 = 0.00819*1.17;
   double XSECCH = 0.902569;
   double L = 1;
-  double SF1 = N1_a / 29521158;
-  double SF2 = N2_a / 25468933;
-  double SF3 = N3_a / 5932701;
-  double SF4 = N4_a / 19771294;
-  double SF5 = N5_a / 8402687;
-  double SF6 = N6_a / 7633949;
-  double SF7 = N7_a / 3273980;
-  double SFCH = N_ch / 539666;
+  double SF1 = N1 / 29521158;
+  double SF2 = N2 / 25468933;
+  double SF3 = N3 / 5932701;
+  double SF4 = N4 / 19771294;
+  double SF5 = N5 / 8402687;
+  double SF6 = N6 / 7633949;
+  double SF7 = N7 / 3273980;
+  double SFCH = N / 539666;
   double BR = 0.1063; //W -> muonic
   double fake_scale = 1;
 
@@ -70,22 +71,22 @@ void attach_x28() {
   TH1F *l7 = (TH1F*)f7->Get("plots/lheht");
   TH1F *l_total = new TH1F("total_lheht", "\\mbox{Total Jet LHE HT}", 100, 0, 3500);
 
-  h1->Scale(1/N1_a*XSEC1*L*SF1*BR*fake_scale);
-  h2->Scale(1/N2_a*XSEC2*L*SF2*BR*fake_scale);
-  h3->Scale(1/N3_a*XSEC3*L*SF3*BR*fake_scale);
-  h4->Scale(1/N4_a*XSEC4*L*SF4*BR*fake_scale);
-  h5->Scale(1/N5_a*XSEC5*L*SF5*BR*fake_scale);
-  h6->Scale(1/N6_a*XSEC6*L*SF6*BR*fake_scale);
-  h7->Scale(1/N7_a*XSEC7*L*SF7*BR*fake_scale);
-  hch->Scale(1/N_ch*XSECCH*L*SFCH*BR*fake_scale);
+  h1->Scale(1/N1*XSEC1*L*SF1*BR*fake_scale);
+  h2->Scale(1/N2*XSEC2*L*SF2*BR*fake_scale);
+  h3->Scale(1/N3*XSEC3*L*SF3*BR*fake_scale);
+  h4->Scale(1/N4*XSEC4*L*SF4*BR*fake_scale);
+  h5->Scale(1/N5*XSEC5*L*SF5*BR*fake_scale);
+  h6->Scale(1/N6*XSEC6*L*SF6*BR*fake_scale);
+  h7->Scale(1/N7*XSEC7*L*SF7*BR*fake_scale);
+  hch->Scale(1/N*XSECCH*L*SFCH*BR*fake_scale);
 
-  l1->Scale(1/N1_a*XSEC1*L*SF1*BR*fake_scale);
-  l2->Scale(1/N2_a*XSEC2*L*SF2*BR*fake_scale);
-  l3->Scale(1/N3_a*XSEC3*L*SF3*BR*fake_scale);
-  l4->Scale(1/N4_a*XSEC4*L*SF4*BR*fake_scale);
-  l5->Scale(1/N5_a*XSEC5*L*SF5*BR*fake_scale);
-  l6->Scale(1/N6_a*XSEC6*L*SF6*BR*fake_scale);
-  l7->Scale(1/N7_a*XSEC7*L*SF7*BR*fake_scale);
+  l1->Scale(1/N1*XSEC1*L*SF1*BR*fake_scale);
+  l2->Scale(1/N2*XSEC2*L*SF2*BR*fake_scale);
+  l3->Scale(1/N3*XSEC3*L*SF3*BR*fake_scale);
+  l4->Scale(1/N4*XSEC4*L*SF4*BR*fake_scale);
+  l5->Scale(1/N5*XSEC5*L*SF5*BR*fake_scale);
+  l6->Scale(1/N6*XSEC6*L*SF6*BR*fake_scale);
+  l7->Scale(1/N7*XSEC7*L*SF7*BR*fake_scale);
 
   h_total->Add(h1);
   h_total->Add(h2);
