@@ -58,7 +58,7 @@ void attach_x30() {
   TH1F *h6 = (TH1F*)f6->Get("plots/jetht");
   TH1F *h7 = (TH1F*)f7->Get("plots/jetht");
   TH1F *hch = (TH1F*)fch->Get("plots/jetht");
-  TH1F *hmetch = (TH1F*)fch->Get("plots/metpt");
+  TH1F *metch = (TH1F*)fch->Get("plots/metpt");
   TH1F *h_total = new TH1F("total_jetht", "\\mbox{Total Jet HT}", 100, 0, 3500);
   TH1F *h_ttotal = new TH1F("ttotal_jetht", "\\mbox{Total Jet HT (plus chargino)}", 100, 0, 3500);
   //TH1F *h_met_sig = new TH1F("total_met_sig", "\\mbox{MET chargino}", 100, 0, 3500);
