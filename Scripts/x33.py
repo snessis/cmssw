@@ -148,6 +148,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         Jets = Collection(event, "Jet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
+        Muons = Collection(event, "Muon")        
         #lheht = getattr(event, "LHE_HT")
         #N = event
         locateFinalStates = [13, 14, 1000022]
