@@ -148,7 +148,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         Jets = Collection(event, "Jet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
-        Muons = Collection(event, "Muon")        
+        Muons = Collection(event, "Muon")
         #lheht = getattr(event, "LHE_HT")
         #N = event
         locateFinalStates = [13, 14, 1000022]
@@ -214,7 +214,7 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
                 Mus.append(Muon)
-                mus2.append(Muon)
+                mus2.append(genParts[Muon.genPartIdx])
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
 
         if len(Mus) > 0:
