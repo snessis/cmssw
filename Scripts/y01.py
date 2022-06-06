@@ -281,7 +281,7 @@ class ExampleDisplacedAnalysis(Module):
                                     b = chp4.Beta()
                                     chx4 = ROOT.TLorentzVector(L, L.Mag()/b)
                                     boost = chp4.BoostVector()
-                                    chp4.Boost(-boost)
+                                    chx4.Boost(-boost)
                                     lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
                                     self.h_mupvdistance.Fill(lr)
 
