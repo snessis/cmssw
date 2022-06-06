@@ -283,7 +283,6 @@ class ExampleDisplacedAnalysis(Module):
                                     boost = chp4.BoostVector()
                                     chx4.Boost(-boost)
                                     lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
-                                    print(lr)
                                     self.h_mupvdistance.Fill(lr)
 
             sum = 0
