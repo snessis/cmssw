@@ -316,14 +316,24 @@ class ExampleDisplacedAnalysis(Module):
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
         self.c.cd()
+        #FITTING
+        self.fit_chlenr = ROOT.TF1("fit_chlenr", "expo", 0, 10)
+        self.fit_chlenr.SetParNames("Chargino Decay Length Constant", "Chargino Decay Length Slope")
+        self.fit_mupvdistance = ROOT.TF1("fit_mupvdistance", "expo", 0, 10)
+        self.fit_mupvdistance.SetParNames("Muon-PV Distance Constant", "Muon-PV Distance Slope")
+        self.fit_mupvdistance.SetParameter("Muon-PV Distance Constant", 0.1)
+        #fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
+        #fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
+        self.addObject(self.fit_chlenr)
+        self.addObject(self.fit_mupvdistance)
         #PRINTING
+        print("mupvdistance parameters:")
+        print("const: " + str(self.fit_mupvdistance.GetParameter("Muon-PV Distance Constant")) + ", slope: " + str(self.fit_mupvdistance.GetParameter("Muon-PV Distance Slope")))
         print("Printing Histograms...")
         histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
                          self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
                          self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
-        histList = [self.h_mupvdistance, self.h_chlenr]
-        fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
-        fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
+        histList = [self.h_mupvdistance, self.fit_mupvdistance]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
