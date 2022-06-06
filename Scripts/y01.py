@@ -237,10 +237,17 @@ class ExampleDisplacedAnalysis(Module):
                         if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
                             for neu in neus:
                                 neu_mother = findAncestor(neu) #chargino
-                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother: #end point
+                                ch = mu_gmother
+                                w = mu_mother
+                                tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+                                head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
+                                L = head - tail
+                                chp4 = ch.p4()
+                                g = chp4.Gamma()
+                                b = chp4.Beta()
+                                L0 = L.Mag()/(b*g)
+                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and L0 >= 1: #end point
                                     eventRecorded = True
-                                    ch = mu_gmother
-                                    w = mu_mother
                                     events_recorded += 1
                                     deta_mu = abs(mu.eta) - abs(ch.eta)
                                     self.h_mupt.Fill(mu.pt)
@@ -269,17 +276,11 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
-                                    tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                    head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                                    L = head - tail
-                                    chp4 = ch.p4()
-                                    g = chp4.Gamma()
-                                    b = chp4.Beta()
                                     #chx4 = ROOT.TLorentzVector(L, -L.Mag()/b)
                                     #boost = chp4.BoostVector()
                                     #chx4.Boost(-boost)
                                     #lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
-                                    self.h_mupvdistance.Fill(L.Mag()/(b*g))
+                                    self.h_mupvdistance.Fill(L0)
 
             sum = 0
             for jet in jets:
