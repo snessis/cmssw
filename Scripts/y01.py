@@ -38,7 +38,7 @@ class ExampleDisplacedAnalysis(Module):
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 80, 0, 50)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 80, -6, 6)
-        self.h_mupvdistance = ROOT.TH1F('mupvdistance', '\\mbox{Muon-PV Distance } l', 120, 0, 15)
+        self.h_mupvdistance = ROOT.TH1F('mupvdistance', '\\mbox{Muon-PV Distance (Lab Frame)} l', 120, 0, 15)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 80, 0, 50)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 80, -6, 6)
@@ -243,12 +243,8 @@ class ExampleDisplacedAnalysis(Module):
                                 #tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
                                 tail = ROOT.TVector3(PVx, PVy, PVz)
                                 head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                                L = head - tail
-                                chp4 = ch.p4()
-                                g = chp4.Gamma()
-                                b = chp4.Beta()
-                                L0 = L.Mag()/(b*g)
-                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and L0 >= 1: #end point
+                                d = (head - tail).Mag()
+                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and d >= 0: #end point
                                     eventRecorded = True
                                     events_recorded += 1
                                     deta_mu = abs(mu.eta) - abs(ch.eta)
@@ -282,7 +278,7 @@ class ExampleDisplacedAnalysis(Module):
                                     #boost = chp4.BoostVector()
                                     #chx4.Boost(-boost)
                                     #lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
-                                    self.h_mupvdistance.Fill(L0)
+                                    self.h_mupvdistance.Fill(d)
 
             sum = 0
             for jet in jets:
