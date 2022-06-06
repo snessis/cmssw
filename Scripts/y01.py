@@ -279,7 +279,7 @@ class ExampleDisplacedAnalysis(Module):
                                     chp4 = ch.p4()
                                     g = chp4.Gamma()
                                     b = chp4.Beta()
-                                    chx4 = ROOT.TLorentzVector(L, L.Mag()/b)
+                                    chx4 = ROOT.TLorentzVector(L, -L.Mag()/b)
                                     boost = chp4.BoostVector()
                                     chx4.Boost(-boost)
                                     lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
