@@ -269,10 +269,14 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
-                                    tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                    head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                                    L = head - tail
-                                    self.h_mupvdistance.Fill(L.Mag())
+                                    vecA = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+                                    vecB = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
+                                    vecC = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
+                                    l1 = (vecB - vecA).Mag()
+                                    l2 = (vecC - vecB).Mag()
+                                    print(l2)
+                                    l = l1 + l2
+                                    self.h_mupvdistance.Fill(l)
             sum = 0
             for jet in jets:
                 sum += jet.pt
