@@ -311,6 +311,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
         histList = [self.h_mupvdistance]
         fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
+        fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
