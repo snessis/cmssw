@@ -327,8 +327,6 @@ class ExampleDisplacedAnalysis(Module):
         print("Number of events selected: " + str(events_selected))
         br = (events_recorded)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
-        print("FIT: mupvdistance parameters:")
-        print("FIT: const: " + str(self.fit_mupvdistance.GetParameter("mupvconst")) + ", slope: " + str(self.fit_mupvdistance.GetParameter("mupvslope")))
         print("Printing Histograms...")
         histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
                          self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
