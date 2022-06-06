@@ -147,7 +147,7 @@ void attach_y01() {
   h2_4->Scale(1/N2*XSEC2*L*SF2*BR);
   h3_4->Scale(1/N3*XSEC3*L*SF3*BR);
   h4_4->Scale(1/N4*XSEC4*L*SF4*BR);
-  h5_4>Scale(1/N5*XSEC5*L*SF5*BR);
+  h5_4->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_4->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_4->Scale(1/N7*XSEC7*L*SF7*BR);
   hch_4->Scale(1/N*XSECCH*L*SFCH*BR);
@@ -249,8 +249,11 @@ void attach_y01() {
   cout << "HT integral chargino only (d3) = " << hch_3_area << endl;
   cout << "HT integral chargino only (d4) = " << hch_4_area << endl;
   cout << "HT integral chargino only (d5) = " << hch_5_area << endl;
-  cout << "HT integral total = " << htotal_area << endl;
-
+  cout << "HT integral total (d1) = " << htotal_1_area << endl;
+  cout << "HT integral total (d2) = " << htotal_2_area << endl;
+  cout << "HT integral total (d3) = " << htotal_3_area << endl;
+  cout << "HT integral total (d4) = " << htotal_4_area << endl;
+  cout << "HT integral total (d5) = " << htotal_5_area << endl;
 
   TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 800);
   gStyle->SetOptStat(1110);
