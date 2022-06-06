@@ -269,14 +269,17 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
-                                    vecA = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                    vecB = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
-                                    vecC = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                                    l1 = (vecB - vecA).Mag()
-                                    l2 = (vecC - vecB).Mag()
-                                    print(l2)
-                                    l = l1 + l2
-                                    self.h_mupvdistance.Fill(l)
+                                    #vecA = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+                                    #vecB = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
+                                    #l = (vecB - vecA).Mag()
+                                    #self.h_mupvdistance.Fill(l)
+                                    tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+                                    head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
+                                    L = head - tail
+                                    chp4 = ch.p4()
+                                    g = chp4.Gamma()
+                                    b = chp4.Beta()
+                                    self.h_mupvdistance.Fill(L.Mag()/(b*g))
             sum = 0
             for jet in jets:
                 sum += jet.pt
@@ -313,7 +316,7 @@ class ExampleDisplacedAnalysis(Module):
         histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
                          self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
                          self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
-        histList = [self.h_mupvdistance]
+        histList = [self.h_mupvdistance, self.h_chlenr]
         fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
         fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
         for hist in histList:
