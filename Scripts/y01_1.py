@@ -157,6 +157,7 @@ class ExampleDisplacedAnalysis(Module):
         #N = event
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
+        hadronic = [1,2,3,4,5,6,21]
         chs_all = []
         chs = []
         mus = []
@@ -217,7 +218,8 @@ class ExampleDisplacedAnalysis(Module):
                 events_recorded += 1
                 w = findAncestor(mu)
                 w_mother = findAncestor(w)
-                print("w mother sourcetype: " + str(w_mother.pdgId))
+                if w_mother.pdgId not in hadronic:
+                    print("w mother sourcetype: " + str(w_mother.pdgId))
                 #tail = ROOT.TVector3(w.vtx_x, ch.vtx_y, ch.vtx_z)
                 #head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
                 #L = head - tail
