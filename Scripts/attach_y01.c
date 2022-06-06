@@ -50,7 +50,7 @@ void attach_y01() {
   TH1F *met6 = (TH1F*)f6->Get("plots/metpt");
   TH1F *met7 = (TH1F*)f7->Get("plots/metpt");
   TH1F *metch = (TH1F*)fch->Get("plots/metpt");
-  TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)", 100, 0, 400);
+  TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 100, 0, 400);
 
   TH1F *h1_1 = (TH1F*)f1->Get("plots/jetht1");
   TH1F *h2_1 = (TH1F*)f2->Get("plots/jetht1");
