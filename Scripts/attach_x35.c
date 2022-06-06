@@ -148,13 +148,13 @@ void attach_x35() {
   h_total->GetYaxis()->SetTitle("Counts");
   h_total->GetYaxis()->CenterTitle(true);
   hbg->Draw("HIST");
-  c->SaveAs("attach_x32_bg_jetht.png");
+  c->SaveAs("attach_x35_bg_jetht.png");
   metbg->Draw("HIST");
-  c->SaveAs("attach_x32_bg_met.png");
+  c->SaveAs("attach_x35_bg_met.png");
   metch->Draw("HIST");
-  c->SaveAs("attach_x32_ch_met.png");
+  c->SaveAs("attach_x35_ch_met.png");
   hch->Draw("HIST");
-  c->SaveAs("attach_x32_ch_jetht.png");
+  c->SaveAs("attach_x35_ch_jetht.png");
   h_total->Draw("HIST");
-  c->SaveAs("attach_x32_total_jetht.png");
+  c->SaveAs("attach_x35_total_jetht.png");
 }
