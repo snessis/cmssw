@@ -333,7 +333,7 @@ class ExampleDisplacedAnalysis(Module):
         histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
                          self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
                          self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
-        histList = [self.h_mupvdistance, self.fit_mupvdistance]
+        histList = [self.h_mupvdistance]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
@@ -346,6 +346,6 @@ class ExampleDisplacedAnalysis(Module):
 
 preselection = "MET_pt >= 100 && Jet_pt >= 30"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])] #new file!
+files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_10.root".format(os.environ['CMSSW_BASE'])] #new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()
