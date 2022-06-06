@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-ver = "01"
-#cuts: met>=100, >=1 muons, muonpt >= 4, muoneta <=2.5
-#ctau 10 here
-#incoprorate PV
+ver = "01_1"
+#cuts: met>=100, >=2 muons, muonpt >= 4, muoneta <=2.5
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
     print("Run 'cmsenv' on ../src/")
@@ -52,7 +50,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 80, 0, 5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 80, 0, 3.1415927)
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 80, 0, 5)
-        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 120, 0, 6)
+        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 80, 0, 6)
         self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
         self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 35)
         self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1400)
@@ -196,134 +194,65 @@ class ExampleDisplacedAnalysis(Module):
         events_selected += 1
         self.h_metptall.Fill(METpt)
         for particle in genParts:
-            if abs(particle.pdgId) in locateFinalStates: #identify final state particle
-                mother = findAncestor(particle) #mother must now be W or ch. instill check.
-                #case for mu and nmu aka leptonic:
-                if abs(particle.pdgId) in leptonic:
-                    if abs(mother.pdgId) == 24: #must be W
-                        gmother = findAncestor(mother) #chargino or irrelevant W
-                        if abs(gmother.pdgId) == 1000024: #must be ch
-                            addUniqueParticle(gmother, chs)
-                            if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1:
-                                addUniqueParticle(particle, mus)
-                            if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
-                                addUniqueParticle(particle, nmus)
-                #case for neu
-                if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
-                    addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
-                    addUniqueParticle(particle, neus)
+            if abs(particle.pdgId) == 13:
+                mother = findAncestor(particle) #mother must now be W. instill check.
+                if abs(mother.pdgId) == 24: #must be W
+                    gmother = findAncestor(mother) #chargino or irrelevant W
+                    addUniqueParticle(particle, mus)
         if len(mus) == 0:
             return False
-        for jet in Jets:
-            if abs(jet.pt) >= 30:
-                jets.append(jet)
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
+        #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
+        for jet in Jets:
+            if abs(jet.pt) >= 30:
+                jets.append(jet)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
-
-        if len(mus) >= 1:
+        if len(mus) >= 1: #cut is now on reco lvl, carried by corresponding loop
             self.h_metpt.Fill(METpt)
             for mu in mus:
-                #enter cuts here
-                #if mu.pt >= 4 and mu.eta <= 2.5 and len(mus) == 2 and METpt >= 130:
-                mu_mother = findAncestor(mu) #W
-                for nmu in nmus:
-                    nmu_mother = findAncestor(nmu) #W
-                    if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
-                        mu_gmother = findAncestor(mu_mother) #ch
-                        nmu_gmother = findAncestor(nmu_mother) #ch
-                        if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
-                            for neu in neus:
-                                neu_mother = findAncestor(neu) #chargino
-                                ch = mu_gmother
-                                w = mu_mother
-                                tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                                L = head - tail
-                                chp4 = ch.p4()
-                                g = chp4.Gamma()
-                                b = chp4.Beta()
-                                L0 = L.Mag()/(b*g)
-                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and L0 >= 1: #end point
-                                    eventRecorded = True
-                                    events_recorded += 1
-                                    deta_mu = abs(mu.eta) - abs(ch.eta)
-                                    self.h_mupt.Fill(mu.pt)
-                                    self.h_mueta.Fill(mu.eta)
-                                    self.h_mix_chmu_deta.Fill(deta_mu)
-                                    deta_nmu = abs(nmu.eta) - abs(ch.eta)
-                                    self.h_nmupt.Fill(nmu.pt)
-                                    self.h_nmueta.Fill(nmu.eta)
-                                    self.h_mix_chnmu_deta.Fill(deta_nmu)
-                                    self.h_neupt.Fill(neu.pt)
-                                    self.h_neueta.Fill(neu.eta)
-                                    deta_neu = abs(neu.eta) - abs(ch.eta)
-                                    self.h_mix_chneu_deta.Fill(deta_neu)
-                                    self.h_chpt.Fill(ch.pt)
-                                    self.h_cheta.Fill(ch.eta)
-                                    self.h_chphi.Fill(ch.phi)
-                                    g = ch.p4().Gamma()
-                                    b = ch.p4().Beta()
-                                    self.h_chbeta.Fill(b)
-                                    self.h_chgamma.Fill(g)
-                                    self.h_chnrgl.Fill(ch.p4().E())
-                                    if len(chs) == 2: #event with two muonic channels... fix this it should be mus
-                                        part1 = chs[0]
-                                        part2 = chs[1]
-                                        deta = abs(part1.eta) - abs(part2.eta)
-                                        dphi = part1.phi - part2.phi
-                                        self.h_chdeta.Fill(deta)
-                                        self.h_chdphi.Fill(dphi)
-                                    #chx4 = ROOT.TLorentzVector(L, -L.Mag()/b)
-                                    #boost = chp4.BoostVector()
-                                    #chx4.Boost(-boost)
-                                    #lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
-                                    self.h_mupvdistance.Fill(L0)
-
+                eventRecorded = True
+                events_recorded += 1
+                w = findAncestor(mu)
+                w_mother = findAncestor(w)
+                print("w mother sourcetype: " + str(w_mother.pdgId))
+                #tail = ROOT.TVector3(w.vtx_x, ch.vtx_y, ch.vtx_z)
+                #head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
+                #L = head - tail
+                #chp4 = ch.p4()
+                #g = chp4.Gamma()
+                #b = chp4.Beta()
+                #L0 = L.Mag()/(b*g)
+                self.h_mupt.Fill(mu.pt)
+                self.h_mueta.Fill(mu.eta)
             sum = 0
             for jet in jets:
                 sum += jet.pt
             self.h_jetht.Fill(sum)
         if eventRecorded == True:
             events_passed += 1
-        #self.h_lheht.Fill(lheht)
-        for neu in neus:
-            ch = findAncestor(neu)
-            tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-            head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
-            L = head - tail
-            chp4 = ch.p4()
-            g = chp4.Gamma()
-            b = chp4.Beta()
-            self.h_chlenl.Fill(L.Mag())
-            self.h_chlenr.Fill(L.Mag()/(b*g))
         #analysis ends here: return True
         return True
 
     def endJob(self):
-        print("Initializing endJob function...")        
+        print("Initializing endJob function...")
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
         self.c.cd()
         #FITTING
-        fit_chlenr = ROOT.TF1("fit_chlenr", "expo", 0, 10)
-        fit_chlenr.SetParNames("chdecayconst", "chdecayslope")
         fit_mupvdistance = ROOT.TF1("fit_mupvdistance", "expo", 0, 10)
         fit_mupvdistance.SetParNames("mupvconst", "mupvslope")
         #fit_mupvdistance.SetParameter("mupvconst",)
         #fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
         #fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
-        self.chlenr.Fit(fit_chlenr)
         self.mupvdistance.Fit(fit_mupvdistance)
         #PRINTING
         print("Number of muon channel events: " + str(events_recorded))
         print("Number of passed entries: " + str(events_passed))
         print("Number of events selected: " + str(events_selected))
-        br = (events_recorded)/(2.*events_all)
-        print("Channel branching ratio: " + str(br))
         print("Printing Histograms...")
         histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
                          self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
@@ -339,8 +268,9 @@ class ExampleDisplacedAnalysis(Module):
              self.c.Update()
         Module.endJob(self)
 
-preselection = "MET_pt >= 100 && Jet_pt >= 30"
+preselection = "Jet_pt >= 30 && MET_pt >=100"
+#preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_10.root".format(os.environ['CMSSW_BASE'])] #new file!
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()
