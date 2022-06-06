@@ -230,7 +230,7 @@ class ExampleDisplacedAnalysis(Module):
                 g = vec4.Gamma()
                 b = vec4.Beta()
                 L0 = L.Mag()/(b*g)
-                if L0 != 0:
+                if L.Mag() != 0:
                     print("nonzero")
                 self.h_mupt.Fill(mu.pt)
                 self.h_mueta.Fill(mu.eta)
