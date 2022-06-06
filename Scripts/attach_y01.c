@@ -59,7 +59,7 @@ void attach_y01() {
   TH1F *h5_1 = (TH1F*)f5->Get("plots/jetht1");
   TH1F *h6_1 = (TH1F*)f6->Get("plots/jetht1");
   TH1F *h7_1 = (TH1F*)f7->Get("plots/jetht1");
-  TH1F *hch_1 = (TH1F*)fch->Get("plots/jetht2");
+  TH1F *hch_1 = (TH1F*)fch->Get("plots/jetht1");
   TH1F *hbg_1 = new TH1F("bg_jetht1", "\\mbox{Total Jet HT (background) for length cut } d_1", 100, 0, 3500);
   TH1F *htotal_1 = new TH1F("total_jetht1", "\\mbox{Total Jet HT (plus chargino) for length cut } d_1", 100, 0, 3500);
 
