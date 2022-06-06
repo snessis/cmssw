@@ -153,7 +153,9 @@ class ExampleDisplacedAnalysis(Module):
         Jets = Collection(event, "Jet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
         Muons = Collection(event, "Muon")
-        #lheht = getattr(event, "LHE_HT")
+        PVx = getattr(event, "PV_x")
+        PVy = getattr(event, "PV_y")
+        PVz = getattr(event, "PV_z")
         #N = event
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]

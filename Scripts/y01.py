@@ -155,7 +155,9 @@ class ExampleDisplacedAnalysis(Module):
         Jets = Collection(event, "Jet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
         Muons = Collection(event, "Muon")
-        #lheht = getattr(event, "LHE_HT")
+        PVx = getattr(event, "PV_x")
+        PVy = getattr(event, "PV_y")
+        PVz = getattr(event, "PV_z")
         #N = event
         locateFinalStates = [13, 14, 1000022]
         leptonic = [13, 14]
@@ -222,7 +224,6 @@ class ExampleDisplacedAnalysis(Module):
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
-
         if len(mus) >= 1:
             self.h_metpt.Fill(METpt)
             for mu in mus:
@@ -239,7 +240,8 @@ class ExampleDisplacedAnalysis(Module):
                                 neu_mother = findAncestor(neu) #chargino
                                 ch = mu_gmother
                                 w = mu_mother
-                                tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+                                #tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
+                                tail = ROOT.TVector3(PVx, PVy, PVz)
                                 head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
                                 L = head - tail
                                 chp4 = ch.p4()
@@ -303,7 +305,7 @@ class ExampleDisplacedAnalysis(Module):
         return True
 
     def endJob(self):
-        print("Initializing endJob function...")        
+        print("Initializing endJob function...")
         #CANVAS SETUP
         self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
         self.addObject(self.c)
