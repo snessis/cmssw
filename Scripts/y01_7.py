@@ -38,9 +38,11 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
-        self.h_jetht = ROOT.TH1F('jetht', '\\mbox{Jet HT}', 100, 0, 3500) #component
-        self.h_lhepartpt = ROOT.TH1F('lhepartpt', '\\mbox{LHE Particle } p_t', 100, 0, 1500) #component
-        self.h_lheht = ROOT.TH1F('lheht', '\\mbox{LHE HT}', 100, 0, 3500) #component
+        self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT (for distance } d_1 \\mbox{ cut)}', 100, 0, 3500) #component
+        self.h_jetht2 = ROOT.TH1F('jetht2', '\\mbox{Jet HT (for distance } d_2 \\mbox{ cut)}', 100, 0, 3500) #component
+        self.h_jetht3 = ROOT.TH1F('jetht3', '\\mbox{Jet HT (for distance } d_3 \\mbox{ cut)}', 100, 0, 3500) #component
+        self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT (for distance } d_4 \\mbox{ cut)}', 100, 0, 3500) #component
+        self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT (for distance } d_5 \\mbox{ cut)}', 100, 0, 3500) #component
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 80, 0, 50)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 80, -6, 6)
@@ -48,7 +50,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupvdistance2 = ROOT.TH1F('mupvdistance2', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance3 = ROOT.TH1F('mupvdistance3', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance4 = ROOT.TH1F('mupvdistance4', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
-        self.h_mupvdistance5 = ROOT.TH1F('mupvdistance4', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
+        self.h_mupvdistance5 = ROOT.TH1F('mupvdistance5', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 80, 0, 50)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 80, -6, 6)
@@ -80,12 +82,16 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
-        self.h_jetht.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
-        self.h_jetht.GetYaxis().SetTitle("Counts")
-        self.h_lhepartpt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
-        self.h_lhepartpt.GetYaxis().SetTitle("Counts")
-        self.h_lheht.GetXaxis().SetTitle("\\mbox{LHE HT (GeV)}")
-        self.h_lheht.GetYaxis().SetTitle("Counts")
+        self.h_jetht1.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
+        self.h_jetht1.GetYaxis().SetTitle("Counts")
+        self.h_jetht2.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
+        self.h_jetht2.GetYaxis().SetTitle("Counts")
+        self.h_jetht3.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
+        self.h_jetht3.GetYaxis().SetTitle("Counts")
+        self.h_jetht4.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
+        self.h_jetht4.GetYaxis().SetTitle("Counts")
+        self.h_jetht5.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
+        self.h_jetht5.GetYaxis().SetTitle("Counts")
         # 13 - MUON
         self.h_mupt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
         self.h_mupt.GetYaxis().SetTitle("Counts")
@@ -142,9 +148,11 @@ class ExampleDisplacedAnalysis(Module):
         # ADD HISTOGRAMS
         self.addObject(self.h_metptall)
         self.addObject(self.h_metpt)
-        self.addObject(self.h_jetht)
-        self.addObject(self.h_lhepartpt)
-        self.addObject(self.h_lheht)
+        self.addObject(self.h_jetht1)
+        self.addObject(self.h_jetht2)
+        self.addObject(self.h_jetht3)
+        self.addObject(self.h_jetht4)
+        self.addObject(self.h_jetht5)
         self.addObject(self.h_chpt)
         self.addObject(self.h_cheta)
         self.addObject(self.h_chphi)
@@ -234,6 +242,7 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(mus) >= 1: #cut is now on reco lvl, carried by corresponding loop
+            d = 0
             self.h_metpt.Fill(METpt)
             for mu in mus:
                 w = findAncestor(mu)
@@ -263,7 +272,16 @@ class ExampleDisplacedAnalysis(Module):
                 sum = 0
                 for jet in jets:
                     sum += jet.pt
-                self.h_jetht.Fill(sum)
+                if d >= d1:
+                    self.h_jetht1.Fill(sum)
+                if d >= d2:
+                    self.h_jetht2.Fill(sum)
+                if d >= d3:
+                    self.h_jetht3.Fill(sum)
+                if d >= d4:
+                    self.h_jetht4.Fill(sum)
+                if d >= d5:
+                    self.h_jetht5.Fill(sum)
         if eventRecorded == True:
             events_passed += 1
         #analysis ends here: return True
@@ -279,18 +297,17 @@ class ExampleDisplacedAnalysis(Module):
         fit_mupvdistance = ROOT.TF1("fit_mupvdistance", "expo", 0, 10)
         fit_mupvdistance.SetParNames("mupvconst", "mupvslope")
         #fit_mupvdistance.SetParameter("mupvconst",)
-        #fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
-        #fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
-        self.mupvdistance.Fit(fit_mupvdistance)
+        #self.mupvdistance1.Fit(fit_mupvdistance)
         #PRINTING
         print("Number of muon channel events: " + str(events_recorded))
         print("Number of passed entries: " + str(events_passed))
         print("Number of events selected: " + str(events_selected))
         print("Printing Histograms...")
-        histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
-                         self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
-                         self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
-        histList = [self.h_mupvdistance]
+        histList_all = ([self.h_metptall, self.h_jetht1, self.h_jetht2, self.h_jetht3, self.h_jetht4, self.h_jetht5, self.h_metpt, self.h_chpt, self.h_cheta,
+                         self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
+                         self.h_mueta, self.mupvdistance1, self.mupvdistance2, self.mupvdistance3, self.mupvdistance4, self.mupvdistance5, self.nmupt,
+                         self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
+        histList = []
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)

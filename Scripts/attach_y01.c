@@ -34,34 +34,34 @@ void attach_y01() {
   double BR = 0.1063; //W -> muonic
 
   TFile *f1 = new TFile("y01_1.root");
-  TFile *f2 = new TFile("x01_2.root");
-  TFile *f3 = new TFile("x01_3.root");
-  TFile *f4 = new TFile("x01_4.root");
-  TFile *f5 = new TFile("x05_5.root");
-  TFile *f6 = new TFile("x01_6.root");
-  TFile *f7 = new TFile("x01_7.root");
+  TFile *f2 = new TFile("y01_2.root");
+  TFile *f3 = new TFile("y01_3.root");
+  TFile *f4 = new TFile("y01_4.root");
+  TFile *f5 = new TFile("y01_5.root");
+  TFile *f6 = new TFile("y01_6.root");
+  TFile *f7 = new TFile("y01_7.root");
   TFile *fch = new TFile("y01.root");
 
-  TH1F *h1 = (TH1F*)f1->Get("plots/jetht");
-  TH1F *h2 = (TH1F*)f2->Get("plots/jetht");
-  TH1F *h3 = (TH1F*)f3->Get("plots/jetht");
-  TH1F *h4 = (TH1F*)f4->Get("plots/jetht");
-  TH1F *h5 = (TH1F*)f5->Get("plots/jetht");
-  TH1F *h6 = (TH1F*)f6->Get("plots/jetht");
-  TH1F *h7 = (TH1F*)f7->Get("plots/jetht");
-  TH1F *hch = (TH1F*)fch->Get("plots/jetht");
-  TH1F *hbg = new TH1F("bg_jetht", "\\mbox{Total Jet HT (background)}", 100, 0, 3500);
-  TH1F *htotal = new TH1F("total_jetht", "\\mbox{Total Jet HT (plus chargino)}", 100, 0, 3500);
+  TH1F *h1_1 = (TH1F*)f1->Get("plots/jetht1");
+  TH1F *h2_1 = (TH1F*)f2->Get("plots/jetht1");
+  TH1F *h3_1 = (TH1F*)f3->Get("plots/jetht1");
+  TH1F *h4_1 = (TH1F*)f4->Get("plots/jetht1");
+  TH1F *h5_1 = (TH1F*)f5->Get("plots/jetht1");
+  TH1F *h6_1 = (TH1F*)f6->Get("plots/jetht1");
+  TH1F *h7_1 = (TH1F*)f7->Get("plots/jetht1");
+  TH1F *hch_1 = (TH1F*)fch->Get("plots/jetht");
+  TH1F *hbg_1 = new TH1F("bg_jetht", "\\mbox{Total Jet HT (background)}", 100, 0, 3500);
+  TH1F *htotal_1 = new TH1F("total_jetht", "\\mbox{Total Jet HT (plus chargino)}", 100, 0, 3500);
 
-  TH1F *met1 = (TH1F*)f1->Get("plots/metpt");
-  TH1F *met2 = (TH1F*)f2->Get("plots/metpt");
-  TH1F *met3 = (TH1F*)f3->Get("plots/metpt");
-  TH1F *met4 = (TH1F*)f4->Get("plots/metpt");
-  TH1F *met5 = (TH1F*)f5->Get("plots/metpt");
-  TH1F *met6 = (TH1F*)f6->Get("plots/metpt");
-  TH1F *met7 = (TH1F*)f7->Get("plots/metpt");
-  TH1F *metch = (TH1F*)fch->Get("plots/metpt");
-  TH1F *metbg= new TH1F("bg_met", "\\mbox{MET (background)}", 100, 0, 400);
+  TH1F *met1_1 = (TH1F*)f1->Get("plots/metpt");
+  TH1F *met2_1 = (TH1F*)f2->Get("plots/metpt");
+  TH1F *met3_1 = (TH1F*)f3->Get("plots/metpt");
+  TH1F *met4_1 = (TH1F*)f4->Get("plots/metpt");
+  TH1F *met5_1 = (TH1F*)f5->Get("plots/metpt");
+  TH1F *met6_1 = (TH1F*)f6->Get("plots/metpt");
+  TH1F *met7_1 = (TH1F*)f7->Get("plots/metpt");
+  TH1F *metch_1 = (TH1F*)fch->Get("plots/metpt");
+  TH1F *metbg_1 = new TH1F("bg_met", "\\mbox{MET (background)}", 100, 0, 400);
 
   h1->Scale(1/N1*XSEC1*L*SF1*BR);
   h2->Scale(1/N2*XSEC2*L*SF2*BR);
