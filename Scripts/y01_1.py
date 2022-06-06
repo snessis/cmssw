@@ -216,8 +216,6 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) >= 1: #cut is now on reco lvl, carried by corresponding loop
             self.h_metpt.Fill(METpt)
             for mu in mus:
-                eventRecorded = True
-                events_recorded += 1
                 w = findAncestor(mu)
                 w_mother = findAncestor(w)
                 #if abs(w_mother.pdgId) not in hadronic:
@@ -225,19 +223,18 @@ class ExampleDisplacedAnalysis(Module):
                 #tail = ROOT.TVector3(w.vtx_x, w.vtx_y, w.vtx_z)
                 tail = ROOT.TVector3(PVx, PVy, PVz)
                 head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                L = head - tail
-                vec4 = mu.p4()
-                g = vec4.Gamma()
-                b = vec4.Beta()
-                L0 = L.Mag()/(b*g)
-                if L.Mag() != 0:
-                    print("nonzero")
-                self.h_mupt.Fill(mu.pt)
-                self.h_mueta.Fill(mu.eta)
-            sum = 0
-            for jet in jets:
-                sum += jet.pt
-            self.h_jetht.Fill(sum)
+                d = (head - tail).Mag()
+                if d >= 1.5:
+                    eventRecorded = True
+                    events_recorded += 1
+                    self.h_mupvdistance.Fill(d)
+                    self.h_mupt.Fill(mu.pt)
+                    self.h_mueta.Fill(mu.eta)
+            if eventRecorded == True:
+                sum = 0
+                for jet in jets:
+                    sum += jet.pt
+                self.h_jetht.Fill(sum)
         if eventRecorded == True:
             events_passed += 1
         #analysis ends here: return True

@@ -244,7 +244,7 @@ class ExampleDisplacedAnalysis(Module):
                                 tail = ROOT.TVector3(PVx, PVy, PVz)
                                 head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
                                 d = (head - tail).Mag()
-                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and d >= 0: #end point
+                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and d >= 1.5: #end point
                                     eventRecorded = True
                                     events_recorded += 1
                                     deta_mu = abs(mu.eta) - abs(ch.eta)
@@ -279,11 +279,11 @@ class ExampleDisplacedAnalysis(Module):
                                     #chx4.Boost(-boost)
                                     #lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
                                     self.h_mupvdistance.Fill(d)
-
-            sum = 0
-            for jet in jets:
-                sum += jet.pt
-            self.h_jetht.Fill(sum)
+            if eventRecorded == True:
+                sum = 0
+                for jet in jets:
+                    sum += jet.pt
+                self.h_jetht.Fill(sum)
         if eventRecorded == True:
             events_passed += 1
         #self.h_lheht.Fill(lheht)
