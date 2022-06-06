@@ -104,8 +104,8 @@ void attach_y01() {
   TH1F *h6_5 = (TH1F*)f6->Get("plots/jetht5");
   TH1F *h7_5 = (TH1F*)f7->Get("plots/jetht5");
   TH1F *hch_5 = (TH1F*)fch->Get("plots/jetht5");
-  TH1F *hbg_5 = new TH1F("bg_jetht3", "\\mbox{Total Jet HT (background) for length cut } d_5", 100, 0, 3500);
-  TH1F *htotal_5 = new TH1F("total_jetht3", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 100, 0, 3500);
+  TH1F *hbg_5 = new TH1F("bg_jetht5", "\\mbox{Total Jet HT (background) for length cut } d_5", 100, 0, 3500);
+  TH1F *htotal_5 = new TH1F("total_jetht5", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 100, 0, 3500);
 
   met1->Scale(1/N1*XSEC1*L*SF1*BR);
   met2->Scale(1/N2*XSEC2*L*SF2*BR);
