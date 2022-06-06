@@ -52,7 +52,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupvdistance2 = ROOT.TH1F('mupvdistance2', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance3 = ROOT.TH1F('mupvdistance3', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance4 = ROOT.TH1F('mupvdistance4', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
-        self.h_mupvdistance5 = ROOT.TH1F('mupvdistance4', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
+        self.h_mupvdistance5 = ROOT.TH1F('mupvdistance5', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 80, 0, 50)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 80, -6, 6)
@@ -274,7 +274,6 @@ class ExampleDisplacedAnalysis(Module):
                                 #tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
                                 tail = ROOT.TVector3(PVx, PVy, PVz)
                                 head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                                global d
                                 d = (head - tail).Mag()
                                 if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and d >= d1: #end point
                                     eventRecorded = True
@@ -362,10 +361,8 @@ class ExampleDisplacedAnalysis(Module):
         fit_mupvdistance = ROOT.TF1("fit_mupvdistance", "expo", 0, 10)
         fit_mupvdistance.SetParNames("mupvconst", "mupvslope")
         #fit_mupvdistance.SetParameter("mupvconst",)
-        #fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
-        #fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
-        self.chlenr.Fit(fit_chlenr)
-        self.mupvdistance.Fit(fit_mupvdistance)
+        #self.chlenr.Fit(fit_chlenr)
+        #self.mupvdistance1.Fit(fit_mupvdistance)
         #PRINTING
         print("Number of muon channel events: " + str(events_recorded))
         print("Number of passed entries: " + str(events_passed))
