@@ -218,15 +218,17 @@ class ExampleDisplacedAnalysis(Module):
                 events_recorded += 1
                 w = findAncestor(mu)
                 w_mother = findAncestor(w)
-                if abs(w_mother.pdgId) not in hadronic:
-                    print("w mother sourcetype: " + str(w_mother.pdgId))
-                #tail = ROOT.TVector3(w.vtx_x, ch.vtx_y, ch.vtx_z)
-                #head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                #L = head - tail
-                #chp4 = ch.p4()
-                #g = chp4.Gamma()
-                #b = chp4.Beta()
-                #L0 = L.Mag()/(b*g)
+                #if abs(w_mother.pdgId) not in hadronic:
+                #print("w mother sourcetype: " + str(w_mother.pdgId))
+                tail = ROOT.TVector3(w.vtx_x, ch.vtx_y, ch.vtx_z)
+                head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
+                L = head - tail
+                vec4 = mu.p4()
+                g = vec4.Gamma()
+                b = vec4.Beta()
+                L0 = L.Mag()/(b*g)
+                if L0 != 0:
+                    print("nonzero")
                 self.h_mupt.Fill(mu.pt)
                 self.h_mueta.Fill(mu.eta)
             sum = 0
