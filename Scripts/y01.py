@@ -306,29 +306,29 @@ class ExampleDisplacedAnalysis(Module):
         return True
 
     def endJob(self):
+        #CANVAS SETUP
+        self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
+        self.addObject(self.c)
+        self.c.cd()
+        #FITTING
+        fit_chlenr = ROOT.TF1("fit_chlenr", "expo", 0, 10)
+        fit_chlenr.SetParNames("chdecayconst", "chdecayslope")
+        fit_mupvdistance = ROOT.TF1("fit_mupvdistance", "expo", 0, 10)
+        fit_mupvdistance.SetParNames("mupvconst", "mupvslope")
+        #fit_mupvdistance.SetParameter("mupvconst",)
+        #fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
+        #fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
+        self.chlenr.Fit(fit_chlenr)
+        self.mupvdistance.Fit(fit_mupvdistance)
+        #PRINTING
         print("Initializing endJob function...")
         print("Number of muon channel events: " + str(events_recorded))
         print("Number of passed entries: " + str(events_passed))
         print("Number of events selected: " + str(events_selected))
         br = (events_recorded)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
-        #CANVAS SETUP
-        self.c = ROOT.TCanvas("canv", "The Canvas", 1000, 700)
-        self.addObject(self.c)
-        self.c.cd()
-        #FITTING
-        self.fit_chlenr = ROOT.TF1("fit_chlenr", "expo", 0, 10)
-        self.fit_chlenr.SetParNames("Chargino Decay Length Constant", "Chargino Decay Length Slope")
-        self.fit_mupvdistance = ROOT.TF1("fit_mupvdistance", "expo", 0, 10)
-        self.fit_mupvdistance.SetParNames("Muon-PV Distance Constant", "Muon-PV Distance Slope")
-        self.fit_mupvdistance.SetParameter("Muon-PV Distance Constant", 0.1)
-        #fit_chlenr = self.h_chlenr.Fit("expo") #exp(p0+p1*x)
-        #fit_mupvdistance = self.h_mupvdistance.Fit("expo") #exp(p0+p1*x)
-        self.addObject(self.fit_chlenr)
-        self.addObject(self.fit_mupvdistance)
-        #PRINTING
-        print("mupvdistance parameters:")
-        print("const: " + str(self.fit_mupvdistance.GetParameter("Muon-PV Distance Constant")) + ", slope: " + str(self.fit_mupvdistance.GetParameter("Muon-PV Distance Slope")))
+        print("FIT: mupvdistance parameters:")
+        print("FIT: const: " + str(self.fit_mupvdistance.GetParameter("mupvconst")) + ", slope: " + str(self.fit_mupvdistance.GetParameter("mupvslope")))
         print("Printing Histograms...")
         histList_all = ([self.h_metptall, self.h_jetht, self.h_metpt, self.h_chpt, self.h_cheta, self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta,
                          self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt, self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta,
