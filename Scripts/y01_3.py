@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ver = "01_3"
-#cuts: met>=100, >=2 muons, muonpt >= 4, muoneta <=2.5
+#cuts: met>=100, >=1 muons, muonpt >= 4, muoneta <=2.5
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
     print("Run 'cmsenv' on ../src/")
@@ -17,7 +17,15 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 events_recorded = 0
 events_passed = 0
 events_selected = 0
-events_all = 539666
+events_all = 556249
+locateFinalStates = [13, 14, 1000022]
+leptonic = [13, 14]
+hadronic = [1,2,3,4,5,6,21]
+d1 = 1
+d2 = 1.25
+d3 = 1.5
+d4 = 1.75
+d5 = 2
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -36,7 +44,11 @@ class ExampleDisplacedAnalysis(Module):
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 80, 0, 50)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 80, -6, 6)
-        self.h_mupvdistance = ROOT.TH1F('mupvdistance', '\\mbox{Muon-PV Distance } l', 120, 0, 15)
+        self.h_mupvdistance1 = ROOT.TH1F('mupvdistance1', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
+        self.h_mupvdistance2 = ROOT.TH1F('mupvdistance2', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
+        self.h_mupvdistance3 = ROOT.TH1F('mupvdistance3', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
+        self.h_mupvdistance4 = ROOT.TH1F('mupvdistance4', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
+        self.h_mupvdistance5 = ROOT.TH1F('mupvdistance4', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 80, 0, 50)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 80, -6, 6)
@@ -50,7 +62,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 80, 0, 5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 80, 0, 3.1415927)
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 80, 0, 5)
-        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 80, 0, 6)
+        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 120, 0, 6)
         self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
         self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 35)
         self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1400)
@@ -79,8 +91,16 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupt.GetYaxis().SetTitle("Counts")
         self.h_mueta.GetXaxis().SetTitle("\\eta")
         self.h_mueta.GetYaxis().SetTitle("Counts")
-        self.h_mupvdistance.GetXaxis().SetTitle("l (dm)")
-        self.h_mupvdistance.GetYaxis().SetTitle("Counts")
+        self.h_mupvdistance1.GetXaxis().SetTitle("l (dm)")
+        self.h_mupvdistance1.GetYaxis().SetTitle("Counts")
+        self.h_mupvdistance2.GetXaxis().SetTitle("l (dm)")
+        self.h_mupvdistance2.GetYaxis().SetTitle("Counts")
+        self.h_mupvdistance3.GetXaxis().SetTitle("l (dm)")
+        self.h_mupvdistance3.GetYaxis().SetTitle("Counts")
+        self.h_mupvdistance4.GetXaxis().SetTitle("l (dm)")
+        self.h_mupvdistance4.GetYaxis().SetTitle("Counts")
+        self.h_mupvdistance5.GetXaxis().SetTitle("l (dm)")
+        self.h_mupvdistance5.GetYaxis().SetTitle("Counts")
         # 14 - MUON NETRINO
         self.h_nmupt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
         self.h_nmupt.GetYaxis().SetTitle("Counts")
@@ -137,7 +157,11 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_chnrgl)
         self.addObject(self.h_mupt)
         self.addObject(self.h_mueta)
-        self.addObject(self.h_mupvdistance)
+        self.addObject(self.h_mupvdistance1)
+        self.addObject(self.h_mupvdistance2)
+        self.addObject(self.h_mupvdistance3)
+        self.addObject(self.h_mupvdistance4)
+        self.addObject(self.h_mupvdistance5)
         self.addObject(self.h_nmupt)
         self.addObject(self.h_nmueta)
         self.addObject(self.h_neupt)
@@ -156,10 +180,6 @@ class ExampleDisplacedAnalysis(Module):
         PVx = getattr(event, "PV_x")
         PVy = getattr(event, "PV_y")
         PVz = getattr(event, "PV_z")
-        #N = event
-        locateFinalStates = [13, 14, 1000022]
-        leptonic = [13, 14]
-        hadronic = [1,2,3,4,5,6,21]
         chs_all = []
         chs = []
         mus = []
@@ -224,12 +244,21 @@ class ExampleDisplacedAnalysis(Module):
                 tail = ROOT.TVector3(PVx, PVy, PVz)
                 head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
                 d = (head - tail).Mag()
-                if d >= 1.5:
+                if d >= d1:
                     eventRecorded = True
                     events_recorded += 1
-                    self.h_mupvdistance.Fill(d)
                     self.h_mupt.Fill(mu.pt)
                     self.h_mueta.Fill(mu.eta)
+                    if d >= d1:
+                        self.h_mupvdistance1.Fill(d)
+                    if d >= d2:
+                        self.h_mupvdistance2.Fill(d)
+                    if d >= d3:
+                        self.h_mupvdistance3.Fill(d)
+                    if d >= d4:
+                        self.h_mupvdistance4.Fill(d)
+                    if d >= d5:
+                        self.h_mupvdistance5.Fill(d)
             if eventRecorded == True:
                 sum = 0
                 for jet in jets:
