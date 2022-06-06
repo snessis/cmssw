@@ -269,21 +269,17 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
-                                    #vecA = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                    #vecB = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                                    #l = (vecB - vecA).Mag()
-                                    #self.h_mupvdistance.Fill(l)
                                     tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                    head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
+                                    head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
                                     L = head - tail
                                     chp4 = ch.p4()
                                     g = chp4.Gamma()
                                     b = chp4.Beta()
-                                    chx4 = ROOT.TLorentzVector(L, -L.Mag()/b)
-                                    boost = chp4.BoostVector()
-                                    chx4.Boost(-boost)
-                                    lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
-                                    self.h_mupvdistance.Fill(lr)
+                                    #chx4 = ROOT.TLorentzVector(L, -L.Mag()/b)
+                                    #boost = chp4.BoostVector()
+                                    #chx4.Boost(-boost)
+                                    #lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
+                                    self.h_mupvdistance.Fill(L.Mag()/(b*g))
 
             sum = 0
             for jet in jets:
