@@ -279,7 +279,14 @@ class ExampleDisplacedAnalysis(Module):
                                     chp4 = ch.p4()
                                     g = chp4.Gamma()
                                     b = chp4.Beta()
-                                    self.h_mupvdistance.Fill(L.Mag()/(b*g))
+                                    chx4_1 = TLorentzVector(head, 0)
+                                    chx4_2 = TLorentzVector(tail, L.Mag()/b)
+                                    chx4Delta = TLorentzVector(L, L.Mag()/b)
+                                    boost = chp4.BoostVector()
+                                    chp4.Boost(-boost)
+                                    lr = sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
+                                    self.h_mupvdistance.Fill(lr)
+
             sum = 0
             for jet in jets:
                 sum += jet.pt
