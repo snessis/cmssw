@@ -247,11 +247,11 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         for Muon in Muons:
             #if genParts[Muon.genPartIdx] in mus:
-                if Muon.pt >= 3.5 and abs(Muon.eta) <= 2.5 and METpt >= 100 and abs(Muon.dz) <= 1.5:
-                    Mus.append(Muon)
-                    mus2.append(genParts[Muon.genPartIdx])
-                    eventRecorded = True
-                    events_passed += 1
+            if Muon.pt >= 3.5 and abs(Muon.eta) <= 2.5 and METpt >= 100 and abs(Muon.dz) <= 1.5:
+                Mus.append(Muon)
+                mus2.append(genParts[Muon.genPartIdx])
+                eventRecorded = True
+                events_passed += 1
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
         if len(Mus) == 0:
             return False
@@ -319,7 +319,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistance1, self.mupvdistance2, self.mupvdistance3, self.mupvdistance4, self.mupvdistance5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
-        histList = [self.h_mupvdistance1] 
+        histList = [self.h_mupvdistance1]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
