@@ -233,49 +233,53 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) == 0:
             return False
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100 and Muon.dxy >= 0.1 and Muon.dz < 1:
+            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 3.5 and Muon.eta <= 3 and METpt >= 100 and Muon.dz <= 2:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
+                eventRecorded = True
+                events_passed += 1
+        if len(Mus) == 0:
+            return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
         for jet in Jets:
             if abs(jet.pt) >= 30:
                 jets.append(jet)
-        #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
-        if len(Mus) >= 1: #cut is now on reco lvl, carried by corresponding loop
-            self.h_metpt.Fill(METpt)
-            for Mu in Mus:
-                d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
-                if d >= d1:
-                    eventRecorded = True
-                    events_recorded += 1
-                    self.h_mupt.Fill(Mu.pt)
-                    self.h_mueta.Fill(Mu.eta)
-                    if d >= d1:
-                        self.h_mupvdistance1.Fill(d)
-                    if d >= d2:
-                        self.h_mupvdistance2.Fill(d)
-                    if d >= d3:
-                        self.h_mupvdistance3.Fill(d)
-                    if d >= d4:
-                        self.h_mupvdistance4.Fill(d)
-                    if d >= d5:
-                        self.h_mupvdistance5.Fill(d)
-            if eventRecorded == True:
-                sum = 0
-                for jet in jets:
-                    sum += jet.pt
-                if d >= d1:
-                    self.h_jetht1.Fill(sum)
-                if d >= d2:
-                    self.h_jetht2.Fill(sum)
-                if d >= d3:
-                    self.h_jetht3.Fill(sum)
-                if d >= d4:
-                    self.h_jetht4.Fill(sum)
-                if d >= d5:
-                    self.h_jetht5.Fill(sum)
+        dists = []
+        for Mu in Mus:
+            d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
+            dists.append(d)
+            self.h_mupt.Fill(Mu.pt)
+            self.h_mueta.Fill(Mu.eta)
+            if d >= d1:
+                self.h_mupvdistance1.Fill(d)
+            if d >= d2:
+                self.h_mupvdistance2.Fill(d)
+            if d >= d3:
+                self.h_mupvdistance3.Fill(d)
+            if d >= d4:
+                self.h_mupvdistance4.Fill(d)
+            if d >= d5:
+                self.h_mupvdistance5.Fill(d)
         if eventRecorded == True:
-            events_passed += 1
+            self.h_metpt.Fill(METpt)
+            events_recorded += 1
+            sum = 0
+            for jet in jets:
+                sum += jet.pt
+            d = 0
+            for di in dists:
+                if di >= d:
+                    d = di
+            if d >= d1:
+                self.h_jetht1.Fill(sum)
+            if d >= d2:
+                self.h_jetht2.Fill(sum)
+            if d >= d3:
+                self.h_jetht3.Fill(sum)
+            if d >= d4:
+                self.h_jetht4.Fill(sum)
+            if d >= d5:
+                self.h_jetht5.Fill(sum)
         #analysis ends here: return True
         return True
 
@@ -310,7 +314,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.Update()
         Module.endJob(self)
 
-preselection = "Jet_pt >= 30 && MET_pt >=100 && Muon_dz <= 1"
+preselection = "Jet_pt >= 30 && MET_pt >=100"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT2500toInf.root".format(os.environ['CMSSW_BASE'])])
