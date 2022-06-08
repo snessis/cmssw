@@ -5,7 +5,7 @@
 #include "TLatex.h"
 //NO CUTS:
 
-void sattach_y01() {
+void sattach_y02() {
   double N1 = 748300; //HT 100 to 200
   double N2 = 1248911; //HT 200 to 400
   double N3 = 411531; //HT 400 to 600
@@ -42,17 +42,17 @@ void sattach_y01() {
   double SFCH = 1;
   double BR = 0.1063; //W -> muonic
 
-  TFile *f1 = new TFile("y01_1.root");
-  TFile *f2 = new TFile("y01_2.root");
-  TFile *f3 = new TFile("y01_3.root");
-  TFile *f4 = new TFile("y01_4.root");
-  TFile *f5 = new TFile("y01_5.root");
-  TFile *f6 = new TFile("y01_6.root");
-  TFile *f7 = new TFile("y01_7.root");
-  TFile *f8 = new TFile("y01_8.root");
-  TFile *f9 = new TFile("y01_9.root");
-  TFile *f10 = new TFile("y01_10.root");
-  TFile *fch = new TFile("y01.root");
+  TFile *f1 = new TFile("y02_1.root");
+  TFile *f2 = new TFile("y02_2.root");
+  TFile *f3 = new TFile("y02_3.root");
+  TFile *f4 = new TFile("y02_4.root");
+  TFile *f5 = new TFile("y02_5.root");
+  TFile *f6 = new TFile("y02_6.root");
+  TFile *f7 = new TFile("y02_7.root");
+  TFile *f8 = new TFile("y02_8.root");
+  TFile *f9 = new TFile("y02_9.root");
+  TFile *f10 = new TFile("y02_10.root");
+  TFile *fch = new TFile("y02.root");
 
   TH1F *met1 = (TH1F*)f1->Get("plots/metpt");
   TH1F *met2 = (TH1F*)f2->Get("plots/metpt");
