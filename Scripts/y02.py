@@ -255,9 +255,9 @@ class ExampleDisplacedAnalysis(Module):
                 mus2.append(genParts[Muon.genPartIdx])
                 eventRecorded = True
                 events_passed += 1
+        print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
         if len(Mus) == 0:
             return False
-        print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))    
         dists = []
         for Mu in Mus:
             d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
