@@ -250,12 +250,12 @@ class ExampleDisplacedAnalysis(Module):
             if abs(jet.pt) >= 30:
                 jets.append(jet)
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100 and Muon.dxy >= 0.1 and Muon.dz < 1:
+            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100 and Muon.dz <= 1:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(mus) >= 1:
-            d = 0
+            dists = []
             self.h_metpt.Fill(METpt)
             for mu in mus2:
                 #enter cuts here
@@ -275,6 +275,7 @@ class ExampleDisplacedAnalysis(Module):
                                 tail = ROOT.TVector3(PVx, PVy, PVz)
                                 head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
                                 d = (head - tail).Mag()
+                                dists.append(d)
                                 if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and d >= d1: #end point
                                     eventRecorded = True
                                     events_recorded += 1
@@ -323,6 +324,10 @@ class ExampleDisplacedAnalysis(Module):
                 sum = 0
                 for jet in jets:
                     sum += jet.pt
+                d = 0
+                for di in dists:
+                    if di >= d:
+                        d = di
                 if d >= d1:
                     self.h_jetht1.Fill(sum)
                 if d >= d2:
