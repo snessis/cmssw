@@ -242,6 +242,7 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(mus) >= 1: #cut is now on reco lvl, carried by corresponding loop
+            dists = []
             d = 0
             self.h_metpt.Fill(METpt)
             for mu in mus2:
