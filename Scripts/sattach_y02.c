@@ -24,7 +24,7 @@ void sattach_y02() {
   double XSEC5 = 5.246*1.17*1000;
   double XSEC6 = 1.071*1.17*1000;
   double XSEC7 = 0.00819*1.17*1000;
-  double XSEC8 = 831.76*((3*0.108)**2);
+  double XSEC8 = 831.76*((3*0.108)*(3*0.108));
   double XSEC9 = 831.76*(3*0.108)*(1-3*0.108);
   double XSEC10 = 831.76*(3*0.108)*(1-3*0.108);
   double XSECCH = 0.902569*1000;
