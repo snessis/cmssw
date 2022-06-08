@@ -321,6 +321,6 @@ class ExampleDisplacedAnalysis(Module):
 preselection = "Jet_pt >= 30 && MET_pt >=100"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7TTJets_SingleLeptonFromTbar.root".format(os.environ['CMSSW_BASE'])])
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/TTJets_SingleLeptonFromTbar.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()
