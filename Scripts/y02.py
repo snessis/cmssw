@@ -250,7 +250,7 @@ class ExampleDisplacedAnalysis(Module):
             if abs(jet.pt) >= 30:
                 jets.append(jet)
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 3.5 and Muon.eta <= 3 and METpt >= 100 and Muon.dz <= 2:
+            if genParts[Muon.genPartIdx] in mus: # and Muon.pt >= 3.5 and Muon.eta <= 3 and METpt >= 100 and Muon.dz <= 2:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
                 eventRecorded = True
