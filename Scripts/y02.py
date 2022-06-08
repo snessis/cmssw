@@ -247,14 +247,15 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) == 0:
             return False
         for jet in Jets:
-            if abs(jet.pt) >= 30:
+            if math.fabs(jet.pt) >= 30:
                 jets.append(jet)
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus and math.fabs(Muon.pt) >= 3.5 and math.fabs(Muon.eta) <= 3 and METpt >= 100 and math.fabs(Muon.dz) <= 2:
-                Mus.append(Muon)
-                mus2.append(genParts[Muon.genPartIdx])
-                eventRecorded = True
-                events_passed += 1
+            if genParts[Muon.genPartIdx] in mus:
+                if math.fabs(Muon.pt) >= 3.5 and math.fabs(Muon.eta) <= 3 and METpt >= 100 and math.fabs(Muon.dz) <= 2:
+                    Mus.append(Muon)
+                    mus2.append(genParts[Muon.genPartIdx])
+                    eventRecorded = True
+                    events_passed += 1
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
         if len(Mus) == 0:
             return False
