@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-ver = "01_3"
+ver = "01_8"
 #cuts: met>=100, >=1 muons, muonpt >= 4, muoneta <=2.5
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
@@ -321,6 +321,6 @@ class ExampleDisplacedAnalysis(Module):
 preselection = "Jet_pt >= 30 && MET_pt >=100"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT400to600.root".format(os.environ['CMSSW_BASE'])])
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/TTJets_DiLepton.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()
