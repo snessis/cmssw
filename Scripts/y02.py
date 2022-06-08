@@ -23,11 +23,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 1
-d2 = 1.5
-d3 = 2
-d4 = 2.5
-d5 = 3
+d1 = 0.75
+d2 = 1
+d3 = 1.25
+d4 = 1.5
+d5 = 1.75
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -236,7 +236,7 @@ class ExampleDisplacedAnalysis(Module):
                         gmother = findAncestor(mother) #chargino or irrelevant W
                         if abs(gmother.pdgId) == 1000024: #must be ch
                             addUniqueParticle(gmother, chs)
-                            if abs(particle.pdgId) == 13: # and getStatusFlag(particle, 13) == 1:
+                            if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, mus)
                             if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, nmus)
