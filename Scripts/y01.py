@@ -271,17 +271,8 @@ class ExampleDisplacedAnalysis(Module):
                                 neu_mother = findAncestor(neu) #chargino
                                 ch = mu_gmother
                                 w = mu_mother
-                                loops = 0
-                                source = ch #initiatalize
-                                while source != findAncestor(source):
-                                    source = findAncestor(source)
-                                    loops += 1
-                                print("loops to find the end of time: " + str(loops))
                                 #tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                #tail = ROOT.TVector3(PVx, PVy, PVz)
-                                tail = ROOT.TVector3(source.vtx_x, source.vtx_y, source.vtx_z)
-                                tail2 = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                print((tail2 - tail).Mag())
+                                tail = ROOT.TVector3(PVx, PVy, PVz)
                                 head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
                                 d = (head - tail).Mag()
                                 dists.append(d)
