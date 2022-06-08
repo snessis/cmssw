@@ -21,11 +21,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 1
-d2 = 2
-d3 = 2.5
-d4 = 3
-d5 = 3.5
+d1 = 0.75
+d2 = 1
+d3 = 1.25
+d4 = 1.5
+d5 = 1.75
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -233,7 +233,7 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) == 0:
             return False
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100:
+            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100 and Muon.dxy >= 0.1 and Muon.dz < 1:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
@@ -244,7 +244,7 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) >= 1: #cut is now on reco lvl, carried by corresponding loop
             d = 0
             self.h_metpt.Fill(METpt)
-            for mu in mus:
+            for mu in mus2:
                 w = findAncestor(mu)
                 w_mother = findAncestor(w)
                 #if abs(w_mother.pdgId) not in hadronic:

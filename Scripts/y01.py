@@ -23,11 +23,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 1
-d2 = 2
-d3 = 2.5
-d4 = 3
-d5 = 3.5
+d1 = 0.75
+d2 = 1
+d3 = 1.25
+d4 = 1.5
+d5 = 1.75
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -250,14 +250,14 @@ class ExampleDisplacedAnalysis(Module):
             if abs(jet.pt) >= 30:
                 jets.append(jet)
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100:
+            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100 and Muon.dxy >= 0.1 and Muon.dz < 1:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(mus) >= 1:
             d = 0
             self.h_metpt.Fill(METpt)
-            for mu in mus:
+            for mu in mus2:
                 #enter cuts here
                 #if mu.pt >= 4 and mu.eta <= 2.5 and len(mus) == 2 and METpt >= 130:
                 mu_mother = findAncestor(mu) #W
