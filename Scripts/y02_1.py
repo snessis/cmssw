@@ -248,6 +248,7 @@ class ExampleDisplacedAnalysis(Module):
         dists = []
         for Mu in Mus:
             d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
+            print(d)
             dists.append(d)
             self.h_mupt.Fill(Mu.pt)
             self.h_mueta.Fill(Mu.eta)
