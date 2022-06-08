@@ -233,7 +233,7 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) == 0:
             return False
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100 and Muon.dz <= 2.5:
+            if genParts[Muon.genPartIdx] in mus and Muon.pt >= 4 and Muon.eta <= 2.5 and METpt >= 100 and Muon.dz <= 4:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
@@ -323,7 +323,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.Update()
         Module.endJob(self)
 
-preselection = "Jet_pt >= 30 && MET_pt >=100 && Muon_dz <= 1"
+preselection = "MET_pt >= 100 && Jet_pt >= 30"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE'])])
