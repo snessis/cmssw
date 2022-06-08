@@ -21,11 +21,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.75
-d2 = 1
-d3 = 1.25
-d4 = 1.5
-d5 = 1.75
+d1 = 0
+d2 = 0.25
+d3 = 0.5
+d4 = 0.75
+d5 = 1
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -232,8 +232,9 @@ class ExampleDisplacedAnalysis(Module):
                     addUniqueParticle(particle, mus)
         if len(mus) == 0:
             return False
+        for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
-                if Muon.pt >= 3.5 and abs(Muon.eta) <= 3 and METpt >= 100 and abs(Muon.dz) <= 2:
+                if Muon.pt >= 3.5 and abs(Muon.eta) <= 3 and METpt >= 100 and abs(Muon.dz) <= 1.5:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
@@ -303,7 +304,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistance1, self.mupvdistance2, self.mupvdistance3, self.mupvdistance4, self.mupvdistance5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.mix_chmu_deta, self.mix_chnmu_deta, self.mix_chneu_deta])
-        histList = []
+        histList = [self.mupvdistance1]
         for hist in histList:
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
