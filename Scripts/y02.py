@@ -253,8 +253,17 @@ class ExampleDisplacedAnalysis(Module):
             if genParts[Muon.genPartIdx] in mus and Muon.pt >= 3.5 and Muon.eta <= 3 and METpt >= 100 and Muon.dz <= 2:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
+                eventRecorded = True
+                events_passed += 1
+        if len(Mus) == 0:
+            return False
+        print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))    
+        dists = []
         for Mu in Mus:
             d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
+            dists.append(d)
+            self.h_mupt.Fill(Mu.pt)
+            self.h_mueta.Fill(Mu.eta)
             if d >= d1:
                 self.h_mupvdistance1.Fill(d)
             if d >= d2:
@@ -265,89 +274,26 @@ class ExampleDisplacedAnalysis(Module):
                 self.h_mupvdistance4.Fill(d)
             if d >= d5:
                 self.h_mupvdistance5.Fill(d)
-        #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
-        print("mus, Mus, mus2 lengths: " + str(len(mus)) + ", " + str(len(Mus)) + ", " + str(len(mus2)))
-        if len(mus) >= 1:
-            self.h_metpt.Fill(METpt)
-            for mu in mus2:
-                #enter cuts here
-                #if mu.pt >= 4 and mu.eta <= 2.5 and len(mus) == 2 and METpt >= 130:
-                mu_mother = findAncestor(mu) #W
-                for nmu in nmus:
-                    nmu_mother = findAncestor(nmu) #W
-                    if nmu_mother.genPartIdxMother == mu_mother.genPartIdxMother:
-                        mu_gmother = findAncestor(mu_mother) #ch
-                        nmu_gmother = findAncestor(nmu_mother) #ch
-                        if mu_gmother.genPartIdxMother == nmu_gmother.genPartIdxMother: #chargino must be the same
-                            for neu in neus:
-                                neu_mother = findAncestor(neu) #chargino
-                                ch = mu_gmother
-                                w = mu_mother
-                                #tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-                                tail = ROOT.TVector3(PVx, PVy, PVz)
-                                head = ROOT.TVector3(mu.vtx_x, mu.vtx_y, mu.vtx_z)
-                                d = (head - tail).Mag()
-                                if mu_gmother.genPartIdxMother == neu_mother.genPartIdxMother and d >= d1: #end point
-                                    eventRecorded = True
-                                    events_recorded += 1
-                                    deta_mu = abs(mu.eta) - abs(ch.eta)
-                                    self.h_mupt.Fill(mu.pt)
-                                    self.h_mueta.Fill(mu.eta)
-                                    self.h_mix_chmu_deta.Fill(deta_mu)
-                                    deta_nmu = abs(nmu.eta) - abs(ch.eta)
-                                    self.h_nmupt.Fill(nmu.pt)
-                                    self.h_nmueta.Fill(nmu.eta)
-                                    self.h_mix_chnmu_deta.Fill(deta_nmu)
-                                    self.h_neupt.Fill(neu.pt)
-                                    self.h_neueta.Fill(neu.eta)
-                                    deta_neu = abs(neu.eta) - abs(ch.eta)
-                                    self.h_mix_chneu_deta.Fill(deta_neu)
-                                    self.h_chpt.Fill(ch.pt)
-                                    self.h_cheta.Fill(ch.eta)
-                                    self.h_chphi.Fill(ch.phi)
-                                    g = ch.p4().Gamma()
-                                    b = ch.p4().Beta()
-                                    self.h_chbeta.Fill(b)
-                                    self.h_chgamma.Fill(g)
-                                    self.h_chnrgl.Fill(ch.p4().E())
-                                    if len(chs) == 2: #event with two muonic channels... fix this it should be mus
-                                        part1 = chs[0]
-                                        part2 = chs[1]
-                                        deta = abs(part1.eta) - abs(part2.eta)
-                                        dphi = part1.phi - part2.phi
-                                        self.h_chdeta.Fill(deta)
-                                        self.h_chdphi.Fill(dphi)
-                                    #chx4 = ROOT.TLorentzVector(L, -L.Mag()/b)
-                                    #boost = chp4.BoostVector()
-                                    #chx4.Boost(-boost)
-                                    #lr = math.sqrt(chx4.X()*chx4.X() + chx4.Y()*chx4.Y() + chx4.Z()*chx4.Z())
-            if eventRecorded == True:
-                sum = 0
-                for jet in jets:
-                    sum += jet.pt
-                if d >= d1:
-                    self.h_jetht1.Fill(sum)
-                if d >= d2:
-                    self.h_jetht2.Fill(sum)
-                if d >= d3:
-                    self.h_jetht3.Fill(sum)
-                if d >= d4:
-                    self.h_jetht4.Fill(sum)
-                if d >= d5:
-                    self.h_jetht5.Fill(sum)
         if eventRecorded == True:
-            events_passed += 1
-        #self.h_lheht.Fill(lheht)
-        for neu in neus:
-            ch = findAncestor(neu)
-            tail = ROOT.TVector3(ch.vtx_x, ch.vtx_y, ch.vtx_z)
-            head = ROOT.TVector3(neu.vtx_x, neu.vtx_y, neu.vtx_z)
-            L = head - tail
-            chp4 = ch.p4()
-            g = chp4.Gamma()
-            b = chp4.Beta()
-            self.h_chlenl.Fill(L.Mag())
-            self.h_chlenr.Fill(L.Mag()/(b*g))
+            self.h_metpt.Fill(METpt)
+            events_recorded += 1
+            sum = 0
+            for jet in jets:
+                sum += jet.pt
+            d = 0
+            for di in dists:
+                if di >= d:
+                    d = di
+            if d >= d1:
+                self.h_jetht1.Fill(sum)
+            if d >= d2:
+                self.h_jetht2.Fill(sum)
+            if d >= d3:
+                self.h_jetht3.Fill(sum)
+            if d >= d4:
+                self.h_jetht4.Fill(sum)
+            if d >= d5:
+                self.h_jetht5.Fill(sum)
         #analysis ends here: return True
         return True
 
