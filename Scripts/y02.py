@@ -240,10 +240,6 @@ class ExampleDisplacedAnalysis(Module):
                                 addUniqueParticle(particle, mus)
                             if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, nmus)
-                #case for neu
-                if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
-                    addUniqueParticle(mother, chs_all) #since a neu is always produced, any ch added here is from any W decay channel
-                    addUniqueParticle(particle, neus)
         if len(mus) == 0:
             return False
         for jet in Jets:
@@ -251,8 +247,7 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
-                #print("pt, eta, dz = " + str(Muon.pt) + ", " + str(Muon.eta) + ", " + str(Muon.dz))
-                if Muon.pt >= 3.5 and abs(Muon.eta) <= 3 and METpt >= 100 and Muon.dz <= 2:
+                if Muon.pt >= 3.5 and abs(Muon.eta) <= 3 and METpt >= 100 and abs(Muon.dz) <= 2:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
