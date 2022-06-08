@@ -251,7 +251,7 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         for Muon in Muons:
             if Muon.pt >= 3.5 and Muon.eta <= 3 and METpt >= 100 and Muon.dz <= 2:
-                Muon_mother = findAncestor(genParts[Muon.genPartIdx])
+                id = genParts[Muon.genPartIdx].genPartIdxMother
                 if abs(Muon_mother.pdgId) == 24:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
