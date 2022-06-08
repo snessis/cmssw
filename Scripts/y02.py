@@ -266,6 +266,7 @@ class ExampleDisplacedAnalysis(Module):
             if d >= d5:
                 self.h_mupvdistance5.Fill(d)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
+        print("mus, Mus, mus2 lengths: " + str(len(mus)) + ", " + str(len(Mus)) + ", " + str(len(mus2)))
         if len(mus) >= 1:
             self.h_metpt.Fill(METpt)
             for mu in mus2:
