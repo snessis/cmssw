@@ -236,9 +236,9 @@ class ExampleDisplacedAnalysis(Module):
                         gmother = findAncestor(mother) #chargino or irrelevant W
                         if abs(gmother.pdgId) == 1000024: #must be ch
                             addUniqueParticle(gmother, chs)
-                            if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1 and particle.status == 1:
+                            if abs(particle.pdgId) == 13: # and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, mus)
-                            if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1 and particle.status == 1:
+                            if abs(particle.pdgId) == 14 and getStatusFlag(particle, 13) == 1:
                                 addUniqueParticle(particle, nmus)
                 #case for neu
                 if abs(particle.pdgId) == 1000022 and abs(mother.pdgId) == 1000024 and particle.status == 1:
