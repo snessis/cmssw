@@ -252,7 +252,7 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if Muon.pt >= 3.5 and Muon.eta <= 3 and METpt >= 100 and Muon.dz <= 2:
                 id = genParts[Muon.genPartIdx].genPartIdxMother
-                if abs(Muon_mother.pdgId) == 24:
+                if abs(id) == 24:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
