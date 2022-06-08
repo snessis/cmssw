@@ -272,22 +272,16 @@ class ExampleDisplacedAnalysis(Module):
             for di in dists:
                 if di >= d:
                     d = di
-            print("preparing to log...")
             if d >= d1:
                 self.h_jetht1.Fill(sum)
-                print("logged on 1")
             if d >= d2:
                 self.h_jetht2.Fill(sum)
-                print("logged on 2")
             if d >= d3:
                 self.h_jetht3.Fill(sum)
-                print("logged on 3")
             if d >= d4:
                 self.h_jetht4.Fill(sum)
-                print("logged on 4")
             if d >= d5:
                 self.h_jetht5.Fill(sum)
-                print("logged on 5")
         #analysis ends here: return True
         return True
 
