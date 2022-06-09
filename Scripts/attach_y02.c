@@ -22,7 +22,7 @@ void attach_y02() {
   double XSEC6 = 1.071*1.17*1000;
   double XSEC7 = 0.00819*1.17*1000;
   double XSECCH = 0.902569*1000;
-  double L = 60;
+  double L = 60*10000;
   double SF1 = N1 / 29521158;
   double SF2 = N2 / 25468933;
   double SF3 = N3 / 5932701;
