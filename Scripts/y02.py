@@ -246,13 +246,13 @@ class ExampleDisplacedAnalysis(Module):
             if jet.pt >= 30:
                 jets.append(jet)
         for Muon in Muons:
-            #if genParts[Muon.genPartIdx] in mus:
-            d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-            if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= 0.02:
-                Mus.append(Muon)
-                mus2.append(genParts[Muon.genPartIdx])
-                eventRecorded = True
-                events_passed += 1
+            if genParts[Muon.genPartIdx] in mus:
+                d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
+                if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= 0.02:
+                    Mus.append(Muon)
+                    mus2.append(genParts[Muon.genPartIdx])
+                    eventRecorded = True
+                    events_passed += 1
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
         if len(Mus) == 0:
             return False
