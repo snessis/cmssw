@@ -31,7 +31,7 @@ void attach_y02() {
   double SF6 = N6 / 7633949;
   double SF7 = N7 / 3273980;
   double SFCH = 1;
-  double BR = 0.1063; //W -> muonic
+  double BR = 1;//0.1063; //W -> muonic
 
   TFile *f1 = new TFile("y02_1.root");
   TFile *f2 = new TFile("y02_2.root");
