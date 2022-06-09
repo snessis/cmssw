@@ -60,8 +60,8 @@ void attach_y01() {
   TH1F *h6_1 = (TH1F*)f6->Get("plots/jetht1");
   TH1F *h7_1 = (TH1F*)f7->Get("plots/jetht1");
   TH1F *hch_1 = (TH1F*)fch->Get("plots/jetht1");
-  TH1F *hbg_1 = new TH1F("bg_jetht1", "\\mbox{Total Jet HT (background) for length cut } d_1", 120, 0, 3500);
-  TH1F *htotal_1 = new TH1F("total_jetht1", "\\mbox{Total Jet HT (plus chargino) for length cut } d_1", 120, 0, 3500);
+  TH1F *hbg_1 = new TH1F("bg_jetht1", "\\mbox{Total Jet HT (background) for length cut } d_1", 100, 0, 3500);
+  TH1F *htotal_1 = new TH1F("total_jetht1", "\\mbox{Total Jet HT (plus chargino) for length cut } d_1", 100, 0, 3500);
 
   TH1F *h1_2 = (TH1F*)f1->Get("plots/jetht2");
   TH1F *h2_2 = (TH1F*)f2->Get("plots/jetht2");
@@ -71,8 +71,8 @@ void attach_y01() {
   TH1F *h6_2 = (TH1F*)f6->Get("plots/jetht2");
   TH1F *h7_2 = (TH1F*)f7->Get("plots/jetht2");
   TH1F *hch_2 = (TH1F*)fch->Get("plots/jetht2");
-  TH1F *hbg_2 = new TH1F("bg_jetht2", "\\mbox{Total Jet HT (background) for length cut } d_2", 120, 0, 3500);
-  TH1F *htotal_2 = new TH1F("total_jetht2", "\\mbox{Total Jet HT (plus chargino) for length cut } d_2", 120, 0, 3500);
+  TH1F *hbg_2 = new TH1F("bg_jetht2", "\\mbox{Total Jet HT (background) for length cut } d_2", 100, 0, 3500);
+  TH1F *htotal_2 = new TH1F("total_jetht2", "\\mbox{Total Jet HT (plus chargino) for length cut } d_2", 100, 0, 3500);
 
   TH1F *h1_3 = (TH1F*)f1->Get("plots/jetht3");
   TH1F *h2_3 = (TH1F*)f2->Get("plots/jetht3");
@@ -82,8 +82,8 @@ void attach_y01() {
   TH1F *h6_3 = (TH1F*)f6->Get("plots/jetht3");
   TH1F *h7_3 = (TH1F*)f7->Get("plots/jetht3");
   TH1F *hch_3 = (TH1F*)fch->Get("plots/jetht3");
-  TH1F *hbg_3 = new TH1F("bg_jetht3", "\\mbox{Total Jet HT (background) for length cut } d_3", 120, 0, 3500);
-  TH1F *htotal_3 = new TH1F("total_jetht3", "\\mbox{Total Jet HT (plus chargino) for length cut } d_3", 120, 0, 3500);
+  TH1F *hbg_3 = new TH1F("bg_jetht3", "\\mbox{Total Jet HT (background) for length cut } d_3", 100, 0, 3500);
+  TH1F *htotal_3 = new TH1F("total_jetht3", "\\mbox{Total Jet HT (plus chargino) for length cut } d_3", 100, 0, 3500);
 
   TH1F *h1_4 = (TH1F*)f1->Get("plots/jetht4");
   TH1F *h2_4 = (TH1F*)f2->Get("plots/jetht4");
@@ -93,8 +93,8 @@ void attach_y01() {
   TH1F *h6_4 = (TH1F*)f6->Get("plots/jetht4");
   TH1F *h7_4 = (TH1F*)f7->Get("plots/jetht4");
   TH1F *hch_4 = (TH1F*)fch->Get("plots/jetht4");
-  TH1F *hbg_4 = new TH1F("bg_jetht4", "\\mbox{Total Jet HT (background) for length cut } d_4", 120, 0, 3500);
-  TH1F *htotal_4 = new TH1F("total_jetht4", "\\mbox{Total Jet HT (plus chargino) for length cut } d_4", 120, 0, 3500);
+  TH1F *hbg_4 = new TH1F("bg_jetht4", "\\mbox{Total Jet HT (background) for length cut } d_4", 100, 0, 3500);
+  TH1F *htotal_4 = new TH1F("total_jetht4", "\\mbox{Total Jet HT (plus chargino) for length cut } d_4", 100, 0, 3500);
 
   TH1F *h1_5 = (TH1F*)f1->Get("plots/jetht5");
   TH1F *h2_5 = (TH1F*)f2->Get("plots/jetht5");
@@ -104,8 +104,8 @@ void attach_y01() {
   TH1F *h6_5 = (TH1F*)f6->Get("plots/jetht5");
   TH1F *h7_5 = (TH1F*)f7->Get("plots/jetht5");
   TH1F *hch_5 = (TH1F*)fch->Get("plots/jetht5");
-  TH1F *hbg_5 = new TH1F("bg_jetht5", "\\mbox{Total Jet HT (background) for length cut } d_5", 120, 0, 3500);
-  TH1F *htotal_5 = new TH1F("total_jetht5", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 120, 0, 3500);
+  TH1F *hbg_5 = new TH1F("bg_jetht5", "\\mbox{Total Jet HT (background) for length cut } d_5", 100, 0, 3500);
+  TH1F *htotal_5 = new TH1F("total_jetht5", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 100, 0, 3500);
 
   met1->Scale(1/N1*XSEC1*L*SF1*BR);
   met2->Scale(1/N2*XSEC2*L*SF2*BR);
