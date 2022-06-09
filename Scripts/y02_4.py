@@ -233,13 +233,13 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) == 0:
             return False
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus:
-                d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.5 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= 0.004:
-                    Mus.append(Muon)
-                    mus2.append(genParts[Muon.genPartIdx])
-                    eventRecorded = True
-                    events_passed += 1
+            #if genParts[Muon.genPartIdx] in mus:
+            d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
+            if Muon.pt >= 3.5 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= 0.01:
+                Mus.append(Muon)
+                mus2.append(genParts[Muon.genPartIdx])
+                eventRecorded = True
+                events_passed += 1
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
