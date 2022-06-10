@@ -422,7 +422,7 @@ class ExampleDisplacedAnalysis(Module):
         leg_deta.AddEntry(self.h_mix_chmu_deta,"test")
         leg_deta.AddEntry(self.h_mix_chnmu_deta,"test")
         leg_deta.AddEntry(self.h_mix_chneu_deta,"test")
-        self.s_deta.GetListOfFunctions().Add(leg_deta)
+        self.s_deta.Add(leg_deta)
         leg_deta.Draw()
         self.s_deta.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_deta.GetName() + ".png")
