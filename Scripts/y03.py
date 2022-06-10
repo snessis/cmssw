@@ -412,9 +412,12 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chnmu_deta.SetFillColor(4)
         self.h_mix_chneu_deta.SetLineColor(6)
         self.h_mix_chneu_deta.SetFillColor(6)
+        hs = ROOT.THStack("hs","The Stack");
         for hist in histList_deta:
             hist.Draw("SAMES")
+            hs.Add(hist)
         #self.h_mix_total_deta.Draw()
+        hs.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mix_total_deta.GetName() + ".png")
         self.c.Update()
         Module.endJob(self)
