@@ -416,7 +416,7 @@ class ExampleDisplacedAnalysis(Module):
         self.leg_deta.AddEntry(self.h_chdeta, "#tilde{#chi}_{1}^{#pm} - #tilde{#chi}_{1}^{#pm}", "L")
         self.leg_deta.AddEntry(self.h_mix_chmu_deta, "#tilde{#chi}_{1}^{#pm} - #mu", "L")
         self.leg_deta.AddEntry(self.h_mix_chnmu_deta, "#tilde{#chi}_{1}^{#pm} - #nu", "L")
-        self.leg_deta.AddEntry(self.h_mix_chneu_deta, "#tilde{#chi}_{1}^{#pm}- #tilde{#chi}_{1}^{0}", "L")
+        #self.leg_deta.AddEntry(self.h_mix_chneu_deta, "#tilde{#chi}_{1}^{#pm}- #tilde{#chi}_{1}^{0}", "L")
         self.s_deta.Draw()
         self.leg_deta.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_deta.GetName() + ".png")
@@ -473,7 +473,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c.Update()
         #ETA
         self.s_eta_sus = ROOT.THStack("s_eta_sus","\\tilde{\\chi}_1^\\pm, \\tilde{\\chi}_1^0 \\mbox{ Pseudorapidity } #eta");
-        self.s_eta_sm = ROOT.THStack("s_eta_sm","#mu, #nu \\mbox{ Pseudorapidity } #eta");
+        self.s_eta_sm = ROOT.THStack("s_eta_sm","\\mu,\\nu \\mbox{ Pseudorapidity } \\eta");
         self.addObject(self.s_eta_sus)
         self.addObject(self.s_eta_sm)
         histList_eta_sus = [self.h_cheta, self.h_neueta]
