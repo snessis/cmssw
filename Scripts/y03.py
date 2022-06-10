@@ -366,10 +366,11 @@ class ExampleDisplacedAnalysis(Module):
         #fit_mupvdistance = ROOT.TF1("fit_mupvdistance", "expo", 0, 10)
         #fit_mupvdistance.SetParNames("mupvconst", "mupvslope")
         #fit_mupvdistance.SetParameter("mupvconst",)
-        self.chlenr.Fit(fit_chlenr)
+        #self.chlenr.Fit(fit_chlenr)
         #self.mupvdistance1.Fit(fit_mupvdistance)
         #MORE HISTOGRAMS
-        self.h_mix_total_deta = ROOT.TH1F('mix_total_deta', '\\mbox{Total Particle Delta Eta } \\Delta \\eta', 80, 0, 5)
+        self.s_deta = ROOT.THStack("s_deta","\\mbox{Total Particle Delta Eta } \\Delta \\eta");
+        self.addObject(self.s_deta)
         #PRINTING
         print("Number of muon channel events: " + str(events_recorded))
         print("Number of passed entries: " + str(events_passed))
@@ -398,12 +399,9 @@ class ExampleDisplacedAnalysis(Module):
              #hist.Scale(scale)
              #hist.Draw()
              #save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
-            # self.c.SaveAs(save)
-             self.c.Update()
+             #self.c.SaveAs(save)
+             #self.c.Update()
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
-        self.h_mix_total_deta.GetXaxis().SetRangeUser(0,5);
-        self.h_mix_total_deta.GetYaxis().SetRangeUser(0,6000);
-        self.h_mix_total_deta.Draw()
         self.h_chdeta.SetLineColor(2)
         self.h_chdeta.SetFillColor(2)
         self.h_mix_chmu_deta.SetLineColor(3)
@@ -412,13 +410,10 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chnmu_deta.SetFillColor(4)
         self.h_mix_chneu_deta.SetLineColor(6)
         self.h_mix_chneu_deta.SetFillColor(6)
-        hs = ROOT.THStack("hs","The Stack");
         for hist in histList_deta:
-            hist.Draw("SAMES")
-            hs.Add(hist)
-        #self.h_mix_total_deta.Draw()
-        hs.Draw()
-        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mix_total_deta.GetName() + ".png")
+            self.s_deta.Add(hist)
+        self.s_deta.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_deta.GetName() + ".png")
         self.c.Update()
         Module.endJob(self)
 
