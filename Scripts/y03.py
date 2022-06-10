@@ -471,6 +471,39 @@ class ExampleDisplacedAnalysis(Module):
         self.leg_met.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
+        #ETA
+        self.s_eta_sus = ROOT.THStack("s_eta_sus","\\tilde{\\chi}_1^\\pm, \\tilde{\\chi}_1^0 \\mbox{ Pseudorapidity } #eta");
+        self.s_eta_sm = ROOT.THStack("s_eta_sm","#mu, #nu \\mbox{ Pseudorapidity } #eta");
+        self.addObject(self.s_eta_sus)
+        self.addObject(self.s_eta_sm)
+        histList_eta_sus = [self.h_cheta, self.h_neueta]
+        histList_eta_sm = [self.h_mueta, self.h_nmueta]
+        self.h_cheta.SetLineColor(2)
+        self.h_cheta.SetFillColor(2)
+        self.h_mueta.SetLineColor(3)
+        self.h_mueta.SetFillColor(3)
+        self.h_nmueta.SetLineColor(4)
+        self.h_nmueta.SetFillColor(4)
+        self.h_neueta.SetLineColor(6)
+        self.h_neueta.SetFillColor(6)
+        self.s_eta_sus.Add(self.h_cheta)
+        self.s_eta_sus.Add(self.h_neueta)
+        self.s_eta_sm.Add(self.h_mueta)
+        self.s_eta_sm.Add(self.h_nmueta)
+        self.leg_eta_sus = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_eta_sus.AddEntry(self.h_cheta, "#tilde{#chi}_{1}^{#pm}", "L" )
+        self.leg_eta_sus.AddEntry(self.h_neueta, "#tilde{#chi}_{1}^{0}", "L")
+        self.s_eta_sus.Draw()
+        self.leg_eta_sus.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_eta_sus.GetName() + ".png")
+        self.c.Update()
+        self.leg_eta_sm = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_eta_sm.AddEntry(self.h_mueta, "#mu", "L")
+        self.leg_eta_sm.AddEntry(self.h_nmueta, "#nu", "L")
+        self.s_eta_sm.Draw()
+        self.leg_eta_sm.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_eta_sm.GetName() + ".png")
+        self.c.Update()
         Module.endJob(self)
 
 preselection = "MET_pt >= 100 && Jet_pt >= 30"
