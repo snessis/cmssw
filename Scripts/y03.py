@@ -395,11 +395,11 @@ class ExampleDisplacedAnalysis(Module):
              hist.SetLineWidth(2)
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
-             #hist.Scale(scale)
-             #hist.Draw()
-             #save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
-             #self.c.SaveAs(save)
-             #self.c.Update()
+             hist.Scale(scale)
+             hist.Draw()
+             save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
+             self.c.SaveAs(save)
+             self.c.Update()
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
         self.h_chdeta.SetLineColor(2)
         self.h_chdeta.SetFillColor(2)
