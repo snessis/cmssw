@@ -393,10 +393,10 @@ class ExampleDisplacedAnalysis(Module):
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              #hist.Scale(scale)
-             hist.Draw()
-             save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
-             self.c.SaveAs(save)
-             self.c.Update()
+             #hist.Draw()
+             #save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
+             #self.c.SaveAs(save)
+             #self.c.Update()
         #done here, remove stat box
         gStyle.SetOptStat(0);
         #DETA
@@ -418,10 +418,10 @@ class ExampleDisplacedAnalysis(Module):
         self.leg_deta.AddEntry(self.h_chdeta, "#tilde{#chi}_{1}^{#pm} - #tilde{#chi}_{1}^{#pm}", "L")
         self.leg_deta.AddEntry(self.h_mix_chmu_deta, "#tilde{#chi}_{1}^{#pm} - #mu", "L")
         self.leg_deta.AddEntry(self.h_mix_chnmu_deta, "#tilde{#chi}_{1}^{#pm} - #nu", "L")
-        self.s_deta.GetXaxis().SetTitle("\\Delta \\eta")
-        self.s_deta.GetYaxis().SetTitle("Counts")
-        self.s_deta.GetXaxis().CenterTitle(True)
-        self.s_deta.GetYaxis().CenterTitle(True)
+        #self.s_deta.GetXaxis().SetTitle("\\Delta \\eta")
+        #self.s_deta.GetYaxis().SetTitle("Counts")
+        #self.s_deta.GetXaxis().CenterTitle(True)
+        #self.s_deta.GetYaxis().CenterTitle(True)
         #self.leg_deta.AddEntry(self.h_mix_chneu_deta, "#tilde{#chi}_{1}^{#pm}- #tilde{#chi}_{1}^{0}", "L")
         self.s_deta.Draw()
         self.leg_deta.Draw()
