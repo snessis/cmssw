@@ -402,6 +402,7 @@ class ExampleDisplacedAnalysis(Module):
         for hist in histList_deta:
             i=1
             hist.SetLineColor(i)
+            self.mg_mix_total_deta.Add(hist)
             i+=1
         self.mg_mix_total_deta.Draw()
         save = "y" + ver + "/" + "y" + ver + "_h_" + self.mg_mix_total_deta.GetName() + ".png"
