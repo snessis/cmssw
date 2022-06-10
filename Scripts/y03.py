@@ -369,7 +369,6 @@ class ExampleDisplacedAnalysis(Module):
         self.chlenr.Fit(fit_chlenr)
         #self.mupvdistance1.Fit(fit_mupvdistance)
         #MORE HISTOGRAMS
-        self.h_mix_total_deta = ROOT.TH1F('mix_total_deta', '\\mbox{Total Particle Delta Eta } \\Delta \\eta', 80, 0, 5)
         #PRINTING
         print("Number of muon channel events: " + str(events_recorded))
         print("Number of passed entries: " + str(events_passed))
@@ -384,12 +383,13 @@ class ExampleDisplacedAnalysis(Module):
         histList_temp = ([self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta,
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = [self.h_mix_total_deta, self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
+        histList = []
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
-        for hist in histList:
+        for hist in histList_deta:
              hist.SetLineColor(38)
+             hist.SetLineWidth(2)
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              #hist.Scale(scale)
@@ -397,14 +397,14 @@ class ExampleDisplacedAnalysis(Module):
              save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
              self.c.Update()
+        self.mg_mix_total_deta = ROOT.TMultiGraph('mg_mix_total_deta', '\\mbox{Total Particle Delta Eta } \\Delta \\eta')
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
-        self.h_mix_total_deta.Draw()
         for hist in histList_deta:
             i=1
-            hist.Draw("SAME")
             hist.SetLineColor(i)
             i+=1
-        save = "y" + ver + "/" + "y" + ver + "_h_" + histList_deta[0].GetName() + ".png"
+        self.mg_mix_total_deta.Draw()
+        save = "y" + ver + "/" + "y" + ver + "_h_" + self.mg_mix_total_deta.GetName() + ".png"
         self.c.SaveAs(save)
         self.c.Update()
         Module.endJob(self)
