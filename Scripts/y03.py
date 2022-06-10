@@ -411,7 +411,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.SetFillColor(6)
         for hist in histList_deta:
             self.s_deta.Add(hist)
-        self.s_deta.Draw()
+        self.s_deta.Draw("nostack")
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_deta.GetName() + ".png")
         self.c.Update()
         Module.endJob(self)
