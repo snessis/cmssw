@@ -385,12 +385,11 @@ class ExampleDisplacedAnalysis(Module):
         histList_temp = ([self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta,
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = [self.h_mix_total_deta, self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
-        histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
+        histList = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
-        for hist in histList_deta:
+        for hist in histList:
              hist.SetLineColor(38)
              hist.SetFillColor(38)
              hist.SetLineWidth(2)
