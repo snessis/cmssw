@@ -401,7 +401,7 @@ class ExampleDisplacedAnalysis(Module):
         #DETA
         self.s_deta = ROOT.THStack("s_deta","\\mbox{Total Particle Delta Eta } \\Delta \\eta");
         self.addObject(self.s_deta)
-        histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
+        histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta]#, self.h_mix_chneu_deta]
         self.h_chdeta.SetLineColor(2)
         self.h_chdeta.SetFillColor(2)
         self.h_mix_chmu_deta.SetLineColor(3)
@@ -472,7 +472,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
         #ETA
-        self.s_eta_sus = ROOT.THStack("s_eta_sus","\\tilde{\\chi}_1^\\pm, \\tilde{\\chi}_1^0 \\mbox{ Pseudorapidity } #eta");
+        self.s_eta_sus = ROOT.THStack("s_eta_sus","\\tilde{\\chi}_1^\\pm, \\tilde{\\chi}_1^0 \\mbox{ Pseudorapidity } \\eta");
         self.s_eta_sm = ROOT.THStack("s_eta_sm","\\mu,\\nu \\mbox{ Pseudorapidity } \\eta");
         self.addObject(self.s_eta_sus)
         self.addObject(self.s_eta_sm)
