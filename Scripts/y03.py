@@ -395,11 +395,12 @@ class ExampleDisplacedAnalysis(Module):
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              #hist.Scale(scale)
-             hist.Draw()
-             save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
-             self.c.SaveAs(save)
+             #hist.Draw()
+             #save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
+            # self.c.SaveAs(save)
              self.c.Update()
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
+        self.hs = ROOT.THStack("hs","")
         self.h_mix_total_deta.GetXaxis().SetRangeUser(0,5);
         self.h_mix_total_deta.GetYaxis().SetRangeUser(0,6000);
         self.h_mix_total_deta.Draw()
@@ -408,7 +409,10 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chnmu_deta.SetLineColor(3)
         self.h_mix_chneu_deta.SetLineColor(4)
         for hist in histList_deta:
-            hist.Draw("F SAME")
+            hist.Draw("SAME")
+            hs.Add(hist)
+        self.h_mix_total_deta.Draw("SAME")
+        self.hs.Draw("nostack")    
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mix_total_deta.GetName() + ".png")
         self.c.Update()
         Module.endJob(self)
