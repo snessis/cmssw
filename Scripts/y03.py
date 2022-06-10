@@ -73,7 +73,7 @@ class ExampleDisplacedAnalysis(Module):
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 120, 0, 2.5)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 120, 0, 2.5)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 120, 0, 0.1)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 120, 0, 0.6)
         # GRAPH CUSTOMIZATION
         gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         gStyle.SetStatColor(18)
@@ -393,10 +393,10 @@ class ExampleDisplacedAnalysis(Module):
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              #hist.Scale(scale)
-             hist.Draw()
-             save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
-             self.c.SaveAs(save)
-             self.c.Update()
+             #hist.Draw()
+             #save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
+             #self.c.SaveAs(save)
+             #self.c.Update()
         #done here, remove stat box
         gStyle.SetOptStat(0);
         #DETA
