@@ -395,7 +395,7 @@ class ExampleDisplacedAnalysis(Module):
              hist.SetLineWidth(2)
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
-             hist.Scale(scale)
+             #hist.Scale(scale)
              hist.Draw()
              save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
