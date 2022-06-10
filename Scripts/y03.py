@@ -397,9 +397,13 @@ class ExampleDisplacedAnalysis(Module):
              save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
              self.c.Update()
-        histList_deta = [self.h_mix_total_deta, self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
+        histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
+        self.h_mix_total_deta.Draw()
         for hist in histList_deta:
+            i=1
             hist.Draw("SAME")
+            hist.SetLineColor(i)
+            i+=1
         save = "y" + ver + "/" + "y" + ver + "_h_" + histList_deta[0].GetName() + ".png"
         self.c.SaveAs(save)
         self.c.Update()
