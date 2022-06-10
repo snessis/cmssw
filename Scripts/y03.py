@@ -393,10 +393,10 @@ class ExampleDisplacedAnalysis(Module):
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              #hist.Scale(scale)
-             #hist.Draw()
-             #save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
-             #self.c.SaveAs(save)
-             #self.c.Update()
+             hist.Draw()
+             save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
+             self.c.SaveAs(save)
+             self.c.Update()
         #done here, remove stat box
         gStyle.SetOptStat(0);
         #DETA
