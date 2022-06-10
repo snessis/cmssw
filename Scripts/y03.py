@@ -413,12 +413,7 @@ class ExampleDisplacedAnalysis(Module):
         for hist in histList_deta:
             self.s_deta.Add(hist)
         leg_deta = ROOT.TLegend()
-        #leg_deta.SetBorderSize(0)
-        #leg_deta.SetFillColor(0)
-        #leg_deta.SetFillStyle(0)
-        #leg_deta.SetTextFont(42)
-        #leg_deta.SetTextSize(0.035)
-        leg_deta.AddEntry(self.h_chdeta, "\\tilde{\\chi}_1^\\pm-\\tilde{\\chi}_1^\\pm\\, \\Delta \\eta")
+        leg_deta.AddEntry(self.h_chdeta, "test")
         leg_deta.AddEntry(self.h_mix_chmu_deta,"test")
         leg_deta.AddEntry(self.h_mix_chnmu_deta,"test")
         leg_deta.AddEntry(self.h_mix_chneu_deta,"test")
