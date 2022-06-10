@@ -63,7 +63,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Chargino Transverse Momentum, muon channel } p_t', 120, 0, 1000)
         self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Chargino Pseudorapidity, muon channel } \\eta', 120, -6, 6)
         self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 40, -3.1415927, 3.1415927)
-        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 120, 0, 5)
+        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 120, 0, 4)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 120, 0, 3.1415927)
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 120, 0, 5)
         self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 120, 0, 6)
@@ -71,9 +71,9 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 120, 1, 35)
         self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 120, 0, 1400)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 120, 0, 2)
-        self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 120, 0, 3.5)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 120, 0, 0.6)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 120, 0, 4)
+        self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 120, 0, 4)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 120, 0, 4)
         # GRAPH CUSTOMIZATION
         gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         gStyle.SetStatColor(18)
@@ -411,7 +411,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.SetFillColor(6)
         for hist in histList_deta:
             self.s_deta.Add(hist)
-        self.s_deta.Draw("NOSTACK")
+        self.s_deta.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_deta.GetName() + ".png")
         self.c.Update()
         Module.endJob(self)
