@@ -46,7 +46,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT (for distance } d_4 \\mbox{ cut)}', 120, 0, 3500) #component
         self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT (for distance } d_5 \\mbox{ cut)}', 120, 0, 3500) #component
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 120, 0, 50)
+        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 120, 0, 25)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 120, -6, 6)
         self.h_mupvdistance1 = ROOT.TH1F('mupvdistance1', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance2 = ROOT.TH1F('mupvdistance2', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
@@ -54,7 +54,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupvdistance4 = ROOT.TH1F('mupvdistance4', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance5 = ROOT.TH1F('mupvdistance5', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         # 14 - MUON NEUTRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 120, 0, 50)
+        self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 120, 0, 25)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 120, -6, 6)
         # 1000022 - NEUTRALINO
         self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 120, 0, 1100)
@@ -397,6 +397,8 @@ class ExampleDisplacedAnalysis(Module):
              save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
              self.c.Update()
+        #done here, remove stat box
+        gStyle.SetOptStat(0);
         #DETA
         self.s_deta = ROOT.THStack("s_deta","\\mbox{Total Particle Delta Eta } \\Delta \\eta");
         self.addObject(self.s_deta)
@@ -412,6 +414,7 @@ class ExampleDisplacedAnalysis(Module):
         for hist in histList_deta:
             self.s_deta.Add(hist)
         self.leg_deta = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_deta.SetMargin(0.05)
         self.leg_deta.AddEntry(self.h_chdeta, "#tilde{#chi}_{1}^{#pm} - #tilde{#chi}_{1}^{#pm}", "L")
         self.leg_deta.AddEntry(self.h_mix_chmu_deta, "#tilde{#chi}_{1}^{#pm} - #mu", "L")
         self.leg_deta.AddEntry(self.h_mix_chnmu_deta, "#tilde{#chi}_{1}^{#pm} - #nu", "L")
@@ -443,13 +446,16 @@ class ExampleDisplacedAnalysis(Module):
         self.s_pt_sm.Add(self.h_mupt)
         self.s_pt_sm.Add(self.h_nmupt)
         self.leg_pt_sus = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_deta.SetMargin(0.05)
         self.leg_pt_sus.AddEntry(self.h_chpt, "#tilde{#chi}_{1}^{#pm}", "L" )
         self.leg_pt_sus.AddEntry(self.h_neupt, "#tilde{#chi}_{1}^{0}", "L")
+        self.leg_pt_sus.SetLegendTextSize(5);
         self.s_pt_sus.Draw()
         self.leg_pt_sus.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_pt_sus.GetName() + ".png")
         self.c.Update()
         self.leg_pt_sm = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_deta.SetMargin(0.05)
         self.leg_pt_sm.AddEntry(self.h_mupt, "#mu", "L")
         self.leg_pt_sm.AddEntry(self.h_nmupt, "#nu", "L")
         self.s_pt_sm.Draw()
@@ -467,6 +473,7 @@ class ExampleDisplacedAnalysis(Module):
         for hist in histList_met:
             self.s_met.Add(hist)
         self.leg_met = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_deta.SetMargin(0.05)
         self.leg_met.AddEntry(self.h_metptall, "All W^{#pm} channels", "L")
         self.leg_met.AddEntry(self.h_metpt, "W^{#pm}#rightarrow #mu#nu_{#mu}", "L")
         self.s_met.Draw()
@@ -493,6 +500,7 @@ class ExampleDisplacedAnalysis(Module):
         self.s_eta_sm.Add(self.h_mueta)
         self.s_eta_sm.Add(self.h_nmueta)
         self.leg_eta_sus = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_deta.SetMargin(0.05)
         self.leg_eta_sus.AddEntry(self.h_cheta, "#tilde{#chi}_{1}^{#pm}", "L" )
         self.leg_eta_sus.AddEntry(self.h_neueta, "#tilde{#chi}_{1}^{0}", "L")
         self.s_eta_sus.Draw()
@@ -500,6 +508,7 @@ class ExampleDisplacedAnalysis(Module):
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_eta_sus.GetName() + ".png")
         self.c.Update()
         self.leg_eta_sm = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_deta.SetMargin(0.05)
         self.leg_eta_sm.AddEntry(self.h_mueta, "#mu", "L")
         self.leg_eta_sm.AddEntry(self.h_nmueta, "#nu_{#mu}", "L")
         self.s_eta_sm.Draw()
