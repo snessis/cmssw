@@ -453,7 +453,6 @@ class ExampleDisplacedAnalysis(Module):
         self.leg_pt_sus.SetMargin(0.15)
         self.leg_pt_sus.AddEntry(self.h_chpt, "#tilde{#chi}_{1}^{#pm}", "L" )
         self.leg_pt_sus.AddEntry(self.h_neupt, "#tilde{#chi}_{1}^{0}", "L")
-        self.leg_pt_sus.SetLegendTextSize(5)
         self.s_pt_sus.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
         self.s_pt_sus.GetYaxis().SetTitle("Counts")
         self.s_pt_sus.GetXaxis().CenterTitle(True)
