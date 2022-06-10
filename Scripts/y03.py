@@ -421,6 +421,9 @@ class ExampleDisplacedAnalysis(Module):
         self.leg_deta.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_deta.GetName() + ".png")
         self.c.Update()
+        self.h_mix_chneu_deta.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mix_chneu_deta.GetName() + "_fancy.png")
+        self.c.Update()
         #PT
         self.s_pt_sus = ROOT.THStack("s_pt_sus","\\tilde{\\chi}_1^\\pm, \\tilde{\\chi}_1^0 \\mbox{ Transverse Momentum } p_t");
         self.s_pt_sm = ROOT.THStack("s_pt_sm","\\mu, \\nu \\mbox{ Transverse Momentum } p_t");
@@ -466,7 +469,7 @@ class ExampleDisplacedAnalysis(Module):
             self.s_met.Add(hist)
         self.leg_met = ROOT.TLegend(0.65,0.70,0.90,0.90)
         self.leg_met.AddEntry(self.h_metptall, "All W^{#pm} channels", "L")
-        self.leg_met.AddEntry(self.h_metpt, "W#rightarrow #mu#nu", "L")
+        self.leg_met.AddEntry(self.h_metpt, "W^{#pm}#rightarrow #mu#nu_{#mu}", "L")
         self.s_met.Draw()
         self.leg_met.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
@@ -499,14 +502,15 @@ class ExampleDisplacedAnalysis(Module):
         self.c.Update()
         self.leg_eta_sm = ROOT.TLegend(0.65,0.70,0.90,0.90)
         self.leg_eta_sm.AddEntry(self.h_mueta, "#mu", "L")
-        self.leg_eta_sm.AddEntry(self.h_nmueta, "#nu", "L")
+        self.leg_eta_sm.AddEntry(self.h_nmueta, "#nu_{#mu}", "L")
         self.s_eta_sm.Draw()
         self.leg_eta_sm.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_eta_sm.GetName() + ".png")
         self.c.Update()
         Module.endJob(self)
 
-preselection = "MET_pt >= 100 && Jet_pt >= 30"
+#preselection = "MET_pt >= 100 && Jet_pt >= 30"
+preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_10.root".format(os.environ['CMSSW_BASE'])] #new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
