@@ -391,6 +391,7 @@ class ExampleDisplacedAnalysis(Module):
         scale = 1/events_all * XSECCH * L
         for hist in histList_deta:
              hist.SetLineColor(38)
+             hist.SetFillColor(38)
              hist.SetLineWidth(2)
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
@@ -404,11 +405,15 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_total_deta.GetYaxis().SetRangeUser(0,6000);
         self.h_mix_total_deta.Draw()
         self.h_chdeta.SetLineColor(2)
+        self.h_chdeta.SetFillColor(2)
         self.h_mix_chmu_deta.SetLineColor(3)
+        self.h_mix_chmu_deta.SetFillColor(3)
         self.h_mix_chnmu_deta.SetLineColor(4)
+        self.h_mix_chnmu_deta.SetFillColor(4)
         self.h_mix_chneu_deta.SetLineColor(6)
+        self.h_mix_chneu_deta.SetFillColor(6)
         for hist in histList_deta:
-            self.h_mix_total_deta.Draw("SAME")
+            self.h_mix_total_deta.Draw("SAMES")
         self.h_mix_total_deta.Draw("PFC")
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mix_total_deta.GetName() + ".png")
         self.c.Update()
