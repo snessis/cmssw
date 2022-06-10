@@ -400,15 +400,14 @@ class ExampleDisplacedAnalysis(Module):
              self.c.SaveAs(save)
              self.c.Update()
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
+        self.h_mix_total_deta.GetXaxis().SetRangeUser(0,5);
+        self.h_mix_total_deta.GetYaxis().SetRangeUser(0,5500);
         self.h_mix_total_deta.Draw()
         for hist in histList_deta:
             i=1
             hist.Draw("SAME")
             hist.SetLineColor(i)
             i+=1
-        self.h_mix_total_deta.GetXaxis().SetRangeUser(0,5);
-        self.h_mix_total_deta.GetYaxis().SetRangeUser(0,5500);
-        self.c.Update() 
         save = "y" + ver + "/" + "y" + ver + "_h_" + histList_deta[0].GetName() + ".png"
         self.c.SaveAs(save)
         self.c.Update()
