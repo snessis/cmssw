@@ -412,7 +412,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.SetFillColor(6)
         for hist in histList_deta:
             self.s_deta.Add(hist)
-        leg_deta = TLegend(.73,.32,.97,.53)
+        leg_deta = ROOT.TLegend(.73,.32,.97,.53)
         leg_deta.SetBorderSize(0)
         leg_deta.SetFillColor(0)
         leg_deta.SetFillStyle(0)
