@@ -366,7 +366,7 @@ class ExampleDisplacedAnalysis(Module):
         #fit_mupvdistance = ROOT.TF1("fit_mupvdistance", "expo", 0, 10)
         #fit_mupvdistance.SetParNames("mupvconst", "mupvslope")
         #fit_mupvdistance.SetParameter("mupvconst",)
-        #self.chlenr.Fit(fit_chlenr)
+        self.chlenr.Fit(fit_chlenr)
         #self.mupvdistance1.Fit(fit_mupvdistance)
         #MORE HISTOGRAMS
         #PRINTING
@@ -380,10 +380,9 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistance1, self.mupvdistance2, self.mupvdistance3, self.mupvdistance4, self.mupvdistance5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList_temp = ([self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta,
-                         self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chdeta, self.h_chdphi, self.h_mupt,
-                         self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta]
+        histList = ([self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta,
+                    self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chdeta, self.h_chdphi, self.h_mupt,
+                    self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
@@ -394,10 +393,10 @@ class ExampleDisplacedAnalysis(Module):
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
              #hist.Scale(scale)
-             #hist.Draw()
-             #save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
-             #self.c.SaveAs(save)
-             #self.c.Update()
+             hist.Draw()
+             save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
+             self.c.SaveAs(save)
+             self.c.Update()
         #DETA
         self.s_deta = ROOT.THStack("s_deta","\\mbox{Total Particle Delta Eta } \\Delta \\eta");
         self.addObject(self.s_deta)
