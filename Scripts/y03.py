@@ -36,44 +36,44 @@ class ExampleDisplacedAnalysis(Module):
         Module.beginJob(self, histFile, histDirName)
         print("Creating ROOT objects...")
         # GENERAL
-        self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Energy Transverse, all events (MET)}', 100, 0, 400)
-        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 100, 0, 400)
+        self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Energy Transverse, all events (MET)}', 120, 0, 400)
+        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 120, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
-        self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT (for distance } d_1 \\mbox{ cut)}', 100, 0, 3500) #component
-        self.h_jetht2 = ROOT.TH1F('jetht2', '\\mbox{Jet HT (for distance } d_2 \\mbox{ cut)}', 100, 0, 3500) #component
-        self.h_jetht3 = ROOT.TH1F('jetht3', '\\mbox{Jet HT (for distance } d_3 \\mbox{ cut)}', 100, 0, 3500) #component
-        self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT (for distance } d_4 \\mbox{ cut)}', 100, 0, 3500) #component
-        self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT (for distance } d_5 \\mbox{ cut)}', 100, 0, 3500) #component
+        self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT (for distance } d_1 \\mbox{ cut)}', 120, 0, 3500) #component
+        self.h_jetht2 = ROOT.TH1F('jetht2', '\\mbox{Jet HT (for distance } d_2 \\mbox{ cut)}', 120, 0, 3500) #component
+        self.h_jetht3 = ROOT.TH1F('jetht3', '\\mbox{Jet HT (for distance } d_3 \\mbox{ cut)}', 120, 0, 3500) #component
+        self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT (for distance } d_4 \\mbox{ cut)}', 120, 0, 3500) #component
+        self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT (for distance } d_5 \\mbox{ cut)}', 120, 0, 3500) #component
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 80, 0, 50)
-        self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 80, -6, 6)
+        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 120, 0, 50)
+        self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 120, -6, 6)
         self.h_mupvdistance1 = ROOT.TH1F('mupvdistance1', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance2 = ROOT.TH1F('mupvdistance2', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance3 = ROOT.TH1F('mupvdistance3', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance4 = ROOT.TH1F('mupvdistance4', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         self.h_mupvdistance5 = ROOT.TH1F('mupvdistance5', '\\mbox{Muon-PV Distance (Lab Frame) } l', 120, 0, 15)
         # 14 - MUON NEUTRINO
-        self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 80, 0, 50)
-        self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 80, -6, 6)
+        self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 120, 0, 50)
+        self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 120, -6, 6)
         # 1000022 - NEUTRALINO
-        self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 80, 0, 1100)
-        self.h_neueta = ROOT.TH1F('neueta', '\\mbox{Neutralino Pseudorapidity } \\eta', 80, -6, 6)
+        self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 120, 0, 1100)
+        self.h_neueta = ROOT.TH1F('neueta', '\\mbox{Neutralino Pseudorapidity } \\eta', 120, -6, 6)
         # 1000024 - CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Chargino Transverse Momentum, muon channel } p_t', 80, 0, 1000)
-        self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Chargino Pseudorapidity, muon channel } \\eta', 80, -6, 6)
+        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Chargino Transverse Momentum, muon channel } p_t', 120, 0, 1000)
+        self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Chargino Pseudorapidity, muon channel } \\eta', 120, -6, 6)
         self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 40, -3.1415927, 3.1415927)
-        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 80, 0, 5)
-        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 80, 0, 3.1415927)
-        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 80, 0, 5)
+        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 120, 0, 5)
+        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 120, 0, 3.1415927)
+        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 120, 0, 5)
         self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 120, 0, 6)
-        self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 80, 0, 1)
-        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 80, 1, 35)
-        self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 80, 0, 1400)
+        self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 120, 0, 1)
+        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 120, 1, 35)
+        self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 120, 0, 1400)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 80, 0, 2)
-        self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 80, 0, 3.5)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 80, 0, 0.6)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 120, 0, 2)
+        self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 120, 0, 3.5)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 120, 0, 0.6)
         # GRAPH CUSTOMIZATION
         gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         gStyle.SetStatColor(18)
