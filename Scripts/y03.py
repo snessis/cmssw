@@ -412,7 +412,17 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chneu_deta.SetFillColor(6)
         for hist in histList_deta:
             self.s_deta.Add(hist)
-        gPad.BuildLegend();    
+        leg_deta = TLegend(.73,.32,.97,.53)
+        leg_deta.SetBorderSize(0)
+        leg_deta.SetFillColor(0)
+        leg_deta.SetFillStyle(0)
+        leg_deta.SetTextFont(42)
+        leg_deta.SetTextSize(0.035)
+        leg_deta.AddEntry(self.h_chdeta,"\\tilde{\\chi}_1^\\pm-\\tilde{\\chi}_1^\\pm\\, \\Delta \\eta","L")
+        leg_deta.AddEntry(self.h_mix_chmu_deta,"test","L")
+        leg_deta.AddEntry(self.h_mix_chneu_deta,"test","L")
+        leg_deta.AddEntry(self.h_mix_chnmu_deta,"test","L")
+        leg_deta.Draw()
         self.s_deta.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_deta.GetName() + ".png")
         self.c.Update()
