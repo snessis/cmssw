@@ -418,17 +418,18 @@ class ExampleDisplacedAnalysis(Module):
         #leg_deta.SetFillStyle(0)
         #leg_deta.SetTextFont(42)
         #leg_deta.SetTextSize(0.035)
-        leg_deta.AddEntry("chdeta" "\\tilde{\\chi}_1^\\pm-\\tilde{\\chi}_1^\\pm\\, \\Delta \\eta")
-        leg_deta.AddEntry("mix_chmu_deta","test")
-        leg_deta.AddEntry("mix_chneu_deta","test")
-        leg_deta.AddEntry("mix_chnmu_deta","test")
+        leg_deta.AddEntry(self.h_chdeta, "\\tilde{\\chi}_1^\\pm-\\tilde{\\chi}_1^\\pm\\, \\Delta \\eta")
+        leg_deta.AddEntry(self.h_mix_chmu_deta,"test")
+        leg_deta.AddEntry(self.h_mix_chnmu_deta,"test")
+        leg_deta.AddEntry(self.h_mix_chneu_deta,"test")
+        self.s_deta.GetListOfFunctions().Add(leg_deta)
         leg_deta.Draw()
         self.s_deta.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_deta.GetName() + ".png")
         self.c.Update()
         #PT
         self.s_pt_sus = ROOT.THStack("s_pt_sus","\\tilde{\\chi}_1^\\pm, \\tilde{\\chi}_1^0 \\mbox{ Transverse Momentum } p_t");
-        self.s_pt_sm = ROOT.THStack("s_pt_sus","\\mu, \\nu \\mbox{ Transverse Momentum } p_t");
+        self.s_pt_sm = ROOT.THStack("s_pt_sm","\\mu, \\nu \\mbox{ Transverse Momentum } p_t");
         self.addObject(self.s_pt_sus)
         self.addObject(self.s_pt_sm)
         histList_pt_sus = [self.h_chpt, self.h_neupt]
