@@ -413,8 +413,6 @@ class ExampleDisplacedAnalysis(Module):
         for hist in histList_deta:
             self.s_deta.Add(hist)
         self.leg_deta = ROOT.TLegend(0.65,0.70,0.90,0.90)
-        self.leg_deta.SetTextFont(42)
-        self.leg_deta.SetTextSize(11)
         self.leg_deta.AddEntry(self.h_chdeta, "#tilde{#chi}_{1}^{#pm} - #tilde{#chi}_{1}^{#pm}", "L")
         self.leg_deta.AddEntry(self.h_mix_chmu_deta, "#tilde{#chi}_{1}^{#pm} - #mu", "L")
         self.leg_deta.AddEntry(self.h_mix_chnmu_deta, "#tilde{#chi}_{1}^{#pm} - #nu", "L")
@@ -443,8 +441,6 @@ class ExampleDisplacedAnalysis(Module):
         self.s_pt_sm.Add(self.h_mupt)
         self.s_pt_sm.Add(self.h_nmupt)
         self.leg_pt_sus = ROOT.TLegend(0.65,0.70,0.90,0.90)
-        self.leg_pt_sus.SetTextFont(42)
-        self.leg_pt_sus.SetTextSize(11)
         self.leg_pt_sus.AddEntry(self.h_chpt, "#tilde{#chi}_{1}^{#pm}", "L" )
         self.leg_pt_sus.AddEntry(self.h_neupt, "#tilde{#chi}_{1}^{0}", "L")
         self.s_pt_sus.Draw()
@@ -452,13 +448,28 @@ class ExampleDisplacedAnalysis(Module):
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_pt_sus.GetName() + ".png")
         self.c.Update()
         self.leg_pt_sm = ROOT.TLegend(0.65,0.70,0.90,0.90)
-        self.leg_pt_sm.SetTextFont(12)
-        self.leg_pt_sm.SetTextSize(11)
         self.leg_pt_sm.AddEntry(self.h_mupt, "#mu", "L")
         self.leg_pt_sm.AddEntry(self.h_nmupt, "#nu", "L")
         self.s_pt_sm.Draw()
         self.leg_pt_sm.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_pt_sm.GetName() + ".png")
+        self.c.Update()
+        #MET
+        self.s_met = ROOT.THStack("s_met","\\mbox{Missing Energy Transverse (MET) Momentum } p_t");
+        self.addObject(self.s_met)
+        histList_met = [self.h_metpt, self.h_metptall]
+        self.h_metptall.SetLineColor(30)
+        self.h_metptall.SetFillColor(30)
+        self.h_metpt.SetLineColor(8)
+        self.h_metpt.SetFillColor(8)
+        for hist in histList_met:
+            self.s_met.Add(hist)
+        self.leg_met = ROOT.TLegend(0.65,0.70,0.90,0.90)
+        self.leg_met.AddEntry(self.h_metptall, "All W^{#pm} channels", "L")
+        self.leg_met.AddEntry(self.h_metpt, "W#rightarrow #mu#nu", "L")
+        self.s_met.Draw()
+        self.leg_met.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
         Module.endJob(self)
 
