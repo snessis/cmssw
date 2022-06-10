@@ -390,7 +390,7 @@ class ExampleDisplacedAnalysis(Module):
              hist.SetLineColor(38)
              hist.GetXaxis().CenterTitle(True)
              hist.GetYaxis().CenterTitle(True)
-             hist.Scale(scale)
+             #hist.Scale(scale)
              hist.Draw()
 
         for hist in histList:
