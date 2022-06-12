@@ -225,13 +225,19 @@ class ExampleDisplacedAnalysis(Module):
         events_selected += 1
         self.h_metptall.Fill(METpt)
         genpartsids = []
+        allmus = []
         for particle in genParts:
             genpartsids.append(particle.pdgId)
             if abs(particle.pdgId) == 13:
                 mother = findAncestor(particle) #mother must now be W. instill check.
+                addUniqueParticle(particle, allmus)
                 if abs(mother.pdgId) == 24: #must be W
                     gmother = findAncestor(mother) #chargino or irrelevant W
                     addUniqueParticle(particle, mus)
+        print('---')
+        for particle in allmus:
+            print(str(abs(findAncestor(particle).pdgId)))
+        print('---')
         #init = "pList: "
         #uneeded = [1,2,3,4,21,22,11,12,13,14,15,16]
         #for id in genpartsids:
