@@ -232,23 +232,24 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(mother.pdgId) == 24: #must be W
                     gmother = findAncestor(mother) #chargino or irrelevant W
                     addUniqueParticle(particle, mus)
-        init = "pList: "
-        uneeded = [1,2,3,4,21,22,11,12,13,14,15,16]
-        for id in genpartsids:
-            if abs(id) in uneeded:
-                continue
-            init = init + str(abs(id)) + ", "
-        print(init + "endList")
+        #init = "pList: "
+        #uneeded = [1,2,3,4,21,22,11,12,13,14,15,16]
+        #for id in genpartsids:
+        #    if abs(id) in uneeded:
+        #        continue
+        #    init = init + str(abs(id)) + ", "
+        #print(init + "endList")
         if len(mus) == 0:
             return False
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
-                d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100: # and d >= 0.017:
-                    Mus.append(Muon)
-                    mus2.append(genParts[Muon.genPartIdx])
-                    eventRecorded = True
-                    events_passed += 1
+                #d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
+                #if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100: # and d >= 0.017:
+                Mus.append(Muon)
+                mus2.append(genParts[Muon.genPartIdx])
+                eventRecorded = True
+                events_passed += 1
+                print("Got one!")
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
