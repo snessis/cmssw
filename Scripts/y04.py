@@ -243,8 +243,8 @@ class ExampleDisplacedAnalysis(Module):
             if abs(jet.pt) >= 30:
                 jets.append(jet)
         for Muon in Muons:
-            print(Muon.dz)
             if genParts[Muon.genPartIdx] in mus:
+                print(Muon.dz)
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
                 if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= 0.017:
                     Mus.append(Muon)
