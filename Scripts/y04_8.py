@@ -244,6 +244,7 @@ class ExampleDisplacedAnalysis(Module):
             if genParts[Muon.genPartIdx] in mus:
                 #d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
                 #d = abs(Muon.dxy)
+                print(Muon.dz)
                 if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100: # and d >= 0.017:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
