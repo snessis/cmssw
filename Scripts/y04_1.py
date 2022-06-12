@@ -232,10 +232,10 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(mother.pdgId) == 24: #must be W
                     gmother = findAncestor(mother) #chargino or irrelevant W
                     addUniqueParticle(particle, mus)
-        init = ""
+        init = "pList: "
         for id in genpartsids:
             init = init + str(abs(id)) + ", "
-        print(init)
+        print(init + " endList")
         if len(mus) == 0:
             return False
         for Muon in Muons:
