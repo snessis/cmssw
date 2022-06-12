@@ -46,11 +46,11 @@ class ExampleDisplacedAnalysis(Module):
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 100, 0, 25)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 100, -6, 6)
-        self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 120, 0, 15)
-        self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 120, 0, 15)
-        self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 120, 0, 15)
-        self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 120, 0, 15)
-        self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 120, 0, 15)
+        self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 100, 0, 0.05)
+        self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 100, 0, 0.05)
+        self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 100, 0, 0.05)
+        self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 100, 0, 0.05)
+        self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 100, 0, 0.05)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 100, 0, 25)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 100, -6, 6)
