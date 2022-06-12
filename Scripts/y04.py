@@ -245,7 +245,7 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
                 #d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                #if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= 0.017:
+                if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100: # and d >= 0.017:
                 Mus.append(Muon)
                 mus2.append(genParts[Muon.genPartIdx])
                 eventRecorded = True
@@ -334,7 +334,7 @@ class ExampleDisplacedAnalysis(Module):
              self.c.SaveAs(save)
              self.c.Update()
         #done here, remove stat box
-        gStyle.SetOptStat(0);
+        gStyle.SetOptStat(0)
         self.c.Update()
         #MET
         self.s_met = ROOT.THStack("s_met","\\mbox{Missing Energy Transverse (MET) Momentum } p_t");
@@ -351,6 +351,7 @@ class ExampleDisplacedAnalysis(Module):
         self.leg_met.AddEntry(self.h_metptall, "All W^{#pm} channels", "L")
         self.leg_met.AddEntry(self.h_metpt, "W^{#pm}#rightarrow #mu#nu_{#mu}", "L")
         self.s_met.Draw()
+        gStyle.SetOptStat(0)
         self.leg_met.Draw()
         self.s_met.GetXaxis().SetTitle("\\mbox{MET (GeV)}")
         self.s_met.GetYaxis().SetTitle("Counts")
