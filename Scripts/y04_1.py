@@ -249,6 +249,8 @@ class ExampleDisplacedAnalysis(Module):
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
                     events_passed += 1
+                    if d >= 0.1:
+                        print(str(abs(findAncestor(genParts[Muon.genPartIdx]).pdgId)))   
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
@@ -271,8 +273,6 @@ class ExampleDisplacedAnalysis(Module):
                 self.h_mupvdistancerest4.Fill(d)
             if d >= d5:
                 self.h_mupvdistancerest5.Fill(d)
-            if d >= 0.1:
-                print(str(abs(genParts[Mu.genPartIdx])))   
         if eventRecorded == True:
             self.h_metpt.Fill(METpt)
             events_recorded += 1
