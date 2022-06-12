@@ -250,7 +250,7 @@ class ExampleDisplacedAnalysis(Module):
                     eventRecorded = True
                     events_passed += 1
                     if d >= 0.1:
-                        print(str(abs(findAncestor(genParts[Muon.genPartIdx]).pdgId)))   
+                        print(str(abs(findAncestor(findAncestor(genParts[Muon.genPartIdx])).pdgId)))   
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
