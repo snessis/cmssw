@@ -244,11 +244,12 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
                 #d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                #if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100: # and d >= 0.017:
-                Mus.append(Muon)
-                mus2.append(genParts[Muon.genPartIdx])
-                eventRecorded = True
-                events_passed += 1
+                #d = abs(Muon.dxy)
+                if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100: # and d >= 0.017:
+                    Mus.append(Muon)
+                    mus2.append(genParts[Muon.genPartIdx])
+                    eventRecorded = True
+                    events_passed += 1
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
@@ -358,7 +359,7 @@ class ExampleDisplacedAnalysis(Module):
         #ETA
         Module.endJob(self)
 
-preselection = "MET_pt >= 100 && Jet_pt >= 30"
+preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_eta <= 2.5"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/TTJets_SingleLeptonFromTbar.root".format(os.environ['CMSSW_BASE'])])
