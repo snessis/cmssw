@@ -40,7 +40,7 @@ void sattach_y04() {
   double SF9 = N9 / 57259880;
   double SF10 = N10 / 59929205;
   double SFCH = 1;
-  double BR = 1//0.1063; //W -> muonic
+  double BR = 1;//0.1063; //W -> muonic
 
   TFile *f1 = new TFile("y04_1.root");
   TFile *f2 = new TFile("y04_2.root");
