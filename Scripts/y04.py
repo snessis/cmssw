@@ -47,11 +47,11 @@ class ExampleDisplacedAnalysis(Module):
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 100, 0, 25)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 100, -6, 6)
-        self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (1) (Rest Frame) } d_1', 120, 0, 15)
-        self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (2) (Rest Frame) } d_2', 120, 0, 15)
-        self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (3) (Rest Frame) } d_3', 120, 0, 15)
-        self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (4) (Rest Frame) } d_4', 120, 0, 15)
-        self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (5) (Rest Frame) } d_5', 120, 0, 15)
+        self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 120, 0, 15)
+        self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 120, 0, 15)
+        self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 120, 0, 15)
+        self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 120, 0, 15)
+        self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 120, 0, 15)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 100, 0, 25)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 100, -6, 6)
@@ -256,11 +256,7 @@ class ExampleDisplacedAnalysis(Module):
             self.h_metpt.Fill(METpt)
             for Mu in Mus:
                 d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
-                Mup4 = Mu.p4()
-                g = Mup4.Gamma()
-                b = Mup4.Beta()
-                d0 = d/(b*g)
-                dists.append(d0)
+                dists.append(d)
                 self.h_mupt.Fill(Mu.pt)
                 self.h_mueta.Fill(Mu.eta)
                 if d >= d1:
