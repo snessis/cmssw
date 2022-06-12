@@ -232,13 +232,13 @@ class ExampleDisplacedAnalysis(Module):
                 if abs(mother.pdgId) == 24: #must be W
                     gmother = findAncestor(mother) #chargino or irrelevant W
                     addUniqueParticle(particle, mus)
-        init = "pList: "
-        uneeded = [1,2,3,4,21,22,11,12,13,14,15,16,24]
-        for id in genpartsids:
-            if abs(id) in uneeded:
-                continue
-            init = init + str(abs(id)) + ", "
-        print(init + "endList")
+        #init = "pList: "
+        #uneeded = [1,2,3,4,21,22,11,12,13,14,15,16,24]
+        #for id in genpartsids:
+        #    if abs(id) in uneeded:
+        #        continue
+        #    init = init + str(abs(id)) + ", "
+        #print(init + "endList")
         if len(mus) == 0:
             return False
         for Muon in Muons:
@@ -306,9 +306,9 @@ class ExampleDisplacedAnalysis(Module):
         #fit_mupvdistancerest.SetParameter("mupvconst",)
         #self.mupvdistancerest1.Fit(fit_mupvdistancerest)
         #PRINTING
-        print("Number of muon channel events: " + str(events_recorded))
-        print("Number of passed entries: " + str(events_passed))
-        print("Number of events selected: " + str(events_selected))
+        print("Number of recorded events " + str(events_recorded))
+        print("Number of reco muons: " + str(events_passed))
+        print("Number of events selected (pre-analysis): " + str(events_selected))
         print("Printing Histograms...")
         histList_all = ([self.h_metptall, self.h_jetht1, self.h_jetht2, self.h_jetht3, self.h_jetht4, self.h_jetht5, self.h_metpt, self.h_chpt, self.h_cheta,
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
