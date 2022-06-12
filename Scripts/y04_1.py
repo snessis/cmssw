@@ -251,7 +251,7 @@ class ExampleDisplacedAnalysis(Module):
                     events_passed += 1
                     if d >= 0.1:
                         filter = [1,2,3,4,5,6,21]
-                        id = abs(findAncestor(findAncestor(genParts[Muon.genPartIdx])).pdgId))
+                        id = abs(findAncestor(findAncestor(genParts[Muon.genPartIdx])).pdgId)
                         if id not in filter:
                             print(str(id))
         if len(Mus) == 0:
