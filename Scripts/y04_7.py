@@ -21,11 +21,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.01
-d2 = 0.05
-d3 = 0.1
-d4 = 0.2
-d5 = 0.3
+d1 = 0.1
+d2 = 0.13
+d3 = 0.16
+d4 = 0.20
+d5 = 0.24
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -244,7 +244,7 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and Muon.pt <= 20:
+                if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and Muon.pt <= 18:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
