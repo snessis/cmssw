@@ -233,12 +233,12 @@ class ExampleDisplacedAnalysis(Module):
                     gmother = findAncestor(mother) #chargino or irrelevant W
                     addUniqueParticle(particle, mus)
         init = "pList: "
-        uneeded = [1,2,21]
+        uneeded = [1,2,3,4,21]
         for id in genpartsids:
             if abs(id) in uneeded:
                 continue
             init = init + str(abs(id)) + ", "
-        print(init + " endList")
+        print(init + "endList")
         if len(mus) == 0:
             return False
         for Muon in Muons:
