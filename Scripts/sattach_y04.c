@@ -65,7 +65,7 @@ void sattach_y04() {
   TH1F *met9 = (TH1F*)f9->Get("plots/metpt");
   TH1F *met10 = (TH1F*)f10->Get("plots/metpt");
   TH1F *metch = (TH1F*)fch->Get("plots/metpt");
-  TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 100, 0, 400);
+  TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 80, 0, 400);
 
   TH1F *h1_1 = (TH1F*)f1->Get("plots/jetht1");
   TH1F *h2_1 = (TH1F*)f2->Get("plots/jetht1");
@@ -78,8 +78,8 @@ void sattach_y04() {
   TH1F *h9_1 = (TH1F*)f9->Get("plots/jetht1");
   TH1F *h10_1 = (TH1F*)f10->Get("plots/jetht1");
   TH1F *hch_1 = (TH1F*)fch->Get("plots/jetht1");
-  TH1F *hbg_1 = new TH1F("bg_jetht1", "\\mbox{Total Jet HT (background) for length cut } d_1", 100, 0, 3500);
-  TH1F *htotal_1 = new TH1F("total_jetht1", "\\mbox{Total Jet HT (plus chargino) for length cut } d_1", 100, 0, 3500);
+  TH1F *hbg_1 = new TH1F("bg_jetht1", "\\mbox{Total Jet HT (background) for length cut } d_1", 80, 0, 3500);
+  TH1F *htotal_1 = new TH1F("total_jetht1", "\\mbox{Total Jet HT (plus chargino) for length cut } d_1", 80, 0, 3500);
 
   TH1F *h1_2 = (TH1F*)f1->Get("plots/jetht2");
   TH1F *h2_2 = (TH1F*)f2->Get("plots/jetht2");
@@ -92,8 +92,8 @@ void sattach_y04() {
   TH1F *h9_2 = (TH1F*)f9->Get("plots/jetht2");
   TH1F *h10_2 = (TH1F*)f10->Get("plots/jetht2");
   TH1F *hch_2 = (TH1F*)fch->Get("plots/jetht2");
-  TH1F *hbg_2 = new TH1F("bg_jetht2", "\\mbox{Total Jet HT (background) for length cut } d_2", 100, 0, 3500);
-  TH1F *htotal_2 = new TH1F("total_jetht2", "\\mbox{Total Jet HT (plus chargino) for length cut } d_2", 100, 0, 3500);
+  TH1F *hbg_2 = new TH1F("bg_jetht2", "\\mbox{Total Jet HT (background) for length cut } d_2", 80, 0, 3500);
+  TH1F *htotal_2 = new TH1F("total_jetht2", "\\mbox{Total Jet HT (plus chargino) for length cut } d_2", 80, 0, 3500);
 
   TH1F *h1_3 = (TH1F*)f1->Get("plots/jetht3");
   TH1F *h2_3 = (TH1F*)f2->Get("plots/jetht3");
@@ -106,8 +106,8 @@ void sattach_y04() {
   TH1F *h9_3 = (TH1F*)f9->Get("plots/jetht3");
   TH1F *h10_3 = (TH1F*)f10->Get("plots/jetht3");
   TH1F *hch_3 = (TH1F*)fch->Get("plots/jetht3");
-  TH1F *hbg_3 = new TH1F("bg_jetht3", "\\mbox{Total Jet HT (background) for length cut } d_3", 100, 0, 3500);
-  TH1F *htotal_3 = new TH1F("total_jetht3", "\\mbox{Total Jet HT (plus chargino) for length cut } d_3", 100, 0, 3500);
+  TH1F *hbg_3 = new TH1F("bg_jetht3", "\\mbox{Total Jet HT (background) for length cut } d_3", 80, 0, 3500);
+  TH1F *htotal_3 = new TH1F("total_jetht3", "\\mbox{Total Jet HT (plus chargino) for length cut } d_3", 80, 0, 3500);
 
   TH1F *h1_4 = (TH1F*)f1->Get("plots/jetht4");
   TH1F *h2_4 = (TH1F*)f2->Get("plots/jetht4");
@@ -120,8 +120,8 @@ void sattach_y04() {
   TH1F *h9_4 = (TH1F*)f9->Get("plots/jetht4");
   TH1F *h10_4 = (TH1F*)f10->Get("plots/jetht4");
   TH1F *hch_4 = (TH1F*)fch->Get("plots/jetht4");
-  TH1F *hbg_4 = new TH1F("bg_jetht4", "\\mbox{Total Jet HT (background) for length cut } d_4", 100, 0, 3500);
-  TH1F *htotal_4 = new TH1F("total_jetht4", "\\mbox{Total Jet HT (plus chargino) for length cut } d_4", 100, 0, 3500);
+  TH1F *hbg_4 = new TH1F("bg_jetht4", "\\mbox{Total Jet HT (background) for length cut } d_4", 80, 0, 3500);
+  TH1F *htotal_4 = new TH1F("total_jetht4", "\\mbox{Total Jet HT (plus chargino) for length cut } d_4", 80, 0, 3500);
 
   TH1F *h1_5 = (TH1F*)f1->Get("plots/jetht5");
   TH1F *h2_5 = (TH1F*)f2->Get("plots/jetht5");
@@ -134,8 +134,8 @@ void sattach_y04() {
   TH1F *h9_5 = (TH1F*)f9->Get("plots/jetht5");
   TH1F *h10_5 = (TH1F*)f10->Get("plots/jetht5");
   TH1F *hch_5 = (TH1F*)fch->Get("plots/jetht5");
-  TH1F *hbg_5 = new TH1F("bg_jetht5", "\\mbox{Total Jet HT (background) for length cut } d_5", 100, 0, 3500);
-  TH1F *htotal_5 = new TH1F("total_jetht5", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 100, 0, 3500);
+  TH1F *hbg_5 = new TH1F("bg_jetht5", "\\mbox{Total Jet HT (background) for length cut } d_5", 80, 0, 3500);
+  TH1F *htotal_5 = new TH1F("total_jetht5", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 80, 0, 3500);
 
   met1->Scale(1/N1*XSEC1*L*SF1*BR);
   met2->Scale(1/N2*XSEC2*L*SF2*BR);
