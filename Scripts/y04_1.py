@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-ver = "02_1"
+ver = "04_1"
 #cuts: met>=100, >=1 muons, muonpt >= 4, muoneta <=2.5
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
