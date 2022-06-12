@@ -144,9 +144,9 @@ void sattach_y04() {
   met5->Scale(1/N5*XSEC5*L*SF5*BR);
   met6->Scale(1/N6*XSEC6*L*SF6*BR);
   met7->Scale(1/N7*XSEC7*L*SF7*BR);
-  met8->Scale(1/N7*XSEC7*L*SF8*BR);
-  met9->Scale(1/N7*XSEC7*L*SF9*BR);
-  met10->Scale(1/N7*XSEC7*L*SF10*BR);
+  met8->Scale(1/N8*XSEC7*L*SF8*BR);
+  met9->Scale(1/N9*XSEC7*L*SF9*BR);
+  met10->Scale(1/N10*XSEC7*L*SF10*BR);
   metch->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_1->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -156,9 +156,9 @@ void sattach_y04() {
   h5_1->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_1->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_1->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_1->Scale(1/N7*XSEC7*L*SF8*BR);
-  h9_1->Scale(1/N7*XSEC7*L*SF9*BR);
-  h10_1->Scale(1/N7*XSEC7*L*SF10*BR);
+  h8_1->Scale(1/N8*XSEC7*L*SF8*BR);
+  h9_1->Scale(1/N9*XSEC7*L*SF9*BR);
+  h10_1->Scale(1/N10*XSEC7*L*SF10*BR);
   hch_1->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_2->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -168,9 +168,9 @@ void sattach_y04() {
   h5_2->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_2->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_2->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_2->Scale(1/N7*XSEC7*L*SF8*BR);
-  h9_2->Scale(1/N7*XSEC7*L*SF9*BR);
-  h10_2->Scale(1/N7*XSEC7*L*SF10*BR);
+  h8_2->Scale(1/N8*XSEC7*L*SF8*BR);
+  h9_2->Scale(1/N9*XSEC7*L*SF9*BR);
+  h10_2->Scale(1/N10*XSEC7*L*SF10*BR);
   hch_2->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_3->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -180,9 +180,9 @@ void sattach_y04() {
   h5_3->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_3->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_3->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_3->Scale(1/N7*XSEC7*L*SF8*BR);
-  h9_3->Scale(1/N7*XSEC7*L*SF9*BR);
-  h10_3->Scale(1/N7*XSEC7*L*SF10*BR);
+  h8_3->Scale(1/N8*XSEC7*L*SF8*BR);
+  h9_3->Scale(1/N9*XSEC7*L*SF9*BR);
+  h10_3->Scale(1/N10*XSEC7*L*SF10*BR);
   hch_3->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_4->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -192,9 +192,9 @@ void sattach_y04() {
   h5_4->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_4->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_4->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_4->Scale(1/N7*XSEC7*L*SF8*BR);
-  h9_4->Scale(1/N7*XSEC7*L*SF9*BR);
-  h10_4->Scale(1/N7*XSEC7*L*SF10*BR);
+  h8_4->Scale(1/N8*XSEC7*L*SF8*BR);
+  h9_4->Scale(1/N9*XSEC7*L*SF9*BR);
+  h10_4->Scale(1/N10*XSEC7*L*SF10*BR);
   hch_4->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_5->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -204,9 +204,9 @@ void sattach_y04() {
   h5_5->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_5->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_5->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_5->Scale(1/N7*XSEC7*L*SF8*BR);
-  h9_5->Scale(1/N7*XSEC7*L*SF9*BR);
-  h10_5->Scale(1/N7*XSEC7*L*SF10*BR);
+  h8_5->Scale(1/N8*XSEC7*L*SF8*BR);
+  h9_5->Scale(1/N9*XSEC7*L*SF9*BR);
+  h10_5->Scale(1/N10*XSEC7*L*SF10*BR);
   hch_5->Scale(1/N*XSECCH*L*SFCH*BR);
 
   metbg->Add(met1);
