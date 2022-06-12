@@ -359,7 +359,7 @@ class ExampleDisplacedAnalysis(Module):
         #ETA
         Module.endJob(self)
 
-preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_eta <= 2.5"
+preselection = "MET_pt >= 100 && Jet_pt >= 30"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/TTJets_SingleLeptonFromTbar.root".format(os.environ['CMSSW_BASE'])])
