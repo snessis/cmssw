@@ -254,6 +254,11 @@ void attach_y04() {
   cout << "HT integral total (d3) = " << htotal_3_area << endl;
   cout << "HT integral total (d4) = " << htotal_4_area << endl;
   cout << "HT integral total (d5) = " << htotal_5_area << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d1), % = " << hch_1_area / htotal_1_area * 100 << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d2), % = " << hch_2_area / htotal_2_area * 100 << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d3), % = " << hch_3_area / htotal_3_area * 100 << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d4), % = " << hch_4_area / htotal_4_area * 100 << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d5), % = " << hch_5_area / htotal_5_area * 100 << endl;
 
   TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 800);
   gStyle->SetOptStat(1110);
