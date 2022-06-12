@@ -322,7 +322,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistancerest1, self.mupvdistancerest2, self.mupvdistancerest3, self.mupvdistancerest4, self.mupvdistancerest5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta])
+        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.mupvdistancerest1, self.mupvdistancerest2, self.mupvdistancerest3, self.mupvdistancerest4, self.mupvdistancerest5])
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
