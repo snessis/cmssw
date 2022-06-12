@@ -61,11 +61,8 @@ void sattach_y04() {
   TH1F *met5 = (TH1F*)f5->Get("plots/metpt");
   TH1F *met6 = (TH1F*)f6->Get("plots/metpt");
   TH1F *met7 = (TH1F*)f7->Get("plots/metpt");
-  TH1F *met8 = (TH1F*)f8->Get("plots/metpt");
-  TH1F *met9 = (TH1F*)f9->Get("plots/metpt");
-  TH1F *met10 = (TH1F*)f10->Get("plots/metpt");
   TH1F *metch = (TH1F*)fch->Get("plots/metpt");
-  TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 80, 0, 400);
+  TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 90, 0, 400);
 
   TH1F *h1_1 = (TH1F*)f1->Get("plots/jetht1");
   TH1F *h2_1 = (TH1F*)f2->Get("plots/jetht1");
@@ -74,12 +71,9 @@ void sattach_y04() {
   TH1F *h5_1 = (TH1F*)f5->Get("plots/jetht1");
   TH1F *h6_1 = (TH1F*)f6->Get("plots/jetht1");
   TH1F *h7_1 = (TH1F*)f7->Get("plots/jetht1");
-  TH1F *h8_1 = (TH1F*)f8->Get("plots/jetht1");
-  TH1F *h9_1 = (TH1F*)f9->Get("plots/jetht1");
-  TH1F *h10_1 = (TH1F*)f10->Get("plots/jetht1");
   TH1F *hch_1 = (TH1F*)fch->Get("plots/jetht1");
-  TH1F *hbg_1 = new TH1F("bg_jetht1", "\\mbox{Total Jet HT (background) for length cut } d_1", 80, 0, 3500);
-  TH1F *htotal_1 = new TH1F("total_jetht1", "\\mbox{Total Jet HT (plus chargino) for length cut } d_1", 80, 0, 3500);
+  TH1F *hbg_1 = new TH1F("bg_jetht1", "\\mbox{Total Jet HT (background) for length cut } d_1", 90, 0, 3500);
+  TH1F *htotal_1 = new TH1F("total_jetht1", "\\mbox{Total Jet HT (plus chargino) for length cut } d_1", 90, 0, 3500);
 
   TH1F *h1_2 = (TH1F*)f1->Get("plots/jetht2");
   TH1F *h2_2 = (TH1F*)f2->Get("plots/jetht2");
@@ -88,12 +82,9 @@ void sattach_y04() {
   TH1F *h5_2 = (TH1F*)f5->Get("plots/jetht2");
   TH1F *h6_2 = (TH1F*)f6->Get("plots/jetht2");
   TH1F *h7_2 = (TH1F*)f7->Get("plots/jetht2");
-  TH1F *h8_2 = (TH1F*)f8->Get("plots/jetht2");
-  TH1F *h9_2 = (TH1F*)f9->Get("plots/jetht2");
-  TH1F *h10_2 = (TH1F*)f10->Get("plots/jetht2");
   TH1F *hch_2 = (TH1F*)fch->Get("plots/jetht2");
-  TH1F *hbg_2 = new TH1F("bg_jetht2", "\\mbox{Total Jet HT (background) for length cut } d_2", 80, 0, 3500);
-  TH1F *htotal_2 = new TH1F("total_jetht2", "\\mbox{Total Jet HT (plus chargino) for length cut } d_2", 80, 0, 3500);
+  TH1F *hbg_2 = new TH1F("bg_jetht2", "\\mbox{Total Jet HT (background) for length cut } d_2", 90, 0, 3500);
+  TH1F *htotal_2 = new TH1F("total_jetht2", "\\mbox{Total Jet HT (plus chargino) for length cut } d_2", 90, 0, 3500);
 
   TH1F *h1_3 = (TH1F*)f1->Get("plots/jetht3");
   TH1F *h2_3 = (TH1F*)f2->Get("plots/jetht3");
@@ -102,12 +93,9 @@ void sattach_y04() {
   TH1F *h5_3 = (TH1F*)f5->Get("plots/jetht3");
   TH1F *h6_3 = (TH1F*)f6->Get("plots/jetht3");
   TH1F *h7_3 = (TH1F*)f7->Get("plots/jetht3");
-  TH1F *h8_3 = (TH1F*)f8->Get("plots/jetht3");
-  TH1F *h9_3 = (TH1F*)f9->Get("plots/jetht3");
-  TH1F *h10_3 = (TH1F*)f10->Get("plots/jetht3");
   TH1F *hch_3 = (TH1F*)fch->Get("plots/jetht3");
-  TH1F *hbg_3 = new TH1F("bg_jetht3", "\\mbox{Total Jet HT (background) for length cut } d_3", 80, 0, 3500);
-  TH1F *htotal_3 = new TH1F("total_jetht3", "\\mbox{Total Jet HT (plus chargino) for length cut } d_3", 80, 0, 3500);
+  TH1F *hbg_3 = new TH1F("bg_jetht3", "\\mbox{Total Jet HT (background) for length cut } d_3", 90, 0, 3500);
+  TH1F *htotal_3 = new TH1F("total_jetht3", "\\mbox{Total Jet HT (plus chargino) for length cut } d_3", 90, 0, 3500);
 
   TH1F *h1_4 = (TH1F*)f1->Get("plots/jetht4");
   TH1F *h2_4 = (TH1F*)f2->Get("plots/jetht4");
@@ -116,12 +104,9 @@ void sattach_y04() {
   TH1F *h5_4 = (TH1F*)f5->Get("plots/jetht4");
   TH1F *h6_4 = (TH1F*)f6->Get("plots/jetht4");
   TH1F *h7_4 = (TH1F*)f7->Get("plots/jetht4");
-  TH1F *h8_4 = (TH1F*)f8->Get("plots/jetht4");
-  TH1F *h9_4 = (TH1F*)f9->Get("plots/jetht4");
-  TH1F *h10_4 = (TH1F*)f10->Get("plots/jetht4");
   TH1F *hch_4 = (TH1F*)fch->Get("plots/jetht4");
-  TH1F *hbg_4 = new TH1F("bg_jetht4", "\\mbox{Total Jet HT (background) for length cut } d_4", 80, 0, 3500);
-  TH1F *htotal_4 = new TH1F("total_jetht4", "\\mbox{Total Jet HT (plus chargino) for length cut } d_4", 80, 0, 3500);
+  TH1F *hbg_4 = new TH1F("bg_jetht4", "\\mbox{Total Jet HT (background) for length cut } d_4", 90, 0, 3500);
+  TH1F *htotal_4 = new TH1F("total_jetht4", "\\mbox{Total Jet HT (plus chargino) for length cut } d_4", 90, 0, 3500);
 
   TH1F *h1_5 = (TH1F*)f1->Get("plots/jetht5");
   TH1F *h2_5 = (TH1F*)f2->Get("plots/jetht5");
@@ -130,12 +115,9 @@ void sattach_y04() {
   TH1F *h5_5 = (TH1F*)f5->Get("plots/jetht5");
   TH1F *h6_5 = (TH1F*)f6->Get("plots/jetht5");
   TH1F *h7_5 = (TH1F*)f7->Get("plots/jetht5");
-  TH1F *h8_5 = (TH1F*)f8->Get("plots/jetht5");
-  TH1F *h9_5 = (TH1F*)f9->Get("plots/jetht5");
-  TH1F *h10_5 = (TH1F*)f10->Get("plots/jetht5");
   TH1F *hch_5 = (TH1F*)fch->Get("plots/jetht5");
-  TH1F *hbg_5 = new TH1F("bg_jetht5", "\\mbox{Total Jet HT (background) for length cut } d_5", 80, 0, 3500);
-  TH1F *htotal_5 = new TH1F("total_jetht5", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 80, 0, 3500);
+  TH1F *hbg_5 = new TH1F("bg_jetht5", "\\mbox{Total Jet HT (background) for length cut } d_5", 90, 0, 3500);
+  TH1F *htotal_5 = new TH1F("total_jetht5", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 90, 0, 3500);
 
   met1->Scale(1/N1*XSEC1*L*SF1*BR);
   met2->Scale(1/N2*XSEC2*L*SF2*BR);
@@ -320,7 +302,12 @@ void sattach_y04() {
   cout << "HT integral total (d3) = " << htotal_3_area << endl;
   cout << "HT integral total (d4) = " << htotal_4_area << endl;
   cout << "HT integral total (d5) = " << htotal_5_area << endl;
-
+  cout << "Chargino Signal event / Total Signal event ratio (d1), % = " << hch_1_area / htotal_1_area * 100 << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d2), % = " << hch_2_area / htotal_2_area * 100 << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d3), % = " << hch_3_area / htotal_3_area * 100 << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d4), % = " << hch_4_area / htotal_4_area * 100 << endl;
+  cout << "Chargino Signal event / Total Signal event ratio (d5), % = " << hch_5_area / htotal_5_area * 100 << endl;
+  
   TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 800);
   gStyle->SetOptStat(1110);
   gStyle->SetStatColor(18);
