@@ -233,7 +233,10 @@ class ExampleDisplacedAnalysis(Module):
                     gmother = findAncestor(mother) #chargino or irrelevant W
                     addUniqueParticle(particle, mus)
         init = "pList: "
+        uneeded = [1,2,21]
         for id in genpartsids:
+            if abs(id) in uneeded:
+                continue
             init = init + str(abs(id)) + ", "
         print(init + " endList")
         if len(mus) == 0:
