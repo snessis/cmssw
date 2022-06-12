@@ -249,7 +249,7 @@ class ExampleDisplacedAnalysis(Module):
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
                     events_passed += 1
-                    if d >= 0.1:
+                    if d >= 0.05:
                         filter = [1,2,3,4,5,6,21]
                         id = abs(findAncestor(findAncestor(genParts[Muon.genPartIdx])).pdgId)
                         if id not in filter:
@@ -363,7 +363,7 @@ class ExampleDisplacedAnalysis(Module):
         #ETA
         Module.endJob(self)
 
-preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_pt <= 23"
+preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_pt <= 20"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT100to200.root".format(os.environ['CMSSW_BASE'])])
