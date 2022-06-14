@@ -50,7 +50,7 @@ void attach_y05() {
   TH1F *met6 = (TH1F*)f6->Get("plots/metpt");
   TH1F *met7 = (TH1F*)f7->Get("plots/metpt");
   TH1F *metch = (TH1F*)fch->Get("plots/metpt");
-  TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 90, 0, 400);
+  TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 90, 0, 700);
 
   TH1F *mu1 = (TH1F*)f1->Get("plots/mupt");
   TH1F *mu2 = (TH1F*)f2->Get("plots/mupt");
@@ -60,7 +60,7 @@ void attach_y05() {
   TH1F *mu6 = (TH1F*)f6->Get("plots/mupt");
   TH1F *mu7 = (TH1F*)f7->Get("plots/mupt");
   TH1F *much = (TH1F*)fch->Get("plots/mupt");
-  TH1F *mubg = new TH1F("bg_mupt", "\\mbox{Muon pt (background)}", 90, 0, 150);
+  TH1F *mubg = new TH1F("bg_mupt", "\\mbox{Muon pt (background)}", 90, 0, 350);
 
   TH1F *h1_1 = (TH1F*)f1->Get("plots/jetht1");
   TH1F *h2_1 = (TH1F*)f2->Get("plots/jetht1");
