@@ -5,7 +5,7 @@
 #include "TLatex.h"
 //NO CUTS:
 
-void sattach_y05() {
+void attach_y05() {
   double N1 = 748300; //HT 100 to 200
   double N2 = 1248911; //HT 200 to 400
   double N3 = 411531; //HT 400 to 600
@@ -13,9 +13,6 @@ void sattach_y05() {
   double N5 = 737750; //HT 800 to 1200
   double N6 = 775061; //HT 1200 to 2500
   double N7 = 429253; //HT 2500 to Inf
-  double N8 = 4500552; //Dilepton
-  double N9 = 3977039; //tt
-  double N10 = 4164133; //ttbar
   double N = 556249; // 200_195_10
   double XSEC1 = 1395*1.17*1000;
   double XSEC2 = 408.7*1.17*1000;
@@ -24,9 +21,6 @@ void sattach_y05() {
   double XSEC5 = 5.246*1.17*1000;
   double XSEC6 = 1.071*1.17*1000;
   double XSEC7 = 0.00819*1.17*1000;
-  double XSEC8 = 831.76*((3*0.108)*(3*0.108))*1000;
-  double XSEC9 = 831.76*(3*0.108)*(1-3*0.108)*1000;
-  double XSEC10 = 831.76*(3*0.108)*(1-3*0.108)*1000;
   double XSECCH = 0.902569*1000;
   double L = 60;
   double SF1 = N1 / 29521158;
@@ -36,9 +30,6 @@ void sattach_y05() {
   double SF5 = N5 / 8402687;
   double SF6 = N6 / 7633949;
   double SF7 = N7 / 3273980;
-  double SF8 = N8 / 28701360;
-  double SF9 = N9 / 57259880;
-  double SF10 = N10 / 59929205;
   double SFCH = 1;
   double BR = 1;//0.1063; //W -> muonic
 
@@ -49,9 +40,6 @@ void sattach_y05() {
   TFile *f5 = new TFile("y05_5.root");
   TFile *f6 = new TFile("y05_6.root");
   TFile *f7 = new TFile("y05_7.root");
-  TFile *f8 = new TFile("y05_8.root");
-  TFile *f9 = new TFile("y05_9.root");
-  TFile *f10 = new TFile("y05_10.root");
   TFile *fch = new TFile("y04.root");
 
   TH1F *met1 = (TH1F*)f1->Get("plots/metpt");
@@ -61,9 +49,6 @@ void sattach_y05() {
   TH1F *met5 = (TH1F*)f5->Get("plots/metpt");
   TH1F *met6 = (TH1F*)f6->Get("plots/metpt");
   TH1F *met7 = (TH1F*)f7->Get("plots/metpt");
-  TH1F *met8 = (TH1F*)f8->Get("plots/metpt");
-  TH1F *met9 = (TH1F*)f9->Get("plots/metpt");
-  TH1F *met10 = (TH1F*)f10->Get("plots/metpt");
   TH1F *metch = (TH1F*)fch->Get("plots/metpt");
   TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 90, 0, 400);
 
@@ -74,9 +59,6 @@ void sattach_y05() {
   TH1F *mu5 = (TH1F*)f5->Get("plots/mupt");
   TH1F *mu6 = (TH1F*)f6->Get("plots/mupt");
   TH1F *mu7 = (TH1F*)f7->Get("plots/mupt");
-  TH1F *mu8 = (TH1F*)f8->Get("plots/mupt");
-  TH1F *mu9 = (TH1F*)f9->Get("plots/mupt");
-  TH1F *mu10 = (TH1F*)f10->Get("plots/mupt");
   TH1F *much = (TH1F*)fch->Get("plots/mupt");
   TH1F *mubg = new TH1F("bg_mupt", "\\mbox{Muon pt (background)}", 90, 0, 150);
 
@@ -87,9 +69,6 @@ void sattach_y05() {
   TH1F *h5_1 = (TH1F*)f5->Get("plots/jetht1");
   TH1F *h6_1 = (TH1F*)f6->Get("plots/jetht1");
   TH1F *h7_1 = (TH1F*)f7->Get("plots/jetht1");
-  TH1F *h8_1 = (TH1F*)f8->Get("plots/jetht1");
-  TH1F *h9_1 = (TH1F*)f9->Get("plots/jetht1");
-  TH1F *h10_1 = (TH1F*)f10->Get("plots/jetht1");
   TH1F *hch_1 = (TH1F*)fch->Get("plots/jetht1");
   TH1F *hbg_1 = new TH1F("bg_jetht1", "\\mbox{Total Jet HT (background) for length cut } d_1", 90, 0, 3500);
   TH1F *htotal_1 = new TH1F("total_jetht1", "\\mbox{Total Jet HT (plus chargino) for length cut } d_1", 90, 0, 3500);
@@ -101,9 +80,6 @@ void sattach_y05() {
   TH1F *h5_2 = (TH1F*)f5->Get("plots/jetht2");
   TH1F *h6_2 = (TH1F*)f6->Get("plots/jetht2");
   TH1F *h7_2 = (TH1F*)f7->Get("plots/jetht2");
-  TH1F *h8_2 = (TH1F*)f8->Get("plots/jetht2");
-  TH1F *h9_2 = (TH1F*)f9->Get("plots/jetht2");
-  TH1F *h10_2 = (TH1F*)f10->Get("plots/jetht2");
   TH1F *hch_2 = (TH1F*)fch->Get("plots/jetht2");
   TH1F *hbg_2 = new TH1F("bg_jetht2", "\\mbox{Total Jet HT (background) for length cut } d_2", 90, 0, 3500);
   TH1F *htotal_2 = new TH1F("total_jetht2", "\\mbox{Total Jet HT (plus chargino) for length cut } d_2", 90, 0, 3500);
@@ -115,9 +91,6 @@ void sattach_y05() {
   TH1F *h5_3 = (TH1F*)f5->Get("plots/jetht3");
   TH1F *h6_3 = (TH1F*)f6->Get("plots/jetht3");
   TH1F *h7_3 = (TH1F*)f7->Get("plots/jetht3");
-  TH1F *h8_3 = (TH1F*)f8->Get("plots/jetht3");
-  TH1F *h9_3 = (TH1F*)f9->Get("plots/jetht3");
-  TH1F *h10_3 = (TH1F*)f10->Get("plots/jetht3");
   TH1F *hch_3 = (TH1F*)fch->Get("plots/jetht3");
   TH1F *hbg_3 = new TH1F("bg_jetht3", "\\mbox{Total Jet HT (background) for length cut } d_3", 90, 0, 3500);
   TH1F *htotal_3 = new TH1F("total_jetht3", "\\mbox{Total Jet HT (plus chargino) for length cut } d_3", 90, 0, 3500);
@@ -129,9 +102,6 @@ void sattach_y05() {
   TH1F *h5_4 = (TH1F*)f5->Get("plots/jetht4");
   TH1F *h6_4 = (TH1F*)f6->Get("plots/jetht4");
   TH1F *h7_4 = (TH1F*)f7->Get("plots/jetht4");
-  TH1F *h8_4 = (TH1F*)f8->Get("plots/jetht4");
-  TH1F *h9_4 = (TH1F*)f9->Get("plots/jetht4");
-  TH1F *h10_4 = (TH1F*)f10->Get("plots/jetht4");
   TH1F *hch_4 = (TH1F*)fch->Get("plots/jetht4");
   TH1F *hbg_4 = new TH1F("bg_jetht4", "\\mbox{Total Jet HT (background) for length cut } d_4", 90, 0, 3500);
   TH1F *htotal_4 = new TH1F("total_jetht4", "\\mbox{Total Jet HT (plus chargino) for length cut } d_4", 90, 0, 3500);
@@ -143,9 +113,6 @@ void sattach_y05() {
   TH1F *h5_5 = (TH1F*)f5->Get("plots/jetht5");
   TH1F *h6_5 = (TH1F*)f6->Get("plots/jetht5");
   TH1F *h7_5 = (TH1F*)f7->Get("plots/jetht5");
-  TH1F *h8_5 = (TH1F*)f8->Get("plots/jetht5");
-  TH1F *h9_5 = (TH1F*)f9->Get("plots/jetht5");
-  TH1F *h10_5 = (TH1F*)f10->Get("plots/jetht5");
   TH1F *hch_5 = (TH1F*)fch->Get("plots/jetht5");
   TH1F *hbg_5 = new TH1F("bg_jetht5", "\\mbox{Total Jet HT (background) for length cut } d_5", 90, 0, 3500);
   TH1F *htotal_5 = new TH1F("total_jetht5", "\\mbox{Total Jet HT (plus chargino) for length cut } d_5", 90, 0, 3500);
@@ -157,9 +124,6 @@ void sattach_y05() {
   met5->Scale(1/N5*XSEC5*L*SF5*BR);
   met6->Scale(1/N6*XSEC6*L*SF6*BR);
   met7->Scale(1/N7*XSEC7*L*SF7*BR);
-  met8->Scale(1/N8*XSEC8*L*SF8*BR);
-  met9->Scale(1/N9*XSEC9*L*SF9*BR);
-  met10->Scale(1/N10*XSEC10*L*SF10*BR);
   metch->Scale(1/N*XSECCH*L*SFCH*BR);
 
   mu1->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -169,9 +133,6 @@ void sattach_y05() {
   mu5->Scale(1/N5*XSEC5*L*SF5*BR);
   mu6->Scale(1/N6*XSEC6*L*SF6*BR);
   mu7->Scale(1/N7*XSEC7*L*SF7*BR);
-  mu8->Scale(1/N8*XSEC8*L*SF8*BR);
-  mu9->Scale(1/N9*XSEC9*L*SF9*BR);
-  mu10->Scale(1/N10*XSEC10*L*SF10*BR);
   much->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_1->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -181,9 +142,6 @@ void sattach_y05() {
   h5_1->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_1->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_1->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_1->Scale(1/N8*XSEC8*L*SF8*BR);
-  h9_1->Scale(1/N9*XSEC9*L*SF9*BR);
-  h10_1->Scale(1/N10*XSEC10*L*SF10*BR);
   hch_1->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_2->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -193,9 +151,6 @@ void sattach_y05() {
   h5_2->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_2->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_2->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_2->Scale(1/N8*XSEC8*L*SF8*BR);
-  h9_2->Scale(1/N9*XSEC9*L*SF9*BR);
-  h10_2->Scale(1/N10*XSEC10*L*SF10*BR);
   hch_2->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_3->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -205,9 +160,6 @@ void sattach_y05() {
   h5_3->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_3->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_3->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_3->Scale(1/N8*XSEC8*L*SF8*BR);
-  h9_3->Scale(1/N9*XSEC9*L*SF9*BR);
-  h10_3->Scale(1/N10*XSEC10*L*SF10*BR);
   hch_3->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_4->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -217,9 +169,6 @@ void sattach_y05() {
   h5_4->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_4->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_4->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_4->Scale(1/N8*XSEC8*L*SF8*BR);
-  h9_4->Scale(1/N9*XSEC9*L*SF9*BR);
-  h10_4->Scale(1/N10*XSEC10*L*SF10*BR);
   hch_4->Scale(1/N*XSECCH*L*SFCH*BR);
 
   h1_5->Scale(1/N1*XSEC1*L*SF1*BR);
@@ -229,9 +178,6 @@ void sattach_y05() {
   h5_5->Scale(1/N5*XSEC5*L*SF5*BR);
   h6_5->Scale(1/N6*XSEC6*L*SF6*BR);
   h7_5->Scale(1/N7*XSEC7*L*SF7*BR);
-  h8_5->Scale(1/N8*XSEC8*L*SF8*BR);
-  h9_5->Scale(1/N9*XSEC9*L*SF9*BR);
-  h10_5->Scale(1/N10*XSEC10*L*SF10*BR);
   hch_5->Scale(1/N*XSECCH*L*SFCH*BR);
 
   metbg->Add(met1);
@@ -241,9 +187,6 @@ void sattach_y05() {
   metbg->Add(met5);
   metbg->Add(met6);
   metbg->Add(met7);
-  metbg->Add(met8);
-  metbg->Add(met9);
-  metbg->Add(met10);
 
   mubg->Add(mu1);
   mubg->Add(mu2);
@@ -252,9 +195,6 @@ void sattach_y05() {
   mubg->Add(mu5);
   mubg->Add(mu6);
   mubg->Add(mu7);
-  mubg->Add(mu8);
-  mubg->Add(mu9);
-  mubg->Add(mu10);
 
   hbg_1->Add(h1_1);
   hbg_1->Add(h2_1);
@@ -263,9 +203,6 @@ void sattach_y05() {
   hbg_1->Add(h5_1);
   hbg_1->Add(h6_1);
   hbg_1->Add(h7_1);
-  hbg_1->Add(h8_1);
-  hbg_1->Add(h9_1);
-  hbg_1->Add(h10_1);
   htotal_1->Add(hbg_1);
   htotal_1->Add(hch_1);
 
@@ -276,9 +213,6 @@ void sattach_y05() {
   hbg_2->Add(h5_2);
   hbg_2->Add(h6_2);
   hbg_2->Add(h7_2);
-  hbg_2->Add(h8_2);
-  hbg_2->Add(h9_2);
-  hbg_2->Add(h10_2);
   htotal_2->Add(hbg_2);
   htotal_2->Add(hch_2);
 
@@ -289,9 +223,6 @@ void sattach_y05() {
   hbg_3->Add(h5_3);
   hbg_3->Add(h6_3);
   hbg_3->Add(h7_3);
-  hbg_3->Add(h8_3);
-  hbg_3->Add(h9_3);
-  hbg_3->Add(h10_3);
   htotal_3->Add(hbg_3);
   htotal_3->Add(hch_3);
 
@@ -302,9 +233,6 @@ void sattach_y05() {
   hbg_4->Add(h5_4);
   hbg_4->Add(h6_4);
   hbg_4->Add(h7_4);
-  hbg_4->Add(h8_4);
-  hbg_4->Add(h9_4);
-  hbg_4->Add(h10_4);
   htotal_4->Add(hbg_4);
   htotal_4->Add(hch_4);
 
@@ -315,9 +243,6 @@ void sattach_y05() {
   hbg_5->Add(h5_5);
   hbg_5->Add(h6_5);
   hbg_5->Add(h7_5);
-  hbg_5->Add(h8_5);
-  hbg_5->Add(h9_5);
-  hbg_5->Add(h10_5);
   htotal_5->Add(hbg_5);
   htotal_5->Add(hch_5);
 
