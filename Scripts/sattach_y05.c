@@ -52,7 +52,7 @@ void sattach_y05() {
   TFile *f8 = new TFile("y05_8.root");
   TFile *f9 = new TFile("y05_9.root");
   TFile *f10 = new TFile("y05_10.root");
-  TFile *fch = new TFile("y04.root");
+  TFile *fch = new TFile("y05.root");
 
   TH1F *met1 = (TH1F*)f1->Get("plots/metpt");
   TH1F *met2 = (TH1F*)f2->Get("plots/metpt");

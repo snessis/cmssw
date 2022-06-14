@@ -40,7 +40,7 @@ void attach_y05() {
   TFile *f5 = new TFile("y05_5.root");
   TFile *f6 = new TFile("y05_6.root");
   TFile *f7 = new TFile("y05_7.root");
-  TFile *fch = new TFile("y04.root");
+  TFile *fch = new TFile("y05.root");
 
   TH1F *met1 = (TH1F*)f1->Get("plots/metpt");
   TH1F *met2 = (TH1F*)f2->Get("plots/metpt");
