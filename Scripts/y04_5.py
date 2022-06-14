@@ -34,8 +34,8 @@ class ExampleDisplacedAnalysis(Module):
         Module.beginJob(self, histFile, histDirName)
         print("Creating ROOT objects...")
         # GENERAL
-        self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Energy Transverse, all events (MET)}', 90, 0, 400)
-        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 90, 0, 400)
+        self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Energy Transverse, all events (MET)}', 90, 0, 700)
+        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 90, 0, 700)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
         self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT (for distance } d_1 \\mbox{ cut)}', 90, 0, 3500) #component
@@ -244,7 +244,7 @@ class ExampleDisplacedAnalysis(Module):
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and Muon.pt <= 18:
+                if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and Muon.pt <= 18 and METpt <= 700:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
