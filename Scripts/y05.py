@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-ver = "05_8"
-#cuts: met>=100, >=1 muons, muonpt >= 4, muoneta <=2.5
+ver = "05"
+#no cuts - fancy histos for thesis, RECO
+#ctau 10 here
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
     print("Run 'cmsenv' on ../src/")
@@ -44,13 +45,13 @@ class ExampleDisplacedAnalysis(Module):
         self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT (for distance } d_4 \\mbox{ cut)}', 90, 0, 3500) #component
         self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT (for distance } d_5 \\mbox{ cut)}', 90, 0, 3500) #component
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 350)
+        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 25)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 90, -6, 6)
-        self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 90, 0, 5)
-        self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 90, 0, 5)
-        self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 90, 0, 5)
-        self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 90, 0, 5)
-        self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 90, 0, 5)
+        self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 90, 0, 17)
+        self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 90, 0, 17)
+        self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 90, 0, 17)
+        self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 90, 0, 17)
+        self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 90, 0, 17)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 90, 0, 25)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 90, -6, 6)
@@ -60,7 +61,7 @@ class ExampleDisplacedAnalysis(Module):
         # 1000024 - CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Chargino Transverse Momentum, muon channel } p_t', 90, 0, 1100)
         self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Chargino Pseudorapidity, muon channel } \\eta', 90, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 40, -3.1415927, 3.1415927)
+        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 90, -3.1415927, 3.1415927)
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 90, 0, 2.5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 90, 0, 3.1415927)
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 90, 0, 5)
@@ -188,6 +189,7 @@ class ExampleDisplacedAnalysis(Module):
         PVx = getattr(event, "PV_x")
         PVy = getattr(event, "PV_y")
         PVz = getattr(event, "PV_z")
+        #N = event
         chs_all = []
         chs = []
         mus = []
@@ -224,23 +226,22 @@ class ExampleDisplacedAnalysis(Module):
         #scan all particles in the event by final state
         events_selected += 1
         self.h_metptall.Fill(METpt)
-        genpartsids = []
         for particle in genParts:
-            genpartsids.append(particle.pdgId)
-            if abs(particle.pdgId) == 13:
-                mother = findAncestor(particle) #mother must now be W. instill check.
-                if abs(mother.pdgId) == 24: #must be W
-                    gmother = findAncestor(mother) #chargino or irrelevant W
-                    addUniqueParticle(particle, mus)
-        #init = "pList: "
-        #uneeded = [1,2,3,4,21,22,11,12,13,14,15,16,24]
-        #for id in genpartsids:
-        #    if abs(id) in uneeded:
-        #        continue
-        #    init = init + str(abs(id)) + ", "
-        #print(init + "endList")
+            if abs(particle.pdgId) in locateFinalStates: #identify final state particle
+                mother = findAncestor(particle) #mother must now be W or ch. instill check.
+                #case for mu and nmu aka leptonic:
+                if abs(particle.pdgId) in leptonic:
+                    if abs(mother.pdgId) == 24: #must be W
+                        gmother = findAncestor(mother) #chargino or irrelevant W
+                        if abs(gmother.pdgId) == 1000024: #must be ch
+                            addUniqueParticle(gmother, chs)
+                            if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1:
+                                addUniqueParticle(particle, mus)
         if len(mus) == 0:
             return False
+        for jet in Jets:
+            if abs(jet.pt) >= 30:
+                jets.append(jet)
         for Muon in Muons:
             if genParts[Muon.genPartIdx] in mus:
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
@@ -249,53 +250,45 @@ class ExampleDisplacedAnalysis(Module):
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
                     events_passed += 1
-                    if d >= 0.05:
-                        filter = [1,2,3,4,5,6,21]
-                        id = abs(findAncestor(findAncestor(genParts[Muon.genPartIdx])).pdgId)
-                        if id not in filter:
-                            print(str(id))
-        if len(Mus) == 0:
-            return False
-        #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
-        for jet in Jets:
-            if abs(jet.pt) >= 30:
-                jets.append(jet)
-        dists = []
-        for Mu in Mus:
-            d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
-            dists.append(d)
-            self.h_mupt.Fill(Mu.pt)
-            self.h_mueta.Fill(Mu.eta)
-            if d >= d1:
-                self.h_mupvdistancerest1.Fill(d)
-            if d >= d2:
-                self.h_mupvdistancerest2.Fill(d)
-            if d >= d3:
-                self.h_mupvdistancerest3.Fill(d)
-            if d >= d4:
-                self.h_mupvdistancerest4.Fill(d)
-            if d >= d5:
-                self.h_mupvdistancerest5.Fill(d)
-        if eventRecorded == True:
+        #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
+        if len(Mus) >= 1:
+            dists = []
             self.h_metpt.Fill(METpt)
-            events_recorded += 1
-            sum = 0
-            for jet in jets:
-                sum += jet.pt
-            d = 0
-            for di in dists:
-                if di >= d:
-                    d = di
-            if d >= d1:
-                self.h_jetht1.Fill(sum)
-            if d >= d2:
-                self.h_jetht2.Fill(sum)
-            if d >= d3:
-                self.h_jetht3.Fill(sum)
-            if d >= d4:
-                self.h_jetht4.Fill(sum)
-            if d >= d5:
-                self.h_jetht5.Fill(sum)
+            for Mu in Mus:
+                d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
+                dists.append(d)
+                self.h_mupt.Fill(Mu.pt)
+                self.h_mueta.Fill(Mu.eta)
+                if d >= d1:
+                    self.h_mupvdistancerest1.Fill(d)
+                if d >= d2:
+                    self.h_mupvdistancerest2.Fill(d)
+                if d >= d3:
+                    self.h_mupvdistancerest3.Fill(d)
+                if d >= d4:
+                    self.h_mupvdistancerest4.Fill(d)
+                if d >= d5:
+                    self.h_mupvdistancerest5.Fill(d)
+            if eventRecorded == True:
+                sum = 0
+                for jet in jets:
+                    sum += jet.pt
+                d = 0
+                for di in dists:
+                    if di >= d:
+                        d = di
+                if d >= d1:
+                    self.h_jetht1.Fill(sum)
+                if d >= d2:
+                    self.h_jetht2.Fill(sum)
+                if d >= d3:
+                    self.h_jetht3.Fill(sum)
+                if d >= d4:
+                    self.h_jetht4.Fill(sum)
+                if d >= d5:
+                    self.h_jetht5.Fill(sum)
+        if eventRecorded == True:
+            events_selected += 1
         #analysis ends here: return True
         return True
 
@@ -306,14 +299,20 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.c)
         self.c.cd()
         #FITTING
-        fit_mupvdistancerest = ROOT.TF1("fit_mupvdistancerest", "expo", 0, 10)
-        fit_mupvdistancerest.SetParNames("mupvconst", "mupvslope")
+        fit_chlenr = ROOT.TF1("fit_chlenr", "expo", 0, 10)
+        fit_chlenr.SetParNames("chdecayconst", "chdecayslope")
+        #fit_mupvdistancerest = ROOT.TF1("fit_mupvdistancerest", "expo", 0, 10)
+        #fit_mupvdistancerest.SetParNames("mupvconst", "mupvslope")
         #fit_mupvdistancerest.SetParameter("mupvconst",)
+        self.chlenr.Fit(fit_chlenr)
         #self.mupvdistancerest1.Fit(fit_mupvdistancerest)
+        #MORE HISTOGRAMS
         #PRINTING
-        print("Number of recorded events " + str(events_recorded))
-        print("Number of reco muons: " + str(events_passed))
-        print("Number of events selected (pre-analysis): " + str(events_selected))
+        print("Number of muon channel events: " + str(events_recorded))
+        print("Number of passed entries: " + str(events_passed))
+        print("Number of events selected: " + str(events_selected))
+        br = (events_passed)/(2.*events_all)
+        print("Channel branching ratio: " + str(br))
         print("Printing Histograms...")
         histList_all = ([self.h_metptall, self.h_jetht1, self.h_jetht2, self.h_jetht3, self.h_jetht4, self.h_jetht5, self.h_metpt, self.h_chpt, self.h_cheta,
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
@@ -363,9 +362,9 @@ class ExampleDisplacedAnalysis(Module):
         #ETA
         Module.endJob(self)
 
-preselection = "MET_pt >= 100 && Jet_pt >= 30"
+preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_pt <= 23"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/TTJets_DiLepton.root".format(os.environ['CMSSW_BASE'])])
+files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_10.root".format(os.environ['CMSSW_BASE'])] #new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()
