@@ -45,7 +45,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT (for distance } d_5 \\mbox{ cut)}', 90, 0, 3500) #component
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 100)
-        self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 90, -6, 6)
+        self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 90, -2.5, 2.5)
         self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 90, 0, 5)
         self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 90, 0, 5)
         self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 90, 0, 5)
@@ -242,13 +242,13 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) == 0:
             return False
         for Muon in Muons:
-            #if genParts[Muon.genPartIdx] in mus:
-            d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-            if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and Muon.pt <= 18:
-                Mus.append(Muon)
-                #mus2.append(genParts[Muon.genPartIdx])
-                eventRecorded = True
-                events_passed += 1
+            if genParts[Muon.genPartIdx] in mus:
+                d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and METpt >= 100 and Muon.pt <= 18:
+                    Mus.append(Muon)
+                    mus2.append(genParts[Muon.genPartIdx])
+                    eventRecorded = True
+                    events_passed += 1
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
