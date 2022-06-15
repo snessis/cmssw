@@ -428,8 +428,8 @@ class ExampleDisplacedAnalysis(Module):
         self.s_deta = ROOT.THStack("s_deta","\\mbox{Chargino-Particle } \\Delta \\eta");
         self.addObject(self.s_deta)
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta]#, self.h_mix_chneu_deta]
-        self.h_chdeta.SetLineColor(ROOT.kRed+2)
-        self.h_chdeta.SetFillColor(ROOT.kRed+2)
+        self.h_chdeta.SetLineColor(ROOT.kRed+1)
+        self.h_chdeta.SetFillColor(ROOT.kRed+1)
         self.h_mix_chmu_deta.SetLineColor(ROOT.kOrange+4)
         self.h_mix_chmu_deta.SetFillColor(ROOT.kOrange+4)
         self.h_mix_chnmu_deta.SetLineColor(ROOT.kOrange+7)
@@ -465,8 +465,8 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.s_pt_sm)
         histList_pt_sus = [self.h_chpt, self.h_neupt]
         histList_pt_sm = [self.h_mupt, self.h_nmupt]
-        self.h_chpt.SetLineColor(ROOT.kRed+2)
-        self.h_chpt.SetFillColor(ROOT.kRed+2)
+        self.h_chpt.SetLineColor(ROOT.kRed+1)
+        self.h_chpt.SetFillColor(ROOT.kRed+1)
         self.h_mupt.SetLineColor(ROOT.kOrange+4)
         self.h_mupt.SetFillColor(ROOT.kOrange+4)
         self.h_nmupt.SetLineColor(ROOT.kOrange+7)
@@ -507,8 +507,8 @@ class ExampleDisplacedAnalysis(Module):
         histList_met = [self.h_metpt, self.h_metptall]
         self.h_metptall.SetLineColor(ROOT.kGreen+2)
         self.h_metptall.SetFillColor(ROOT.kGreen+2)
-        self.h_metpt.SetLineColor(ROOT.kGreen-7)
-        self.h_metpt.SetFillColor(ROOT.kGreen-7)
+        self.h_metpt.SetLineColor(ROOT.kGreen-3)
+        self.h_metpt.SetFillColor(ROOT.kGreen-3)
         for hist in histList_met:
             self.s_met.Add(hist)
         self.leg_met = ROOT.TLegend(0.70,0.75,0.90,0.90)
@@ -552,8 +552,8 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.s_eta_sm)
         histList_eta_sus = [self.h_cheta, self.h_neueta]
         histList_eta_sm = [self.h_mueta, self.h_nmueta]
-        self.h_cheta.SetLineColor(ROOT.kRed+2)
-        self.h_cheta.SetFillColor(ROOT.kRed+2)
+        self.h_cheta.SetLineColor(ROOT.kRed+1)
+        self.h_cheta.SetFillColor(ROOT.kRed+1)
         self.h_mueta.SetLineColor(ROOT.kOrange+4)
         self.h_mueta.SetFillColor(ROOT.kOrange+4)
         self.h_nmueta.SetLineColor(ROOT.kOrange+7)

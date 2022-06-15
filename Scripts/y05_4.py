@@ -34,15 +34,15 @@ class ExampleDisplacedAnalysis(Module):
         Module.beginJob(self, histFile, histDirName)
         print("Creating ROOT objects...")
         # GENERAL
-        self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Energy Transverse, all events (MET)}', 90, 0, 700)
-        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 90, 0, 700)
+        self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Transverse Momentum, all events (MET)}', 90, 0, 700)
+        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Transverse Momentum, muon channel (MET)}', 90, 0, 700)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
-        self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT (for distance } d_1 \\mbox{ cut)}', 90, 0, 3500) #component
-        self.h_jetht2 = ROOT.TH1F('jetht2', '\\mbox{Jet HT (for distance } d_2 \\mbox{ cut)}', 90, 0, 3500) #component
-        self.h_jetht3 = ROOT.TH1F('jetht3', '\\mbox{Jet HT (for distance } d_3 \\mbox{ cut)}', 90, 0, 3500) #component
-        self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT (for distance } d_4 \\mbox{ cut)}', 90, 0, 3500) #component
-        self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT (for distance } d_5 \\mbox{ cut)}', 90, 0, 3500) #component
+        self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT}', 100, 0, 3600) #component
+        self.h_jetht2 = ROOT.TH1F('jetht2', '\\mbox{Jet HT}', 100, 0, 3600) #component
+        self.h_jetht3 = ROOT.TH1F('jetht3', '\\mbox{Jet HT}', 100, 0, 3600) #component
+        self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT}', 100, 0, 3600) #component
+        self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT}', 100, 0, 3600) #component
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 350)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 90, -3, 3)
@@ -355,7 +355,18 @@ class ExampleDisplacedAnalysis(Module):
         self.s_met.GetYaxis().CenterTitle(True)
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
-        #ETA
+        #MUON PT
+        self.h_mupt.SetLineColor(ROOT.kOrange+4)
+        self.h_mupt.SetFillColor(ROOT.kOrange+4)
+        self.h_mupt.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupt.GetName() + ".png")
+        self.c.Update()
+        #JET HT d2
+        self.h_jetht2.SetLineColor(ROOT.kYellow+1)
+        self.h_jetht2.SetFillColor(ROOT.kYellow+1)
+        self.h_jetht2.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_jetht2.GetName() + ".png")
+        self.c.Update()
         Module.endJob(self)
 
 preselection = "MET_pt >= 100 && Jet_pt >= 30"
