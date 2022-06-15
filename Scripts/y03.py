@@ -37,6 +37,8 @@ class ExampleDisplacedAnalysis(Module):
         # GENERAL
         self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Energy Transverse, all events (MET)}', 100, 0, 400)
         self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 100, 0, 400)
+        self.h_genmetptall = ROOT.TH1F('genmetptall', '\\mbox{Missing Energy Transverse, all events (GenMET)}', 100, 0, 400)
+        self.h_genmetpt = ROOT.TH1F('genmetpt', '\\mbox{Missing Energy Transverse, muon channel (GenMET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
         self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT (for distance } d_1 \\mbox{ cut)}', 100, 0, 3500) #component
@@ -81,6 +83,10 @@ class ExampleDisplacedAnalysis(Module):
         self.h_metptall.GetYaxis().SetTitle("Counts")
         self.h_metpt.GetXaxis().SetTitle("MET (GeV)")
         self.h_metpt.GetYaxis().SetTitle("Counts")
+        self.h_genmetptall.GetXaxis().SetTitle("GenMET (GeV)")
+        self.h_genmetptall.GetYaxis().SetTitle("Counts")
+        self.h_genmetpt.GetXaxis().SetTitle("GenMET (GeV)")
+        self.h_genmetpt.GetYaxis().SetTitle("Counts")
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
         self.h_jetht1.GetXaxis().SetTitle("\\mbox{HT (GeV)}")
@@ -149,6 +155,8 @@ class ExampleDisplacedAnalysis(Module):
         # ADD HISTOGRAMS
         self.addObject(self.h_metptall)
         self.addObject(self.h_metpt)
+        self.addObject(self.h_genmetptall)
+        self.addObject(self.h_genmetpt)
         self.addObject(self.h_jetht1)
         self.addObject(self.h_jetht2)
         self.addObject(self.h_jetht3)
@@ -185,6 +193,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         Jets = Collection(event, "Jet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
+        GenMETpt = getattr(event, "GenMET_pt")
         Muons = Collection(event, "Muon")
         PVx = getattr(event, "PV_x")
         PVy = getattr(event, "PV_y")
@@ -226,6 +235,7 @@ class ExampleDisplacedAnalysis(Module):
         #scan all particles in the event by final state
         events_selected += 1
         self.h_metptall.Fill(METpt)
+        self.h_genmetptall.Fill(GenMETpt)
         for particle in genParts:
             if abs(particle.pdgId) in locateFinalStates: #identify final state particle
                 mother = findAncestor(particle) #mother must now be W or ch. instill check.
@@ -256,6 +266,7 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) >= 1:
             dists = []
             self.h_metpt.Fill(METpt)
+            self.h_genmetpt.Fill(GenMETpt)
             for mu in mus:
                 #enter cuts here
                 #if mu.pt >= 4 and mu.eta <= 2.5 and len(mus) == 2 and METpt >= 130:
@@ -379,7 +390,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistance1, self.mupvdistance2, self.mupvdistance3, self.mupvdistance4, self.mupvdistance5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = ([self.h_metptall, self.h_metpt, self.h_chpt, self.h_cheta,
+        histList = ([self.h_metptall, self.h_metpt, self.h_genmetptall, self.h_genmetptall, self.h_chpt, self.h_cheta,
                     self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chdeta, self.h_chdphi, self.h_mupt,
                     self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
         XSECCH = 0.902569*1000
@@ -403,14 +414,14 @@ class ExampleDisplacedAnalysis(Module):
         self.s_deta = ROOT.THStack("s_deta","\\mbox{Total Particle Delta Eta } \\Delta \\eta");
         self.addObject(self.s_deta)
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta]#, self.h_mix_chneu_deta]
-        self.h_chdeta.SetLineColor(2)
-        self.h_chdeta.SetFillColor(2)
-        self.h_mix_chmu_deta.SetLineColor(3)
-        self.h_mix_chmu_deta.SetFillColor(3)
-        self.h_mix_chnmu_deta.SetLineColor(4)
-        self.h_mix_chnmu_deta.SetFillColor(4)
-        self.h_mix_chneu_deta.SetLineColor(6)
-        self.h_mix_chneu_deta.SetFillColor(6)
+        self.h_chdeta.SetLineColor(46)
+        self.h_chdeta.SetFillColor(46)
+        self.h_mix_chmu_deta.SetLineColor(28)
+        self.h_mix_chmu_deta.SetFillColor(28)
+        self.h_mix_chnmu_deta.SetLineColor(45)
+        self.h_mix_chnmu_deta.SetFillColor(45)
+        self.h_mix_chneu_deta.SetLineColor(24)
+        self.h_mix_chneu_deta.SetFillColor(24)
         for hist in histList_deta:
             self.s_deta.Add(hist)
         self.leg_deta = ROOT.TLegend(0.70,0.75,0.90,0.90)
@@ -440,14 +451,14 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.s_pt_sm)
         histList_pt_sus = [self.h_chpt, self.h_neupt]
         histList_pt_sm = [self.h_mupt, self.h_nmupt]
-        self.h_chpt.SetLineColor(2)
-        self.h_chpt.SetFillColor(2)
-        self.h_mupt.SetLineColor(3)
-        self.h_mupt.SetFillColor(3)
-        self.h_nmupt.SetLineColor(4)
-        self.h_nmupt.SetFillColor(4)
-        self.h_neupt.SetLineColor(6)
-        self.h_neupt.SetFillColor(6)
+        self.h_chpt.SetLineColor(46)
+        self.h_chpt.SetFillColor(46)
+        self.h_mupt.SetLineColor(28)
+        self.h_mupt.SetFillColor(28)
+        self.h_nmupt.SetLineColor(45)
+        self.h_nmupt.SetFillColor(45)
+        self.h_neupt.SetLineColor(24)
+        self.h_neupt.SetFillColor(24)
         self.s_pt_sus.Add(self.h_chpt)
         self.s_pt_sus.Add(self.h_neupt)
         self.s_pt_sm.Add(self.h_mupt)
@@ -480,10 +491,10 @@ class ExampleDisplacedAnalysis(Module):
         self.s_met = ROOT.THStack("s_met","\\mbox{Missing Energy Transverse (MET) Momentum } p_t");
         self.addObject(self.s_met)
         histList_met = [self.h_metpt, self.h_metptall]
-        self.h_metptall.SetLineColor(30)
-        self.h_metptall.SetFillColor(30)
-        self.h_metpt.SetLineColor(8)
-        self.h_metpt.SetFillColor(8)
+        self.h_metptall.SetLineColor(32)
+        self.h_metptall.SetFillColor(32)
+        self.h_metpt.SetLineColor(30)
+        self.h_metpt.SetFillColor(30)
         for hist in histList_met:
             self.s_met.Add(hist)
         self.leg_met = ROOT.TLegend(0.70,0.75,0.90,0.90)
@@ -498,6 +509,28 @@ class ExampleDisplacedAnalysis(Module):
         self.s_met.GetYaxis().CenterTitle(True)
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
+        #GENMET
+        self.s_genmet = ROOT.THStack("s_genmet","\\mbox{Missing Energy Transverse (GenMET) Momentum } p_t");
+        self.addObject(self.s_genmet)
+        histList_genmet = [self.h_genmetpt, self.h_genmetptall]
+        self.h_genmetptall.SetLineColor(54)
+        self.h_genmetptall.SetFillColor(54)
+        self.h_genmetpt.SetLineColor(51)
+        self.h_genmetpt.SetFillColor(51)
+        for hist in histList_genmet:
+            self.s_genmet.Add(hist)
+        self.leg_genmet = ROOT.TLegend(0.70,0.75,0.90,0.90)
+        self.leg_genmet.SetMargin(0.15)
+        self.leg_genmet.AddEntry(self.h_genmetptall, "All W^{#pm} channels", "L")
+        self.leg_genmet.AddEntry(self.h_genmetpt, "W^{#pm}#rightarrow #mu#nu_{#mu}", "L")
+        self.s_genmet.Draw()
+        self.leg_genmet.Draw()
+        self.s_genmet.GetXaxis().SetTitle("\\mbox{GenMET (GeV)}")
+        self.s_genmet.GetYaxis().SetTitle("Counts")
+        self.s_genmet.GetXaxis().CenterTitle(True)
+        self.s_genmet.GetYaxis().CenterTitle(True)
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_genmet.GetName() + ".png")
+        self.c.Update()
         #ETA
         self.s_eta_sus = ROOT.THStack("s_eta_sus","\\tilde{\\chi}_1^\\pm, \\tilde{\\chi}_1^0 \\mbox{ Pseudorapidity } \\eta");
         self.s_eta_sm = ROOT.THStack("s_eta_sm","\\mu,\\nu \\mbox{ Pseudorapidity } \\eta");
@@ -505,14 +538,14 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.s_eta_sm)
         histList_eta_sus = [self.h_cheta, self.h_neueta]
         histList_eta_sm = [self.h_mueta, self.h_nmueta]
-        self.h_cheta.SetLineColor(2)
-        self.h_cheta.SetFillColor(2)
-        self.h_mueta.SetLineColor(3)
-        self.h_mueta.SetFillColor(3)
-        self.h_nmueta.SetLineColor(4)
-        self.h_nmueta.SetFillColor(4)
-        self.h_neueta.SetLineColor(6)
-        self.h_neueta.SetFillColor(6)
+        self.h_cheta.SetLineColor(46)
+        self.h_cheta.SetFillColor(46)
+        self.h_mueta.SetLineColor(28)
+        self.h_mueta.SetFillColor(28)
+        self.h_nmueta.SetLineColor(45)
+        self.h_nmueta.SetFillColor(45)
+        self.h_neueta.SetLineColor(24)
+        self.h_neueta.SetFillColor(24)
         self.s_eta_sus.Add(self.h_cheta)
         self.s_eta_sus.Add(self.h_neueta)
         self.s_eta_sm.Add(self.h_mueta)
