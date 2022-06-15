@@ -243,13 +243,13 @@ class ExampleDisplacedAnalysis(Module):
             if abs(jet.pt) >= 30:
                 jets.append(jet)
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus:
-                d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if METpt >= 100:
-                    Mus.append(Muon)
-                    mus2.append(genParts[Muon.genPartIdx])
-                    eventRecorded = True
-                    events_passed += 1
+            #if genParts[Muon.genPartIdx] in mus:
+            d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
+            if METpt >= 100:
+                Mus.append(Muon)
+                mus2.append(genParts[Muon.genPartIdx])
+                eventRecorded = True
+                events_passed += 1
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1:
             dists = []
