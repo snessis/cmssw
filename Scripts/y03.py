@@ -35,10 +35,10 @@ class ExampleDisplacedAnalysis(Module):
         Module.beginJob(self, histFile, histDirName)
         print("Creating ROOT objects...")
         # GENERAL
-        self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Energy Transverse, all events (MET)}', 100, 0, 400)
-        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Energy Transverse, muon channel (MET)}', 100, 0, 400)
-        self.h_genmetptall = ROOT.TH1F('genmetptall', '\\mbox{Missing Energy Transverse, all events (GenMET)}', 100, 0, 400)
-        self.h_genmetpt = ROOT.TH1F('genmetpt', '\\mbox{Missing Energy Transverse, muon channel (GenMET)}', 100, 0, 400)
+        self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Transverse Momentum, all events (MET)}', 100, 0, 400)
+        self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Transverse Momentum, muon channel (MET)}', 100, 0, 400)
+        self.h_genmetptall = ROOT.TH1F('genmetptall', '\\mbox{Missing Transverse Momentum,, all events (GenMET)}', 100, 0, 400)
+        self.h_genmetpt = ROOT.TH1F('genmetpt', '\\mbox{Missing Transverse Momentum,, muon channel (GenMET)}', 100, 0, 400)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
         self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT (for distance } d_1 \\mbox{ cut)}', 100, 0, 3500) #component
@@ -61,21 +61,21 @@ class ExampleDisplacedAnalysis(Module):
         self.h_neupt = ROOT.TH1F('neupt', '\\mbox{Neutralino Transverse Momentum } p_t', 100, 0, 1100)
         self.h_neueta = ROOT.TH1F('neueta', '\\mbox{Neutralino Pseudorapidity } \\eta', 100, -6, 6)
         # 1000024 - CHARGINOS
-        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Chargino Transverse Momentum, muon channel } p_t', 100, 0, 1100)
-        self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Chargino Pseudorapidity, muon channel } \\eta', 100, -6, 6)
+        self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Chargino Transverse Momentum } p_t', 100, 0, 1100)
+        self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Chargino Pseudorapidity } \\eta', 100, -6, 6)
         self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 100, -3.2, 3.2)
-        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 100, 0, 2.5)
-        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 100, 0, 3.1415927)
-        self.h_chdphir = ROOT.TH1F('chdphir', '\\mbox{Chargino Delta Phi (Rest Frame), muon channel } \\Delta \\phi', 100, 0, 3.1415927)
-        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 100, 0, 15)
-        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 100, 0, 6)
-        self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 100, 0, 1)
-        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 100, 1, 20)
-        self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 100, 0, 1400)
+        self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta } \\Delta \\eta', 100, 0, 2.5)
+        self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi } \\Delta \\phi', 100, 0, 3.1415927)
+        self.h_chdphir = ROOT.TH1F('chdphir', '\\mbox{Chargino Delta Phi (Rest Frame) } \\Delta \\phi', 100, 0, 3.1415927)
+        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame) } L', 100, 0, 15)
+        self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame) } L_0', 100, 0, 6)
+        self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta} \\beta', 100, 0, 1)
+        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma } \\gamma', 100, 1, 20)
+        self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy } E', 100, 0, 1400)
         # MIXTURES
-        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 2.5)
-        self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 100, 0, 2.5)
-        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 100, 0, 1)
+        self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon } \\Delta \\eta', 100, 0, 2.5)
+        self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino } \\Delta \\eta', 100, 0, 2.5)
+        self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino } \\Delta \\eta', 100, 0, 1)
         # GRAPH CUSTOMIZATION
         #gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         #gStyle.SetStatColor(18)
@@ -410,9 +410,9 @@ class ExampleDisplacedAnalysis(Module):
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
+        gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
+        gStyle.SetStatColor(19)
         for hist in histList:
-             gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
-             gStyle.SetStatColor(19)
              hist.SetLineColor(38)
              hist.SetFillColor(38)
              hist.SetLineWidth(2)
@@ -422,20 +422,20 @@ class ExampleDisplacedAnalysis(Module):
              hist.Draw()
              save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
-             gStyle.SetOptStat(0);
              self.c.Update()
+        gStyle.SetOptStat(0)
         #DETA
-        self.s_deta = ROOT.THStack("s_deta","\\mbox{Total Particle Delta Eta } \\Delta \\eta");
+        self.s_deta = ROOT.THStack("s_deta","\\mbox{Chargino-Particle } \\Delta \\eta");
         self.addObject(self.s_deta)
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta]#, self.h_mix_chneu_deta]
-        self.h_chdeta.SetLineColor(kRed+2)
-        self.h_chdeta.SetFillColor(kRed+2)
-        self.h_mix_chmu_deta.SetLineColor(128)
-        self.h_mix_chmu_deta.SetFillColor(128)
-        self.h_mix_chnmu_deta.SetLineColor(95)
-        self.h_mix_chnmu_deta.SetFillColor(95)
-        self.h_mix_chneu_deta.SetLineColor(225)
-        self.h_mix_chneu_deta.SetFillColor(225)
+        self.h_chdeta.SetLineColor(ROOT.kRed+2)
+        self.h_chdeta.SetFillColor(ROOT.kRed+2)
+        self.h_mix_chmu_deta.SetLineColor(ROOT.kOrange+4)
+        self.h_mix_chmu_deta.SetFillColor(ROOT.kOrange+4)
+        self.h_mix_chnmu_deta.SetLineColor(ROOT.kOrange+7)
+        self.h_mix_chnmu_deta.SetFillColor(ROOT.kOrange+7)
+        self.h_mix_chneu_deta.SetLineColor(ROOT.kCyan+2)
+        self.h_mix_chneu_deta.SetFillColor(ROOT.kCyan+2)
         for hist in histList_deta:
             self.s_deta.Add(hist)
         self.leg_deta = ROOT.TLegend(0.70,0.75,0.90,0.90)
@@ -465,14 +465,14 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.s_pt_sm)
         histList_pt_sus = [self.h_chpt, self.h_neupt]
         histList_pt_sm = [self.h_mupt, self.h_nmupt]
-        self.h_chpt.SetLineColor(102)
-        self.h_chpt.SetFillColor(102)
-        self.h_mupt.SetLineColor(128)
-        self.h_mupt.SetFillColor(128)
-        self.h_nmupt.SetLineColor(95)
-        self.h_nmupt.SetFillColor(95)
-        self.h_neupt.SetLineColor(225)
-        self.h_neupt.SetFillColor(225)
+        self.h_chpt.SetLineColor(ROOT.kRed+2)
+        self.h_chpt.SetFillColor(ROOT.kRed+2)
+        self.h_mupt.SetLineColor(ROOT.kOrange+4)
+        self.h_mupt.SetFillColor(ROOT.kOrange+4)
+        self.h_nmupt.SetLineColor(ROOT.kOrange+7)
+        self.h_nmupt.SetFillColor(ROOT.kOrange+7)
+        self.h_neupt.SetLineColor(ROOT.kCyan+2)
+        self.h_neupt.SetFillColor(ROOT.kCyan+2)
         self.s_pt_sus.Add(self.h_chpt)
         self.s_pt_sus.Add(self.h_neupt)
         self.s_pt_sm.Add(self.h_mupt)
@@ -505,10 +505,10 @@ class ExampleDisplacedAnalysis(Module):
         self.s_met = ROOT.THStack("s_met","\\mbox{Missing Energy Transverse (MET) Momentum } p_t");
         self.addObject(self.s_met)
         histList_met = [self.h_metpt, self.h_metptall]
-        self.h_metptall.SetLineColor(108)
-        self.h_metptall.SetFillColor(108)
-        self.h_metpt.SetLineColor(3)
-        self.h_metpt.SetFillColor(3)
+        self.h_metptall.SetLineColor(ROOT.kGreen+2)
+        self.h_metptall.SetFillColor(ROOT.kGreen+2)
+        self.h_metpt.SetLineColor(ROOT.kGreen-7)
+        self.h_metpt.SetFillColor(ROOT.kGreen-7)
         for hist in histList_met:
             self.s_met.Add(hist)
         self.leg_met = ROOT.TLegend(0.70,0.75,0.90,0.90)
@@ -527,10 +527,10 @@ class ExampleDisplacedAnalysis(Module):
         self.s_genmet = ROOT.THStack("s_genmet","\\mbox{Missing Energy Transverse (GenMET) Momentum } p_t");
         self.addObject(self.s_genmet)
         histList_genmet = [self.h_genmetpt, self.h_genmetptall]
-        self.h_genmetptall.SetLineColor(221)
-        self.h_genmetptall.SetFillColor(221)
-        self.h_genmetpt.SetLineColor(156)
-        self.h_genmetpt.SetFillColor(156)
+        self.h_genmetptall.SetLineColor(ROOT.kMagenta+2)
+        self.h_genmetptall.SetFillColor(ROOT.kMagenta+2)
+        self.h_genmetpt.SetLineColor(ROOT.kMagenta-7)
+        self.h_genmetpt.SetFillColor(ROOT.kMagenta-7)
         for hist in histList_genmet:
             self.s_genmet.Add(hist)
         self.leg_genmet = ROOT.TLegend(0.70,0.75,0.90,0.90)
@@ -552,14 +552,14 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.s_eta_sm)
         histList_eta_sus = [self.h_cheta, self.h_neueta]
         histList_eta_sm = [self.h_mueta, self.h_nmueta]
-        self.h_cheta.SetLineColor(102)
-        self.h_cheta.SetFillColor(102)
-        self.h_mueta.SetLineColor(128)
-        self.h_mueta.SetFillColor(128)
-        self.h_nmueta.SetLineColor(95)
-        self.h_nmueta.SetFillColor(95)
-        self.h_neueta.SetLineColor(225)
-        self.h_neueta.SetFillColor(225)
+        self.h_cheta.SetLineColor(ROOT.kRed+2)
+        self.h_cheta.SetFillColor(ROOT.kRed+2)
+        self.h_mueta.SetLineColor(ROOT.kOrange+4)
+        self.h_mueta.SetFillColor(ROOT.kOrange+4)
+        self.h_nmueta.SetLineColor(ROOT.kOrange+7)
+        self.h_nmueta.SetFillColor(ROOT.kOrange+7)
+        self.h_neueta.SetLineColor(ROOT.kCyan+2)
+        self.h_neueta.SetFillColor(ROOT.kCyan+2)
         self.s_eta_sus.Add(self.h_cheta)
         self.s_eta_sus.Add(self.h_neueta)
         self.s_eta_sm.Add(self.h_mueta)
