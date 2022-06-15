@@ -63,13 +63,14 @@ class ExampleDisplacedAnalysis(Module):
         # 1000024 - CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Chargino Transverse Momentum, muon channel } p_t', 100, 0, 1100)
         self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Chargino Pseudorapidity, muon channel } \\eta', 100, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 40, -3.1415927, 3.1415927)
+        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 40, -3.2, 3.2)
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 100, 0, 2.5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 100, 0, 3.1415927)
-        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 100, 0, 5)
+        self.h_chdphir = ROOT.TH1F('chdphir', '\\mbox{Chargino Delta Phi (Rest Frame), muon channel } \\Delta \\phi', 100, 0, 3.1415927)
+        self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 100, 0, 15)
         self.h_chlenr = ROOT.TH1F('chlenr', '\\mbox{Chargino Decay Length (Rest Frame), muon channel } L_0', 100, 0, 6)
         self.h_chbeta = ROOT.TH1F('chbeta', '\\mbox{Chargino Beta, muon channel } \\beta', 100, 0, 1)
-        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 100, 1, 35)
+        self.h_chgamma = ROOT.TH1F('chgamma', '\\mbox{Chargino Gamma, muon channel } \\gamma', 100, 1, 20)
         self.h_chnrgl = ROOT.TH1F('chnrgl', '\\mbox{Chargino Energy, muon channel } E', 100, 0, 1400)
         # MIXTURES
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 100, 0, 2.5)
@@ -133,6 +134,8 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chphi.GetYaxis().SetTitle("Counts")
         self.h_chdphi.GetXaxis().SetTitle("\\Delta \\phi \\mbox{ (rad)}")
         self.h_chdphi.GetYaxis().SetTitle("Counts")
+        self.h_chdphir.GetXaxis().SetTitle("\\Delta \\phi \\mbox{ (rad)}")
+        self.h_chdphir.GetYaxis().SetTitle("Counts")
         self.h_chdeta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_chdeta.GetYaxis().SetTitle("Counts")
         self.h_chlenl.GetXaxis().SetTitle("L \\mbox{ (cm)}")
@@ -167,6 +170,7 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_chphi)
         self.addObject(self.h_chdeta)
         self.addObject(self.h_chdphi)
+        self.addObject(self.h_chdphir)
         self.addObject(self.h_chlenl)
         self.addObject(self.h_chlenr)
         self.addObject(self.h_chbeta)
@@ -316,6 +320,16 @@ class ExampleDisplacedAnalysis(Module):
                                         dphi = part1.phi - part2.phi
                                         self.h_chdeta.Fill(deta)
                                         self.h_chdphi.Fill(dphi)
+                                        chp4_1 = part1.p4()
+                                        boost_1 = chp4_1.BoostVector()
+                                        chp4_1.Boost(-boost_1)
+                                        chp4_2 = part2.p4()
+                                        boost_2 = chp4_2.BoostVector()
+                                        chp4_2.Boost(-boost_2)
+                                        dphi_0 = part1.phi - part2.phi
+                                        self.h_chdphir.Fill(dphi_0)
+                                        chp4_1.Boost(boost_1)
+                                        chp4_2.Boost(boost_2)
                                     #chx4 = ROOT.TLorentzVector(L, -L.Mag()/b)
                                     #boost = chp4.BoostVector()
                                     #chx4.Boost(-boost)
@@ -390,13 +404,15 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistance1, self.mupvdistance2, self.mupvdistance3, self.mupvdistance4, self.mupvdistance5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = ([self.h_metptall, self.h_metpt, self.h_genmetptall, self.h_genmetptall, self.h_chpt, self.h_cheta,
+        histList = ([self.h_metptall, self.h_metpt, self.h_genmetptall, self.h_genmetpt, self.h_chpt, self.h_cheta,
                     self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chdeta, self.h_chdphi, self.h_mupt,
                     self.h_mueta, self.nmupt, self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
         for hist in histList:
+             gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
+             gStyle.SetStatColor(18)
              hist.SetLineColor(38)
              hist.SetFillColor(38)
              hist.SetLineWidth(2)
@@ -406,10 +422,9 @@ class ExampleDisplacedAnalysis(Module):
              hist.Draw()
              save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
+             hist.Draw()
+             gStyle.SetOptStat(0);
              self.c.Update()
-        #done here, remove stat box
-        gStyle.SetOptStat(0);
-        self.c.Update()
         #DETA
         self.s_deta = ROOT.THStack("s_deta","\\mbox{Total Particle Delta Eta } \\Delta \\eta");
         self.addObject(self.s_deta)
