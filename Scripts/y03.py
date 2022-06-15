@@ -423,14 +423,13 @@ class ExampleDisplacedAnalysis(Module):
              save = "y" + ver + "/" + "y" + ver + "_h_" + hist.GetName() + ".png"
              self.c.SaveAs(save)
              gStyle.SetOptStat(0);
-             hist.Draw()     
              self.c.Update()
         #DETA
         self.s_deta = ROOT.THStack("s_deta","\\mbox{Total Particle Delta Eta } \\Delta \\eta");
         self.addObject(self.s_deta)
         histList_deta = [self.h_chdeta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta]#, self.h_mix_chneu_deta]
-        self.h_chdeta.SetLineColor(102)
-        self.h_chdeta.SetFillColor(102)
+        self.h_chdeta.SetLineColor(kRed+2)
+        self.h_chdeta.SetFillColor(kRed+2)
         self.h_mix_chmu_deta.SetLineColor(128)
         self.h_mix_chmu_deta.SetFillColor(128)
         self.h_mix_chnmu_deta.SetLineColor(95)
