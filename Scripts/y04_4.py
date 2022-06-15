@@ -246,14 +246,9 @@ class ExampleDisplacedAnalysis(Module):
             d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
             if Muon.pt >= 3 and abs(Muon.eta) <= 2.5 and METpt >= 100 and Muon.pt <= 18:
                 Mus.append(Muon)
-                mus2.append(genParts[Muon.genPartIdx])
+                #mus2.append(genParts[Muon.genPartIdx])
                 eventRecorded = True
                 events_passed += 1
-                if d >= 0.01:
-                    filter = [1,2,3,4,5,6,21]
-                    id = abs(findAncestor(findAncestor(genParts[Muon.genPartIdx])).pdgId)
-                    if id not in filter:
-                        print(str(id))
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
