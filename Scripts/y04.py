@@ -258,7 +258,7 @@ class ExampleDisplacedAnalysis(Module):
             if Muon.mediumId == True and Muon.pt >= 3 and Muon.dz <= 10:
                 muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100:
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100 and Muon.pt <= 50:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
@@ -338,7 +338,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistancerest1, self.mupvdistancerest2, self.mupvdistancerest3, self.mupvdistancerest4, self.mupvdistancerest5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.mupvdistancerest1, self.mupvdistancerest2, self.mupvdistancerest3, self.mupvdistancerest4, self.mupvdistancerest5])
+        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low])
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
@@ -384,7 +384,7 @@ class ExampleDisplacedAnalysis(Module):
 
 #preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_pt <= 23"
 #preselection = ""
-preselection = "Jet_pt >= 30 && Muon_pt <= 23"
+preselection = "Jet_pt >= 30 && Muon_pt <= 50"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_180_10.root".format(os.environ['CMSSW_BASE'])] #new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
