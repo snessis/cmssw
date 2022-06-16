@@ -82,6 +82,17 @@ void sattach_y05() {
   TH1F *hnbg_w = new TH1F("bg_Nw", "\\mbox{Number of Events (background)}", 1, 0, 1);
   TH1F *hnbg_tt = new TH1F("bg_Ntt", "\\mbox{Number of Events (background)}", 1, 0, 1);
 
+  double hn1_entries = hn1->GetEntries();
+  double hn2_entries = hn2->GetEntries();
+  double hn3_entries = hn3->GetEntries();
+  double hn4_entries = hn4->GetEntries();
+  double hn5_entries = hn5->GetEntries();
+  double hn6_entries = hn6->GetEntries();
+  double hn7_entries = hn7->GetEntries();
+  double hn8_entries = hn8->GetEntries();
+  double hn9_entries = hn9->GetEntries();
+  double hn10_entries = hn10->GetEntries();
+
   TH1F *mu1 = (TH1F*)f1->Get("plots/mupt");
   TH1F *mu2 = (TH1F*)f2->Get("plots/mupt");
   TH1F *mu3 = (TH1F*)f3->Get("plots/mupt");
