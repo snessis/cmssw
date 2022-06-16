@@ -16,7 +16,8 @@ from pprint import pprint
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 #define values here to print in endJob function call
 events_recorded = 0
-events_passed = 0
+muons_pre_passed = 0
+muons_passed = 0
 events_selected = 0
 events_all = 556249
 locateFinalStates = [13, 14, 1000022]
@@ -73,6 +74,8 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chmu_deta = ROOT.TH1F('mix_chmu_deta', '\\mbox{Chargino-Muon Delta Eta } \\Delta \\eta', 90, 0, 2.5)
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 90, 0, 2.5)
         self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 90, 0, 1)
+        self.h_mix_metjet_dphi = ROOT.TH1F('mix_metjet_dphi', '\\mbox{MET-Jet Delta Phi } \\Delta \\phi',90, 0, 3.1415926)
+        self.h_mix_metjet_dphi_low = ROOT.TH1F('mix_metjet_dphi_low', '\\mbox{MET-Jet Delta Phi } \\Delta \\phi',90, 0, 3.1415926)
         # GRAPH CUSTOMIZATION
         gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         gStyle.SetStatColor(18)
@@ -146,6 +149,10 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chnmu_deta.GetYaxis().SetTitle("Counts")
         self.h_mix_chneu_deta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_mix_chneu_deta.GetYaxis().SetTitle("Counts")
+        self.h_mix_metjet_dphi.GetXaxis().SetTitle("\\Delta \\phi")
+        self.h_mix_metjet_dphi.GetYaxis().SetTitle("Counts")
+        self.h_mix_metjet_dphi_low.GetXaxis().SetTitle("\\Delta \\phi")
+        self.h_mix_metjet_dphi_low.GetYaxis().SetTitle("Counts")
         # ADD HISTOGRAMS
         self.addObject(self.h_metptall)
         self.addObject(self.h_metpt)
@@ -178,6 +185,8 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_chmu_deta)
         self.addObject(self.h_mix_chnmu_deta)
         self.addObject(self.h_mix_chneu_deta)
+        self.addObject(self.h_mix_metjet_dphi)
+        self.addObject(self.h_mix_metjet_dphi_low)
         print("beginJob function ended. Initializing analysis...")
         # TEMPORARY HISTOGRAMS
     def analyze(self, event):
@@ -185,6 +194,7 @@ class ExampleDisplacedAnalysis(Module):
         genParts = Collection(event, "GenPart") #collection
         Jets = Collection(event, "Jet") #collection, given by NanoAODTools
         METpt = getattr(event, "MET_pt") #branch
+        METphi = getattr(event, "MET_phi")
         Muons = Collection(event, "Muon")
         PVx = getattr(event, "PV_x")
         PVy = getattr(event, "PV_y")
@@ -199,7 +209,8 @@ class ExampleDisplacedAnalysis(Module):
         neus = []
         jets = []
         global events_recorded
-        global events_passed
+        global muons_pre_passed
+        global muons_passed
         global events_selected
         eventRecorded = False
         #Function definitions
@@ -243,15 +254,17 @@ class ExampleDisplacedAnalysis(Module):
             if abs(jet.pt) >= 30:
                 jets.append(jet)
         for Muon in Muons:
-            if genParts[Muon.genPartIdx] in mus:
+            #if genParts[Muon.genPartIdx] in mus:
+            if Muon.mediumId == True and Muon.pt >= 3 and Muon.dz <= 10:
+                muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.pt <= 18: # and METpt >= 100:
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
-                    events_passed += 1
+                    muons_passed += 1
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
-        if len(Mus) >= 1:
+        if len(Mus) >= 1 and len(jets) >= 1:
             dists = []
             self.h_metpt.Fill(METpt)
             for Mu in Mus:
@@ -271,8 +284,15 @@ class ExampleDisplacedAnalysis(Module):
                     self.h_mupvdistancerest5.Fill(d)
             if eventRecorded == True:
                 sum = 0
+                lowptJet = jets[0]
                 for jet in jets:
                     sum += jet.pt
+                    dphi = abs(METphi-jet.phi)
+                    self.h_mix_metjet_dphi.Fill(dphi)
+                    if jet.pt < lowptJet:
+                        lowptJet = jet
+                dphi_low = abs(METphi-lowptJet.phi)
+                self.h_mix_metjet_dphi.Fill(dphi_low)
                 d = 0
                 for di in dists:
                     if di >= d:
@@ -309,9 +329,9 @@ class ExampleDisplacedAnalysis(Module):
         #MORE HISTOGRAMS
         #PRINTING
         print("Number of muon channel events: " + str(events_recorded))
-        print("Number of passed entries: " + str(events_passed))
+        print("Number of passed entries: " + str(muons_passed))
         print("Number of events selected: " + str(events_selected))
-        br = (events_passed)/(2.*events_all)
+        br = (muons_passed)/(2.*events_all)
         print("Channel branching ratio: " + str(br))
         print("Printing Histograms...")
         histList_all = ([self.h_metptall, self.h_jetht1, self.h_jetht2, self.h_jetht3, self.h_jetht4, self.h_jetht5, self.h_metpt, self.h_chpt, self.h_cheta,
@@ -366,6 +386,6 @@ class ExampleDisplacedAnalysis(Module):
 #preselection = ""
 preselection = "Jet_pt >= 30 && Muon_pt <= 23"
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_10.root".format(os.environ['CMSSW_BASE'])] #new file!
+files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_180_10.root".format(os.environ['CMSSW_BASE'])] #new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()
