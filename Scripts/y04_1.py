@@ -265,6 +265,9 @@ class ExampleDisplacedAnalysis(Module):
                     mus2.append(genParts[Muon.genPartIdx])
         if len(Mus) == 0:
             return False
+        for jet in Jets:
+            if abs(jet.pt) >= 30:
+                jets.append(jet)    
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1 and len(jets) >= 1:
             for jet in jets:

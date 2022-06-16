@@ -253,8 +253,11 @@ class ExampleDisplacedAnalysis(Module):
         #        continue
         #    init = init + str(abs(id)) + ", "
         #print(init + "endList")
-        if len(mus) == 0:
+        if len(Mus) == 0:
             return False
+        for jet in Jets:
+            if abs(jet.pt) >= 30:
+                jets.append(jet)
         for Muon in Muons:
             #if genParts[Muon.genPartIdx] in mus:
             if Muon.mediumId == True and Muon.tightId == False and Muon.pt >= 3 and Muon.dz <= 10:
