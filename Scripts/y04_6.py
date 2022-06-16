@@ -268,17 +268,19 @@ class ExampleDisplacedAnalysis(Module):
         for jet in Jets:
             if abs(jet.pt) >= 30:
                 jets.append(jet)
+        jets2 = []
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1 and len(jets) >= 1:
             for jet in jets:
                 dphi = abs(METphi-jet.phi)
                 if dphi > 1.7:
                     eventRecorded = True
+                    jets2.append(jet)
             if eventRecorded == True:
-                lowptJet = jets[0]
+                lowptJet = jets2[0]
                 sum = 0
                 dists = []
-                for jet in jets:
+                for jet in jets2:
                     sum += jet.pt
                     dphi = abs(METphi-jet.phi)
                     self.h_mix_metjet_dphi.Fill(dphi)
