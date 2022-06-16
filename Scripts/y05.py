@@ -46,7 +46,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT}', 100, 0, 3600) #component
         self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT}', 100, 0, 3600) #component
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 25)
+        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 75)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 90, -3, 3)
         self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 90, 0, 17)
         self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 90, 0, 17)
@@ -261,6 +261,8 @@ class ExampleDisplacedAnalysis(Module):
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
                     muons_passed += 1
+        if len(Mus) == 0:
+            return False
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1 and len(jets) >= 1:
             dists = []
