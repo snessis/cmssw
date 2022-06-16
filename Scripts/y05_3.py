@@ -262,7 +262,7 @@ class ExampleDisplacedAnalysis(Module):
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
-                    events_passed += 1
+                    muons_passed += 1
                     self.h_N.Fill(1)
         if len(Mus) == 0:
             return False
