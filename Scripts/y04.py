@@ -273,7 +273,7 @@ class ExampleDisplacedAnalysis(Module):
             for jet in jets:
                 sum += jet.pt
                 dphi = abs(METphi-jet.phi)
-                if dphi < 1.7:
+                if dphi > 1.7:
                     eventRecorded = True
                 self.h_mix_metjet_dphi.Fill(dphi)
                 if jet.pt < lowptJet:
