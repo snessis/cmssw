@@ -260,30 +260,29 @@ class ExampleDisplacedAnalysis(Module):
             if Muon.mediumId == True and Muon.tightId == False and Muon.pt >= 3 and Muon.dz <= 10:
                 muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100:
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100 and d >= d4:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
         if len(Mus) == 0:
             return False
-        #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
-        for jet in Jets:
-            if abs(jet.pt) >= 30:
-                jets.append(jet)
+        #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1 and len(jets) >= 1:
-            dists = []
-            sum = 0
-            lowptJet = jets[0]
             for jet in jets:
-                sum += jet.pt
                 dphi = abs(METphi-jet.phi)
                 if dphi > 1.7:
                     eventRecorded = True
-                self.h_mix_metjet_dphi.Fill(dphi)
-                if jet.pt < lowptJet:
-                    lowptJet = jet
-            dphi_low = abs(METphi-lowptJet.phi)
-            self.h_mix_metjet_dphi_low.Fill(dphi_low)
             if eventRecorded == True:
+                lowptJet = jets[0]
+                sum = 0
+                dists = []
+                for jet in jets:
+                    sum += jet.pt
+                    dphi = abs(METphi-jet.phi)
+                    self.h_mix_metjet_dphi.Fill(dphi)
+                    if jet.pt < lowptJet:
+                        lowptJet = jet
+                dphi_low = abs(METphi-lowptJet.phi)
+                self.h_mix_metjet_dphi_low.Fill(dphi_low)
                 events_selected += 1
                 muons_passed += len(Mus)
                 for i in range(1, len(Mus)+1):
