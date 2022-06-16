@@ -38,6 +38,7 @@ class ExampleDisplacedAnalysis(Module):
         # GENERAL
         self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Transverse Momentum, all events (MET)}', 90, 0, 700)
         self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Transverse Momentum, muon channel (MET)}', 90, 0, 700)
+        self.h_N = ROOT.TH1F('N', '\\mbox{Number of Events}', 1, 0, 1)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
         self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT}', 100, 0, 3600) #component
@@ -187,6 +188,7 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_chneu_deta)
         self.addObject(self.h_mix_metjet_dphi)
         self.addObject(self.h_mix_metjet_dphi_low)
+        self.addObject(self.h_N)
         print("beginJob function ended. Initializing analysis...")
         # TEMPORARY HISTOGRAMS
     def analyze(self, event):
@@ -255,7 +257,7 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         for Muon in Muons:
             #if genParts[Muon.genPartIdx] in mus:
-            if Muon.mediumId == True and Muon.pt >= 3 and Muon.dz <= 10:
+            if Muon.mediumId == True and Muon.tightId == False and Muon.pt >= 3 and Muon.dz <= 10:
                 muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
                 if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100:
@@ -263,6 +265,7 @@ class ExampleDisplacedAnalysis(Module):
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
                     muons_passed += 1
+                    self.h_N.Fill(1)
         if len(Mus) == 0:
             return False
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
@@ -330,11 +333,10 @@ class ExampleDisplacedAnalysis(Module):
         #self.mupvdistancerest1.Fit(fit_mupvdistancerest)
         #MORE HISTOGRAMS
         #PRINTING
-        print("Number of muon channel events: " + str(events_recorded))
-        print("Number of passed entries: " + str(muons_passed))
-        print("Number of events selected: " + str(events_selected))
-        br = (muons_passed)/(2.*events_all)
-        print("Channel branching ratio: " + str(br))
+        print("Number of recorded events " + str(events_recorded))
+        print("Number of pre-reco muons: " + str(muons_passed))
+        print("Number of reco muons: " + str(muons_passed))
+        print("Number of events selected (pre-analysis): " + str(events_selected))
         print("Printing Histograms...")
         histList_all = ([self.h_metptall, self.h_jetht1, self.h_jetht2, self.h_jetht3, self.h_jetht4, self.h_jetht5, self.h_metpt, self.h_chpt, self.h_cheta,
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,

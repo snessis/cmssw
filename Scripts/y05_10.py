@@ -22,7 +22,7 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0
+d1 = 0.14
 d2 = 0.15
 d3 = 0.16
 d4 = 0.17
@@ -37,6 +37,7 @@ class ExampleDisplacedAnalysis(Module):
         # GENERAL
         self.h_metptall = ROOT.TH1F('metptall', '\\mbox{Missing Transverse Momentum, all events (MET)}', 90, 0, 700)
         self.h_metpt = ROOT.TH1F('metpt', '\\mbox{Missing Transverse Momentum, muon channel (MET)}', 90, 0, 700)
+        self.h_N = ROOT.TH1F('N', '\\mbox{Number of Events}', 1, 0, 1)
         # PARTICLE SPECIFIC - SEE https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
         # JETS
         self.h_jetht1 = ROOT.TH1F('jetht1', '\\mbox{Jet HT}', 100, 0, 3600) #component
@@ -186,6 +187,7 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_chneu_deta)
         self.addObject(self.h_mix_metjet_dphi)
         self.addObject(self.h_mix_metjet_dphi_low)
+        self.addObject(self.h_N)
         print("beginJob function ended. Initializing analysis...")
         # TEMPORARY HISTOGRAMS
     def analyze(self, event):
@@ -254,15 +256,14 @@ class ExampleDisplacedAnalysis(Module):
         if len(mus) == 0:
             return False
         for Muon in Muons:
-            #if genParts[Muon.genPartIdx] in mus:
-            if Muon.mediumId == True and Muon.pt >= 3 and Muon.dz <= 10:
-                muons_pre_passed += 1
+            if genParts[Muon.genPartIdx] in mus:
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100:
+                if METpt >= 100:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
                     eventRecorded = True
-                    muons_passed += 1
+                    events_passed += 1
+                    self.h_N.Fill(1)
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
@@ -328,6 +329,7 @@ class ExampleDisplacedAnalysis(Module):
         #self.mupvdistancerest1.Fit(fit_mupvdistancerest)
         #PRINTING
         print("Number of recorded events " + str(events_recorded))
+        print("Number of pre-reco muons: " + str(muons_passed))
         print("Number of reco muons: " + str(muons_passed))
         print("Number of events selected (pre-analysis): " + str(events_selected))
         print("Printing Histograms...")
