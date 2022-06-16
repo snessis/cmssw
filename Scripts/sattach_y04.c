@@ -67,6 +67,34 @@ void sattach_y04() {
   TH1F *metch = (TH1F*)fch->Get("plots/metpt");
   TH1F *metbg = new TH1F("bg_met", "\\mbox{MET (background)}", 90, 0, 700);
 
+  TH1F *hn1 = (TH1F*)f1->Get("plots/N");
+  TH1F *hn2 = (TH1F*)f2->Get("plots/N");
+  TH1F *hn3 = (TH1F*)f3->Get("plots/N");
+  TH1F *hn4 = (TH1F*)f4->Get("plots/N");
+  TH1F *hn5 = (TH1F*)f5->Get("plots/N");
+  TH1F *hn6 = (TH1F*)f6->Get("plots/N");
+  TH1F *hn7 = (TH1F*)f7->Get("plots/N");
+  TH1F *hn8 = (TH1F*)f8->Get("plots/N");
+  TH1F *hn9 = (TH1F*)f9->Get("plots/N");
+  TH1F *hn10 = (TH1F*)f10->Get("plots/N");
+  TH1F *hnch = (TH1F*)fch->Get("plots/N");
+  TH1F *hnbg = new TH1F("bg_N", "\\mbox{Number of Events (background)}", 1, 0, 1);
+  TH1F *hnbg_w = new TH1F("bg_Nw", "\\mbox{Number of Events (background)}", 1, 0, 1);
+  TH1F *hnbg_tt = new TH1F("bg_Ntt", "\\mbox{Number of Events (background)}", 1, 0, 1);
+
+  TH1F *mu1 = (TH1F*)f1->Get("plots/mupt");
+  TH1F *mu2 = (TH1F*)f2->Get("plots/mupt");
+  TH1F *mu3 = (TH1F*)f3->Get("plots/mupt");
+  TH1F *mu4 = (TH1F*)f4->Get("plots/mupt");
+  TH1F *mu5 = (TH1F*)f5->Get("plots/mupt");
+  TH1F *mu6 = (TH1F*)f6->Get("plots/mupt");
+  TH1F *mu7 = (TH1F*)f7->Get("plots/mupt");
+  TH1F *mu8 = (TH1F*)f8->Get("plots/mupt");
+  TH1F *mu9 = (TH1F*)f9->Get("plots/mupt");
+  TH1F *mu10 = (TH1F*)f10->Get("plots/mupt");
+  TH1F *much = (TH1F*)fch->Get("plots/mupt");
+  TH1F *mubg = new TH1F("bg_mupt", "\\mbox{Muon pt (background)}", 90, 0, 350);
+
   TH1F *h1_1 = (TH1F*)f1->Get("plots/jetht1");
   TH1F *h2_1 = (TH1F*)f2->Get("plots/jetht1");
   TH1F *h3_1 = (TH1F*)f3->Get("plots/jetht1");
@@ -149,6 +177,30 @@ void sattach_y04() {
   met10->Scale(1/N10*XSEC10*L*SF10*BR);
   metch->Scale(1/N*XSECCH*L*SFCH*BR);
 
+  hn1->Scale(1/N1*XSEC1*L*SF1*BR);
+  hn2->Scale(1/N2*XSEC2*L*SF2*BR);
+  hn3->Scale(1/N3*XSEC3*L*SF3*BR);
+  hn4->Scale(1/N4*XSEC4*L*SF4*BR);
+  hn5->Scale(1/N5*XSEC5*L*SF5*BR);
+  hn6->Scale(1/N6*XSEC6*L*SF6*BR);
+  hn7->Scale(1/N7*XSEC7*L*SF7*BR);
+  hn8->Scale(1/N8*XSEC8*L*SF8*BR);
+  hn9->Scale(1/N9*XSEC9*L*SF9*BR);
+  hn10->Scale(1/N10*XSEC10*L*SF10*BR);
+  hnch->Scale(1/N*XSECCH*L*SFCH*BR);
+
+  mu1->Scale(1/N1*XSEC1*L*SF1*BR);
+  mu2->Scale(1/N2*XSEC2*L*SF2*BR);
+  mu3->Scale(1/N3*XSEC3*L*SF3*BR);
+  mu4->Scale(1/N4*XSEC4*L*SF4*BR);
+  mu5->Scale(1/N5*XSEC5*L*SF5*BR);
+  mu6->Scale(1/N6*XSEC6*L*SF6*BR);
+  mu7->Scale(1/N7*XSEC7*L*SF7*BR);
+  mu8->Scale(1/N8*XSEC8*L*SF8*BR);
+  mu9->Scale(1/N9*XSEC9*L*SF9*BR);
+  mu10->Scale(1/N10*XSEC10*L*SF10*BR);
+  much->Scale(1/N*XSECCH*L*SFCH*BR);
+
   h1_1->Scale(1/N1*XSEC1*L*SF1*BR);
   h2_1->Scale(1/N2*XSEC2*L*SF2*BR);
   h3_1->Scale(1/N3*XSEC3*L*SF3*BR);
@@ -219,6 +271,39 @@ void sattach_y04() {
   metbg->Add(met8);
   metbg->Add(met9);
   metbg->Add(met10);
+
+  hnbg->Add(hn1);
+  hnbg->Add(hn2);
+  hnbg->Add(hn3);
+  hnbg->Add(hn4);
+  hnbg->Add(hn5);
+  hnbg->Add(hn6);
+  hnbg->Add(hn7);
+  hnbg->Add(hn8);
+  hnbg->Add(hn9);
+  hnbg->Add(hn10);
+
+  hnbg_w->Add(hn1);
+  hnbg_w->Add(hn2);
+  hnbg_w->Add(hn3);
+  hnbg_w->Add(hn4);
+  hnbg_w->Add(hn5);
+  hnbg_w->Add(hn6);
+  hnbg_w->Add(hn7);
+  hnbg_tt->Add(hn8);
+  hnbg_tt->Add(hn9);
+  hnbg_tt->Add(hn10);
+
+  mubg->Add(mu1);
+  mubg->Add(mu2);
+  mubg->Add(mu3);
+  mubg->Add(mu4);
+  mubg->Add(mu5);
+  mubg->Add(mu6);
+  mubg->Add(mu7);
+  mubg->Add(mu8);
+  mubg->Add(mu9);
+  mubg->Add(mu10);
 
   hbg_1->Add(h1_1);
   hbg_1->Add(h2_1);
@@ -302,8 +387,14 @@ void sattach_y04() {
   double htotal_5_area = htotal_5->Integral();
   double metbg_area = metbg->Integral();
   double metch_area = metch->Integral();
+  double mubg_area = mubg->Integral();
+  double hnbg_area = hnbg->Integral();
+  double hnbg_w_area = hnbg->Integral();
+  double hnbg_tt_area = hnbg->Integral();
+  double hnch_area = hnch->Integral();
 
   cout << "MET integral background = " << metbg_area << endl;
+  cout << "Muon pt integral background = " << mubg_area << endl;
   cout << "HT integral background (d1) = " << hbg_1_area << endl;
   cout << "HT integral background (d2) = " << hbg_2_area << endl;
   cout << "HT integral background (d3) = " << hbg_3_area << endl;
@@ -325,8 +416,13 @@ void sattach_y04() {
   cout << "Chargino Signal event / Total Signal event ratio (d3), % = " << hch_3_area / htotal_3_area * 100 << endl;
   cout << "Chargino Signal event / Total Signal event ratio (d4), % = " << hch_4_area / htotal_4_area * 100 << endl;
   cout << "Chargino Signal event / Total Signal event ratio (d5), % = " << hch_5_area / htotal_5_area * 100 << endl;
-  
-  TCanvas* c = new TCanvas("canv", "The Canvas (post-analysis)", 1200, 800);
+  cout << "-----" << endl;
+  cout << "Chargino Physical Events (best accuracy) = " << hnch_area << endl;
+  cout << "Background Total Physical Events (best accuracy) = " << hnbg_area << endl;
+  cout << "Background WJets Physical Events (best accuracy) = " << hnbg_w_area << endl;
+  cout << "Background TTJets Physical Events (best accuracy) = " << hnbg_tt_area << endl;
+
+  TCanvas* c = new TCanvas("canv_y04", "The Canvas (post-analysis)", 1200, 800);
   gStyle->SetOptStat(1110);
   gStyle->SetStatColor(18);
   metch->SetLineColor(38);
