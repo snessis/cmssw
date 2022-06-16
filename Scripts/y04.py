@@ -23,11 +23,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.1
-d2 = 0.13
-d3 = 0.16
-d4 = 0.19
-d5 = 0.23
+d1 = 0.2
+d2 = 0.3
+d3 = 0.4
+d4 = 0.5
+d5 = 0.6
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -260,12 +260,12 @@ class ExampleDisplacedAnalysis(Module):
             if Muon.mediumId == True and Muon.tightId == False and Muon.pt >= 3 and Muon.dz <= 10:
                 muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100 and d >= d4:
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100 and d >= d1:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
         if len(Mus) == 0:
             return False
-        jets2 =[]    
+        jets2 =[]
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1 and len(jets) >= 1:
             for jet in jets:
@@ -295,6 +295,16 @@ class ExampleDisplacedAnalysis(Module):
                     dists.append(d)
                     self.h_mupt.Fill(Mu.pt)
                     self.h_mueta.Fill(Mu.eta)
+                    if d >= d1:
+                        self.h_mupvdistancerest1.Fill(d)
+                    if d >= d2:
+                        self.h_mupvdistancerest2.Fill(d)
+                    if d >= d3:
+                        self.h_mupvdistancerest3.Fill(d)
+                    if d >= d4:
+                        self.h_mupvdistancerest4.Fill(d)
+                    if d >= d5:
+                        self.h_mupvdistancerest5.Fill(d)
                 d = 0
                 for di in dists:
                     if di >= d:

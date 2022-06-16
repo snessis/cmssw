@@ -16,7 +16,7 @@ void sattach_y04() {
   double N8 = 4500552; //Dilepton
   double N9 = 3977039; //tt
   double N10 = 4164133; //ttbar
-  double N = 556249; // 200_195_10
+  double N = 528605; // 200_195_10
   double XSEC1 = 1395*1.17*1000;
   double XSEC2 = 408.7*1.17*1000;
   double XSEC3 = 57.52*1.17*1000;
