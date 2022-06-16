@@ -22,11 +22,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.14
-d2 = 0.15
+d1 = 0.1
+d2 = 0.13
 d3 = 0.16
-d4 = 0.17
-d5 = 0.18
+d4 = 0.19
+d5 = 0.23
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -263,58 +263,61 @@ class ExampleDisplacedAnalysis(Module):
                 if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
-                    eventRecorded = True
-                    muons_passed += 1
-                    self.h_N.Fill(1)
         if len(Mus) == 0:
             return False
         #print("gen muons: " + str(len(mus)) + ", reco muons: " + str(len(Mus)) + ", gen mus2: "+ str(len(mus2)))
         for jet in Jets:
             if abs(jet.pt) >= 30:
                 jets.append(jet)
-        dists = []
-        for Mu in Mus:
-            d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
-            dists.append(d)
-            self.h_mupt.Fill(Mu.pt)
-            self.h_mueta.Fill(Mu.eta)
-            if d >= d1:
-                self.h_mupvdistancerest1.Fill(d)
-            if d >= d2:
-                self.h_mupvdistancerest2.Fill(d)
-            if d >= d3:
-                self.h_mupvdistancerest3.Fill(d)
-            if d >= d4:
-                self.h_mupvdistancerest4.Fill(d)
-            if d >= d5:
-                self.h_mupvdistancerest5.Fill(d)
-        if eventRecorded == True:
-            self.h_metpt.Fill(METpt)
-            events_recorded += 1
+        if len(Mus) >= 1 and len(jets) >= 1:
+            dists = []
             sum = 0
             lowptJet = jets[0]
             for jet in jets:
                 sum += jet.pt
                 dphi = abs(METphi-jet.phi)
+                if dphi < 1.7:
+                    eventRecorded = True
                 self.h_mix_metjet_dphi.Fill(dphi)
                 if jet.pt < lowptJet:
                     lowptJet = jet
             dphi_low = abs(METphi-lowptJet.phi)
             self.h_mix_metjet_dphi_low.Fill(dphi_low)
-            d = 0
-            for di in dists:
-                if di >= d:
-                    d = di
-            if d >= d1:
-                self.h_jetht1.Fill(sum)
-            if d >= d2:
-                self.h_jetht2.Fill(sum)
-            if d >= d3:
-                self.h_jetht3.Fill(sum)
-            if d >= d4:
-                self.h_jetht4.Fill(sum)
-            if d >= d5:
-                self.h_jetht5.Fill(sum)
+            if eventRecorded == True:
+                events_selected += 1
+                muons_passed += len(Mus)
+                for i in range(1, len(Mus)+1):
+                    self.h_N.Fill(1)
+                self.h_metpt.Fill(METpt)
+                for Mu in Mus:
+                    d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
+                    dists.append(d)
+                    self.h_mupt.Fill(Mu.pt)
+                    self.h_mueta.Fill(Mu.eta)
+                    if d >= d1:
+                        self.h_mupvdistancerest1.Fill(d)
+                    if d >= d2:
+                        self.h_mupvdistancerest2.Fill(d)
+                    if d >= d3:
+                        self.h_mupvdistancerest3.Fill(d)
+                    if d >= d4:
+                        self.h_mupvdistancerest4.Fill(d)
+                    if d >= d5:
+                        self.h_mupvdistancerest5.Fill(d)
+                d = 0
+                for di in dists:
+                    if di >= d:
+                        d = di
+                if d >= d1:
+                    self.h_jetht1.Fill(sum)
+                if d >= d2:
+                    self.h_jetht2.Fill(sum)
+                if d >= d3:
+                    self.h_jetht3.Fill(sum)
+                if d >= d4:
+                    self.h_jetht4.Fill(sum)
+                if d >= d5:
+                    self.h_jetht5.Fill(sum)
         #analysis ends here: return True
         return True
 
@@ -339,7 +342,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistancerest1, self.mupvdistancerest2, self.mupvdistancerest3, self.mupvdistancerest4, self.mupvdistancerest5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low])
+        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low, self.h_jetht2])
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
