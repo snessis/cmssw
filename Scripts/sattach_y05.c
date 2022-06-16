@@ -82,16 +82,20 @@ void sattach_y05() {
   TH1F *hnbg_w = new TH1F("bg_Nw", "\\mbox{Number of Events (background)}", 1, 0, 1);
   TH1F *hnbg_tt = new TH1F("bg_Ntt", "\\mbox{Number of Events (background)}", 1, 0, 1);
 
-  double hn1_entries = hn1->GetEntries();
-  double hn2_entries = hn2->GetEntries();
-  double hn3_entries = hn3->GetEntries();
-  double hn4_entries = hn4->GetEntries();
-  double hn5_entries = hn5->GetEntries();
-  double hn6_entries = hn6->GetEntries();
-  double hn7_entries = hn7->GetEntries();
-  double hn8_entries = hn8->GetEntries();
-  double hn9_entries = hn9->GetEntries();
-  double hn10_entries = hn10->GetEntries();
+  double hn1_entries = hn1->GetEntries()*1/N1*XSEC1*L*SF1*BR;
+  double hn2_entries = hn2->GetEntries()*1/N2*XSEC2*L*SF2*BR;
+  double hn3_entries = hn3->GetEntries()*1/N3*XSEC3*L*SF3*BR;
+  double hn4_entries = hn4->GetEntries()*1/N4*XSEC4*L*SF4*BR;
+  double hn5_entries = hn5->GetEntries()*1/N5*XSEC5*L*SF5*BR;
+  double hn6_entries = hn6->GetEntries()*1/N6*XSEC6*L*SF6*BR;
+  double hn7_entries = hn7->GetEntries()*1/N7*XSEC7*L*SF7*BR;
+  double hn8_entries = hn8->GetEntries()*1/N8*XSEC8*L*SF8*BR;
+  double hn9_entries = hn9->GetEntries()*1/N9*XSEC9*L*SF9*BR;
+  double hn10_entries = hn10->GetEntries()*1/N10*XSEC10*L*SF10*BR;
+  double hnch_entries = hnch->GetEntries()*1/N*XSECCH*L*SFCH*BR;
+  double hnbg_entries = 0;
+  double hnbg_w_entries = 0;
+  double hnbg_tt_entries = 0;
 
   TH1F *mu1 = (TH1F*)f1->Get("plots/mupt");
   TH1F *mu2 = (TH1F*)f2->Get("plots/mupt");
@@ -305,6 +309,27 @@ void sattach_y05() {
   hnbg_tt->Add(hn9);
   hnbg_tt->Add(hn10);
 
+  hnbg_entries += hn1_entries;
+  hnbg_entries += hn2_entries;
+  hnbg_entries += hn3_entries;
+  hnbg_entries += hn4_entries;
+  hnbg_entries += hn5_entries;
+  hnbg_entries += hn6_entries;
+  hnbg_entries += hn7_entries;
+  hnbg_entries += hn8_entries;
+  hnbg_entries += hn9_entries;
+  hnbg_entries += hn10_entries;
+  hnbg_w_entries += hn1_entries;
+  hnbg_w_entries += hn2_entries;
+  hnbg_w_entries += hn3_entries;
+  hnbg_w_entries += hn4_entries;
+  hnbg_w_entries += hn5_entries;
+  hnbg_w_entries += hn6_entries;
+  hnbg_w_entries += hn7_entries;
+  hnbg_tt_entries += hn8_entries;
+  hnbg_tt_entries += hn9_entries;
+  hnbg_tt_entries += hn10_entries;
+
   mubg->Add(mu1);
   mubg->Add(mu2);
   mubg->Add(mu3);
@@ -428,10 +453,10 @@ void sattach_y05() {
   cout << "Chargino Signal event / Total Signal event ratio (d4), % = " << hch_4_area / htotal_4_area * 100 << endl;
   cout << "Chargino Signal event / Total Signal event ratio (d5), % = " << hch_5_area / htotal_5_area * 100 << endl;
   cout << "-----" << endl;
-  cout << "Chargino Physical Events (best accuracy) = " << hnch_area << endl;
-  cout << "Background Total Physical Events (best accuracy) = " << hnbg_area << endl;
-  cout << "Background WJets Physical Events (best accuracy) = " << hnbg_w_area << endl;
-  cout << "Background TTJets Physical Events (best accuracy) = " << hnbg_tt_area << endl;
+  cout << "Chargino Physical Events (best accuracy) = " << hnch_entries << endl;
+  cout << "Background Total Physical Events (best accuracy) = " << hnbg_entries<< endl;
+  cout << "Background WJets Physical Events (best accuracy) = " << hnbg_w_entries << endl;
+  cout << "Background TTJets Physical Events (best accuracy) = " << hnbg_tt_entries << endl;
 
   TCanvas* c = new TCanvas("canv_y05", "The Canvas (post-analysis)", 1200, 800);
   gStyle->SetOptStat(1110);
