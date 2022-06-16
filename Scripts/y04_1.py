@@ -288,7 +288,6 @@ class ExampleDisplacedAnalysis(Module):
                 muons_passed += len(Mus)
                 for i in range(1, len(Mus)+1):
                     self.h_N.Fill(1)
-                    print("Mus len, i" + str(len(Mus)) + ", " + str(i))
                 self.h_metpt.Fill(METpt)
                 for Mu in Mus:
                     d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
