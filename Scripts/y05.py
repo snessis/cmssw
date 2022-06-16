@@ -290,7 +290,7 @@ class ExampleDisplacedAnalysis(Module):
                     if jet.pt < lowptJet:
                         lowptJet = jet
                 dphi_low = abs(METphi-lowptJet.phi)
-                self.h_mix_metjet_dphi.Fill(dphi_low)
+                self.h_mix_metjet_dphi_low.Fill(dphi_low)
                 d = 0
                 for di in dists:
                     if di >= d:
@@ -380,7 +380,7 @@ class ExampleDisplacedAnalysis(Module):
         #ETA
         Module.endJob(self)
 
-preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_pt <= 50"
+preselection = "MET_pt >= 100 && Jet_pt >= 30"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
 files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_180_10.root".format(os.environ['CMSSW_BASE'])] #new file!

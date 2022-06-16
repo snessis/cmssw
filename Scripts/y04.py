@@ -292,7 +292,7 @@ class ExampleDisplacedAnalysis(Module):
                     if jet.pt < lowptJet:
                         lowptJet = jet
                 dphi_low = abs(METphi-lowptJet.phi)
-                self.h_mix_metjet_dphi.Fill(dphi_low)
+                self.h_mix_metjet_dphi_low.Fill(dphi_low)
                 d = 0
                 for di in dists:
                     if di >= d:
