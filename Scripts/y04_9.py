@@ -22,11 +22,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.05
-d2 = 0.1
-d3 = 0.2
-d4 = 0.5
-d5 = 0.75
+d1 = 0.1
+d2 = 0.13
+d3 = 0.16
+d4 = 0.19
+d5 = 0.22
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -46,7 +46,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_jetht4 = ROOT.TH1F('jetht4', '\\mbox{Jet HT}', 100, 0, 3600) #component
         self.h_jetht5 = ROOT.TH1F('jetht5', '\\mbox{Jet HT}', 100, 0, 3600) #component
         # 13 - MUON
-        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 100)
+        self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 75)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 90, -2.5, 2.5)
         self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 90, 0, 17)
         self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 90, 0, 17)
@@ -257,7 +257,7 @@ class ExampleDisplacedAnalysis(Module):
             return False
         for Muon in Muons:
             #if genParts[Muon.genPartIdx] in mus:
-            if Muon.mediumId == True and Muon.tightId == False and Muon.pt >= 3 and Muon.dz <= 10:
+            if Muon.mediumId == True and Muon.pt >= 3 and Muon.dz <= 10: #and Muon.tightId == False
                 muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
                 if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100 and d >= d1:
