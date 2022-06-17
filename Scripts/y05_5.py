@@ -22,11 +22,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.14
-d2 = 0.15
-d3 = 0.16
-d4 = 0.17
-d5 = 0.18
+d1 = 0
+d2 = 0
+d3 = 0
+d4 = 0
+d5 = 0
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -48,11 +48,11 @@ class ExampleDisplacedAnalysis(Module):
         # 13 - MUON
         self.h_mupt = ROOT.TH1F('mupt', '\\mbox{Muon Transverse Momentum } p_t', 90, 0, 100)
         self.h_mueta = ROOT.TH1F('mueta', '\\mbox{Muon Pseudorapidity } \\eta', 90, -2.5, 2.5)
-        self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 90, 0, 5)
-        self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 90, 0, 5)
-        self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 90, 0, 5)
-        self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 90, 0, 5)
-        self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 90, 0, 5)
+        self.h_mupvdistancerest1 = ROOT.TH1F('mupvdistancerest1', '\\mbox{Muon-PV Distance (Lab Frame) } d_1', 90, 0, 17)
+        self.h_mupvdistancerest2 = ROOT.TH1F('mupvdistancerest2', '\\mbox{Muon-PV Distance (Lab Frame) } d_2', 90, 0, 17)
+        self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 90, 0, 17)
+        self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 90, 0, 17)
+        self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 90, 0, 17)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 90, 0, 25)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 90, -6, 6)
