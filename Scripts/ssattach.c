@@ -655,27 +655,27 @@ void ssattach() {
   cout << "y05-y04: Chargino Cut Efficiency % (d1) = " << (svch_entries_1- pvch_entries_1) / svch_entries_1 * 100 << endl;
   cout << "y05-y04: Background Total Cut Efficiency % (d1)= " << (svbg_entries_1 - pvbg_entries_1) / svbg_entries_1 * 100 << endl;
   cout << "y05-y04: Background WJets Cut Efficiency % (d1) = " << (svbg_w_entries_1 - pvbg_w_entries_1) / svbg_w_entries_1 * 100 << endl;
-  cout << "y05-y04: Background TTJets Cut Efficiency % (d1) = " << (svbg_tt_entries_1 - pvbg_tt_entries_1) / pvbg_tt_entries_1 * 100 << endl;
+  cout << "y05-y04: Background TTJets Cut Efficiency % (d1) = " << (svbg_tt_entries_1 - pvbg_tt_entries_1) / svbg_tt_entries_1 * 100 << endl;
   cout << "-----" << endl;
   cout << "y05-y04: Chargino Cut Efficiency % (d2) = " << (svch_entries_2- pvch_entries_2) / svch_entries_2 * 100 << endl;
   cout << "y05-y04: Background Total Cut Efficiency % (d2)= " << (svbg_entries_2 - pvbg_entries_2) / svbg_entries_2 * 100 << endl;
   cout << "y05-y04: Background WJets Cut Efficiency % (d2) = " << (svbg_w_entries_2 - pvbg_w_entries_2) / svbg_w_entries_2 * 100 << endl;
-  cout << "y05-y04: Background TTJets Cut Efficiency % (d2) = " << (svbg_tt_entries_2 - pvbg_tt_entries_2) / pvbg_tt_entries_2 * 100 << endl;
+  cout << "y05-y04: Background TTJets Cut Efficiency % (d2) = " << (svbg_tt_entries_2 - pvbg_tt_entries_2) / svbg_tt_entries_2 * 100 << endl;
   cout << "-----" << endl;
   cout << "y05-y04: Chargino Cut Efficiency % (d3) = " << (svch_entries_3- pvch_entries_3) / svch_entries_3 * 100 << endl;
   cout << "y05-y04: Background Total Cut Efficiency % (d3)= " << (svbg_entries_3 - pvbg_entries_3) / svbg_entries_3 * 100 << endl;
   cout << "y05-y04: Background WJets Cut Efficiency % (d3) = " << (svbg_w_entries_3 - pvbg_w_entries_3) / svbg_w_entries_3 * 100 << endl;
-  cout << "y05-y04: Background TTJets Cut Efficiency % (d3) = " << (svbg_tt_entries_3 - pvbg_tt_entries_3) / pvbg_tt_entries_3 * 100 << endl;
+  cout << "y05-y04: Background TTJets Cut Efficiency % (d3) = " << (svbg_tt_entries_3 - pvbg_tt_entries_3) / svbg_tt_entries_3 * 100 << endl;
   cout << "-----" << endl;
   cout << "y05-y04: Chargino Cut Efficiency % (d4) = " << (svch_entries_4- pvch_entries_4) / svch_entries_4 * 100 << endl;
   cout << "y05-y04: Background Total Cut Efficiency % (d4)= " << (svbg_entries_4 - pvbg_entries_4) / svbg_entries_4 * 100 << endl;
   cout << "y05-y04: Background WJets Cut Efficiency % (d4) = " << (svbg_w_entries_4 - pvbg_w_entries_4) / svbg_w_entries_4 * 100 << endl;
-  cout << "y05-y04: Background TTJets Cut Efficiency % (d4) = " << (svbg_tt_entries_4 - pvbg_tt_entries_4) / pvbg_tt_entries_4 * 100 << endl;
+  cout << "y05-y04: Background TTJets Cut Efficiency % (d4) = " << (svbg_tt_entries_4 - pvbg_tt_entries_4) / svbg_tt_entries_4 * 100 << endl;
   cout << "-----" << endl;
   cout << "y05-y04: Chargino Cut Efficiency % (d5) = " << (svch_entries_5- pvch_entries_5) / svch_entries_5 * 100 << endl;
   cout << "y05-y04: Background Total Cut Efficiency % (d5)= " << (svbg_entries_5 - pvbg_entries_5) / svbg_entries_5 * 100 << endl;
   cout << "y05-y04: Background WJets Cut Efficiency % (d5) = " << (svbg_w_entries_5 - pvbg_w_entries_5) / svbg_w_entries_5 * 100 << endl;
-  cout << "y05-y04: Background TTJets Cut Efficiency % (d5) = " << (svbg_tt_entries_5 - pvbg_tt_entries_5) / pvbg_tt_entries_5 * 100 << endl;
+  cout << "y05-y04: Background TTJets Cut Efficiency % (d5) = " << (svbg_tt_entries_5 - pvbg_tt_entries_5) / svbg_tt_entries_5 * 100 << endl;
 
 
 }
