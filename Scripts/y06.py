@@ -284,7 +284,7 @@ class ExampleDisplacedAnalysis(Module):
                 if dphi > 1.7:
                     eventRecorded = True
             if eventRecorded == True:
-                lowptJet = jets2[0]
+                lowptJet = jets[0]
                 sum = 0
                 dists = []
                 for jet in jets:
