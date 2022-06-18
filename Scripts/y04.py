@@ -23,11 +23,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.1
-d2 = 0.125
-d3 = 0.15
-d4 = 0.175
-d5 = 0.2
+d1 = 0.2
+d2 = 0.225
+d3 = 0.25
+d4 = 0.275
+d5 = 0.3
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -272,7 +272,7 @@ class ExampleDisplacedAnalysis(Module):
             if Muon.mediumId == True: #and Muon.tightId == False
                 muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= d1 and abs(Muon.dz) <= 6:
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= d1 and abs(Muon.dz) <= 5:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
         if len(Mus) == 0:
