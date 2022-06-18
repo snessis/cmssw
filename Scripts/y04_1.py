@@ -272,7 +272,7 @@ class ExampleDisplacedAnalysis(Module):
             if Muon.mediumId == True: #and Muon.tightId == False
                 muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= d1:
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= d1 and abs(Muon.dz) <= 6:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
         if len(Mus) == 0:
