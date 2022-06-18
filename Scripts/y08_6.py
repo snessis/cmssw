@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-ver = "04_8"
+ver = "08_6"
 #cuts: met>=100, >=1 muons, muonpt >= 4, muoneta <=2.5
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
@@ -22,11 +22,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.1
-d2 = 0.125
-d3 = 0.15
-d4 = 0.175
-d5 = 0.2
+d1 = 0
+d2 = 0
+d3 = 0
+d4 = 0
+d5 = 0
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -418,6 +418,6 @@ class ExampleDisplacedAnalysis(Module):
 preselection = "MET_pt >= 100 && Jet_pt >= 30"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/TTJets_DiLepton.root".format(os.environ['CMSSW_BASE'])])
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT1200to2500.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()

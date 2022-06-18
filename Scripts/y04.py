@@ -23,11 +23,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.2
-d2 = 0.3
-d3 = 0.4
-d4 = 0.5
-d5 = 0.6
+d1 = 0.1
+d2 = 0.125
+d3 = 0.15
+d4 = 0.175
+d5 = 0.2
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -54,6 +54,9 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 90, 0, 17)
         self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 90, 0, 17)
         self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 90, 0, 17)
+        self.h_mud = ROOT.TH1F('mud', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
+        self.h_mudxy = ROOT.TH1F('mudxy', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
+        self.h_mudz = ROOT.TH1F('mudz', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 90, 0, 25)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 90, -6, 6)
@@ -76,7 +79,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mix_chnmu_deta = ROOT.TH1F('mix_chnmu_deta', '\\mbox{Chargino-Muon Neutrino Delta Eta } \\Delta \\eta', 90, 0, 2.5)
         self.h_mix_chneu_deta = ROOT.TH1F('mix_chneu_deta', '\\mbox{Chargino-Neutralino Delta Eta } \\Delta \\eta', 90, 0, 1)
         self.h_mix_metjet_dphi = ROOT.TH1F('mix_metjet_dphi', '\\mbox{MET-Jet Delta Phi } \\Delta \\phi',90, 0, 3.1415926)
-        self.h_mix_metjet_dphi_low = ROOT.TH1F('mix_metjet_dphi_low', '\\mbox{MET-Jet Delta Phi } \\Delta \\phi',90, 0, 3.1415926)
+        self.h_mix_metjet_dphi_low = ROOT.TH1F('mix_metjet_dphi_low', '\\mbox{MET-Jet Delta Phi (low pt jet)} \\Delta \\phi',90, 0, 3.1415926)
         # GRAPH CUSTOMIZATION
         gStyle.SetOptStat(1110) #see https://root.cern.ch/doc/master/classTStyle.html#a0ae6f6044b6d7a32756d7e98bb210d6c
         gStyle.SetStatColor(18)
@@ -102,6 +105,12 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupt.GetYaxis().SetTitle("Counts")
         self.h_mueta.GetXaxis().SetTitle("\\eta")
         self.h_mueta.GetYaxis().SetTitle("Counts")
+        self.h_mud.GetXaxis().SetTitle("d (dm)")
+        self.h_mud.GetYaxis().SetTitle("Counts")
+        self.h_mudxy.GetXaxis().SetTitle("dxy (dm)")
+        self.h_mudxy.GetYaxis().SetTitle("Counts")
+        self.h_mudz.GetXaxis().SetTitle("dz (dm)")
+        self.h_mudz.GetYaxis().SetTitle("Counts")
         self.h_mupvdistancerest1.GetXaxis().SetTitle("l (dm)")
         self.h_mupvdistancerest1.GetYaxis().SetTitle("Counts")
         self.h_mupvdistancerest2.GetXaxis().SetTitle("l (dm)")
@@ -174,6 +183,9 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_chnrgl)
         self.addObject(self.h_mupt)
         self.addObject(self.h_mueta)
+        self.addObject(self.h_mud)
+        self.addObject(self.h_mudxy)
+        self.addObject(self.h_mudz)
         self.addObject(self.h_mupvdistancerest1)
         self.addObject(self.h_mupvdistancerest2)
         self.addObject(self.h_mupvdistancerest3)
@@ -257,27 +269,25 @@ class ExampleDisplacedAnalysis(Module):
                 jets.append(jet)
         for Muon in Muons:
             #if genParts[Muon.genPartIdx] in mus:
-            if Muon.mediumId == True and Muon.pt >= 3 and Muon.dz <= 10: #and Muon.tightId == False
+            if Muon.mediumId == True: #and Muon.tightId == False
                 muons_pre_passed += 1
                 d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and Muon.dz <= 10 and METpt >= 100 and d >= d1:
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= d1:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
         if len(Mus) == 0:
             return False
-        jets2 =[]
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1 and len(jets) >= 1:
             for jet in jets:
                 dphi = abs(METphi-jet.phi)
                 if dphi > 1.7:
                     eventRecorded = True
-                    jets2.append(jet)
             if eventRecorded == True:
                 lowptJet = jets2[0]
                 sum = 0
                 dists = []
-                for jet in jets2:
+                for jet in jets:
                     sum += jet.pt
                     dphi = abs(METphi-jet.phi)
                     self.h_mix_metjet_dphi.Fill(dphi)
@@ -295,6 +305,9 @@ class ExampleDisplacedAnalysis(Module):
                     dists.append(d)
                     self.h_mupt.Fill(Mu.pt)
                     self.h_mueta.Fill(Mu.eta)
+                    self.h_mud.Fill(d)
+                    self.h_mudxy.Fill(abs(Mu.dxy))
+                    self.h_mudz.Fill(abs(Mu.dz))
                     if d >= d1:
                         self.h_mupvdistancerest1.Fill(d)
                     if d >= d2:
@@ -347,7 +360,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistancerest1, self.mupvdistancerest2, self.mupvdistancerest3, self.mupvdistancerest4, self.mupvdistancerest5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low])
+        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low, self.h_jetht2, self.h_mud, self.h_mudxy, self.h_mudz])
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L

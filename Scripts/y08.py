@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-ver = "04_8"
-#cuts: met>=100, >=1 muons, muonpt >= 4, muoneta <=2.5
+ver = "08"
+#no cuts - fancy histos for thesis, RECO
+#ctau 10 here
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
     print("Run 'cmsenv' on ../src/")
@@ -22,11 +23,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.1
-d2 = 0.125
-d3 = 0.15
-d4 = 0.175
-d5 = 0.2
+d1 = 0
+d2 = 0
+d3 = 0
+d4 = 0
+d5 = 0
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -65,7 +66,7 @@ class ExampleDisplacedAnalysis(Module):
         # 1000024 - CHARGINOS
         self.h_chpt = ROOT.TH1F('chpt', '\\mbox{Chargino Transverse Momentum, muon channel } p_t', 90, 0, 1100)
         self.h_cheta = ROOT.TH1F('cheta', '\\mbox{Chargino Pseudorapidity, muon channel } \\eta', 90, -6, 6)
-        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 40, -3.1415927, 3.1415927)
+        self.h_chphi = ROOT.TH1F('chphi', '\\mbox{Chargino Phi, muon channel } \\phi', 90, -3.1415927, 3.1415927)
         self.h_chdeta = ROOT.TH1F('chdeta', '\\mbox{Chargino Delta Eta, muon channel } \\Delta \\eta', 90, 0, 2.5)
         self.h_chdphi = ROOT.TH1F('chdphi', '\\mbox{Chargino Delta Phi, muon channel } \\Delta \\phi', 90, 0, 3.1415927)
         self.h_chlenl = ROOT.TH1F('chlenl', '\\mbox{Chargino Decay Length (Lab Frame), muon channel } L', 90, 0, 5)
@@ -250,23 +251,22 @@ class ExampleDisplacedAnalysis(Module):
         #scan all particles in the event by final state
         events_selected += 1
         self.h_metptall.Fill(METpt)
-        genpartsids = []
         for particle in genParts:
-            genpartsids.append(particle.pdgId)
-            if abs(particle.pdgId) == 13:
-                mother = findAncestor(particle) #mother must now be W. instill check.
-                if abs(mother.pdgId) == 24: #must be W
-                    gmother = findAncestor(mother) #chargino or irrelevant W
-                    addUniqueParticle(particle, mus)
-        #init = "pList: "
-        #uneeded = [1,2,3,4,21,22,11,12,13,14,15,16,24]
-        #for id in genpartsids:
-        #    if abs(id) in uneeded:
-        #        continue
-        #    init = init + str(abs(id)) + ", "
-        #print(init + "endList")
+            if abs(particle.pdgId) in locateFinalStates: #identify final state particle
+                mother = findAncestor(particle) #mother must now be W or ch. instill check.
+                #case for mu and nmu aka leptonic:
+                if abs(particle.pdgId) in leptonic:
+                    if abs(mother.pdgId) == 24: #must be W
+                        gmother = findAncestor(mother) #chargino or irrelevant W
+                        if abs(gmother.pdgId) == 1000024: #must be ch
+                            addUniqueParticle(gmother, chs)
+                            if abs(particle.pdgId) == 13 and getStatusFlag(particle, 13) == 1:
+                                addUniqueParticle(particle, mus)
         if len(mus) == 0:
             return False
+        for jet in Jets:
+            if abs(jet.pt) >= 30:
+                jets.append(jet)
         for Muon in Muons:
             #if genParts[Muon.genPartIdx] in mus:
             if Muon.mediumId == True: #and Muon.tightId == False
@@ -277,9 +277,6 @@ class ExampleDisplacedAnalysis(Module):
                     mus2.append(genParts[Muon.genPartIdx])
         if len(Mus) == 0:
             return False
-        for jet in Jets:
-            if abs(jet.pt) >= 30:
-                jets.append(jet)
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1 and len(jets) >= 1:
             for jet in jets:
@@ -297,7 +294,6 @@ class ExampleDisplacedAnalysis(Module):
                     if jet.pt < lowptJet:
                         lowptJet = jet
                 dphi_low = abs(METphi-lowptJet.phi)
-                self.h_mix_metjet_dphi_low.Fill(dphi_low)
                 self.h_mix_metjet_dphi_low.Fill(dphi_low)
                 events_selected += 1
                 muons_passed += len(Mus)
@@ -346,10 +342,14 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.c)
         self.c.cd()
         #FITTING
-        fit_mupvdistancerest = ROOT.TF1("fit_mupvdistancerest", "expo", 0, 10)
-        fit_mupvdistancerest.SetParNames("mupvconst", "mupvslope")
+        fit_chlenr = ROOT.TF1("fit_chlenr", "expo", 0, 10)
+        fit_chlenr.SetParNames("chdecayconst", "chdecayslope")
+        #fit_mupvdistancerest = ROOT.TF1("fit_mupvdistancerest", "expo", 0, 10)
+        #fit_mupvdistancerest.SetParNames("mupvconst", "mupvslope")
         #fit_mupvdistancerest.SetParameter("mupvconst",)
+        self.chlenr.Fit(fit_chlenr)
         #self.mupvdistancerest1.Fit(fit_mupvdistancerest)
+        #MORE HISTOGRAMS
         #PRINTING
         print("Number of recorded events " + str(events_recorded))
         print("Number of pre-reco muons: " + str(muons_passed))
@@ -401,23 +401,12 @@ class ExampleDisplacedAnalysis(Module):
         self.s_met.GetYaxis().CenterTitle(True)
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
-        #MUON PT
-        self.h_mupt.SetLineColor(ROOT.kOrange+4)
-        self.h_mupt.SetFillColor(ROOT.kOrange+4)
-        self.h_mupt.Draw()
-        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupt.GetName() + ".png")
-        self.c.Update()
-        #JET HT d2
-        self.h_jetht2.SetLineColor(ROOT.kYellow+1)
-        self.h_jetht2.SetFillColor(ROOT.kYellow+1)
-        self.h_jetht2.Draw()
-        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_jetht2.GetName() + ".png")
-        self.c.Update()
+        #ETA
         Module.endJob(self)
 
-preselection = "MET_pt >= 100 && Jet_pt >= 30"
+preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_pt <= 50"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/TTJets_DiLepton.root".format(os.environ['CMSSW_BASE'])])
+files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_180_10.root".format(os.environ['CMSSW_BASE'])] #new file!
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()

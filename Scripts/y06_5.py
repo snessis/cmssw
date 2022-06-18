@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-ver = "04_8"
+ver = "06_5"
 #cuts: met>=100, >=1 muons, muonpt >= 4, muoneta <=2.5
 import os, sys, math
 if 'CMSSW_VERSION' not in os.environ:
@@ -271,7 +271,7 @@ class ExampleDisplacedAnalysis(Module):
             #if genParts[Muon.genPartIdx] in mus:
             if Muon.mediumId == True: #and Muon.tightId == False
                 muons_pre_passed += 1
-                d = math.sqrt(math.pow(Muon.dxy, 2) + math.pow(Muon.dz, 2))
+                d = abs(Muon.dxy)
                 if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= d1:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
@@ -305,7 +305,7 @@ class ExampleDisplacedAnalysis(Module):
                     self.h_N.Fill(1)
                 self.h_metpt.Fill(METpt)
                 for Mu in Mus:
-                    d = math.sqrt(math.pow(Mu.dxy, 2) + math.pow(Mu.dz, 2))
+                    d = abs(Muon.dxy)
                     dists.append(d)
                     self.h_mupt.Fill(Mu.pt)
                     self.h_mueta.Fill(Mu.eta)
@@ -418,6 +418,6 @@ class ExampleDisplacedAnalysis(Module):
 preselection = "MET_pt >= 100 && Jet_pt >= 30"
 #preselection = ""
 #files = ["{}/src/DisplacedCharginos_May4_unskimmed/SMS_TChiWW_Disp_200_195_2.root".format(os.environ['CMSSW_BASE'])]
-files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/TTJets_DiLepton.root".format(os.environ['CMSSW_BASE'])])
+files = (["{}/src/displacedSOS_mainbkg_260422_nanoV7/WJetsToLNu_HT800to1200.root".format(os.environ['CMSSW_BASE'])])
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[ExampleDisplacedAnalysis()], noOut=True, histFileName="y" + ver + ".root", histDirName="plots")
 p.run()
