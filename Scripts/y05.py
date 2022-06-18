@@ -54,6 +54,9 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 90, 0, 17)
         self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 90, 0, 17)
         self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 90, 0, 17)
+        self.h_mud = ROOT.TH1F('mud', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
+        self.h_mudxy = ROOT.TH1F('mudxy', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
+        self.h_mudz = ROOT.TH1F('mudz', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
         # 14 - MUON NEUTRINO
         self.h_nmupt = ROOT.TH1F('nmupt', '\\mbox{Muon Neutrino Transverse Momentum } p_t', 90, 0, 25)
         self.h_nmueta = ROOT.TH1F('nmueta', '\\mbox{Muon Neutrino Pseudorapidity } \\eta', 90, -6, 6)
@@ -112,6 +115,12 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupvdistancerest4.GetYaxis().SetTitle("Counts")
         self.h_mupvdistancerest5.GetXaxis().SetTitle("l (dm)")
         self.h_mupvdistancerest5.GetYaxis().SetTitle("Counts")
+        self.h_mud.GetXaxis().SetTitle("d (dm)")
+        self.h_mud.GetYaxis().SetTitle("Counts")
+        self.h_mudxy.GetXaxis().SetTitle("dxy (dm)")
+        self.h_mudxy.GetYaxis().SetTitle("Counts")
+        self.h_mudz.GetXaxis().SetTitle("dz (dm)")
+        self.h_mudz.GetYaxis().SetTitle("Counts")
         # 14 - MUON NETRINO
         self.h_nmupt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
         self.h_nmupt.GetYaxis().SetTitle("Counts")
@@ -174,6 +183,9 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_chnrgl)
         self.addObject(self.h_mupt)
         self.addObject(self.h_mueta)
+        self.addObject(self.h_mud)
+        self.addObject(self.h_mudxy)
+        self.addObject(self.h_mudz)
         self.addObject(self.h_mupvdistancerest1)
         self.addObject(self.h_mupvdistancerest2)
         self.addObject(self.h_mupvdistancerest3)
@@ -275,6 +287,9 @@ class ExampleDisplacedAnalysis(Module):
                 dists.append(d)
                 self.h_mupt.Fill(Mu.pt)
                 self.h_mueta.Fill(Mu.eta)
+                self.h_mud.Fill(d)
+                self.h_mudxy.Fill(abs(Mu.dxy))
+                self.h_mudz.Fill(abs(Mu.dz))
                 if d >= d1:
                     self.h_mupvdistancerest1.Fill(d)
                 if d >= d2:
@@ -340,7 +355,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistancerest1, self.mupvdistancerest2, self.mupvdistancerest3, self.mupvdistancerest4, self.mupvdistancerest5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low])
+        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low, self.h_mud, self.h_mudxy, self.h_mudz])
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
