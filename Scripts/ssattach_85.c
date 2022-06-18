@@ -632,7 +632,7 @@ void ssattach_85() {
   svbg_tt_entries_5 += sv9_entries_5;
   svbg_tt_entries_5 += sv10_entries_5;
 
-  cout << "-----" << endl;
+  cout << "++++++" << endl;
   cout << "y08: Chargino Physical Events (best accuracy) = " << fnch_entries << endl;
   cout << "y08: Background Total Physical Events (best accuracy) = " << fnbg_entries<< endl;
   cout << "y08: Background WJets Physical Events (best accuracy) = " << fnbg_w_entries << endl;
@@ -641,17 +641,25 @@ void ssattach_85() {
   cout << "y05: Background Total Physical Events (best accuracy) = " << gnbg_entries<< endl;
   cout << "y05: Background WJets Physical Events (best accuracy) = " << gnbg_w_entries << endl;
   cout << "y05: Background TTJets Physical Events (best accuracy) = " << gnbg_tt_entries << endl;
-  cout << "-----" << endl;
+  cout << "++++++" << endl;
   cout << "y05-y08: Chargino Physical Events Difference (best accuracy) = " << gnch_entries - fnch_entries << endl;
   cout << "y05-y08: Background Total Physical Events Difference (best accuracy) = " <<  gnbg_entries - fnbg_entries<< endl;
   cout << "y05-y08: Background WJets Physical Events Difference (best accuracy) = " << gnbg_w_entries - fnbg_w_entries << endl;
   cout << "y05-y08: Background TTJets Physical Events Difference (best accuracy) = " << gnbg_tt_entries - fnbg_tt_entries<< endl;
-  cout << "-----" << endl;
+  cout << "++++++" << endl;
   cout << "y05-y08: Chargino Cut Efficiency % (best accuracy) = " << (gnch_entries - fnch_entries) / gnch_entries * 100 << endl;
   cout << "y05-y08: Background Total Cut Filter % (best accuracy) = " << (gnbg_entries - fnbg_entries) / gnbg_entries * 100 << endl;
   cout << "y05-y08: Background WJets Cut Filter % (best accuracy) = " << (gnbg_w_entries - fnbg_w_entries) / gnbg_w_entries * 100 << endl;
   cout << "y05-y08: Background TTJets Cut Filter % (best accuracy) = " << (gnbg_tt_entries - fnbg_tt_entries) / gnbg_tt_entries * 100 << endl;
   cout << "-----" << endl;
+  cout << "y08: Chargino Physical Events (d1) = " << pvch_entries_1 << endl;
+  cout << "y08: Background Total Physical Events (d1) = " << pvbg_entries_1<< endl;
+  cout << "y08: Background WJets Physical Events (d1) = " << pvbg_w_entries_1 << endl;
+  cout << "y08: Background TTJets Physical Events (d1) = " << pvbg_tt_entries_1 << endl;
+  cout << "y05: Chargino Physical Events (d1) = " << svch_entries_1 << endl;
+  cout << "y05: Background Total Physical Events (d1) = " << svbg_entries_1<< endl;
+  cout << "y05: Background WJets Physical Events (d1) = " << svbg_w_entries_1 << endl;
+  cout << "y05: Background TTJets Physical Events (d1) = " << svbg_tt_entries_1 << endl;
   cout << "y08: Chargino/Background Event Ratio % (d1) = " << pvch_entries_1 / pvbg_entries_1 * 100 << endl;
   cout << "y08: Chargino/Total Event Ratio % (d1) = "  << pvch_entries_1 / (pvbg_entries_1 + pvch_entries_1) * 100 << endl;
   cout << "y05-y08: Chargino Cut Efficiency % (d1) = " << (svch_entries_1- pvch_entries_1) / svch_entries_1 * 100 << endl;
@@ -659,6 +667,14 @@ void ssattach_85() {
   cout << "y05-y08: Background WJets Cut Filter % (d1) = " << (svbg_w_entries_1 - pvbg_w_entries_1) / svbg_w_entries_1 * 100 << endl;
   cout << "y05-y08: Background TTJets Cut Filter % (d1) = " << (svbg_tt_entries_1 - pvbg_tt_entries_1) / svbg_tt_entries_1 * 100 << endl;
   cout << "-----" << endl;
+  cout << "y08: Chargino Physical Events (d2) = " << pvch_entries_2 << endl;
+  cout << "y08: Background Total Physical Events (d2) = " << pvbg_entries_2<< endl;
+  cout << "y08: Background WJets Physical Events (d2) = " << pvbg_w_entries_2 << endl;
+  cout << "y08: Background TTJets Physical Events (d2) = " << pvbg_tt_entries_2 << endl;
+  cout << "y05: Chargino Physical Events (d2) = " << svch_entries_2 << endl;
+  cout << "y05: Background Total Physical Events (d2) = " << svbg_entries_2<< endl;
+  cout << "y05: Background WJets Physical Events (d2) = " << svbg_w_entries_2 << endl;
+  cout << "y05: Background TTJets Physical Events (d2) = " << svbg_tt_entries_2 << endl;
   cout << "y08: Chargino/Background Event Ratio % (d2) = " << pvch_entries_2 / pvbg_entries_2 * 100 << endl;
   cout << "y08: Chargino/Total Event Ratio % (d2) = "  << pvch_entries_2 / (pvbg_entries_2 + pvch_entries_2) * 100 << endl;
   cout << "y05-y08: Chargino Cut Efficiency % (d2) = " << (svch_entries_2- pvch_entries_2) / svch_entries_2 * 100 << endl;
@@ -666,6 +682,14 @@ void ssattach_85() {
   cout << "y05-y08: Background WJets Cut Filter % (d2) = " << (svbg_w_entries_2 - pvbg_w_entries_2) / svbg_w_entries_2 * 100 << endl;
   cout << "y05-y08: Background TTJets Cut Filter % (d2) = " << (svbg_tt_entries_2 - pvbg_tt_entries_2) / svbg_tt_entries_2 * 100 << endl;
   cout << "-----" << endl;
+  cout << "y08: Chargino Physical Events (d3) = " << pvch_entries_3 << endl;
+  cout << "y08: Background Total Physical Events (d3) = " << pvbg_entries_3<< endl;
+  cout << "y08: Background WJets Physical Events (d3) = " << pvbg_w_entries_3 << endl;
+  cout << "y08: Background TTJets Physical Events (d3) = " << pvbg_tt_entries_3 << endl;
+  cout << "y05: Chargino Physical Events (d3) = " << svch_entries_3 << endl;
+  cout << "y05: Background Total Physical Events (d3) = " << svbg_entries_3<< endl;
+  cout << "y05: Background WJets Physical Events (d3) = " << svbg_w_entries_3 << endl;
+  cout << "y05: Background TTJets Physical Events (d3) = " << svbg_tt_entries_3 << endl;
   cout << "y08: Chargino/Background Event Ratio % (d3) = " << pvch_entries_3 / pvbg_entries_3 * 100 << endl;
   cout << "y08: Chargino/Total Event Ratio % (d3) = "  << pvch_entries_3 / (pvbg_entries_3 + pvch_entries_3) * 100 << endl;
   cout << "y05-y08: Chargino Cut Efficiency % (d3) = " << (svch_entries_3- pvch_entries_3) / svch_entries_3 * 100 << endl;
@@ -673,6 +697,14 @@ void ssattach_85() {
   cout << "y05-y08: Background WJets Cut Filter % (d3) = " << (svbg_w_entries_3 - pvbg_w_entries_3) / svbg_w_entries_3 * 100 << endl;
   cout << "y05-y08: Background TTJets Cut Filter % (d3) = " << (svbg_tt_entries_3 - pvbg_tt_entries_3) / svbg_tt_entries_3 * 100 << endl;
   cout << "-----" << endl;
+  cout << "y08: Chargino Physical Events (d4) = " << pvch_entries_4 << endl;
+  cout << "y08: Background Total Physical Events (d4) = " << pvbg_entries_4<< endl;
+  cout << "y08: Background WJets Physical Events (d4) = " << pvbg_w_entries_4 << endl;
+  cout << "y08: Background TTJets Physical Events (d4) = " << pvbg_tt_entries_4 << endl;
+  cout << "y05: Chargino Physical Events (d4) = " << svch_entries_4 << endl;
+  cout << "y05: Background Total Physical Events (d4) = " << svbg_entries_4<< endl;
+  cout << "y05: Background WJets Physical Events (d4) = " << svbg_w_entries_4 << endl;
+  cout << "y05: Background TTJets Physical Events (d4) = " << svbg_tt_entries_4 << endl;
   cout << "y08: Chargino/Background Event Ratio % (d4) = " << pvch_entries_4 / pvbg_entries_4 * 100 << endl;
   cout << "y08: Chargino/Total Event Ratio % (d4) = "  << pvch_entries_4 / (pvbg_entries_4 + pvch_entries_4) * 100 << endl;
   cout << "y05-y08: Chargino Cut Efficiency % (d4) = " << (svch_entries_4- pvch_entries_4) / svch_entries_4 * 100 << endl;
@@ -680,12 +712,18 @@ void ssattach_85() {
   cout << "y05-y08: Background WJets Cut Filter % (d4) = " << (svbg_w_entries_4 - pvbg_w_entries_4) / svbg_w_entries_4 * 100 << endl;
   cout << "y05-y08: Background TTJets Cut Filter % (d4) = " << (svbg_tt_entries_4 - pvbg_tt_entries_4) / svbg_tt_entries_4 * 100 << endl;
   cout << "-----" << endl;
+  cout << "y08: Chargino Physical Events (d5) = " << pvch_entries_5 << endl;
+  cout << "y08: Background Total Physical Events (d5) = " << pvbg_entries_5<< endl;
+  cout << "y08: Background WJets Physical Events (d5) = " << pvbg_w_entries_5 << endl;
+  cout << "y08: Background TTJets Physical Events (d5) = " << pvbg_tt_entries_5 << endl;
+  cout << "y05: Chargino Physical Events (d5) = " << svch_entries_5 << endl;
+  cout << "y05: Background Total Physical Events (d5) = " << svbg_entries_5<< endl;
+  cout << "y05: Background WJets Physical Events (d5) = " << svbg_w_entries_5 << endl;
+  cout << "y05: Background TTJets Physical Events (d5) = " << svbg_tt_entries_5 << endl;
   cout << "y08: Chargino/Background Event Ratio % (d5) = " << pvch_entries_5 / pvbg_entries_5 * 100 << endl;
   cout << "y08: Chargino/Total Event Ratio % (d5) = "  << pvch_entries_5 / (pvbg_entries_5 + pvch_entries_5) * 100 << endl;
   cout << "y05-y08: Chargino Cut Efficiency % (d5) = " << (svch_entries_5- pvch_entries_5) / svch_entries_5 * 100 << endl;
   cout << "y05-y08: Background Total Cut Filter % (d5)= " << (svbg_entries_5 - pvbg_entries_5) / svbg_entries_5 * 100 << endl;
   cout << "y05-y08: Background WJets Cut Filter % (d5) = " << (svbg_w_entries_5 - pvbg_w_entries_5) / svbg_w_entries_5 * 100 << endl;
   cout << "y05-y08: Background TTJets Cut Filter % (d5) = " << (svbg_tt_entries_5 - pvbg_tt_entries_5) / svbg_tt_entries_5 * 100 << endl;
-
-
 }
