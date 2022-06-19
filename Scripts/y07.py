@@ -279,10 +279,7 @@ class ExampleDisplacedAnalysis(Module):
             return False
         #x12 algorithm for faster handling & incoporates same parent generation for mu, nmu, neu. incoprorate cuts here
         if len(Mus) >= 1 and len(jets) >= 1:
-            for jet in jets:
-                dphi = abs(METphi-jet.phi)
-                if dphi > 1.7:
-                    eventRecorded = True
+            eventRecorded = True
             if eventRecorded == True:
                 lowptJet = jets[0]
                 sum = 0
