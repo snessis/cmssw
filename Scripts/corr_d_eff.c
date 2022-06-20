@@ -61,13 +61,13 @@ void corr_d_eff() {
   leg_rat->AddEntry("gr_bkg_total","Total Efficiency","l");
 
   gr_sig->Draw("AP");
-  leg_sig->Draw()
+  leg_sig->Draw();
   c_corr->SaveAs("corr_d_eff_sig.png");
   gr_rat->Draw("AP");
-  leg_rat->Draw()
+  leg_rat->Draw();
   gr_bkg_total->Draw("AP");
   gr_bkg_tt->Draw("AP SAME");
   gr_bkg_w->Draw("AP SAME");
-  leg_bkg->Draw()
+  leg_bkg->Draw();
   c_corr->SaveAs("corr_d_eff_total.png");
 }
