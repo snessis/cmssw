@@ -21,31 +21,31 @@ void corr_d_eff() {
 
   gr_sig->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_sig->GetYaxis()->SetRangeUser(0,100);
-  gr_sig->SetMarkerStyle(1);
+  gr_sig->SetMarkerStyle(20);
   gr_sig->SetMarkerSize(1);
   gr_sig->SetMarkerColor(kRed+2);
   gr_sig->SetTitle("Signal Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_rat->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_rat->SetMarkerStyle(1);
+  gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kRed+2);
   gr_rat->SetTitle("Signal over Sig+Bkg; #d (cm); ratio (%)");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_w->SetMarkerStyle(1);
+  gr_bkg_w->SetMarkerStyle(20);
   gr_bkg_w->SetMarkerSize(1);
   gr_bkg_w->SetMarkerColor(kBlue+1);
   gr_bkg_w->SetTitle("WJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_tt->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_tt->SetMarkerStyle(1);
+  gr_bkg_tt->SetMarkerStyle(20);
   gr_bkg_tt->SetMarkerSize(1);
   gr_bkg_tt->SetMarkerColor(kYellow+1);
   gr_bkg_tt->SetTitle("TTJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_total->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_total->SetMarkerStyle(1);
+  gr_bkg_total->SetMarkerStyle(20);
   gr_bkg_total->SetMarkerSize(1);
   gr_bkg_total->SetMarkerColor(kGreen+1);
   gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
