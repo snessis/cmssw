@@ -24,30 +24,35 @@ void corr_d_eff() {
   gr_sig->SetMarkerStyle(20);
   gr_sig->SetMarkerSize(1);
   gr_sig->SetMarkerColor(kRed+2);
+  gr_sig->SetName("gr_sig");
   gr_sig->SetTitle("Signal Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_rat->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kRed+2);
+  gr_rat->SetName("gr_rat");
   gr_rat->SetTitle("Signal over Sig+Bkg; #d (cm); ratio (%)");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_bkg_w->SetMarkerStyle(20);
   gr_bkg_w->SetMarkerSize(1);
   gr_bkg_w->SetMarkerColor(kBlue+1);
+  gr_bkg_w->SetName("gr_bkg_w");
   gr_bkg_w->SetTitle("WJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_tt->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_bkg_tt->SetMarkerStyle(20);
   gr_bkg_tt->SetMarkerSize(1);
   gr_bkg_tt->SetMarkerColor(kYellow+1);
+  gr_bkg_tt->SetName("gr_bkg_tt");
   gr_bkg_tt->SetTitle("TTJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_total->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_bkg_total->SetMarkerStyle(20);
   gr_bkg_total->SetMarkerSize(1);
   gr_bkg_total->SetMarkerColor(kGreen+1);
+  gr_bkg_total->SetName("gr_bkg_total");
   gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
