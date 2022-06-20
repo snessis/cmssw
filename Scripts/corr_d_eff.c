@@ -21,35 +21,40 @@ void corr_d_eff() {
 
   gr_sig->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_sig->GetYaxis()->SetRangeUser(0,100);
-  gr_sig->SetMarkerStyle(20);
+  gr_sig->SetMarkerStyle(1);
   gr_sig->SetMarkerSize(1);
   gr_sig->SetMarkerColor(kRed+2);
-  gr_sig->SetTitle("Signal Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
+  gr_sig->SetTitle("Signal Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_rat->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_rat->SetMarkerStyle(20);
+  gr_rat->SetMarkerStyle(1);
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kRed+2);
   gr_rat->SetTitle("Signal over Sig+Bkg; #d (cm); ratio (%)");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_w->SetMarkerStyle(20);
+  gr_bkg_w->SetMarkerStyle(1);
   gr_bkg_w->SetMarkerSize(1);
   gr_bkg_w->SetMarkerColor(kBlue+1);
-  gr_bkg_w->SetTitle("WJets Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
+  gr_bkg_w->SetTitle("WJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_tt->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_tt->SetMarkerStyle(20);
+  gr_bkg_tt->SetMarkerStyle(1);
   gr_bkg_tt->SetMarkerSize(1);
   gr_bkg_tt->SetMarkerColor(kYellow+1);
-  gr_bkg_tt->SetTitle("TTJets Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
+  gr_bkg_tt->SetTitle("TTJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_total->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_total->GetYaxis()->SetRangeUser(96.8, 98.6);
-  gr_bkg_total->SetMarkerStyle(20);
+  gr_bkg_total->SetMarkerStyle(1);
   gr_bkg_total->SetMarkerSize(1);
   gr_bkg_total->SetMarkerColor(kGreen+1);
-  gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
+  gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
+
+  TMultiGraph *mg_bkg = new TMultiGraph();
+  mg_bkg->SetTitle("Background Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
+  mg_bkg->Add(gr_bkg_w);
+  mg_bkg->Add(gr_bkg_tt);
+  mg_bkg->Add(gr_bkg_total);
 
   auto leg_sig = new TLegend(0.65,0.75,0.9,0.9);
   leg_sig->AddEntry("gr_sig","Signal Efficiency","p");
@@ -66,9 +71,7 @@ void corr_d_eff() {
   gr_rat->Draw("AP");
   leg_rat->Draw();
   c_corr->SaveAs("corr_d_eff_rat.png");
-  gr_bkg_total->Draw("AP");
-  gr_bkg_tt->Draw("AP");
-  gr_bkg_w->Draw("AP");
+  mg_bkg->Draw();
   leg_bkg->Draw();
   c_corr->SaveAs("corr_d_eff_total.png");
 }
