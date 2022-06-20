@@ -12,7 +12,7 @@ void corr_d_eff() {
   double Y_bkg_tt[15] = {97.0384, 97.3565, 97.602, 97.7953, 97.9483, 98.0707, 98.1718, 98.2561, 98.3285, 98.3903, 98.442, 98.4869, 98.5282, 98.5639, 98.5966};
   double Y_bkg_total[15] = {96.9453, 97.1391, 97.2928, 97.4152, 97.5127, 97.5923, 97.6609, 97.7194, 97.7692, 97.814, 97.8546, 97.8914, 97.9246, 97.9542, 97.9839};
 
-  TCanvas *c_corr = new TCanvas("c_corr", "Correleation Canvas", 1000, 700);
+  TCanvas *c_corr = new TCanvas("c_corr", "Correlation Canvas", 1000, 700);
   TGraph *gr_sig = new TGraph(n, X, Y_sig);
   TGraph *gr_rat = new TGraph(n, X, Y_rat);
   TGraph *gr_bkg_w = new TGraph(n, X, Y_bkg_w);
@@ -20,7 +20,7 @@ void corr_d_eff() {
   TGraph *gr_bkg_total = new TGraph(n, X, Y_bkg_total);
 
   gr_sig->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_sig->GetYaxis()->SetRangeUser(0,60);
+  gr_sig->GetYaxis()->SetRangeUser(0,100);
   gr_sig->SetMarkerStyle(20);
   gr_sig->SetMarkerSize(0.5);
   gr_sig->SetMarkerColor(kRed+2);
@@ -65,6 +65,7 @@ void corr_d_eff() {
   c_corr->SaveAs("corr_d_eff_sig.png");
   gr_rat->Draw("AP");
   leg_rat->Draw();
+  c_corr->SaveAs("corr_d_eff_rat.png");
   gr_bkg_total->Draw("AP");
   gr_bkg_tt->Draw("AP SAME");
   gr_bkg_w->Draw("AP SAME");
