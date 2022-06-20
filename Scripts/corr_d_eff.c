@@ -20,39 +20,54 @@ void corr_d_eff() {
   TGraph *gr_bkg_total = new TGraph(n, X, Y_bkg_total);
 
   gr_sig->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_sig->GetYaxis()->SetRangeUser(0,100);
+  gr_sig->GetYaxis()->SetRangeUser(0,60);
   gr_sig->SetMarkerStyle(20);
   gr_sig->SetMarkerSize(0.5);
-  gr_sig->SetTitle("Signal Efficiency-Distance dependence; #d (cm); eff (%)");
+  gr_sig->SetMarkerColor(kRed+2);
+  gr_sig->SetTitle("Signal Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
 
   gr_rat->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(0.5);
+  gr_rat->SetMarkerColor(kRed+2);
   gr_rat->SetTitle("Signal over Sig+Bkg; #d (cm); ratio (%)");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_bkg_w->SetMarkerStyle(20);
   gr_bkg_w->SetMarkerSize(0.5);
-  gr_bkg_w->SetTitle("WJets Efficiency-Distance dependence; #d (cm); eff (%)");
+  gr_bkg_w->SetMarkerColor(kBlue+1);
+  gr_bkg_w->SetTitle("WJets Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_tt->GetXaxis()->SetRangeUser(0.2,X[n]);
   gr_bkg_tt->SetMarkerStyle(20);
   gr_bkg_tt->SetMarkerSize(0.5);
-  gr_bkg_tt->SetTitle("TTJets Efficiency-Distance dependence; #d (cm); eff (%)");
+  gr_bkg_tt->SetMarkerColor(kYellow+1);
+  gr_bkg_tt->SetTitle("TTJets Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_total->GetXaxis()->SetRangeUser(0.2,X[n]);
+  gr_bkg_total->GetYaxis()->SetRangeUser(96.8, 98.6);
   gr_bkg_total->SetMarkerStyle(20);
   gr_bkg_total->SetMarkerSize(0.5);
-  gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; #d (cm); eff (%)");
+  gr_bkg_total->SetMarkerColor(kGreen+1);
+  gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
+
+  auto leg_sig = new TLegend(0.65,0.75,0.9,0.9);
+  leg_sig->AddEntry("gr_sig","Signal Efficiency","l");
+  auto leg_rat = new TLegend(0.65,0.75,0.9,0.9);
+  leg_rat->AddEntry("gr_rat","Signal Ratio","l");
+  auto leg_bkg = new TLegend(0.65,0.75,0.9,0.9);
+  leg_rat->AddEntry("gr_bkg_w","WJets Efficiency","l");
+  leg_rat->AddEntry("gr_bkg_tt","TTJets Efficiency","l");
+  leg_rat->AddEntry("gr_bkg_total","Total Efficiency","l");
 
   gr_sig->Draw("AP");
+  leg_sig->Draw()
   c_corr->SaveAs("corr_d_eff_sig.png");
   gr_rat->Draw("AP");
-  c_corr->SaveAs("corr_d_eff_rat.png");
-  gr_bkg_w->Draw("AP");
-  c_corr->SaveAs("corr_d_eff_w.png");
-  gr_bkg_tt->Draw("AP");
-  c_corr->SaveAs("corr_d_eff_tt.png");
+  leg_rat->Draw()
   gr_bkg_total->Draw("AP");
+  gr_bkg_tt->Draw("AP SAME");
+  gr_bkg_w->Draw("AP SAME");
+  leg_bkg->Draw()
   c_corr->SaveAs("corr_d_eff_total.png");
 }
