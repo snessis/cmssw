@@ -40,7 +40,7 @@ void sattach_y04() {
   double SF9 = N9 / 57259880;
   double SF10 = N10 / 59929205;
   double SFCH = 1;
-  double BR = 1;//0.1063; //W -> muonic
+  double BR = 0.1063; //W -> muonic
 
   TFile *f1 = new TFile("y04_1.root");
   TFile *f2 = new TFile("y04_2.root");
@@ -457,6 +457,56 @@ void sattach_y04() {
   cout << "Background Total Physical Events (best accuracy) = " << hnbg_entries<< endl;
   cout << "Background WJets Physical Events (best accuracy) = " << hnbg_w_entries << endl;
   cout << "Background TTJets Physical Events (best accuracy) = " << hnbg_tt_entries << endl;
+
+  cout << "XSECS" << endl;
+  cout << XSEC1 << endl;
+  cout << XSEC2 << endl;
+  cout << XSEC3 << endl;
+  cout << XSEC4 << endl;
+  cout << XSEC5 << endl;
+  cout << XSEC6 << endl;
+  cout << XSEC7 << endl;
+  cout << XSEC8 << endl;
+  cout << XSEC9 << endl;
+  cout << XSEC10 << endl;
+  cout << XSECCH << endl;
+  cout << "SFS" << endl;
+  cout << SF1 << endl;
+  cout << SF2 << endl;
+  cout << SF3 << endl;
+  cout << SF4 << endl;
+  cout << SF5 << endl;
+  cout << SF6 << endl;
+  cout << SF7 << endl;
+  cout << SF8 << endl;
+  cout << SF9 << endl;
+  cout << SF10 << endl;
+  cout << SFCH << endl;
+  cout << "Ns" << endl;
+  cout << N1 << endl;
+  cout << N2 << endl;
+  cout << N3 << endl;
+  cout << N4 << endl;
+  cout << N5 << endl;
+  cout << N6 << endl;
+  cout << N7 << endl;
+  cout << N8 << endl;
+  cout << N9 << endl;
+  cout << N10 << endl;
+  cout << NCH << endl;
+  cout << "ress" << endl;
+  cout << 1/N1*XSEC1*L*SF1*BR << endl;
+  cout << 1/N2*XSEC2*L*SF2*BR << endl;
+  cout << 1/N3*XSEC3*L*SF3*BR << endl;
+  cout << 1/N4*XSEC4*L*SF4*BR << endl;
+  cout << 1/N5*XSEC5*L*SF5*BR << endl;
+  cout << 1/N6*XSEC6*L*SF6*BR << endl;
+  cout << 1/N7*XSEC7*L*SF7*BR << endl;
+  cout << 1/N8*XSEC8*L*SF8*BR << endl;
+  cout << 1/N9*XSEC9*L*SF9*BR << endl;
+  cout << 1/N10*XSEC10*L*SF10*BR << endl;
+  cout << 1/N*XSECCH*L*SFCH*BR << endl;
+
 
   TCanvas* c = new TCanvas("canv_y04", "The Canvas (post-analysis)", 1200, 800);
   gStyle->SetOptStat(1110);
