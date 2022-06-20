@@ -61,13 +61,13 @@ void corr_d_eff() {
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
 
-  auto leg_sig = new TLegend(0.7,0.80,0.9,0.9);
+  auto leg_sig = new TLegend(0.1,0.80,0.3,0.9);
   leg_sig->AddEntry(gr_sig,"Signal Efficiency","p");
   leg_sig->SetTextSize(0.03);
-  auto leg_rat = new TLegend(0.7,0.80,0.9,0.9);
+  auto leg_rat = new TLegend(0.3,0.80,0.3,0.9);
   leg_rat->AddEntry(gr_rat,"Signal Ratio","p");
   leg_rat->SetTextSize(0.035);
-  auto leg_bkg = new TLegend(0.65,0.75,0.9,0.9);
+  auto leg_bkg = new TLegend(0.1,0.75,0.35,0.9);
   leg_bkg->AddEntry(gr_bkg_w,"WJets Background","p");
   leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background","p");
   leg_bkg->AddEntry(gr_bkg_total,"Total Background","p");
