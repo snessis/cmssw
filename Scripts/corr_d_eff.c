@@ -71,7 +71,7 @@ void corr_d_eff() {
   gr_rat->Draw("AP");
   leg_rat->Draw();
   c_corr->SaveAs("corr_d_eff_rat.png");
-  mg_bkg->Draw();
-  leg_bkg->Draw("AP");
+  mg_bkg->Draw("AP");
+  leg_bkg->Draw();
   c_corr->SaveAs("corr_d_eff_total.png");
 }
