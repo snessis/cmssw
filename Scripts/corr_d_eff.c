@@ -52,13 +52,13 @@ void corr_d_eff() {
   gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; #d \\mbox{(cm)}; eff (%)");
 
   auto leg_sig = new TLegend(0.65,0.75,0.9,0.9);
-  leg_sig->AddEntry("gr_sig","Signal Efficiency","l");
+  leg_sig->AddEntry("gr_sig","Signal Efficiency","p");
   auto leg_rat = new TLegend(0.65,0.75,0.9,0.9);
   leg_rat->AddEntry("gr_rat","Signal Ratio","l");
   auto leg_bkg = new TLegend(0.65,0.75,0.9,0.9);
-  leg_rat->AddEntry("gr_bkg_w","WJets Efficiency","l");
-  leg_rat->AddEntry("gr_bkg_tt","TTJets Efficiency","l");
-  leg_rat->AddEntry("gr_bkg_total","Total Efficiency","l");
+  leg_bkg->AddEntry("gr_bkg_w","WJets Efficiency","p");
+  leg_bkg->AddEntry("gr_bkg_tt","TTJets Efficiency","p");
+  leg_bkg->AddEntry("gr_bkg_total","Total Efficiency","p");
 
   gr_sig->Draw("AP");
   leg_sig->Draw();
