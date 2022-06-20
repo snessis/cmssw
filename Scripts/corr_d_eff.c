@@ -68,7 +68,7 @@ void corr_d_eff() {
   auto leg_bkg = new TLegend(0.65,0.75,0.9,0.9);
   leg_bkg->AddEntry(gr_bkg_w,"WJets Efficiency","p");
   leg_bkg->AddEntry(gr_bkg_tt,"TTJets Efficiency","p");
-  leg_bkg->AddEntry(gr_bkg_tota,"Total Efficiency","p");
+  leg_bkg->AddEntry(gr_bkg_total,"Total Efficiency","p");
 
   gr_sig->Draw("AP");
   leg_sig->Draw();
