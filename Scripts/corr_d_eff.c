@@ -12,7 +12,7 @@ void corr_d_eff() {
   double Y_bkg_tt[10] = {97.0384, 97.3565, 97.602, 97.7953, 97.9483, 98.0707, 98.1718, 98.2561, 98.3285, 98.3903};
   double Y_bkg_total[10] = {96.9453, 97.1391, 97.2928, 97.4152, 97.5127, 97.5923, 97.6609, 97.7194, 97.7692, 97.814};
 
-  TCanvas *c_corr = new TCanvas("c_corr", "Corrleation Canvas", 1000, 700);
+  TCanvas *c_corr = new TCanvas("c_corr", "Correleation Canvas", 1000, 700);
   TGraph *gr_sig = new TGraph(n, X, Y_sig);
   TGraph *gr_rat = new TGraph(n, X, Y_rat);
   TGraph *gr_bkg_w = new TGraph(n, X, Y_bkg_w);
@@ -45,14 +45,14 @@ void corr_d_eff() {
   gr_bkg_total->SetMarkerSize(0.5);
   gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; #d (cm); eff (%)");
 
-  gr_sig->Draw("P");
+  gr_sig->Draw("AP");
   c_corr->SaveAs("corr_d_eff_sig.png");
-  gr_rat->Draw("P");
+  gr_rat->Draw("AP");
   c_corr->SaveAs("corr_d_eff_rat.png");
-  gr_bkg_w->Draw("P");
+  gr_bkg_w->Draw("AP");
   c_corr->SaveAs("corr_d_eff_w.png");
-  gr_bkg_tt->Draw("P");
+  gr_bkg_tt->Draw("AP");
   c_corr->SaveAs("corr_d_eff_tt.png");
-  gr_bkg_total->Draw("P");
+  gr_bkg_total->Draw("AP");
   c_corr->SaveAs("corr_d_eff_total.png");
 }
