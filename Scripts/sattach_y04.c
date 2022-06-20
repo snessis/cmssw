@@ -493,7 +493,7 @@ void sattach_y04() {
   cout << N8 << endl;
   cout << N9 << endl;
   cout << N10 << endl;
-  cout << NCH << endl;
+  cout << N << endl;
   cout << "ress" << endl;
   cout << 1/N1*XSEC1*L*SF1*BR << endl;
   cout << 1/N2*XSEC2*L*SF2*BR << endl;
