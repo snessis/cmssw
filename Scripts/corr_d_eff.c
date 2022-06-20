@@ -26,37 +26,33 @@ void corr_d_eff() {
   gr_sig->SetTitle("Signal Efficiency-#d dependence; #d (cm); eff (%)");
 
   gr_rat->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_rat->GetYaxis()->SetRangeUser(0,100);
   gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(0.5);
   gr_rat->SetTitle("Signal over Sig+Bkg; #d (cm); ratio (%)");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_w->GetYaxis()->SetRangeUser(0,100);
   gr_bkg_w->SetMarkerStyle(20);
   gr_bkg_w->SetMarkerSize(0.5);
   gr_bkg_w->SetTitle("WJets Efficiency-#d dependence; #d (cm); eff (%)");
 
   gr_bkg_tt->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_tt->GetYaxis()->SetRangeUser(0,100);
   gr_bkg_tt->SetMarkerStyle(20);
   gr_bkg_tt->SetMarkerSize(0.5);
   gr_bkg_tt->SetTitle("TTJets Efficiency-#d dependence; #d (cm); eff (%)");
 
   gr_bkg_total->GetXaxis()->SetRangeUser(0.2,X[n]);
-  gr_bkg_total->GetYaxis()->SetRangeUser(0,100);
   gr_bkg_total->SetMarkerStyle(20);
   gr_bkg_total->SetMarkerSize(0.5);
   gr_bkg_total->SetTitle("Total Efficiency-#d dependence; #d (cm); eff (%)");
 
   gr_sig->Draw();
-  c_corr->SaveAs("corr_d_eff_sig");
+  c_corr->SaveAs("corr_d_eff_sig.png");
   gr_rat->Draw();
-  c_corr->SaveAs("corr_d_eff_rat");
+  c_corr->SaveAs("corr_d_eff_rat.png");
   gr_bkg_w->Draw();
-  c_corr->SaveAs("corr_d_eff_w");
+  c_corr->SaveAs("corr_d_eff_w.png");
   gr_bkg_tt->Draw();
-  c_corr->SaveAs("corr_d_eff_tt");
+  c_corr->SaveAs("corr_d_eff_tt.png");
   gr_bkg_total->Draw();
-  c_corr->SaveAs("corr_d_eff_total");
+  c_corr->SaveAs("corr_d_eff_total.png");
 }
