@@ -393,17 +393,29 @@ class ExampleDisplacedAnalysis(Module):
         self.s_met.GetYaxis().CenterTitle(True)
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
-        #MUON PT
-        self.h_mupt.SetLineColor(ROOT.kOrange+4)
-        self.h_mupt.SetFillColor(ROOT.kOrange+4)
+        #ETA
+        self.h_mupt.SetLineColor(ROOT.kCyan+2)
+        self.h_mupt.SetFillColor(ROOT.kCyan+2)
         self.h_mupt.Draw()
-        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupt.GetName() + ".png")
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mueta.GetName() + "_post.png")
+        self.c.Update()
+        #MUON PT
+        self.h_mupt.SetLineColor(ROOT.kCyan+2)
+        self.h_mupt.SetFillColor(ROOT.kCyan+2)
+        self.h_mupt.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupt.GetName() + "_post.png")
         self.c.Update()
         #JET HT d2
         self.h_jetht2.SetLineColor(ROOT.kYellow+1)
         self.h_jetht2.SetFillColor(ROOT.kYellow+1)
         self.h_jetht2.Draw()
-        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_jetht2.GetName() + ".png")
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_jetht2.GetName() + "_post.png")
+        self.c.Update()
+        #MUON PV DIST
+        self.h_mupvdistance1.SetLineColor(ROOT.kYellow-8)
+        self.h_mupvdistance1.SetFillColor(ROOT.kYellow-8)
+        self.h_mupvdistance1.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupvdistance1.GetName() + "_post.png")
         self.c.Update()
         Module.endJob(self)
 
