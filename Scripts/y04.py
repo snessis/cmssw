@@ -23,11 +23,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.075 #d1 = 0.2
-d2 = 0.1 #d2 = 0.225
-d3 = 0.125 #d3 = 0.25
-d4 = 0.15 #d4 = 0.275
-d5 = 0.175 #d5 = 0.3
+d1 = 0.2 #d1 = 0.2
+d2 = 0.225 #d2 = 0.225
+d3 = 0.25 #d3 = 0.25
+d4 = 0.275 #d4 = 0.275
+d5 = 0.3 #d5 = 0.3
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -142,9 +142,9 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdphi.GetYaxis().SetTitle("Counts")
         self.h_chdeta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_chdeta.GetYaxis().SetTitle("Counts")
-        self.h_chlenl.GetXaxis().SetTitle("L \\mbox{ (cm)}")
+        self.h_chlenl.GetXaxis().SetTitle("x \\mbox{ (cm)}")
         self.h_chlenl.GetYaxis().SetTitle("Counts")
-        self.h_chlenr.GetXaxis().SetTitle("L \\mbox{ (cm)}")
+        self.h_chlenr.GetXaxis().SetTitle("x \\mbox{ (cm)}")
         self.h_chlenr.GetYaxis().SetTitle("Counts")
         self.h_chbeta.GetXaxis().SetTitle("\\beta")
         self.h_chbeta.GetYaxis().SetTitle("Counts")
@@ -390,7 +390,6 @@ class ExampleDisplacedAnalysis(Module):
         self.leg_met.AddEntry(self.h_metptall, "All W^{#pm} channels", "L")
         self.leg_met.AddEntry(self.h_metpt, "W^{#pm}#rightarrow #mu#nu_{#mu}", "L")
         self.s_met.Draw()
-        gStyle.SetOptStat(0)
         self.leg_met.Draw()
         self.s_met.GetXaxis().SetTitle("\\mbox{MET (GeV)}")
         self.s_met.GetYaxis().SetTitle("Counts")
@@ -399,6 +398,29 @@ class ExampleDisplacedAnalysis(Module):
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
         #ETA
+        self.h_mupt.SetLineColor(ROOT.kCyan+2)
+        self.h_mupt.SetFillColor(ROOT.kCyan+2)
+        self.h_mupt.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mueta.GetName() + "_post.png")
+        self.c.Update()
+        #MUON PT
+        self.h_mupt.SetLineColor(ROOT.kCyan+2)
+        self.h_mupt.SetFillColor(ROOT.kCyan+2)
+        self.h_mupt.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupt.GetName() + "_post.png")
+        self.c.Update()
+        #JET HT d2
+        self.h_jetht2.SetLineColor(ROOT.kYellow+1)
+        self.h_jetht2.SetFillColor(ROOT.kYellow+1)
+        self.h_jetht2.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_jetht2.GetName() + "_post.png")
+        self.c.Update()
+        #MUON PV DIST
+        self.h_mupvdistancerestsample.SetLineColor(ROOT.kYellow-8)
+        self.h_mupvdistancerestsample.SetFillColor(ROOT.kYellow-8)
+        self.h_mupvdistancerestsample.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupvdistancerestsample.GetName() + "_post.png")
+        self.c.Update()
         Module.endJob(self)
 
 preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_pt <= 50"
