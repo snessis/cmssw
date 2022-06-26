@@ -19,36 +19,36 @@ void corr_d_eff() {
   TGraph *gr_bkg_tt = new TGraph(n, X, Y_bkg_tt);
   TGraph *gr_bkg_total = new TGraph(n, X, Y_bkg_total);
 
-  gr_sig->GetXaxis()->SetRangeUser(0.2,X[n]);
+  gr_sig->GetXaxis()->SetRangeUser(0,X[n]);
   gr_sig->GetYaxis()->SetRangeUser(0,100);
   gr_sig->SetMarkerStyle(20);
   gr_sig->SetMarkerSize(1);
   gr_sig->SetMarkerColor(kRed+2);
   gr_sig->SetName("gr_sig");
-  gr_sig->SetTitle("Signal Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
+  gr_sig->SetTitle("\\mbox{Signal Efficiency-Distance dependence } e_{40}; d \\mbox{(cm)}; e_{40} \\mbox{ (%)}");
 
-  gr_rat->GetXaxis()->SetRangeUser(0.2,X[n]);
+  gr_rat->GetXaxis()->SetRangeUser(0,X[n]);
   gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kRed+2);
   gr_rat->SetName("gr_rat");
-  gr_rat->SetTitle("Signal over Sig+Bkg; #d (cm); ratio (%)");
+  gr_rat->SetTitle("\\mbox{Signal Density } k_4; d \\mbox{(cm)}; k_4 \mmbox{ (%)}");
 
-  gr_bkg_w->GetXaxis()->SetRangeUser(0.2,X[n]);
+  gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n]);
   gr_bkg_w->SetMarkerStyle(20);
   gr_bkg_w->SetMarkerSize(1);
   gr_bkg_w->SetMarkerColor(kBlue+1);
   gr_bkg_w->SetName("gr_bkg_w");
   gr_bkg_w->SetTitle("WJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
-  gr_bkg_tt->GetXaxis()->SetRangeUser(0.2,X[n]);
+  gr_bkg_tt->GetXaxis()->SetRangeUser(0,X[n]);
   gr_bkg_tt->SetMarkerStyle(20);
   gr_bkg_tt->SetMarkerSize(1);
   gr_bkg_tt->SetMarkerColor(kYellow+1);
   gr_bkg_tt->SetName("gr_bkg_tt");
   gr_bkg_tt->SetTitle("TTJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
-  gr_bkg_total->GetXaxis()->SetRangeUser(0.2,X[n]);
+  gr_bkg_total->GetXaxis()->SetRangeUser(0,X[n]);
   gr_bkg_total->SetMarkerStyle(20);
   gr_bkg_total->SetMarkerSize(1);
   gr_bkg_total->SetMarkerColor(kGreen+1);
@@ -56,21 +56,21 @@ void corr_d_eff() {
   gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
-  mg_bkg->SetTitle("Background Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
+  mg_bkg->SetTitle("\\mbox{Background Efficiency-Distance dependence } e_{4j}; d \\mbox{(cm)}; eff (%)");
   mg_bkg->Add(gr_bkg_w);
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
 
   auto leg_sig = new TLegend(0.7,0.80,0.9,0.9);
-  leg_sig->AddEntry(gr_sig,"Signal Efficiency","p");
+  leg_sig->AddEntry(gr_sig,"Signal Efficiency e_{40}","p");
   leg_sig->SetTextSize(0.03);
   auto leg_rat = new TLegend(0.7,0.80,0.9,0.9);
-  leg_rat->AddEntry(gr_rat,"Signal Ratio","p");
+  leg_rat->AddEntry(gr_rat,"Signal Density k_{4}","p");
   leg_rat->SetTextSize(0.035);
-  auto leg_bkg = new TLegend(0.1,0.75,0.35,0.9);
-  leg_bkg->AddEntry(gr_bkg_w,"WJets Background","p");
-  leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background","p");
-  leg_bkg->AddEntry(gr_bkg_total,"Total Background","p");
+  auto leg_bkg = new TLegend(0.65,0.15,0.8,0.3);
+  leg_bkg->AddEntry(gr_bkg_w,"WJets Background e_{4W}","p");
+  leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background e_{4T}","p");
+  leg_bkg->AddEntry(gr_bkg_total,"Total Background e_{4}","p");
 
   gr_sig->Draw("AP");
   leg_sig->Draw();
