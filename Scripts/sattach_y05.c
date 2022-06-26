@@ -127,9 +127,9 @@ void sattach_y05() {
   TH1F *eta9 = (TH1F*)f9->Get("plots/mueta");
   TH1F *eta10 = (TH1F*)f10->Get("plots/mueta");
   TH1F *etach = (TH1F*)fch->Get("plots/mueta");
-  TH1F *etabg = new TH1F("bg_mupt", "\\mbox{Muon eta (background)}", 90, -2.5, 2.5);
-  TH1F *etabg_w = new TH1F("bg_mupt_w", "\\mbox{Muon eta (background)}", 90, -2.5, 2.5);
-  TH1F *etabg_tt = new TH1F("bg_mupt_tt", "\\mbox{Muon eta (background)}", 90, -2.5, 2.5);
+  TH1F *etabg = new TH1F("bg_mueta", "\\mbox{Muon eta (background)}", 90, -2.5, 2.5);
+  TH1F *etabg_w = new TH1F("bg_mueta_w", "\\mbox{Muon eta (background)}", 90, -2.5, 2.5);
+  TH1F *etabg_tt = new TH1F("bg_mueta_tt", "\\mbox{Muon eta (background)}", 90, -2.5, 2.5);
 
 
   TH1F *h1_1 = (TH1F*)f1->Get("plots/jetht1");
