@@ -12,7 +12,7 @@ void corr_d_eff_75() {
   double X[n] = {0.2, 0.225, 0.25, 0.275, 0.3};
   double Y_sig[n] = {90.6262, 91.0609, 91.4955, 91.8546, 92.1507};
   double Y_rat[n] = {6.91886, 7.16063, 7.26448, 7.32518, 7.38134};
-  double Y_bkg_w[n] = {99.9632, 99.9654, 99.9664, 99.9675, 99.9294}
+  double Y_bkg_w[n] = {99.9632, 99.9654, 99.9664, 99.9675, 99.9294};
   double Y_bkg_tt[n] = {99.9111, 99.919, 9.9251, 99.9294, 99.9332};
   double Y_bkg_total[n] = {99.9351, 99.9403, 99.9441, 99.9469, 99.9493};
 
@@ -23,7 +23,7 @@ void corr_d_eff_75() {
   TGraph *gr_bkg_tt = new TGraph(n, X, Y_bkg_tt);
   TGraph *gr_bkg_total = new TGraph(n, X, Y_bkg_total);
 
-  gr_sig->GetXaxis()->SetRangeUser(0,X[n]);
+  gr_sig->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_sig->GetYaxis()->SetRangeUser(0,100);
   gr_sig->SetMarkerStyle(20);
   gr_sig->SetMarkerSize(1);
@@ -31,28 +31,28 @@ void corr_d_eff_75() {
   gr_sig->SetName("gr_sig");
   gr_sig->SetTitle("\\mbox{Signal Efficiency-Distance dependence } e_{40}; d \\mbox{(cm)}; e_{40} \\mbox{ (%)}");
 
-  gr_rat->GetXaxis()->SetRangeUser(0,X[n]);
+  gr_rat->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kRed+2);
   gr_rat->SetName("gr_rat");
   gr_rat->SetTitle("\\mbox{Signal Density } k_4; d \\mbox{(cm)}; k_4 \\mbox{ (%)}");
 
-  gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n]);
+  gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_w->SetMarkerStyle(20);
   gr_bkg_w->SetMarkerSize(1);
   gr_bkg_w->SetMarkerColor(kBlue+1);
   gr_bkg_w->SetName("gr_bkg_w");
   gr_bkg_w->SetTitle("WJets Efficiency-Distance dependence; d \\mbox{(cm)}; eff (%)");
 
-  gr_bkg_tt->GetXaxis()->SetRangeUser(0,X[n]);
+  gr_bkg_tt->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_tt->SetMarkerStyle(20);
   gr_bkg_tt->SetMarkerSize(1);
   gr_bkg_tt->SetMarkerColor(kYellow+1);
   gr_bkg_tt->SetName("gr_bkg_tt");
   gr_bkg_tt->SetTitle("TTJets Efficiency-Distance dependence; d \\mbox{ (cm)}; eff (%)");
 
-  gr_bkg_total->GetXaxis()->SetRangeUser(0,X[n]);
+  gr_bkg_total->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_total->SetMarkerStyle(20);
   gr_bkg_total->SetMarkerSize(1);
   gr_bkg_total->SetMarkerColor(kGreen+1);
