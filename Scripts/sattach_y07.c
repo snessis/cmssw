@@ -5,7 +5,7 @@
 #include "TLatex.h"
 //NO CUTS:
 
-void sattach_y05() {
+void sattach_y07() {
   double N1 = 748300; //HT 100 to 200
   double N2 = 1248911; //HT 200 to 400
   double N3 = 411531; //HT 400 to 600
@@ -42,17 +42,17 @@ void sattach_y05() {
   double SFCH = 1;
   double BR = 0.1063; //W -> muonic
 
-  TFile *f1 = new TFile("y05_1.root");
-  TFile *f2 = new TFile("y05_2.root");
-  TFile *f3 = new TFile("y05_3.root");
-  TFile *f4 = new TFile("y05_4.root");
-  TFile *f5 = new TFile("y05_5.root");
-  TFile *f6 = new TFile("y05_6.root");
-  TFile *f7 = new TFile("y05_7.root");
-  TFile *f8 = new TFile("y05_8.root");
-  TFile *f9 = new TFile("y05_9.root");
-  TFile *f10 = new TFile("y05_10.root");
-  TFile *fch = new TFile("y05.root");
+  TFile *f1 = new TFile("y07_1.root");
+  TFile *f2 = new TFile("y07_2.root");
+  TFile *f3 = new TFile("y07_3.root");
+  TFile *f4 = new TFile("y07_4.root");
+  TFile *f5 = new TFile("y07_5.root");
+  TFile *f6 = new TFile("y07_6.root");
+  TFile *f7 = new TFile("y07_7.root");
+  TFile *f8 = new TFile("y07_8.root");
+  TFile *f9 = new TFile("y07_9.root");
+  TFile *f10 = new TFile("y07_10.root");
+  TFile *fch = new TFile("y07.root");
 
   TH1F *met1 = (TH1F*)f1->Get("plots/metpt");
   TH1F *met2 = (TH1F*)f2->Get("plots/metpt");
@@ -532,7 +532,7 @@ void sattach_y05() {
   cout << "Background WJets Physical Events (best accuracy) = " << hnbg_w_entries << endl;
   cout << "Background TTJets Physical Events (best accuracy) = " << hnbg_tt_entries << endl;
 
-  TCanvas* c = new TCanvas("canv_y05", "The Canvas (post-analysis)", 1000, 700);
+  TCanvas* c = new TCanvas("canv_y07", "The Canvas (post-analysis)", 1000, 700);
   gStyle->SetOptStat(1110);
   gStyle->SetStatColor(18);
   //metch->SetLineColor(38);
@@ -661,87 +661,87 @@ void sattach_y05() {
   htotal_5->GetYaxis()->SetTitle("Counts");
   htotal_5->GetYaxis()->CenterTitle(true);
   metch->Draw("HIST");
-  c->SaveAs("sattach_y05_ch_met.png");
+  c->SaveAs("sattach_y07_ch_met.png");
   metbg->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_met.png");
+  c->SaveAs("sattach_y07_bg_met.png");
   metbg_w->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_w_met.png");
+  c->SaveAs("sattach_y07_bg_w_met.png");
   metbg_tt->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_tt_met.png");
+  c->SaveAs("sattach_y07_bg_tt_met.png");
   much->Draw("HIST");
-  c->SaveAs("sattach_y05_ch_mupt.png");
+  c->SaveAs("sattach_y07_ch_mupt.png");
   mubg->SetLineColor(kCyan+3);
   mubg->SetFillColor(kCyan+3);
   mubg->SetLineWidth(2);
   mubg->GetXaxis()->CenterTitle(true);
   mubg->GetYaxis()->CenterTitle(true);
   mubg->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_mupt.png");
+  c->SaveAs("sattach_y07_bg_mupt.png");
   mubg_w->SetLineColor(kCyan+2);
   mubg_w->SetFillColor(kCyan+2);
   mubg_w->SetLineWidth(2);
   mubg_w->GetXaxis()->CenterTitle(true);
   mubg_w->GetYaxis()->CenterTitle(true);
   mubg_w->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_w_mupt.png");
+  c->SaveAs("sattach_y07_bg_w_mupt.png");
   mubg_tt->SetLineColor(kCyan+2);
   mubg_tt->SetFillColor(kCyan+2);
   mubg_tt->SetLineWidth(2);
   mubg_tt->GetXaxis()->CenterTitle(true);
   mubg_tt->GetYaxis()->CenterTitle(true);
   mubg_tt->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_tt_mupt.png");
+  c->SaveAs("sattach_y07_bg_tt_mupt.png");
   etach->Draw("HIST");
-  c->SaveAs("sattach_y05_ch_mueta.png");
+  c->SaveAs("sattach_y07_ch_mueta.png");
   etabg->SetLineColor(kCyan+3);
   etabg->SetFillColor(kCyan+3);
   etabg->SetLineWidth(2);
   etabg->GetXaxis()->CenterTitle(true);
   etabg->GetYaxis()->CenterTitle(true);
   etabg->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_mueta.png");
+  c->SaveAs("sattach_y07_bg_mueta.png");
   etabg_w->SetLineColor(kCyan+2);
   etabg_w->SetFillColor(kCyan+2);
   etabg_w->SetLineWidth(2);
   etabg_w->GetXaxis()->CenterTitle(true);
   etabg_w->GetYaxis()->CenterTitle(true);
   etabg_w->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_w_mueta.png");
+  c->SaveAs("sattach_y07_bg_w_mueta.png");
   etabg_tt->SetLineColor(kCyan+2);
   etabg_tt->SetFillColor(kCyan+2);
   etabg_tt->SetLineWidth(2);
   etabg_tt->GetXaxis()->CenterTitle(true);
   etabg_tt->GetYaxis()->CenterTitle(true);
   etabg_tt->Draw("HIST");
-  c->SaveAs("sattach_y05_bg_tt_mueta.png");
+  c->SaveAs("sattach_y07_bg_tt_mueta.png");
   hbg_1->Draw("HIST");
-  c->SaveAs("sattach_y05_d1_bg_jetht.png");
+  c->SaveAs("sattach_y07_d1_bg_jetht.png");
   hch_1->Draw("HIST");
-  c->SaveAs("sattach_y05_d1_ch_jetht.png");
+  c->SaveAs("sattach_y07_d1_ch_jetht.png");
   htotal_1->Draw("HIST");
-  c->SaveAs("sattach_y05_d1_total_jetht.png");
+  c->SaveAs("sattach_y07_d1_total_jetht.png");
   hbg_2->Draw("HIST");
-  c->SaveAs("sattach_y05_d2_bg_jetht.png");
+  c->SaveAs("sattach_y07_d2_bg_jetht.png");
   hch_2->Draw("HIST");
-  c->SaveAs("sattach_y05_d2_ch_jetht.png");
+  c->SaveAs("sattach_y07_d2_ch_jetht.png");
   htotal_2->Draw("HIST");
-  c->SaveAs("sattach_y05_d2_total_jetht.png");
+  c->SaveAs("sattach_y07_d2_total_jetht.png");
   hbg_3->Draw("HIST");
-  c->SaveAs("sattach_y05_d3_bg_jetht.png");
+  c->SaveAs("sattach_y07_d3_bg_jetht.png");
   hch_3->Draw("HIST");
-  c->SaveAs("sattach_y05_d3_ch_jetht.png");
+  c->SaveAs("sattach_y07_d3_ch_jetht.png");
   htotal_3->Draw("HIST");
-  c->SaveAs("sattach_y05_d3_total_jetht.png");
+  c->SaveAs("sattach_y07_d3_total_jetht.png");
   hbg_4->Draw("HIST");
-  c->SaveAs("sattach_y05_d4_bg_jetht.png");
+  c->SaveAs("sattach_y07_d4_bg_jetht.png");
   hch_4->Draw("HIST");
-  c->SaveAs("sattach_y05_d4_ch_jetht.png");
+  c->SaveAs("sattach_y07_d4_ch_jetht.png");
   htotal_4->Draw("HIST");
-  c->SaveAs("sattach_y05_d4_total_jetht.png");
+  c->SaveAs("sattach_y07_d4_total_jetht.png");
   hbg_5->Draw("HIST");
-  c->SaveAs("sattach_y05_d5_bg_jetht.png");
+  c->SaveAs("sattach_y07_d5_bg_jetht.png");
   hch_5->Draw("HIST");
-  c->SaveAs("sattach_y05_d5_ch_jetht.png");
+  c->SaveAs("sattach_y07_d5_ch_jetht.png");
   htotal_5->Draw("HIST");
-  c->SaveAs("sattach_y05_d5_total_jetht.png");
+  c->SaveAs("sattach_y07_d5_total_jetht.png");
 }
