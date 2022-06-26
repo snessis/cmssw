@@ -8,13 +8,13 @@ double bg_fit(double *x, double *par) {
 }
 
 void corr_d_eff_75() {
-  const int n = 5;
-  double X[n] = {0.2, 0.225, 0.25, 0.275, 0.3};
-  double Y_sig[n] = {};
-  double Y_rat[n] = {};
-  double Y_bkg_w[n] = {};
-  double Y_bkg_tt[n] = {};
-  double Y_bkg_total[n] = {};
+  const int n = 10;
+  double X[n] = {0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425};
+  double Y_sig[n] = {61.7551, 64.3505, 66.8263, 68.8925, 70.7005};
+  double Y_rat[n] = {5.54217, 6.09007, 6.513, 6.90085, 7.24113};
+  double Y_bkg_w[n] = {99.7806, 99.7968, 99.8088, 99.8215, 99.8315};
+  double Y_bkg_tt[n] = {99.5653, 99.6488, 99.7088, 99.7519, 99.7857};
+  double Y_bkg_total[n] = {99.6644, 99.717, 99.7548, 99.7839, 99.8068};
 
   TCanvas *c_corr = new TCanvas("c_corr", "Correlation Canvas", 1000, 700);
   TGraph *gr_sig = new TGraph(n, X, Y_sig);
