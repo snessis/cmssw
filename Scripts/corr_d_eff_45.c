@@ -7,7 +7,7 @@ double bg_fit(double *x, double *par) {
 	return par[0] - par[1]*TMath::Exp(-abs(par[2])*x[0]);
 }
 
-void corr_d_eff() {
+void corr_d_eff_45() {
   int n = 32;
   double X[32] = {0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8};
   double Y_sig[32] = {17.3428, 20.732, 23.8188, 26.704, 29.0349, 31.2461, 33.3753, 35.4857, 37.3315, 39.171, 41.0672, 42.7114, 44.3304, 45.9116, 47.2723, 48.4566, 49.7165, 51.1906, 52.4316, 53.6979, 54.9893, 55.9909, 56.9422, 57.9186, 58.8824, 59.903, 60.8983, 61.8118, 62.6622, 63.4119, 64.193, 64.9553};
@@ -86,11 +86,11 @@ void corr_d_eff() {
 
   gr_sig->Draw("AP");
   leg_sig->Draw();
-  c_corr->SaveAs("corr_d_eff_sig.png");
+  c_corr->SaveAs("corr_d_eff_sig_45.png");
   gr_rat->Draw("AP");
   leg_rat->Draw();
-  c_corr->SaveAs("corr_d_eff_rat.png");
+  c_corr->SaveAs("corr_d_eff_rat_45.png");
   mg_bkg->Draw("AP");
   leg_bkg->Draw();
-  c_corr->SaveAs("corr_d_eff_total.png");
+  c_corr->SaveAs("corr_d_eff_total_45.png");
 }

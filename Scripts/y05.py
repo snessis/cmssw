@@ -399,9 +399,9 @@ class ExampleDisplacedAnalysis(Module):
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
         #ETA
-        self.h_mupt.SetLineColor(ROOT.kCyan+2)
-        self.h_mupt.SetFillColor(ROOT.kCyan+2)
-        self.h_mupt.Draw()
+        self.h_mueta.SetLineColor(ROOT.kCyan+2)
+        self.h_mueta.SetFillColor(ROOT.kCyan+2)
+        self.h_mueta.Draw()
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mueta.GetName() + "_post.png")
         self.c.Update()
         #MUON PT

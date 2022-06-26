@@ -23,11 +23,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.01
-d2 = 0.02
-d3 = 0.035
-d4 = 0.06
-d5 = 0.075
+d1 = 0.2
+d2 = 0.225
+d3 = 0.25
+d4 = 0.275
+d5 = 0.3
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
@@ -54,6 +54,7 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupvdistancerest3 = ROOT.TH1F('mupvdistancerest3', '\\mbox{Muon-PV Distance (Lab Frame) } d_3', 90, 0, 17)
         self.h_mupvdistancerest4 = ROOT.TH1F('mupvdistancerest4', '\\mbox{Muon-PV Distance (Lab Frame) } d_4', 90, 0, 17)
         self.h_mupvdistancerest5 = ROOT.TH1F('mupvdistancerest5', '\\mbox{Muon-PV Distance (Lab Frame) } d_5', 90, 0, 17)
+        self.h_mupvdistancerestsample = ROOT.TH1F('mupvdistancerestsample', '\\mbox{Muon-PV Distance (Lab Frame) }', 90, 0, 1)
         self.h_mud = ROOT.TH1F('mud', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
         self.h_mudxy = ROOT.TH1F('mudxy', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
         self.h_mudz = ROOT.TH1F('mudz', '\\mbox{Muon-PV Distance (Lab Frame)}', 90, 0, 17)
@@ -121,6 +122,8 @@ class ExampleDisplacedAnalysis(Module):
         self.h_mupvdistancerest4.GetYaxis().SetTitle("Counts")
         self.h_mupvdistancerest5.GetXaxis().SetTitle("l (dm)")
         self.h_mupvdistancerest5.GetYaxis().SetTitle("Counts")
+        self.h_mupvdistancerestsample.GetXaxis().SetTitle("d (cm)")
+        self.h_mupvdistancerestsample.GetYaxis().SetTitle("Counts")
         # 14 - MUON NETRINO
         self.h_nmupt.GetXaxis().SetTitle("p_t \\mbox{ (GeV)}")
         self.h_nmupt.GetYaxis().SetTitle("Counts")
@@ -142,9 +145,9 @@ class ExampleDisplacedAnalysis(Module):
         self.h_chdphi.GetYaxis().SetTitle("Counts")
         self.h_chdeta.GetXaxis().SetTitle("\\Delta \\eta")
         self.h_chdeta.GetYaxis().SetTitle("Counts")
-        self.h_chlenl.GetXaxis().SetTitle("L \\mbox{ (cm)}")
+        self.h_chlenl.GetXaxis().SetTitle("x \\mbox{ (cm)}")
         self.h_chlenl.GetYaxis().SetTitle("Counts")
-        self.h_chlenr.GetXaxis().SetTitle("L \\mbox{ (cm)}")
+        self.h_chlenr.GetXaxis().SetTitle("x \\mbox{ (cm)}")
         self.h_chlenr.GetYaxis().SetTitle("Counts")
         self.h_chbeta.GetXaxis().SetTitle("\\beta")
         self.h_chbeta.GetYaxis().SetTitle("Counts")
@@ -191,6 +194,7 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mupvdistancerest3)
         self.addObject(self.h_mupvdistancerest4)
         self.addObject(self.h_mupvdistancerest5)
+        self.addObject(self.h_mupvdistancerestsample)
         self.addObject(self.h_nmupt)
         self.addObject(self.h_nmueta)
         self.addObject(self.h_neupt)
@@ -201,7 +205,6 @@ class ExampleDisplacedAnalysis(Module):
         self.addObject(self.h_mix_metjet_dphi)
         self.addObject(self.h_mix_metjet_dphi_low)
         self.addObject(self.h_N)
-        print("beginJob function ended. Initializing analysis...")
         # TEMPORARY HISTOGRAMS
     def analyze(self, event):
         #Variables, Arrays
@@ -305,6 +308,7 @@ class ExampleDisplacedAnalysis(Module):
                     self.h_mud.Fill(d)
                     self.h_mudxy.Fill(abs(Mu.dxy))
                     self.h_mudz.Fill(abs(Mu.dz))
+                    self.h_mupvdistancerestsample.Fill(d)
                     if d >= d1:
                         self.h_mupvdistancerest1.Fill(d)
                     if d >= d2:
@@ -357,7 +361,7 @@ class ExampleDisplacedAnalysis(Module):
                          self.h_chphi, self.h_chlenl, self.h_chlenr, self.h_chbeta, self.h_chgamma, self.h_chnrgl, self.h_chdeta, self.h_chdphi, self.h_mupt,
                          self.h_mueta, self.mupvdistancerest1, self.mupvdistancerest2, self.mupvdistancerest3, self.mupvdistancerest4, self.mupvdistancerest5, self.nmupt,
                          self.nmueta, self.neupt, self.neueta, self.h_mix_chmu_deta, self.h_mix_chnmu_deta, self.h_mix_chneu_deta])
-        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low, self.h_jetht2, self.h_mud, self.h_mudxy, self.h_mudz])
+        histList = ([self.h_metptall, self.h_metpt, self.h_mupt, self.h_mueta, self.h_mix_metjet_dphi, self.h_mix_metjet_dphi_low, self.h_mud, self.h_mudxy, self.h_mudz, self.h_mupvdistancerestsample])
         XSECCH = 0.902569*1000
         L = 60
         scale = 1/events_all * XSECCH * L
@@ -390,7 +394,6 @@ class ExampleDisplacedAnalysis(Module):
         self.leg_met.AddEntry(self.h_metptall, "All W^{#pm} channels", "L")
         self.leg_met.AddEntry(self.h_metpt, "W^{#pm}#rightarrow #mu#nu_{#mu}", "L")
         self.s_met.Draw()
-        gStyle.SetOptStat(0)
         self.leg_met.Draw()
         self.s_met.GetXaxis().SetTitle("\\mbox{MET (GeV)}")
         self.s_met.GetYaxis().SetTitle("Counts")
@@ -399,6 +402,29 @@ class ExampleDisplacedAnalysis(Module):
         self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.s_met.GetName() + ".png")
         self.c.Update()
         #ETA
+        self.h_mupt.SetLineColor(ROOT.kCyan+2)
+        self.h_mupt.SetFillColor(ROOT.kCyan+2)
+        self.h_mupt.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mueta.GetName() + "_post.png")
+        self.c.Update()
+        #MUON PT
+        self.h_mupt.SetLineColor(ROOT.kCyan+2)
+        self.h_mupt.SetFillColor(ROOT.kCyan+2)
+        self.h_mupt.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupt.GetName() + "_post.png")
+        self.c.Update()
+        #JET HT d2
+        self.h_jetht2.SetLineColor(ROOT.kYellow+1)
+        self.h_jetht2.SetFillColor(ROOT.kYellow+1)
+        self.h_jetht2.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_jetht2.GetName() + "_post.png")
+        self.c.Update()
+        #MUON PV DIST
+        self.h_mupvdistancerestsample.SetLineColor(ROOT.kYellow-8)
+        self.h_mupvdistancerestsample.SetFillColor(ROOT.kYellow-8)
+        self.h_mupvdistancerestsample.Draw()
+        self.c.SaveAs("y" + ver + "/" + "y" + ver + "_h_" + self.h_mupvdistancerestsample.GetName() + "_post.png")
+        self.c.Update()
         Module.endJob(self)
 
 preselection = "MET_pt >= 100 && Jet_pt >= 30 && Muon_pt <= 50"
