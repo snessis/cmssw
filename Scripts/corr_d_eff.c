@@ -81,7 +81,8 @@ void corr_d_eff() {
   c_corr->GetFrame()->SetBorderMode(-1);
   c_corr->GetFrame()->SetBorderSize(5);
   TF1 *bg_fit_func = new TF1("bg_fit_func",bg_fit,0,0.8,2);
-  gr_bkg_tt->Fit("bg_fit_func");
+  bg_fit_func->SetParameters(1,1)
+  gr_bkg_total->Fit("bg_fit_func");
 
   gr_sig->Draw("AP");
   leg_sig->Draw();
