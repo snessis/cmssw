@@ -23,7 +23,7 @@ void corr_d_eff_45() {
   TGraph *gr_bkg_tt = new TGraph(n, X, Y_bkg_tt);
   TGraph *gr_bkg_total = new TGraph(n, X, Y_bkg_total);
 
-  gr_sig->GetXaxis()->SetRangeUser(0,X[n]);
+  gr_sig->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_sig->GetYaxis()->SetRangeUser(0,100);
   gr_sig->SetMarkerStyle(20);
   gr_sig->SetMarkerSize(1);
