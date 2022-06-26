@@ -32,7 +32,7 @@ void corr_d_eff() {
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kRed+2);
   gr_rat->SetName("gr_rat");
-  gr_rat->SetTitle("\\mbox{Signal Density } k_4; d \\mbox{(cm)}; k_4 \mmbox{ (%)}");
+  gr_rat->SetTitle("\\mbox{Signal Density } k_4; d \\mbox{(cm)}; k_4 \\mbox{ (%)}");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n]);
   gr_bkg_w->SetMarkerStyle(20);
