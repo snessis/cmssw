@@ -3,6 +3,10 @@
 #include "TF1.h"
 #include "TLegend.h"
 #include "TLatex.h"
+double bg_fit(double *x, double *par) {
+	return 100 - par[0]*TMath::Exp(-abs(par[1])*x[0])
+}
+
 void corr_d_eff() {
   int n = 29;
   double X[29] = {0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675};
@@ -71,14 +75,21 @@ void corr_d_eff() {
   leg_bkg->AddEntry(gr_bkg_w,"WJets Background e_{4W}","p");
   leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background e_{4T}","p");
   leg_bkg->AddEntry(gr_bkg_total,"Total Background e_{4}","p");
+  c_corr->SetGridx();
+  c_corr->SetGridy();
+  c_corr->GetFrame()->SetFillColor(21);
+  c_corr->GetFrame()->SetBorderMode(-1);
+  c_corr->GetFrame()->SetBorderSize(5);
+  TF1 *bg_fit_func = new TF1("bg_fit_func",bg_fit,0,0.8,2);
+  gr_bkg_tt->Fit("bg_fit_func")
 
-  gr_sig->Draw("ACP");
+  gr_sig->Draw("AP");
   leg_sig->Draw();
   c_corr->SaveAs("corr_d_eff_sig.png");
-  gr_rat->Draw("ACP");
+  gr_rat->Draw("AP");
   leg_rat->Draw();
   c_corr->SaveAs("corr_d_eff_rat.png");
-  mg_bkg->Draw("ACP");
+  mg_bkg->Draw("AP");
   leg_bkg->Draw();
   c_corr->SaveAs("corr_d_eff_total.png");
 }
