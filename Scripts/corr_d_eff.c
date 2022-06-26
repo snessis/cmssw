@@ -80,7 +80,7 @@ void corr_d_eff() {
   c_corr->GetFrame()->SetFillColor(21);
   c_corr->GetFrame()->SetBorderMode(-1);
   c_corr->GetFrame()->SetBorderSize(5);
-  TF1 *bg_fit_func = new TF1("bg_fit_func",bg_fit,0.001,0.8,3);
+  TF1 *bg_fit_func = new TF1("bg_fit_func",bg_fit,0.006,0.7,3);
   bg_fit_func->SetParameters(98,1,20);
   gr_bkg_total->Fit("bg_fit_func");
 
