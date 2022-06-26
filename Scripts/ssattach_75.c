@@ -726,7 +726,7 @@ void ssattach_75() {
   cout << "y05-y07: Background Total Cut Filter % (d5)= " << (svbg_entries_5 - pvbg_entries_5) / svbg_entries_5 * 100 << endl;
   cout << "y05-y07: Background WJets Cut Filter % (d5) = " << (svbg_w_entries_5 - pvbg_w_entries_5) / svbg_w_entries_5 * 100 << endl;
   cout << "y05-y07: Background TTJets Cut Filter % (d5) = " << (svbg_tt_entries_5 - pvbg_tt_entries_5) / svbg_tt_entries_5 * 100 << endl;
-  cout << "////////////////////////////////"
+  cout << "////////////////////////////////" << endl;
   cout << "y05-y07: Chargino Cut Efficiency % (d1) = " << (svch_entries_1- pvch_entries_1) / svch_entries_1 * 100 << endl;
   cout << "y05-y07: Chargino Cut Efficiency % (d2) = " << (svch_entries_2- pvch_entries_2) / svch_entries_2 * 100 << endl;
   cout << "y05-y07: Chargino Cut Efficiency % (d3) = " << (svch_entries_3- pvch_entries_3) / svch_entries_3 * 100 << endl;
