@@ -60,7 +60,7 @@ void corr_d_eff_75() {
   gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; d \\mbox{ (cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
-  mg_bkg->SetTitle("\\mbox{Background Efficiency-Distance dependence } e_{3j}; d \\mbox{ (cm)}; e_{3j} (%)");
+  mg_bkg->SetTitle("\\mbox{Background Efficiency-Distance dependence } e_{3j}; d \\mbox{ (cm)}; e_{3j} \\mbox{ (%)}");
   mg_bkg->Add(gr_bkg_w);
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
