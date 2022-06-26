@@ -67,7 +67,7 @@ void corr_d_eff() {
   auto leg_rat = new TLegend(0.65,0.80,0.9,0.9);
   leg_rat->AddEntry(gr_rat,"Signal Density k_{4}","p");
   leg_rat->SetTextSize(0.035);
-  auto leg_bkg = new TLegend(0.75,0.1,1,0.25);
+  auto leg_bkg = new TLegend(0.55,0.1,0.8,0.25);
   leg_bkg->AddEntry(gr_bkg_w,"WJets Background e_{4W}","p");
   leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background e_{4T}","p");
   leg_bkg->AddEntry(gr_bkg_total,"Total Background e_{4}","p");
