@@ -275,7 +275,7 @@ class ExampleDisplacedAnalysis(Module):
             if Muon.mediumId == True: #and Muon.tightId == False
                 muons_pre_passed += 1
                 d = abs(Muon.dxy)
-                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and abs(Muon.dz) <= 5 and METpt >= 100 and d >= d1:
+                if Muon.pt >= 3.7 and abs(Muon.eta) <= 2.5 and METpt >= 100 and d >= d1 and abs(Muon.dz) <= 5:
                     Mus.append(Muon)
                     mus2.append(genParts[Muon.genPartIdx])
         if len(Mus) == 0:
@@ -301,7 +301,7 @@ class ExampleDisplacedAnalysis(Module):
                     self.h_N.Fill(1)
                 self.h_metpt.Fill(METpt)
                 for Mu in Mus:
-                    d = abs(Muon.dxy)
+                    d = abs(Mu.dxy)
                     dists.append(d)
                     self.h_mupt.Fill(Mu.pt)
                     self.h_mueta.Fill(Mu.eta)

@@ -302,7 +302,7 @@ class ExampleDisplacedAnalysis(Module):
                     self.h_N.Fill(1)
                 self.h_metpt.Fill(METpt)
                 for Mu in Mus:
-                    d = abs(Muon.dxy)
+                    d = abs(Mu.dxy)
                     dists.append(d)
                     self.h_mupt.Fill(Mu.pt)
                     self.h_mueta.Fill(Mu.eta)
