@@ -4,7 +4,7 @@
 #include "TLegend.h"
 #include "TLatex.h"
 double bg_fit(double *x, double *par) {
-	return 100 - par[0]*TMath::Exp(-abs(par[1])*x[0]);
+	return par[0] - par[1]*TMath::Exp(-abs(par[2])*x[0]);
 }
 
 void corr_d_eff() {
@@ -80,8 +80,8 @@ void corr_d_eff() {
   c_corr->GetFrame()->SetFillColor(21);
   c_corr->GetFrame()->SetBorderMode(-1);
   c_corr->GetFrame()->SetBorderSize(5);
-  TF1 *bg_fit_func = new TF1("bg_fit_func",bg_fit,0,0.8,2);
-  bg_fit_func->SetParameters(1,1);
+  TF1 *bg_fit_func = new TF1("bg_fit_func",bg_fit,0,0.8,3);
+  bg_fit_func->SetParameters(98,1,1);
   gr_bkg_total->Fit("bg_fit_func");
 
   gr_sig->Draw("AP");
