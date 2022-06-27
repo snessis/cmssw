@@ -27,7 +27,7 @@ void corr_d_attach() {
   TGraph *gr_sig4 = new TGraph(n4, X4, Y_sig4);
   TGraph *gr_rat4 = new TGraph(n4, X4, Y_rat4);
 
-  gr_sig3->GetXaxis()->SetRangeUser(0,X[n-1]);
+  gr_sig3->GetXaxis()->SetRangeUser(0,X[n3-1]);
   gr_sig3->GetYaxis()->SetRangeUser(0,100);
   gr_sig3->SetMarkerStyle(20);
   gr_sig3->SetMarkerSize(1);
@@ -35,14 +35,14 @@ void corr_d_attach() {
   gr_sig3->SetName("gr_sig3");
   gr_sig3->SetTitle("\\mbox{Signal Efficiency-Distance dependence } e_{30}; d \\mbox{(cm)}; e_{30} \\mbox{ (%)}");
 
-  gr_rat3->GetXaxis()->SetRangeUser(0,X[n-1]);
+  gr_rat3->GetXaxis()->SetRangeUser(0,X[n3-1]);
   gr_rat3->SetMarkerStyle(20);
   gr_rat3->SetMarkerSize(1);
   gr_rat3->SetMarkerColor(kMagenta+1);
   gr_rat3->SetName("gr_rat3");
   gr_rat3->SetTitle("\\mbox{Signal Density } k_3; d \\mbox{ (cm)}; k_3 \\mbox{ (%)}");
 
-  gr_sig4->GetXaxis()->SetRangeUser(0,X[n-1]);
+  gr_sig4->GetXaxis()->SetRangeUser(0,X[n4-1]);
   gr_sig4->GetYaxis()->SetRangeUser(0,100);
   gr_sig4->SetMarkerStyle(20);
   gr_sig4->SetMarkerSize(1);
@@ -50,7 +50,7 @@ void corr_d_attach() {
   gr_sig4->SetName("gr_sig4");
   gr_sig4->SetTitle("\\mbox{Signal Efficiency-Distance dependence } e_{40}; d \\mbox{(cm)}; e_{40} \\mbox{ (%)}");
 
-  gr_rat4->GetXaxis()->SetRangeUser(0,X[n-1]);
+  gr_rat4->GetXaxis()->SetRangeUser(0,X[n4-1]);
   gr_rat4->SetMarkerStyle(20);
   gr_rat4->SetMarkerSize(1);
   gr_rat4->SetMarkerColor(kRed+2);
