@@ -36,7 +36,7 @@ void corr_d_eff_45() {
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kRed+2);
   gr_rat->SetName("gr_rat");
-  gr_rat->SetTitle("\\mbox{Signal Density } k_4; d \\mbox{(cm)}; k_4 \\mbox{ (%)}");
+  gr_rat->SetTitle("\\mbox{Signal Density } k_4; d \\mbox{ (cm)}; k_4 \\mbox{ (%)}");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_w->SetMarkerStyle(20);
@@ -60,7 +60,7 @@ void corr_d_eff_45() {
   gr_bkg_total->SetTitle("Total Efficiency-Distance dependence; d \\mbox{ (cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
-  mg_bkg->SetTitle("\\mbox{Background Efficiency-Distance dependence } e_{4j}; d \\mbox{ (cm)}; e_{4j} (%)");
+  mg_bkg->SetTitle("\\mbox{Background Efficiency-Distance dependence } e_{4j}; d \\mbox{ (cm)}; e_{4j} \\mbox{ (%)}");
   mg_bkg->Add(gr_bkg_w);
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
