@@ -592,7 +592,7 @@ void sattach_y04() {
   s_met_w->SetTitle("\\mbox{WJets Background Missing Energy Transverse (MET) }; \\mbox{MET (GeV)}; \\mbox{Counts}");
   s_met_w->Add(metbg_w);
   s_met_w->Add(metallbg_w);
-  auto leg_met_w = new TLegend(0.65,0.7,0.9,0.95);
+  auto leg_met_w = new TLegend(0.70,0.75,0.9,0.9);
   leg_met_w->SetMargin(0.15);
   leg_met_w->SetTextSize(0.035);
   leg_met_w->AddEntry(metallbg_w,"All W^{#pm} channels","L");
@@ -601,7 +601,7 @@ void sattach_y04() {
   s_met_tt->SetTitle("\\mbox{TTJets Background Missing Energy Transverse (MET) }; \\mbox{MET (GeV)}; \\mbox{Counts}");
   s_met_tt->Add(metbg_tt);
   s_met_tt->Add(metallbg_tt);
-  auto leg_met_tt = new TLegend(0.65,0.7,0.9,0.95);
+  auto leg_met_tt = new TLegend(0.70,0.75,0.9,0.9);
   leg_met_tt->SetMargin(0.15);
   leg_met_tt->SetTextSize(0.035);
   leg_met_tt->AddEntry(metallbg_tt,"All W^{#pm} channels","L");
@@ -610,7 +610,7 @@ void sattach_y04() {
   s_met->SetTitle("\\mbox{Total Background Missing Energy Transverse (MET) }; \\mbox{MET (GeV)}; \\mbox{Counts}");
   s_met->Add(metbg);
   s_met->Add(metallbg);
-  auto leg_met = new TLegend(0.65,0.7,0.9,0.95);
+  auto leg_met = new TLegend(0.70,0.75,0.9,0.9);
   leg_met->SetMargin(0.15);
   leg_met->SetTextSize(0.035);
   leg_met->AddEntry(metallbg,"All W^{#pm} channels","L");
