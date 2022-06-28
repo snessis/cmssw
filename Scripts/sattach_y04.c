@@ -597,7 +597,7 @@ void sattach_y04() {
   leg_met_w->AddEntry(metbg_w,"W^{#pm}#rightarrow #mu#nu_{#mu}","L");
   THStack *s_met_tt = new THStack();
   s_met_tt->SetTitle("\\mbox{TTJets Background Missing Energy Transverse (MET) }; \\mbox{MET (GeV)}; \\mbox{Counts}");
-  s_met_tt->Add(metbg_t);
+  s_met_tt->Add(metbg_tt);
   s_met_tt->Add(metallbg_tt);
   auto leg_met_tt = new TLegend(0.65,0.7,0.9,0.95);
   leg_met_tt->SetTextSize(0.035);
@@ -865,7 +865,7 @@ void sattach_y04() {
   s_met_tt->Draw("HIST");
   leg_met_tt->Draw();
   c->SaveAs("sattach_y04_s_met_bg_tt.png");
-  s_met_t->Draw("HIST");
-  leg_met_t->Draw();
-  c->SaveAs("sattach_y04_s_met_bg_t.png");
+  s_met->Draw("HIST");
+  leg_met->Draw();
+  c->SaveAs("sattach_y04_s_met_bg.png");
 }
