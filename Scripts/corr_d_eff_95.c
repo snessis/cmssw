@@ -7,7 +7,7 @@ double bg_fit(double *x, double *par) {
 	return par[0] - par[1]*TMath::Exp(-abs(par[2])*x[0]);
 }
 
-void corr_d_eff_45() {
+void corr_d_eff_95() {
   const int n = 32;
   double X[n] = {0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8};
   double Y_sig[n] = {17.3428, 20.732, 23.8188, 26.704, 29.0349, 31.2461, 33.3753, 35.4857, 37.3315, 39.171, 41.0672, 42.7114, 44.3304, 45.9116, 47.2723, 48.4566, 49.7165, 51.1906, 52.4316, 53.6979, 54.9893, 55.9909, 56.9422, 57.9186, 58.8824, 59.903, 60.8983, 61.8118, 62.6622, 63.4119, 64.193, 64.9553};
@@ -29,14 +29,14 @@ void corr_d_eff_45() {
   gr_sig->SetMarkerSize(1);
   gr_sig->SetMarkerColor(kRed+2);
   gr_sig->SetName("gr_sig");
-  gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{40}; d \\mbox{(cm)}; e_{40} \\mbox{ (%)}");
+  gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{60}; d \\mbox{(cm)}; e_{60} \\mbox{ (%)}");
 
   gr_rat->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kRed+2);
   gr_rat->SetName("gr_rat");
-  gr_rat->SetTitle("\\mbox{Signal Density-Displacement dependence } k_4; d \\mbox{ (cm)}; k_4 \\mbox{ (%)}");
+  gr_rat->SetTitle("\\mbox{Signal Density-Displacement dependence } k_6; d \\mbox{ (cm)}; k_6 \\mbox{ (%)}");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_w->SetMarkerStyle(20);
@@ -60,21 +60,21 @@ void corr_d_eff_45() {
   gr_bkg_total->SetTitle("Total Efficiency-Displacement dependence; d \\mbox{ (cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
-  mg_bkg->SetTitle("\\mbox{Background Efficiency-Displacement dependence } e_{4j}; d \\mbox{ (cm)}; e_{4j} \\mbox{ (%)}");
+  mg_bkg->SetTitle("\\mbox{Background Efficiency-Displacement dependence } e_{6j}; d \\mbox{ (cm)}; e_{6j} \\mbox{ (%)}");
   mg_bkg->Add(gr_bkg_w);
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
 
   auto leg_sig = new TLegend(0.65,0.83,0.9,0.9);
-  leg_sig->AddEntry(gr_sig,"Signal Efficiency e_{40}","p");
+  leg_sig->AddEntry(gr_sig,"Signal Efficiency e_{60}","p");
   leg_sig->SetTextSize(0.03);
   auto leg_rat = new TLegend(0.65,0.83,0.9,0.9);
-  leg_rat->AddEntry(gr_rat,"Signal Density k_{4}","p");
+  leg_rat->AddEntry(gr_rat,"Signal Density k_{6}","p");
   leg_rat->SetTextSize(0.035);
   auto leg_bkg = new TLegend(0.65,0.1,0.9,0.25);
-  leg_bkg->AddEntry(gr_bkg_w,"WJets Background e_{4W}","p");
-  leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background e_{4T}","p");
-  leg_bkg->AddEntry(gr_bkg_total,"Total Background e_{4}","p");
+  leg_bkg->AddEntry(gr_bkg_w,"WJets Background e_{6W}","p");
+  leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background e_{6T}","p");
+  leg_bkg->AddEntry(gr_bkg_total,"Total Background e_{6}","p");
   c_corr->SetGridx();
   c_corr->SetGridy();
   c_corr->GetFrame()->SetFillColor(21);
