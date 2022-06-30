@@ -22,11 +22,11 @@ events_all = 556249
 locateFinalStates = [13, 14, 1000022]
 leptonic = [13, 14]
 hadronic = [1,2,3,4,5,6,21]
-d1 = 0.15 #d1 = 0.2
-d2 = 0.175 #d2 = 0.225
-d3 = 0.2 #d3 = 0.25
-d4 = 0.225 #d4 = 0.275
-d5 = 0.25 #d5 = 0.3
+d1 = 0.275 #d1 = 0.2
+d2 = 0.3 #d2 = 0.225
+d3 = 0.325 #d3 = 0.25
+d4 = 0.35 #d4 = 0.275
+d5 = 0.375 #d5 = 0.3
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
