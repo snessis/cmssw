@@ -86,11 +86,11 @@ void corr_d_eff_95() {
 
   gr_sig->Draw("AP");
   leg_sig->Draw();
-  c_corr->SaveAs("corr_d_eff_sig_45.png");
+  c_corr->SaveAs("corr_d_eff_sig_95.png");
   gr_rat->Draw("AP");
   leg_rat->Draw();
-  c_corr->SaveAs("corr_d_eff_rat_45.png");
+  c_corr->SaveAs("corr_d_eff_rat_95.png");
   mg_bkg->Draw("AP");
   leg_bkg->Draw();
-  c_corr->SaveAs("corr_d_eff_total_45.png");
+  c_corr->SaveAs("corr_d_eff_total_95.png");
 }
