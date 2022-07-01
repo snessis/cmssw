@@ -65,7 +65,7 @@ void corr_d_eff_105() {
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
 
-	auto leg_sig = new TLegend(0.1,0.83,0.35,0.9);
+	auto leg_sig = new TLegend(0.65,0.83,0.9,0.9);
   leg_sig->AddEntry(gr_sig,"Signal Efficiency e_{60}","p");
   leg_sig->SetTextSize(0.03);
 	auto leg_rat = new TLegend(0.65,0.83,0.9,0.9);
