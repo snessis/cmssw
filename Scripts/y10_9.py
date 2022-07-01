@@ -26,7 +26,7 @@ d1 = 0.525 #d1 = 0.2
 d2 = 0.55 #d2 = 0.225
 d3 = 0.575 #d3 = 0.25
 d4 = 0.6 #d4 = 0.275
-d5 = 0.675 #d5 = 0.3
+d5 = 0.625 #d5 = 0.3
 class ExampleDisplacedAnalysis(Module):
     def __init__(self):
         self.writeHistFile = True
