@@ -29,14 +29,14 @@ void corr_d_eff_105() {
   gr_sig->SetMarkerSize(1);
   gr_sig->SetMarkerColor(kMagenta+1);
   gr_sig->SetName("gr_sig");
-  gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{70}; d \\mbox{ (cm)}; e_{70} \\mbox{ (%)}");
+  gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{60}; d \\mbox{ (cm)}; e_{60} \\mbox{ (%)}");
 
   gr_rat->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kMagenta+1);
   gr_rat->SetName("gr_rat");
-  gr_rat->SetTitle("\\mbox{Signal Density-Displacement dependence } k_7; d \\mbox{ (cm)}; k_7 \\mbox{ (%)}");
+  gr_rat->SetTitle("\\mbox{Signal Density-Displacement dependence } k_6; d \\mbox{ (cm)}; k_6 \\mbox{ (%)}");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_w->SetMarkerStyle(20);
@@ -60,21 +60,21 @@ void corr_d_eff_105() {
   gr_bkg_total->SetTitle("Total Efficiency-Displacement dependence; d \\mbox{ (cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
-  mg_bkg->SetTitle("\\mbox{Background Efficiency-Displacement dependence } e_{7j}; d \\mbox{ (cm)}; e_{7j} \\mbox{ (%)}");
+  mg_bkg->SetTitle("\\mbox{Background Efficiency-Displacement dependence } e_{6j}; d \\mbox{ (cm)}; e_{6j} \\mbox{ (%)}");
   mg_bkg->Add(gr_bkg_w);
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
 
 	auto leg_sig = new TLegend(0.1,0.83,0.35,0.9);
-  leg_sig->AddEntry(gr_sig,"Signal Efficiency e_{70}","p");
+  leg_sig->AddEntry(gr_sig,"Signal Efficiency e_{60}","p");
   leg_sig->SetTextSize(0.03);
   auto leg_rat = new TLegend(0.1,0.83,0.35,0.9);
-  leg_rat->AddEntry(gr_rat,"Signal Density k_{7}","p");
+  leg_rat->AddEntry(gr_rat,"Signal Density k_{6}","p");
   leg_rat->SetTextSize(0.035);
   auto leg_bkg = new TLegend(0.65,0.1,0.9,0.25);
-  leg_bkg->AddEntry(gr_bkg_w,"WJets Background e_{7W}","p");
-  leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background e_{7T}","p");
-  leg_bkg->AddEntry(gr_bkg_total,"Total Background e_{7}","p");
+  leg_bkg->AddEntry(gr_bkg_w,"WJets Background e_{6W}","p");
+  leg_bkg->AddEntry(gr_bkg_tt,"TTJets Background e_{6T}","p");
+  leg_bkg->AddEntry(gr_bkg_total,"Total Background e_{6}","p");
   c_corr->SetGridx();
   c_corr->SetGridy();
   c_corr->GetFrame()->SetFillColor(21);

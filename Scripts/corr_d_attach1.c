@@ -4,7 +4,7 @@
 #include "TLegend.h"
 #include "TLatex.h"
 
-void corr_d_attach() {
+void corr_d_attach1() {
   const int n3 = 25;
   double X3[n3] = {0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675};
   double Y3_sig[n3] = {42.6106, 47.5495, 51.8899, 55.5122, 58.9139, 61.7551, 64.3505, 66.8263, 68.8925, 70.7005, 72.477, 74.0771, 75.463, 76.7418, 78.2474, 79.4633, 80.6413, 81.7941, 82.8147, 83.6777, 84.4904, 85.3408, 86.0086, 86.6826, 87.3945};
@@ -83,10 +83,10 @@ void corr_d_attach() {
 
   mg_sig->Draw("AP");
   leg_sig->Draw();
-  c_corr->SaveAs("corr_d_eff_sig_attach.png");
+  c_corr->SaveAs("corr_d_eff_sig_attach1.png");
   mg_rat->Draw("AP");
   leg_rat->Draw();
-  c_corr->SaveAs("corr_d_eff_rat_attach.png");
+  c_corr->SaveAs("corr_d_eff_rat_attach1.png");
 
 
 }
