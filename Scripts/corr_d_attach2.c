@@ -69,12 +69,12 @@ void corr_d_attach2() {
 
   auto leg_sig = new TLegend(0.65,0.1,0.9,0.25);
   leg_sig->SetTextSize(0.035);
-  leg_sig->AddEntry(gr_sig3,"STATE3 Signal e_{50}","p");
-  leg_sig->AddEntry(gr_sig4,"STATE4 Signal e_{60}","p");
+  leg_sig->AddEntry(gr_sig3,"STATE5 Signal e_{50}","p");
+  leg_sig->AddEntry(gr_sig4,"STATE6 Signal e_{60}","p");
   auto leg_rat = new TLegend(0.65,0.4,0.9,0.55);
   leg_sig->SetTextSize(0.035);
-  leg_rat->AddEntry(gr_rat3,"STATE3 Signal k_{5}","p");
-  leg_rat->AddEntry(gr_rat4,"STATE4 Signal k_{6}","p");
+  leg_rat->AddEntry(gr_rat3,"STATE5 Signal k_{5}","p");
+  leg_rat->AddEntry(gr_rat4,"STATE6 Signal k_{6}","p");
   c_corr->SetGridx();
   c_corr->SetGridy();
   c_corr->GetFrame()->SetFillColor(21);
