@@ -29,38 +29,38 @@ void corr_d_eff_95() {
   gr_sig->SetMarkerSize(1);
   gr_sig->SetMarkerColor(kMagenta+1);
   gr_sig->SetName("gr_sig");
-  gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{50}; d \\mbox{(cm)}; e_{50} \\mbox{ (%)}");
+  gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{50}; d_t \\mbox{ (cm)}; e_{50} \\mbox{ (%)}");
 
   gr_rat->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_rat->SetMarkerStyle(20);
   gr_rat->SetMarkerSize(1);
   gr_rat->SetMarkerColor(kMagenta+1);
   gr_rat->SetName("gr_rat");
-  gr_rat->SetTitle("\\mbox{Signal Density-Displacement dependence } k_5; d \\mbox{ (cm)}; k_5 \\mbox{ (%)}");
+  gr_rat->SetTitle("\\mbox{Signal Density-Displacement dependence } k_5; d_t \\mbox{ (cm)}; k_5 \\mbox{ (%)}");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_w->SetMarkerStyle(20);
   gr_bkg_w->SetMarkerSize(1);
   gr_bkg_w->SetMarkerColor(kBlue+1);
   gr_bkg_w->SetName("gr_bkg_w");
-  gr_bkg_w->SetTitle("WJets Efficiency-Displacementdependence; d \\mbox{(cm)}; eff (%)");
+  gr_bkg_w->SetTitle("WJets Efficiency-Displacementdependence; d_t \\mbox{(cm)}; eff (%)");
 
   gr_bkg_tt->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_tt->SetMarkerStyle(20);
   gr_bkg_tt->SetMarkerSize(1);
   gr_bkg_tt->SetMarkerColor(kYellow+1);
   gr_bkg_tt->SetName("gr_bkg_tt");
-  gr_bkg_tt->SetTitle("TTJets Efficiency-Displacement dependence; d \\mbox{ (cm)}; eff (%)");
+  gr_bkg_tt->SetTitle("TTJets Efficiency-Displacement dependence; d_t \\mbox{ (cm)}; eff (%)");
 
   gr_bkg_total->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_total->SetMarkerStyle(20);
   gr_bkg_total->SetMarkerSize(1);
   gr_bkg_total->SetMarkerColor(kGreen+1);
   gr_bkg_total->SetName("gr_bkg_total");
-  gr_bkg_total->SetTitle("Total Efficiency-Displacement dependence; d \\mbox{ (cm)}; eff (%)");
+  gr_bkg_total->SetTitle("Total Efficiency-Displacement dependence; d_t \\mbox{ (cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
-  mg_bkg->SetTitle("\\mbox{Background Efficiency-Displacement dependence } e_{5j}; d \\mbox{ (cm)}; e_{5j} \\mbox{ (%)}");
+  mg_bkg->SetTitle("\\mbox{Background Efficiency-Displacement dependence } e_{5j}; d_t \\mbox{ (cm)}; e_{5j} \\mbox{ (%)}");
   mg_bkg->Add(gr_bkg_w);
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
