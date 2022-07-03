@@ -33,7 +33,7 @@ void corr_d_attach2() {
   gr_sig3->SetMarkerSize(1);
   gr_sig3->SetMarkerColor(kMagenta+1);
   gr_sig3->SetName("gr_sig3");
-  gr_sig3->SetTitle("\\mbox{Signal Efficiency-Distance dependence } e_{50}; d \\mbox{(cm)}; e_{50} \\mbox{ (%)}");
+  gr_sig3->SetTitle("\\mbox{Rejection Signal Efficiency-Distance dependence } e_{50}; d \\mbox{(cm)}; e_{50} \\mbox{ (%)}");
 
   gr_rat3->GetXaxis()->SetRangeUser(0,X3[n3-1]);
   gr_rat3->SetMarkerStyle(20);
@@ -48,7 +48,7 @@ void corr_d_attach2() {
   gr_sig4->SetMarkerSize(1);
   gr_sig4->SetMarkerColor(kRed+2);
   gr_sig4->SetName("gr_sig4");
-  gr_sig4->SetTitle("\\mbox{Signal Efficiency-Distance dependence } e_{60}; d \\mbox{(cm)}; e_{60} \\mbox{ (%)}");
+  gr_sig4->SetTitle("\\mbox{Rejection Signal Efficiency-Distance dependence } e_{60}; d \\mbox{(cm)}; e_{60} \\mbox{ (%)}");
 
   gr_rat4->GetXaxis()->SetRangeUser(0,X4[n4-1]);
   gr_rat4->SetMarkerStyle(20);
@@ -58,7 +58,7 @@ void corr_d_attach2() {
   gr_rat4->SetTitle("\\mbox{Signal Density } k_6; d \\mbox{ (cm)}; k_6 \\mbox{ (%)}");
 
   TMultiGraph *mg_sig = new TMultiGraph();
-  mg_sig->SetTitle("\\mbox{Signal Efficiency-Distance dependence } e_{i0}; d \\mbox{ (cm)}; e_{i0} \\mbox{ (%)}");
+  mg_sig->SetTitle("\\mbox{Rejection Signal Efficiency-Distance dependence } e_{i0}; d \\mbox{ (cm)}; e_{i0} \\mbox{ (%)}");
   mg_sig->Add(gr_sig3);
   mg_sig->Add(gr_sig4);
 

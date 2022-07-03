@@ -29,7 +29,7 @@ void corr_d_eff_105() {
   gr_sig->SetMarkerSize(1);
   gr_sig->SetMarkerColor(kRed+2);
   gr_sig->SetName("gr_sig");
-  gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{60}; d \\mbox{ (cm)}; e_{60} \\mbox{ (%)}");
+  gr_sig->SetTitle("\\mbox{Signal Rejection Efficiency-Displacement dependence } e_{60}; d \\mbox{ (cm)}; e_{60} \\mbox{ (%)}");
 
   gr_rat->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_rat->SetMarkerStyle(20);
@@ -60,7 +60,7 @@ void corr_d_eff_105() {
   gr_bkg_total->SetTitle("Total Efficiency-Displacement dependence; d \\mbox{ (cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
-  mg_bkg->SetTitle("\\mbox{Background Efficiency-Displacement dependence } e_{6j}; d \\mbox{ (cm)}; e_{6j} \\mbox{ (%)}");
+  mg_bkg->SetTitle("\\mbox{Background Rejection Efficiency-Displacement dependence } e_{6j}; d \\mbox{ (cm)}; e_{6j} \\mbox{ (%)}");
   mg_bkg->Add(gr_bkg_w);
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
