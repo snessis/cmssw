@@ -72,7 +72,7 @@ void corr_d_attach2() {
   leg_sig->AddEntry(gr_sig3,"STATE5 Signal e_{50}","p");
   leg_sig->AddEntry(gr_sig4,"STATE6 Signal e_{60}","p");
   auto leg_rat = new TLegend(0.65,0.4,0.9,0.55);
-  leg_sig->SetTextSize(0.035);
+  leg_rat->SetTextSize(0.035);
   leg_rat->AddEntry(gr_rat3,"STATE5 Signal k_{5}","p");
   leg_rat->AddEntry(gr_rat4,"STATE6 Signal k_{6}","p");
   c_corr->SetGridx();
