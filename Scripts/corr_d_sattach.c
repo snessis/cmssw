@@ -121,14 +121,14 @@ void corr_d_sattach() {
 	mg_rat->Add(gr_rat5);
   mg_rat->Add(gr_rat6);
 
-  auto leg_sig = new TLegend(0.63,0.12,0.9,0.37);
+  auto leg_sig = new TLegend(0.63,0.14,0.9,0.4);
   leg_sig->SetTextSize(0.035);
 	leg_sig->SetFillColor(44);
   leg_sig->AddEntry(gr_sig3,"STATE3 Signal e_{30}","p");
   leg_sig->AddEntry(gr_sig4,"STATE4 Signal e_{40}","p");
 	leg_sig->AddEntry(gr_sig5,"STATE5 Signal e_{50}","p");
   leg_sig->AddEntry(gr_sig6,"STATE6 Signal e_{60}","p");
-  auto leg_rat = new TLegend(0.63,0.35,0.9,0.57);
+  auto leg_rat = new TLegend(0.63,0.36,0.9,0.6);
   leg_rat->SetTextSize(0.035);
 	leg_rat->SetFillColor(44);
   leg_rat->AddEntry(gr_rat3,"STATE3 Signal k_{3}","p");
