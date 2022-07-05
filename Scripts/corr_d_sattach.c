@@ -37,7 +37,7 @@ void corr_d_sattach() {
   double Y6_bkg_tt[n6] = {89.6634, 93.4895, 95.5681, 96.7966, 97.5596, 98.0484, 98.3799, 98.6096, 98.7742, 98.8964, 98.9892, 99.0587, 99.1126, 99.1568, 99.1918, 99.2212, 99.2458, 99.2658, 99.2831, 99.299, 99.3125, 99.3253, 99.3366, 99.3466, 99.3558, 99.3645, 99.3721, 99.3798, 99.3876, 99.3945};
   double Y6_bkg_total[n6] = {93.2172, 95.5158, 96.7437, 97.4663, 97.9163, 98.2064, 98.4026, 98.5388, 98.6371, 98.7128, 98.7708, 98.816, 98.8507, 98.8817, 98.9067, 98.9283, 98.9468, 98.9637, 98.9799, 98.9933, 99.006, 99.0181, 99.0305, 99.0411, 99.0506, 99.0613, 99.071, 99.0795, 99.0875, 99.0953};
 
-  TCanvas *c_corr = new TCanvas("c_corr", "Correlation Canvas Attach", 1000, 700);
+  TCanvas *c_corr = new TCanvas("c_corr", "Correlation Canvas SAttach", 1000, 700);
   TGraph *gr_sig3 = new TGraph(n3, X3, Y3_sig);
   TGraph *gr_rat3 = new TGraph(n3, X3, Y3_rat);
   TGraph *gr_sig4 = new TGraph(n4, X4, Y4_sig);
@@ -121,7 +121,7 @@ void corr_d_sattach() {
 	mg_rat->Add(gr_rat5);
   mg_rat->Add(gr_rat6);
 
-  auto leg_sig = new TLegend(0.63,0.15,0.9,0.35);
+  auto leg_sig = new TLegend(0.63,0.13,0.9,0.35);
   leg_sig->SetTextSize(0.035);
 	leg_sig->SetFillColor(44);
   leg_sig->AddEntry(gr_sig3,"STATE3 Signal e_{30}","p");
