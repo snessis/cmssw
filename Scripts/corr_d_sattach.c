@@ -138,7 +138,7 @@ void corr_d_sattach() {
   c_corr->GetFrame()->SetFillColor(26);
   c_corr->GetFrame()->SetBorderMode(-1);
   c_corr->GetFrame()->SetBorderSize(5);
-	c_coor->SetFillColor(42);
+	c_corr->SetFillColor(42);
 
   mg_sig->Draw("AP");
   leg_sig->Draw();
