@@ -43,7 +43,7 @@ void corr_d_eff_95() {
   gr_bkg_w->SetMarkerSize(1);
   gr_bkg_w->SetMarkerColor(kBlue+1);
   gr_bkg_w->SetName("gr_bkg_w");
-  gr_bkg_w->SetTitle("WJets Efficiency-Displacementdependence; d_t \\mbox{(cm)}; eff (%)");
+  gr_bkg_w->SetTitle("WJets Efficiency-Displacement dependence; d_t \\mbox{(cm)}; eff (%)");
 
   gr_bkg_tt->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_bkg_tt->SetMarkerStyle(20);

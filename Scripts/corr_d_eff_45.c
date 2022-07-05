@@ -25,42 +25,42 @@ void corr_d_eff_45() {
 
   gr_sig->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_sig->GetYaxis()->SetRangeUser(0,100);
-  gr_sig->SetMarkerStyle(20);
+  gr_sig->SetMarkerStyle(21);
   gr_sig->SetMarkerSize(1);
-  gr_sig->SetMarkerColor(kRed+2);
+  gr_sig->SetMarkerColor(kOrange+7);
   gr_sig->SetName("gr_sig");
-  gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{40}; d \\mbox{(cm)}; e_{40} \\mbox{ (%)}");
+  gr_sig->SetTitle("\\mbox{Signal Rejection Efficiency-Displacement dependence } e_{40}; d \\mbox{ (cm)}; e_{40} \\mbox{ (%)}");
 
   gr_rat->GetXaxis()->SetRangeUser(0,X[n-1]);
-  gr_rat->SetMarkerStyle(20);
+  gr_rat->SetMarkerStyle(21);
   gr_rat->SetMarkerSize(1);
-  gr_rat->SetMarkerColor(kRed+2);
+  gr_rat->SetMarkerColor(kOrange+7);
   gr_rat->SetName("gr_rat");
   gr_rat->SetTitle("\\mbox{Signal Density-Displacement dependence } k_4; d \\mbox{ (cm)}; k_4 \\mbox{ (%)}");
 
   gr_bkg_w->GetXaxis()->SetRangeUser(0,X[n-1]);
-  gr_bkg_w->SetMarkerStyle(20);
+  gr_bkg_w->SetMarkerStyle(21);
   gr_bkg_w->SetMarkerSize(1);
   gr_bkg_w->SetMarkerColor(kBlue+1);
   gr_bkg_w->SetName("gr_bkg_w");
   gr_bkg_w->SetTitle("WJets Efficiency-Displacementdependence; d \\mbox{(cm)}; eff (%)");
 
   gr_bkg_tt->GetXaxis()->SetRangeUser(0,X[n-1]);
-  gr_bkg_tt->SetMarkerStyle(20);
+  gr_bkg_tt->SetMarkerStyle(21);
   gr_bkg_tt->SetMarkerSize(1);
   gr_bkg_tt->SetMarkerColor(kYellow+1);
   gr_bkg_tt->SetName("gr_bkg_tt");
   gr_bkg_tt->SetTitle("TTJets Efficiency-Displacement dependence; d \\mbox{ (cm)}; eff (%)");
 
   gr_bkg_total->GetXaxis()->SetRangeUser(0,X[n-1]);
-  gr_bkg_total->SetMarkerStyle(20);
+  gr_bkg_total->SetMarkerStyle(21);
   gr_bkg_total->SetMarkerSize(1);
   gr_bkg_total->SetMarkerColor(kGreen+1);
   gr_bkg_total->SetName("gr_bkg_total");
   gr_bkg_total->SetTitle("Total Efficiency-Displacement dependence; d \\mbox{ (cm)}; eff (%)");
 
   TMultiGraph *mg_bkg = new TMultiGraph();
-  mg_bkg->SetTitle("\\mbox{Background Efficiency-Displacement dependence } e_{4j}; d \\mbox{ (cm)}; e_{4j} \\mbox{ (%)}");
+  mg_bkg->SetTitle("\\mbox{Background Rejection Efficiency-Displacement dependence } e_{4j}; d \\mbox{ (cm)}; e_{4j} \\mbox{ (%)}");
   mg_bkg->Add(gr_bkg_w);
   mg_bkg->Add(gr_bkg_tt);
   mg_bkg->Add(gr_bkg_total);
