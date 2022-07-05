@@ -31,14 +31,14 @@ void corr_d_attach1() {
   gr_sig3->GetYaxis()->SetRangeUser(0,100);
   gr_sig3->SetMarkerStyle(21);
   gr_sig3->SetMarkerSize(1);
-  gr_sig3->SetMarkerColor(kViolet-3);
+  gr_sig3->SetMarkerColor(kViolet-6);
   gr_sig3->SetName("gr_sig3");
   gr_sig3->SetTitle("\\mbox{Signal Rejection Efficiency-Displacement dependence } e_{30}; d \\mbox{(cm)}; e_{30} \\mbox{ (%)}");
 
   gr_rat3->GetXaxis()->SetRangeUser(0,X3[n3-1]);
   gr_rat3->SetMarkerStyle(21);
   gr_rat3->SetMarkerSize(1);
-  gr_rat3->SetMarkerColor(kViolet-3);
+  gr_rat3->SetMarkerColor(kViolet-6);
   gr_rat3->SetName("gr_rat3");
   gr_rat3->SetTitle("\\mbox{Signal Density-Displacement dependence} k_3; d \\mbox{ (cm)}; k_3 \\mbox{ (%)}");
 

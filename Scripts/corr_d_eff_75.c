@@ -27,14 +27,14 @@ void corr_d_eff_75() {
   gr_sig->GetYaxis()->SetRangeUser(0,100);
   gr_sig->SetMarkerStyle(21);
   gr_sig->SetMarkerSize(1);
-  gr_sig->SetMarkerColor(kViolet-3);
+  gr_sig->SetMarkerColor(kViolet-6);
   gr_sig->SetName("gr_sig");
   gr_sig->SetTitle("\\mbox{Signal Efficiency-Displacement dependence } e_{30}; d_t \\mbox{ (cm)}; e_{30} \\mbox{ (%)}");
 
   gr_rat->GetXaxis()->SetRangeUser(0,X[n-1]);
   gr_rat->SetMarkerStyle(21);
   gr_rat->SetMarkerSize(1);
-  gr_rat->SetMarkerColor(kViolet-3);
+  gr_rat->SetMarkerColor(kViolet-6);
   gr_rat->SetName("gr_rat");
   gr_rat->SetTitle("\\mbox{Signal Density-Displacement dependence } k_3; d_t \\mbox{ (cm)}; k_3 \\mbox{ (%)}");
 
