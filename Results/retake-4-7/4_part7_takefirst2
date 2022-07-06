@@ -1,0 +1,122 @@
+root [0]
+Processing Scripts/ssattach_45.c...
+++++++
+y04: Chargino Physical Events (best accuracy) = 61.8996
+y04: Background Total Physical Events (best accuracy) = 6114.74
+y04: Background WJets Physical Events (best accuracy) = 3922.74
+y04: Background TTJets Physical Events (best accuracy) = 2192.01
+y05: Chargino Physical Events (best accuracy) = 172.87
+y05: Background Total Physical Events (best accuracy) = 335764
+y05: Background WJets Physical Events (best accuracy) = 154584
+y05: Background TTJets Physical Events (best accuracy) = 181181
+++++++
+y05-y04: Chargino Physical Events Difference (best accuracy) = 110.971
+y05-y04: Background Total Physical Events Difference (best accuracy) = 329649
+y05-y04: Background WJets Physical Events Difference (best accuracy) = 150661
+y05-y04: Background TTJets Physical Events Difference (best accuracy) = 178989
+++++++
+y05-y04: Chargino Cut Efficiency % (best accuracy) = 64.193
+y05-y04: Background Total Cut Filter % (best accuracy) = 98.1789
+y05-y04: Background WJets Cut Filter % (best accuracy) = 97.4624
+y05-y04: Background TTJets Cut Filter % (best accuracy) = 98.7902
+-----
+y04: Chargino Physical Events (d1) = 61.8996
+y04: Background Total Physical Events (d1) = 6114.74
+y04: Background WJets Physical Events (d1) = 3922.74
+y04: Background TTJets Physical Events (d1) = 2192.01
+y05: Chargino Physical Events (d1) = 172.87
+y05: Background Total Physical Events (d1) = 335764
+y05: Background WJets Physical Events (d1) = 154584
+y05: Background TTJets Physical Events (d1) = 181181
+y04: Chargino/Background Event Ratio % (d1) = 1.0123
+y04: Chargino/Total Event Ratio % (d1) = 1.00216
+y05-y04: Chargino Cut Efficiency % (d1) = 64.193
+y05-y04: Background Total Cut Filter % (d1)= 98.1789
+y05-y04: Background WJets Cut Filter % (d1) = 97.4624
+y05-y04: Background TTJets Cut Filter % (d1) = 98.7902
+-----
+y04: Chargino Physical Events (d2) = 60.5819
+y04: Background Total Physical Events (d2) = 6056.46
+y04: Background WJets Physical Events (d2) = 3892.31
+y04: Background TTJets Physical Events (d2) = 2164.15
+y05: Chargino Physical Events (d2) = 172.87
+y05: Background Total Physical Events (d2) = 335764
+y05: Background WJets Physical Events (d2) = 154584
+y05: Background TTJets Physical Events (d2) = 181181
+y04: Chargino/Background Event Ratio % (d2) = 1.00029
+y04: Chargino/Total Event Ratio % (d2) = 0.990379
+y05-y04: Chargino Cut Efficiency % (d2) = 64.9553
+y05-y04: Background Total Cut Filter % (d2)= 98.1962
+y05-y04: Background WJets Cut Filter % (d2) = 97.4821
+y05-y04: Background TTJets Cut Filter % (d2) = 98.8055
+-----
+y04: Chargino Physical Events (d3) = 59.3404
+y04: Background Total Physical Events (d3) = 5998.98
+y04: Background WJets Physical Events (d3) = 3861.38
+y04: Background TTJets Physical Events (d3) = 2137.6
+y05: Chargino Physical Events (d3) = 172.87
+y05: Background Total Physical Events (d3) = 335764
+y05: Background WJets Physical Events (d3) = 154584
+y05: Background TTJets Physical Events (d3) = 181181
+y04: Chargino/Background Event Ratio % (d3) = 0.989175
+y04: Chargino/Total Event Ratio % (d3) = 0.979486
+y05-y04: Chargino Cut Efficiency % (d3) = 65.6734
+y05-y04: Background Total Cut Filter % (d3)= 98.2133
+y05-y04: Background WJets Cut Filter % (d3) = 97.5021
+y05-y04: Background TTJets Cut Filter % (d3) = 98.8202
+-----
+y04: Chargino Physical Events (d4) = 57.8485
+y04: Background Total Physical Events (d4) = 5945.39
+y04: Background WJets Physical Events (d4) = 3833.61
+y04: Background TTJets Physical Events (d4) = 2111.78
+y05: Chargino Physical Events (d4) = 172.87
+y05: Background Total Physical Events (d4) = 335764
+y05: Background WJets Physical Events (d4) = 154584
+y05: Background TTJets Physical Events (d4) = 181181
+y04: Chargino/Background Event Ratio % (d4) = 0.972997
+y04: Chargino/Total Event Ratio % (d4) = 0.963621
+y05-y04: Chargino Cut Efficiency % (d4) = 66.5365
+y05-y04: Background Total Cut Filter % (d4)= 98.2293
+y05-y04: Background WJets Cut Filter % (d4) = 97.52
+y05-y04: Background TTJets Cut Filter % (d4) = 98.8344
+-----
+y04: Chargino Physical Events (d5) = 56.705
+y04: Background Total Physical Events (d5) = 5887.87
+y04: Background WJets Physical Events (d5) = 3799.05
+y04: Background TTJets Physical Events (d5) = 2088.82
+y05: Chargino Physical Events (d5) = 172.87
+y05: Background Total Physical Events (d5) = 335764
+y05: Background WJets Physical Events (d5) = 154584
+y05: Background TTJets Physical Events (d5) = 181181
+y04: Chargino/Background Event Ratio % (d5) = 0.963081
+y04: Chargino/Total Event Ratio % (d5) = 0.953894
+y05-y04: Chargino Cut Efficiency % (d5) = 67.1979
+y05-y04: Background Total Cut Filter % (d5)= 98.2464
+y05-y04: Background WJets Cut Filter % (d5) = 97.5424
+y05-y04: Background TTJets Cut Filter % (d5) = 98.8471
+////////////////////////////////
+y05-y07: Chargino Cut Efficiency % (d1) = 64.193
+y05-y07: Chargino Cut Efficiency % (d2) = 64.9553
+y05-y07: Chargino Cut Efficiency % (d3) = 65.6734
+y05-y07: Chargino Cut Efficiency % (d4) = 66.5365
+y05-y07: Chargino Cut Efficiency % (d5) = 67.1979
+y07: Chargino/Total Event Ratio % (d1) = 1.00216
+y07: Chargino/Total Event Ratio % (d2) = 0.990379
+y07: Chargino/Total Event Ratio % (d3) = 0.979486
+y07: Chargino/Total Event Ratio % (d4) = 0.963621
+y07: Chargino/Total Event Ratio % (d5) = 0.953894
+y05-y07: Background WJets Cut Filter % (d1) = 97.4624
+y05-y07: Background WJets Cut Filter % (d2) = 97.4821
+y05-y07: Background WJets Cut Filter % (d3) = 97.5021
+y05-y07: Background WJets Cut Filter % (d4) = 97.52
+y05-y07: Background WJets Cut Filter % (d5) = 97.5424
+y05-y07: Background TTJets Cut Filter % (d1) = 98.7902
+y05-y07: Background TTJets Cut Filter % (d2) = 98.8055
+y05-y07: Background TTJets Cut Filter % (d3) = 98.8202
+y05-y07: Background TTJets Cut Filter % (d4) = 98.8344
+y05-y07: Background TTJets Cut Filter % (d5) = 98.8471
+y05-y07: Background Total Cut Filter % (d1)= 98.1789
+y05-y07: Background Total Cut Filter % (d2)= 98.1962
+y05-y07: Background Total Cut Filter % (d3)= 98.2133
+y05-y07: Background Total Cut Filter % (d4)= 98.2293
+y05-y07: Background Total Cut Filter % (d5)= 98.2464
