@@ -71,6 +71,7 @@ void corr_d_eff_95_pres() {
   leg_rat->SetTextSize(0.035);
 	auto leg_bkg = new TLegend(0.65,0.1,0.9,0.17);
   leg_bkg->AddEntry(gr_bkg_total,"Background e_{5}","p");
+	leg_bkg->SetTextSize(0.035);
   c_corr->SetGridx();
   c_corr->SetGridy();
   c_corr->GetFrame()->SetFillColor(21);
