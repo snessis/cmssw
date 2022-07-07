@@ -69,7 +69,7 @@ void corr_d_eff_95_pres() {
 	auto leg_rat = new TLegend(0.1,0.83,0.35,0.9);
   leg_rat->AddEntry(gr_rat,"Signal Density k_{5}","p");
   leg_rat->SetTextSize(0.035);
-	auto leg_bkg = new TLegend(0.65,0.1,0.9,0.17);
+	auto leg_bkg = new TLegend(0.65,0.15,0.9,0.23);
   leg_bkg->AddEntry(gr_bkg_total,"Background e_{5}","p");
 	leg_bkg->SetTextSize(0.035);
   c_corr->SetGridx();
